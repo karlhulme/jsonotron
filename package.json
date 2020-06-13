@@ -1,0 +1,38 @@
+{
+  "name": "jsonotron-errors",
+  "version": "0.1.0",
+  "description": "A library of the errors raised by the Jsonotron system.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest && standard",
+    "reinstall": "rm -rf node_modules && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlhulme/jsonotron-errors.git"
+  },
+  "author": "Karl Hulme <karlhulme@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karlhulme/jsonotron-errors/issues"
+  },
+  "homepage": "https://github.com/karlhulme/jsonotron-errors#readme",
+  "devDependencies": {
+    "acorn": "^7.1.1",
+    "jest": "^25.1.0",
+    "standard": "^14.3.3"
+  },
+  "dependencies": {},
+  "jest": {
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 0
+      }
+    },
+    "testEnvironment": "node"
+  }
+}
