@@ -1,6 +1,6 @@
 {
   "name": "jsonotron-errors",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "A library of the errors raised by the Jsonotron system.",
   "main": "index.js",
   "scripts": {
