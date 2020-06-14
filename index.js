@@ -1,4 +1,5 @@
 module.exports = {
-  ...require('./src/schemas'),
-  ...require('./src/customValidatorKeywords')
+  ...require('./src/customValidatorKeywords'),
+  ...require('./src/fieldTypeValidation'),
+  ...require('./src/schemas')
 }
