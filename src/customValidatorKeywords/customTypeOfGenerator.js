@@ -3,7 +3,8 @@
  * whether it is an acceptable type given the keyword value.
  * @param {Object} keywordValue The value ('object', 'string', ['object', 'function'] etc) supplied
  * to the keyword property in the schema.
- * @param {Object} parentSchema The parent schema.
+ * @param {Object} parentSchema The schema of the parent of the node
+ * that uses the customTypeOf keyword.
  */
 function customTypeOfValidatorGenerator (keywordValue, parentSchema) {
   if (Array.isArray(keywordValue)) {
