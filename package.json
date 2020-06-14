@@ -1,6 +1,6 @@
 {
   "name": "jsonotron-schemas",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A library of schemas used by the Jsonotron system.",
   "main": "index.js",
   "scripts": {
