@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/karlhulme/jsonotron-errors.git"
+    "url": "git+https://github.com/karlhulme/jsonotron-schemas.git"
   },
   "author": "Karl Hulme <karlhulme@hotmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/karlhulme/jsonotron-errors/issues"
+    "url": "https://github.com/karlhulme/jsonotron-schemas/issues"
   },
-  "homepage": "https://github.com/karlhulme/jsonotron-errors#readme",
+  "homepage": "https://github.com/karlhulme/jsonotron-schemas#readme",
   "devDependencies": {
     "acorn": "^7.1.1",
     "ajv": "^6.10.2",
