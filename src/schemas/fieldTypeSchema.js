@@ -27,7 +27,8 @@ module.exports = {
           type: 'array',
           items: { type: 'string' },
           description: 'An array of the field types referenced directly or indirectly by this field.'
-        }
+        },
+        customFormatImplementation: { customTypeOf: 'function' }
       },
       required: ['name', 'title', 'description', 'examples', 'invalidExamples', 'jsonSchema']
     },
