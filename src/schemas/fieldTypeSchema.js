@@ -21,16 +21,20 @@ module.exports = {
         jsonSchema: {
           customTypeOf: ['object', 'function'],
           additionalProperties: true,
-          description: 'A JSON schema that governs values for this field type.'
+          description: 'A JSON schema that governs values for this field type.  A function can be defined that is given the path to shared definitions as the sole parameter.'
         },
         referencedFieldTypes: {
           type: 'array',
-          items: { type: 'string' },
-          description: 'An array of the field types referenced directly or indirectly by this field.'
+          description: 'An array of the field types referenced directly or indirectly by this field.',
+          items: { type: 'string' }
         },
-        customFormatValidator: {
-          customTypeOf: 'function',
-          description: 'A function that returns true if the given value has a valid format.'
+        customFormatValidators: {
+          type: 'object',
+          description: 'A set of format validators that can be referenced in the JSON schema to provide additional validation of strings.',
+          additionalProperties: {
+            customTypeOf: 'function',
+            description: 'A function that returns true if the given value has a valid format.'
+          }
         }
       },
       required: ['name', 'title', 'description', 'examples', 'invalidExamples', 'jsonSchema']

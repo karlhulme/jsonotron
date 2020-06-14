@@ -41,15 +41,18 @@ test('Accept valid regular field type with custom format validator.', () => {
   const ajv = createAjv()
 
   const validRegularFieldTypeWithCustomFormatValidator = {
-    name: 'integerBetween20And30',
-    title: 'Integer',
-    description: 'A whole number.',
-    examples: [25],
+    name: 'stringWith2',
+    title: 'String With 2',
+    description: 'A string containing the digit 2.',
+    examples: ['25'],
     invalidExamples: ['a string', '', null, true, {}, []],
     jsonSchema: {
-      type: 'integer'
+      type: 'string',
+      format: 'stringWithA2Digit'
     },
-    customFormatValidator: v => v >= 20 && v <= 30
+    customFormatValidators: {
+      stringWithA2Digit: v => v.includes('2')
+    }
   }
 
   expect(ajv.validate(fieldTypeSchema, validRegularFieldTypeWithCustomFormatValidator)).toEqual(true)
