@@ -2,7 +2,7 @@
 const { createAjv } = require('./shared.test')
 const fieldTypeSchema = require('./fieldTypeSchema')
 
-test('Accept valid regular field types.', () => {
+test('Accept valid regular field type.', () => {
   const ajv = createAjv()
 
   const validRegularFieldType = {
@@ -19,7 +19,43 @@ test('Accept valid regular field types.', () => {
   expect(ajv.validate(fieldTypeSchema, validRegularFieldType)).toEqual(true)
 })
 
-test('Accept valid enum field types.', () => {
+test('Accept valid regular field type with referenced field types.', () => {
+  const ajv = createAjv()
+
+  const validRegularFieldTypeWithRefs = {
+    name: 'integer',
+    title: 'Integer',
+    description: 'A whole number.',
+    examples: [-25, 0, 25],
+    invalidExamples: ['a string', '', null, true, {}, []],
+    jsonSchema: {
+      type: 'integer'
+    },
+    referencedFieldTypes: ['dependentOne', 'dependentTwo']
+  }
+
+  expect(ajv.validate(fieldTypeSchema, validRegularFieldTypeWithRefs)).toEqual(true)
+})
+
+test('Accept valid regular field type with custom format validator.', () => {
+  const ajv = createAjv()
+
+  const validRegularFieldTypeWithCustomFormatValidator = {
+    name: 'integerBetween20And30',
+    title: 'Integer',
+    description: 'A whole number.',
+    examples: [25],
+    invalidExamples: ['a string', '', null, true, {}, []],
+    jsonSchema: {
+      type: 'integer'
+    },
+    customFormatValidator: v => v >= 20 && v <= 30
+  }
+
+  expect(ajv.validate(fieldTypeSchema, validRegularFieldTypeWithCustomFormatValidator)).toEqual(true)
+})
+
+test('Accept valid enum field type.', () => {
   const ajv = createAjv()
 
   const validEnumFieldType = {

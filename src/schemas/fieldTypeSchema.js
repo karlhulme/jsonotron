@@ -28,7 +28,10 @@ module.exports = {
           items: { type: 'string' },
           description: 'An array of the field types referenced directly or indirectly by this field.'
         },
-        customFormatImplementation: { customTypeOf: 'function' }
+        customFormatValidator: {
+          customTypeOf: 'function',
+          description: 'A function that returns true if the given value has a valid format.'
+        }
       },
       required: ['name', 'title', 'description', 'examples', 'invalidExamples', 'jsonSchema']
     },
