@@ -11,7 +11,7 @@ const { JsonotronInternalError } = require('jsonotron-errors')
  * @param {String} [definitionsPath] The path to the field definitions.  If not
  * supplied then '#/definitions/' will be used.
  */
-const getJsonSchemaFragmentForFieldType = (fieldType, definitionsPath) => {
+function getJsonSchemaFragmentForFieldType (fieldType, definitionsPath) {
   check.assert.object(fieldType)
   check.assert.maybe.string(definitionsPath)
 

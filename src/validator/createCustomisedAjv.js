@@ -6,7 +6,7 @@ const customTypeOfGenerator = require('./customTypeOfGenerator')
  * and support for all the given formatValidators.
  * @param {Object} formatValidators An object where each key is a format validator function.
  */
-const createCustomisedAjv = (formatValidators) => {
+function createCustomisedAjv (formatValidators) {
   const ajv = new Ajv({
     format: 'full', // 'full' mode supports format validators
     ownProperties: true // only iterate over objects found directly on the object

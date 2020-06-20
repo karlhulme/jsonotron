@@ -7,7 +7,7 @@ const { JsonotronFieldTypeResolutionError } = require('jsonotron-errors')
  * @param {Array} fieldTypes An array of field types.
  * @param {Array} fieldTypeNames An array of field type names.
  */
-const getReferencedFieldTypeNames = (fieldTypes, fieldTypeNames) => {
+function getReferencedFieldTypeNames (fieldTypes, fieldTypeNames) {
   check.assert.array.of.object(fieldTypes)
   check.assert.array.of.string(fieldTypeNames)
 

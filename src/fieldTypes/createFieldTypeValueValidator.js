@@ -11,7 +11,7 @@ const createJsonSchemaForFieldType = require('./createJsonSchemaForFieldType')
  * @param {Array} fieldTypes An array of field types.
  * @param {String} fieldTypeName A field type name.
  */
-const createFieldTypeValueValidator = (ajv, fieldTypes, fieldTypeName) => {
+function createFieldTypeValueValidator (ajv, fieldTypes, fieldTypeName) {
   check.assert.string(fieldTypeName)
 
   try {

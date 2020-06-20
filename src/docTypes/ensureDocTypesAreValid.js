@@ -13,7 +13,7 @@ const getSystemFields = require('./getSystemFields')
  * @param {Object} ajv A JSON schema validator.
  * @param {Object} docType A doc type.
  */
-const ensureDocTypeAgainstDocTypeSchema = (ajv, docType) => {
+function ensureDocTypeAgainstDocTypeSchema (ajv, docType) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -32,7 +32,7 @@ const ensureDocTypeAgainstDocTypeSchema = (ajv, docType) => {
  * that can be retrieved from the database.
  * @param {Object} docType A doc type.
  */
-const getSystemAndDeclaredFields = docType => {
+function getSystemAndDeclaredFields (docType) {
   check.assert.object(docType)
   check.assert.object(docType.fields)
 
@@ -44,7 +44,7 @@ const getSystemAndDeclaredFields = docType => {
  * a reserved system name.
  * @param {Object} docType A doc type.
  */
-const ensureDeclaredFieldNamesDontClashWithSystemFieldNames = docType => {
+function ensureDeclaredFieldNamesDontClashWithSystemFieldNames (docType) {
   check.assert.object(docType)
   check.assert.string(docType.name)
   check.assert.object(docType.fields)
@@ -63,7 +63,7 @@ const ensureDeclaredFieldNamesDontClashWithSystemFieldNames = docType => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureDeclaredFieldTypesAreValid = (ajv, docType, fieldTypes) => {
+function ensureDeclaredFieldTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -86,7 +86,7 @@ const ensureDeclaredFieldTypesAreValid = (ajv, docType, fieldTypes) => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureDeclaredFieldDefaultsAreValid = (ajv, docType, fieldTypes) => {
+function ensureDeclaredFieldDefaultsAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -114,7 +114,7 @@ const ensureDeclaredFieldDefaultsAreValid = (ajv, docType, fieldTypes) => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureDeclaredFieldExamplesAreValid = (ajv, docType, fieldTypes) => {
+function ensureDeclaredFieldExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -141,7 +141,7 @@ const ensureDeclaredFieldExamplesAreValid = (ajv, docType, fieldTypes) => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureCalculatedFieldTypesAreValid = (ajv, docType, fieldTypes) => {
+function ensureCalculatedFieldTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -166,7 +166,7 @@ const ensureCalculatedFieldTypesAreValid = (ajv, docType, fieldTypes) => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureCalculatedFieldExamplesAreValid = (ajv, docType, fieldTypes) => {
+function ensureCalculatedFieldExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -192,7 +192,7 @@ const ensureCalculatedFieldExamplesAreValid = (ajv, docType, fieldTypes) => {
  * a field that is not declared on the doc type.
  * @param {Object} docType A doc type.
  */
-const ensureCalculatedFieldInputsAreValid = docType => {
+function ensureCalculatedFieldInputsAreValid (docType) {
   check.assert.object(docType)
   check.assert.string(docType.name)
 
@@ -218,7 +218,7 @@ const ensureCalculatedFieldInputsAreValid = docType => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureFilterParameterTypesAreValid = (ajv, docType, fieldTypes) => {
+function ensureFilterParameterTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -246,7 +246,7 @@ const ensureFilterParameterTypesAreValid = (ajv, docType, fieldTypes) => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureFilterParameterExamplesAreValid = (ajv, docType, fieldTypes) => {
+function ensureFilterParameterExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -279,7 +279,7 @@ const ensureFilterParameterExamplesAreValid = (ajv, docType, fieldTypes) => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureConstructorParameterTypesAreValid = (ajv, docType, fieldTypes) => {
+function ensureConstructorParameterTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -305,7 +305,7 @@ const ensureConstructorParameterTypesAreValid = (ajv, docType, fieldTypes) => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureConstructorParameterExamplesAreValid = (ajv, docType, fieldTypes) => {
+function ensureConstructorParameterExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -335,7 +335,7 @@ const ensureConstructorParameterExamplesAreValid = (ajv, docType, fieldTypes) =>
  * that are designated as a lookup are not declared on the doc type.
  * @param {Object} docType A doc type.
  */
-const ensureConstructorParameterLookupsAreValid = docType => {
+function ensureConstructorParameterLookupsAreValid (docType) {
   check.assert.object(docType)
   check.assert.string(docType.name)
 
@@ -361,7 +361,7 @@ const ensureConstructorParameterLookupsAreValid = docType => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureOperationParameterTypesAreValid = (ajv, docType, fieldTypes) => {
+function ensureOperationParameterTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -391,7 +391,7 @@ const ensureOperationParameterTypesAreValid = (ajv, docType, fieldTypes) => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureOperationParameterExamplesAreValid = (ajv, docType, fieldTypes) => {
+function ensureOperationParameterExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
   check.assert.string(docType.name)
@@ -426,7 +426,7 @@ const ensureOperationParameterExamplesAreValid = (ajv, docType, fieldTypes) => {
  * that are designated as a lookup are not declared on the doc type.
  * @param {Object} docType A doc type.
  */
-const ensureOperationParameterLookupsAreValid = docType => {
+function ensureOperationParameterLookupsAreValid (docType) {
   check.assert.object(docType)
   check.assert.string(docType.name)
 
@@ -456,7 +456,7 @@ const ensureOperationParameterLookupsAreValid = docType => {
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureDocTypeIsValid = (ajv, docType, fieldTypes) => {
+function ensureDocTypeIsValid (ajv, docType, fieldTypes) {
   ensureDocTypeAgainstDocTypeSchema(ajv, docType)
   ensureDeclaredFieldNamesDontClashWithSystemFieldNames(docType)
   ensureDeclaredFieldTypesAreValid(ajv, docType, fieldTypes)
@@ -481,7 +481,7 @@ const ensureDocTypeIsValid = (ajv, docType, fieldTypes) => {
  * @param {Array} docTypes An array of doc types.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureDocTypesAreValid = (ajv, docTypes, fieldTypes) => {
+function ensureDocTypesAreValid (ajv, docTypes, fieldTypes) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
   check.assert.array.of.object(docTypes)

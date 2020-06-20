@@ -7,7 +7,7 @@ const { roleTypeSchema } = require('../schemas')
  * @param {Object} ajv A JSON schema validator.
  * @param {String} roleType A role type.
  */
-const ensureRoleTypeAgainstRoleTypeSchema = (ajv, roleType) => {
+function ensureRoleTypeAgainstRoleTypeSchema (ajv, roleType) {
   check.assert.object(ajv)
   check.assert.string(roleType.name)
 
@@ -24,7 +24,7 @@ const ensureRoleTypeAgainstRoleTypeSchema = (ajv, roleType) => {
  * @param {Object} ajv A JSON schema validator.
  * @param {Object} roleType A role type.
  */
-const ensureRoleTypeIsValid = (ajv, roleType) => {
+function ensureRoleTypeIsValid (ajv, roleType) {
   ensureRoleTypeAgainstRoleTypeSchema(ajv, roleType)
 }
 
@@ -34,7 +34,7 @@ const ensureRoleTypeIsValid = (ajv, roleType) => {
  * @param {Object} ajv A json validator.
  * @param {Array} roleTypes An array of role types.
  */
-const ensureRoleTypesAreValid = (ajv, roleTypes) => {
+function ensureRoleTypesAreValid (ajv, roleTypes) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
   check.assert.array.of.object(roleTypes)

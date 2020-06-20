@@ -11,7 +11,7 @@ const getReferencedFieldTypeNames = require('./getReferencedFieldTypeNames')
  * @param {String} [externalDefs] A path to external definitions.  If supplied, then
  * the definitions property will omitted from the result.
  */
-const createJsonSchemaForFieldType = (fieldTypes, fieldTypeName, fragment, externalDefs) => {
+function createJsonSchemaForFieldType (fieldTypes, fieldTypeName, fragment, externalDefs) {
   check.assert.array.of.object(fieldTypes)
   check.assert.string(fieldTypeName)
   check.assert.maybe.boolean(fragment)

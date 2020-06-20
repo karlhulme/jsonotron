@@ -8,7 +8,7 @@ const createFieldTypeValueValidator = require('./createFieldTypeValueValidator')
  * @param {Object} ajv A JSON schema validator.
  * @param {String} fieldType A field type.
  */
-const ensureFieldTypeAgainstFieldTypeSchema = (ajv, fieldType) => {
+function ensureFieldTypeAgainstFieldTypeSchema (ajv, fieldType) {
   check.assert.object(ajv)
   check.assert.string(fieldType.name)
 
@@ -29,7 +29,7 @@ const ensureFieldTypeAgainstFieldTypeSchema = (ajv, fieldType) => {
  * returns false it should also store the reason on an errors property.
  * @param {Array} exampleValues An array of values.
  */
-const ensureExampleValuesAreValid = (fieldTypeName, validator, exampleValues) => {
+function ensureExampleValuesAreValid (fieldTypeName, validator, exampleValues) {
   for (let i = 0; i < exampleValues.length; i++) {
     if (!validator(exampleValues[i])) {
       throw new JsonotronFieldTypeValidationError(fieldTypeName,
@@ -48,7 +48,7 @@ const ensureExampleValuesAreValid = (fieldTypeName, validator, exampleValues) =>
  * returns false it should also store the reason on an errors property.
  * @param {Array} invalidExampleValues An array of values.
  */
-const ensureInvalidExampleValuesAreInvalid = (fieldTypeName, validator, invalidExampleValues) => {
+function ensureInvalidExampleValuesAreInvalid (fieldTypeName, validator, invalidExampleValues) {
   for (let i = 0; i < invalidExampleValues.length; i++) {
     if (validator(invalidExampleValues[i])) {
       throw new JsonotronFieldTypeValidationError(fieldTypeName,
@@ -64,7 +64,7 @@ const ensureInvalidExampleValuesAreInvalid = (fieldTypeName, validator, invalidE
  * @param {Array} fieldTypes An array of field types.
  * @param {Object} fieldType A field type to check for validatity.
  */
-const ensureFieldTypeIsValid = (ajv, fieldTypes, fieldType) => {
+function ensureFieldTypeIsValid (ajv, fieldTypes, fieldType) {
   check.assert.string(fieldType.name)
 
   ensureFieldTypeAgainstFieldTypeSchema(ajv, fieldType)
@@ -88,7 +88,7 @@ const ensureFieldTypeIsValid = (ajv, fieldTypes, fieldType) => {
  * @param {Object} ajv A json validator.
  * @param {Array} fieldTypes An array of field types.
  */
-const ensureFieldTypesAreValid = (ajv, fieldTypes) => {
+function ensureFieldTypesAreValid (ajv, fieldTypes) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
   check.assert.array.of.object(fieldTypes)
