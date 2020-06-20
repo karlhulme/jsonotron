@@ -1,9 +1,9 @@
 /* eslint-env jest */
-const { createAjv } = require('./shared.test')
+const { createCustomisedAjv } = require('../validator')
 const docTypeSchema = require('./docTypeSchema')
 
 test('Accept valid doc type.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const validDocType = {
     name: 'car',

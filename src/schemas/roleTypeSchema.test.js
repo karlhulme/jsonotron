@@ -1,9 +1,9 @@
 /* eslint-env jest */
-const { createAjv } = require('./shared.test')
+const { createCustomisedAjv } = require('../validator')
 const roleTypeSchema = require('./roleTypeSchema')
 
 test('Accept valid super admin role types.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const validAdminRoleType = {
     name: 'admin',
@@ -14,7 +14,7 @@ test('Accept valid super admin role types.', () => {
 })
 
 test('Accept valid role types.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const validRoleType = {
     name: 'myRole',
@@ -41,7 +41,7 @@ test('Accept valid role types.', () => {
 })
 
 test('Reject role types without docPermissions.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const invalidRoleType = {
     name: 'myRole'
@@ -60,7 +60,7 @@ test('Reject role types without docPermissions.', () => {
 })
 
 test('Reject role types with invalid query fieldsTreatment value.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const invalidRoleType = {
     name: 'myRole',
@@ -86,7 +86,7 @@ test('Reject role types with invalid query fieldsTreatment value.', () => {
 })
 
 test('Reject role types with invalid query fields value.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const invalidRoleType = {
     name: 'myRole',
@@ -112,7 +112,7 @@ test('Reject role types with invalid query fields value.', () => {
 })
 
 test('Reject role types with invalid delete value.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const invalidRoleType = {
     name: 'myRole',

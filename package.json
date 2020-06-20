@@ -1,5 +1,5 @@
 {
-  "name": "jsonotron-schemas",
+  "name": "jsonotron-validation",
   "version": "0.1.7",
   "description": "A library of schemas used by the Jsonotron system.",
   "main": "index.js",
@@ -9,21 +9,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/karlhulme/jsonotron-schemas.git"
+    "url": "git+https://github.com/karlhulme/jsonotron-validation.git"
   },
   "author": "Karl Hulme <karlhulme@hotmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/karlhulme/jsonotron-schemas/issues"
+    "url": "https://github.com/karlhulme/jsonotron-validation/issues"
   },
-  "homepage": "https://github.com/karlhulme/jsonotron-schemas#readme",
+  "homepage": "https://github.com/karlhulme/jsonotron-validation#readme",
   "devDependencies": {
     "acorn": "^7.1.1",
-    "ajv": "^6.10.2",
     "jest": "^25.1.0",
     "standard": "^14.3.3"
   },
   "dependencies": {
+    "ajv": "^6.10.2",
+    "check-types": "^11.1.2",
     "jsonotron-errors": "^0.2.0"
   },
   "jest": {

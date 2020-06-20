@@ -1,9 +1,9 @@
 /* eslint-env jest */
-const { createAjv } = require('./shared.test')
+const { createCustomisedAjv } = require('../validator')
 const fieldTypeSchema = require('./fieldTypeSchema')
 
 test('Accept valid regular field type.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const validRegularFieldType = {
     name: 'integer',
@@ -20,7 +20,7 @@ test('Accept valid regular field type.', () => {
 })
 
 test('Accept valid regular field type with referenced field types.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const validRegularFieldTypeWithRefs = {
     name: 'integer',
@@ -38,7 +38,7 @@ test('Accept valid regular field type with referenced field types.', () => {
 })
 
 test('Accept valid regular field type with custom format validator.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const validRegularFieldTypeWithCustomFormatValidator = {
     name: 'stringWith2',
@@ -59,7 +59,7 @@ test('Accept valid regular field type with custom format validator.', () => {
 })
 
 test('Accept valid enum field type.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const validEnumFieldType = {
     name: 'currencyCode',
@@ -76,7 +76,7 @@ test('Accept valid enum field type.', () => {
 })
 
 test('Reject field types with both regular and enum fields.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const invalidFieldType = {
     name: 'integer',
@@ -117,7 +117,7 @@ test('Reject field types with both regular and enum fields.', () => {
 })
 
 test('Reject field types with neither regular nor enum fields.', () => {
-  const ajv = createAjv()
+  const ajv = createCustomisedAjv()
 
   const invalidFieldType = {
     name: 'integer',
