@@ -60,13 +60,3 @@ npm test
 ## Continuous Deployment
 
 Any commits to master will cause the library to be re-published.
-
-Setting up a new feature after cloning the repository:
-* Switch to master and get the latest code: `git checkout master && git pull`
-* Create a new feature branch: `git checkout -b new-feature`
-
-Merging a completed feature branch to master:
-* Switch to master and get the latest code: `git checkout master && git pull`
-* Merge the feature branch into master: `git merge new-feature`
-* Check the tests are still passing: `npm test`
-* Push the changes back to the remote server to trigger publishing: `git push`
