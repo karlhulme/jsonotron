@@ -3,6 +3,7 @@ const mdl = require('./index')
 
 test('The doc type validation methods are exported from the module.', () => {
   expect(mdl).toHaveProperty('ensureDocTypesAreValid')
+  expect(mdl).toHaveProperty('getSystemFields')
 })
 
 test('The field type validation methods are exported from the module.', () => {
