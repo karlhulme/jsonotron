@@ -13,9 +13,9 @@ const createCustomisedAjv = (formatValidators) => {
   })
 
   // add the format validators
-  if (typeof formatValidators === 'object' && !Array.isArray(formatValidators) && formatValidators !== null) {
-    for (const formatValidatorName in formatValidators) {
-      ajv.addFormat(`custom-${formatValidatorName}`, { validate: formatValidators[formatValidatorName] })
+  if (Array.isArray(formatValidators)) {
+    for (const formatValidator of formatValidators) {
+      ajv.addFormat(`custom-${formatValidator.name}`, { validate: formatValidator.validate })
     }
   }
 

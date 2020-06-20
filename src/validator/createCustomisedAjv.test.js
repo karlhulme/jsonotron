@@ -8,10 +8,10 @@ test('Can create a customised Ajv with bespoke keywords.', () => {
 })
 
 test('Can create a customised Ajv with bespoke format validators.', () => {
-  const ajv = createCustomisedAjv({
-    formatValidatorOne: v => v === '1',
-    formatValidatorTwo: v => v === 'two'
-  })
+  const ajv = createCustomisedAjv([
+    { name: 'format-one', validate: v => v === '1' },
+    { name: 'format-two', validate: v => v === 'two' }
+  ])
 
   const json = {
     value1: '1',
@@ -20,8 +20,8 @@ test('Can create a customised Ajv with bespoke format validators.', () => {
 
   const schema = {
     properties: {
-      value1: { type: 'string', format: 'custom-formatValidatorOne' },
-      value2: { type: 'string', format: 'custom-formatValidatorTwo' }
+      value1: { type: 'string', format: 'custom-format-one' },
+      value2: { type: 'string', format: 'custom-format-two' }
     }
   }
   const result = ajv.validate(schema, json)
