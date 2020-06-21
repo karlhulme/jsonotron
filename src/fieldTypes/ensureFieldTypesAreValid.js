@@ -71,8 +71,12 @@ function ensureFieldTypeIsValid (ajv, fieldTypes, fieldType) {
 
   const fieldTypeValueValidator = createFieldTypeValueValidator(ajv, fieldTypes, fieldType.name)
 
-  if (Array.isArray(fieldType.examples)) {
-    ensureExampleValuesAreValid(fieldType.name, fieldTypeValueValidator, fieldType.examples)
+  if (Array.isArray(fieldType.docExamples)) {
+    ensureExampleValuesAreValid(fieldType.name, fieldTypeValueValidator, fieldType.docExamples)
+  }
+
+  if (Array.isArray(fieldType.validExamples)) {
+    ensureExampleValuesAreValid(fieldType.name, fieldTypeValueValidator, fieldType.validExamples)
   }
 
   if (Array.isArray(fieldType.invalidExamples)) {

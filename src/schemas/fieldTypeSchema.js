@@ -10,13 +10,17 @@ module.exports = {
         name: { type: 'string', description: 'Internal field name.' },
         title: { type: 'string', description: 'Display field name.' },
         description: { type: 'string', description: 'The description of the field.' },
-        examples: {
+        docExamples: {
           type: 'array',
-          description: 'An array of valid examples values for the field.'
+          description: 'An array of examples values for the field that will be verified and used in the documentation.'
+        },
+        validExamples: {
+          type: 'array',
+          description: 'An array of valid values used for testing the field that does not form part of the documentation.'
         },
         invalidExamples: {
           type: 'array',
-          description: 'An array of invalid examples values for the field.'
+          description: 'An array of invalid values for the field.'
         },
         jsonSchema: {
           customTypeOf: ['object', 'function'],
@@ -27,17 +31,9 @@ module.exports = {
           type: 'array',
           description: 'An array of the field types referenced directly or indirectly by this field.',
           items: { type: 'string' }
-        },
-        customFormatValidators: {
-          type: 'object',
-          description: 'A set of format validators that can be referenced in the JSON schema to provide additional validation of strings.',
-          additionalProperties: {
-            customTypeOf: 'function',
-            description: 'A function that returns true if the given value has a valid format.'
-          }
         }
       },
-      required: ['name', 'title', 'description', 'examples', 'invalidExamples', 'jsonSchema']
+      required: ['name', 'title', 'description', 'docExamples', 'invalidExamples', 'jsonSchema']
     },
     /* Enum Field */
     {

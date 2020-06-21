@@ -7,7 +7,8 @@ const createValidFieldType = () => ({
   name: 'candidateFieldType',
   title: 'Candidate Field Type',
   description: 'A candidate field type.',
-  examples: [1, 2, 3],
+  docExamples: [1, 2, 3],
+  validExamples: [4, 5, 6],
   invalidExamples: ['a string', '', null, true, {}, [], -34.56, -1, 0],
   jsonSchema: {
     type: 'number',
@@ -28,6 +29,13 @@ const createValidEnumFieldType = () => ({
 test('Valid field type can be verified.', () => {
   const ajv = createCustomisedAjv()
   expect(ensureFieldTypesAreValid(ajv, [createValidFieldType()])).toBeUndefined()
+})
+
+test('Valid field type without additional validExamples can be verified.', () => {
+  const ajv = createCustomisedAjv()
+  const validFieldType = createValidFieldType()
+  delete validFieldType.validExamples
+  expect(ensureFieldTypesAreValid(ajv, [validFieldType])).toBeUndefined()
 })
 
 test('Valid enum field type can be verified.', () => {
@@ -59,7 +67,7 @@ test('Field type with invalid JSON schema fails verification.', () => {
 test('Field type with invalid example value fails verification.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createValidFieldType()
-  candidate.examples.push('is not a number')
+  candidate.docExamples.push('is not a number')
   expect(() => ensureFieldTypesAreValid(ajv, [candidate])).toThrow(/does not validate with the schema/)
 })
 

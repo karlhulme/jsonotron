@@ -9,7 +9,8 @@ test('Accept valid regular field type.', () => {
     name: 'integer',
     title: 'Integer',
     description: 'A whole number.',
-    examples: [-25, 0, 25],
+    docExamples: [-25, 0, 25],
+    validExamples: [100000000, -10000000],
     invalidExamples: ['a string', '', null, true, {}, []],
     jsonSchema: {
       type: 'integer'
@@ -26,7 +27,7 @@ test('Accept valid regular field type with referenced field types.', () => {
     name: 'integer',
     title: 'Integer',
     description: 'A whole number.',
-    examples: [-25, 0, 25],
+    docExamples: [-25, 0, 25],
     invalidExamples: ['a string', '', null, true, {}, []],
     jsonSchema: {
       type: 'integer'
@@ -35,27 +36,6 @@ test('Accept valid regular field type with referenced field types.', () => {
   }
 
   expect(ajv.validate(fieldTypeSchema, validRegularFieldTypeWithRefs)).toEqual(true)
-})
-
-test('Accept valid regular field type with custom format validator.', () => {
-  const ajv = createCustomisedAjv()
-
-  const validRegularFieldTypeWithCustomFormatValidator = {
-    name: 'stringWith2',
-    title: 'String With 2',
-    description: 'A string containing the digit 2.',
-    examples: ['25'],
-    invalidExamples: ['a string', '', null, true, {}, []],
-    jsonSchema: {
-      type: 'string',
-      format: 'stringWithA2Digit'
-    },
-    customFormatValidators: {
-      stringWithA2Digit: v => v.includes('2')
-    }
-  }
-
-  expect(ajv.validate(fieldTypeSchema, validRegularFieldTypeWithCustomFormatValidator)).toEqual(true)
 })
 
 test('Accept valid enum field type.', () => {
@@ -82,7 +62,7 @@ test('Reject field types with both regular and enum fields.', () => {
     name: 'integer',
     title: 'Integer',
     description: 'A whole number.',
-    examples: [-25],
+    docExamples: [-25],
     invalidExamples: ['a string'],
     jsonSchema: {
       type: 'integer'
@@ -105,7 +85,7 @@ test('Reject field types with both regular and enum fields.', () => {
       expect.objectContaining({
         keyword: 'additionalProperties',
         params: {
-          additionalProperty: 'examples'
+          additionalProperty: 'docExamples'
         }
       }),
       expect.objectContaining({
@@ -130,7 +110,7 @@ test('Reject field types with neither regular nor enum fields.', () => {
       expect.objectContaining({
         keyword: 'required',
         params: {
-          missingProperty: 'examples'
+          missingProperty: 'docExamples'
         }
       }),
       expect.objectContaining({
