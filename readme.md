@@ -1,7 +1,7 @@
 # A library of schemas used by the Jsonotron system.
 
-![](https://github.com/karlhulme/jsonotron-schemas/workflows/CD/badge.svg)
-[![npm](https://img.shields.io/npm/v/jsonotron-schemas.svg)](https://www.npmjs.com/package/jsonotron-schemas)
+![](https://github.com/karlhulme/jsonotron-validation/workflows/CD/badge.svg)
+[![npm](https://img.shields.io/npm/v/jsonotron-validation.svg)](https://www.npmjs.com/package/jsonotron-validation)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 A library of schemas used by the Jsonotron system to validate document types, field types and role types.
@@ -34,13 +34,13 @@ ctor: {
 ## Installation
 
 ```bash
-npm install jsonotron-schemas --save
+npm install jsonotron-validation --save
 ```
 
 ## Usage
 
 ```javascript
-const { docTypeSchema, fieldTypeSchema, roleTypeSchema } = require('jsonotron-schemas')
+const { docTypeSchema, fieldTypeSchema, roleTypeSchema } = require('jsonotron-validation')
 
 console.log(docTypeSchema)
 console.log(fieldTypeSchema)
