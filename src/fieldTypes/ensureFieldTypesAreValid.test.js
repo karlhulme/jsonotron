@@ -6,6 +6,7 @@ const ensureFieldTypesAreValid = require('./ensureFieldTypesAreValid')
 const createValidFieldType = () => ({
   name: 'candidateFieldType',
   title: 'Candidate Field Type',
+  category: 'Candidate',
   description: 'A candidate field type.',
   docExamples: [1, 2, 3],
   validExamples: [4, 5, 6],
@@ -19,6 +20,7 @@ const createValidFieldType = () => ({
 const createValidEnumFieldType = () => ({
   name: 'candidateFieldType',
   title: 'Candidate Field Type',
+  category: 'Candidate',
   description: 'A candidate field type.',
   values: [
     { value: 'A', description: 'The first letter of the alphabet.' },

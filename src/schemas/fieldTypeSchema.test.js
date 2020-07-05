@@ -8,6 +8,7 @@ test('Accept valid regular field type.', () => {
   const validRegularFieldType = {
     name: 'integer',
     title: 'Integer',
+    category: 'Number',
     description: 'A whole number.',
     docExamples: [-25, 0, 25],
     validExamples: [100000000, -10000000],
@@ -26,6 +27,7 @@ test('Accept valid regular field type with referenced field types.', () => {
   const validRegularFieldTypeWithRefs = {
     name: 'integer',
     title: 'Integer',
+    category: 'Number',
     description: 'A whole number.',
     docExamples: [-25, 0, 25],
     invalidExamples: ['a string', '', null, true, {}, []],
@@ -44,6 +46,7 @@ test('Accept valid enum field type.', () => {
   const validEnumFieldType = {
     name: 'currencyCode',
     title: 'Currency Code',
+    category: 'Money',
     description: 'A currency designator from ISO 4217.',
     values: [
       { value: 'AED', description: 'United Arab Emirates Dirham' },
@@ -61,6 +64,7 @@ test('Reject field types with both regular and enum fields.', () => {
   const invalidFieldType = {
     name: 'integer',
     title: 'Integer',
+    category: 'Number',
     description: 'A whole number.',
     docExamples: [-25],
     invalidExamples: ['a string'],
@@ -102,6 +106,7 @@ test('Reject field types with neither regular nor enum fields.', () => {
   const invalidFieldType = {
     name: 'integer',
     title: 'Integer',
+    category: 'Number',
     description: 'A whole number.'
   }
   expect(ajv.validate(fieldTypeSchema, invalidFieldType)).toEqual(false)

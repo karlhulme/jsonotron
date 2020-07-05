@@ -6,6 +6,7 @@ const testFieldTypes = [
   {
     name: 'boolean',
     title: 'Boolean',
+    category: 'Candidate',
     description: 'A value of either true of false.',
     values: [
       { value: true, description: 'A value of true.' },
@@ -14,6 +15,7 @@ const testFieldTypes = [
   }, {
     name: 'integer',
     title: 'Integer',
+    category: 'Candidate',
     description: 'A whole number.',
     examples: [-25, 0, 25],
     invalidExamples: ['a string', '', null, true, {}, []],
@@ -23,6 +25,7 @@ const testFieldTypes = [
   }, {
     name: 'float',
     title: 'Floating Point Number',
+    category: 'Candidate',
     description: 'A number with an integral and decimal part.',
     examples: [-34.56, -1, 0, 1, 1456.24],
     invalidExamples: ['a string', '', null, true, {}, []],
@@ -32,6 +35,7 @@ const testFieldTypes = [
   }, {
     name: 'string',
     title: 'String',
+    category: 'Candidate',
     description: 'A string of zero or more characters.',
     examples: ['any string', '', ' '],
     invalidExamples: [123, null, true, {}, []],
