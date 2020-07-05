@@ -9,6 +9,7 @@ module.exports = {
       properties: {
         name: { type: 'string', description: 'Internal field name.' },
         title: { type: 'string', description: 'Display field name.' },
+        category: { type: 'string', description: 'Display category name.' },
         description: { type: 'string', description: 'The description of the field.' },
         docExamples: {
           type: 'array',
@@ -33,7 +34,7 @@ module.exports = {
           items: { type: 'string' }
         }
       },
-      required: ['name', 'title', 'description', 'docExamples', 'invalidExamples', 'jsonSchema']
+      required: ['name', 'title', 'category', 'description', 'docExamples', 'invalidExamples', 'jsonSchema']
     },
     /* Enum Field */
     {
@@ -41,6 +42,7 @@ module.exports = {
       properties: {
         name: { type: 'string', description: 'Internal field name.' },
         title: { type: 'string', description: 'Display field name.' },
+        category: { type: 'string', description: 'Display category name.' },
         description: { type: 'string', description: 'The description of the enum field.' },
         values: {
           type: 'array',
@@ -55,7 +57,7 @@ module.exports = {
           }
         }
       },
-      required: ['name', 'title', 'description', 'values']
+      required: ['name', 'title', 'category', 'description', 'values']
     }
   ]
 }

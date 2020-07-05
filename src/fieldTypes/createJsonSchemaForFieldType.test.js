@@ -5,6 +5,7 @@ const { JsonotronFieldTypeResolutionError } = require('jsonotron-errors')
 const fieldTypes = [{
   name: 'example',
   title: 'Example',
+  category: 'Candidate',
   jsonSchema: definitionsPath => ({
     type: 'object',
     properties: {
@@ -17,12 +18,14 @@ const fieldTypes = [{
 }, {
   name: 'integer',
   title: 'Integer',
+  category: 'Candidate',
   jsonSchema: {
     type: 'number'
   }
 }, {
   name: 'film',
   title: 'Film',
+  category: 'Candidate',
   jsonSchema: {
     type: 'object',
     properties: {
