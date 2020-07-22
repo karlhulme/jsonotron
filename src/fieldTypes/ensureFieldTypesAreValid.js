@@ -27,13 +27,13 @@ function ensureFieldTypeAgainstFieldTypeSchema (ajv, fieldType) {
  * @param {Function} validator A validator function that accepts a single parameter
  * and returns a boolean that indicates if the parameter was valid.  If the function
  * returns false it should also store the reason on an errors property.
- * @param {Array} exampleValues An array of values.
+ * @param {Array} validTestCases An array of values.
  */
-function ensureExampleValuesAreValid (fieldTypeName, validator, exampleValues) {
-  for (let i = 0; i < exampleValues.length; i++) {
-    if (!validator(exampleValues[i])) {
+function ensureExampleValuesAreValid (fieldTypeName, validator, validTestCases) {
+  for (let i = 0; i < validTestCases.length; i++) {
+    if (!validator(validTestCases[i])) {
       throw new JsonotronFieldTypeValidationError(fieldTypeName,
-        `Example value '${JSON.stringify(exampleValues[i])}' does not validate with the schema.\n` +
+        `Example value '${JSON.stringify(validTestCases[i])}' does not validate with the schema.\n` +
         JSON.stringify(validator.errors, null, 2))
     }
   }
@@ -46,13 +46,13 @@ function ensureExampleValuesAreValid (fieldTypeName, validator, exampleValues) {
  * @param {Function} validator A validator function that accepts a single parameter
  * and returns a boolean that indicates if the parameter was valid.  If the function
  * returns false it should also store the reason on an errors property.
- * @param {Array} invalidExampleValues An array of values.
+ * @param {Array} invalidTestCases An array of values.
  */
-function ensureInvalidExampleValuesAreInvalid (fieldTypeName, validator, invalidExampleValues) {
-  for (let i = 0; i < invalidExampleValues.length; i++) {
-    if (validator(invalidExampleValues[i])) {
+function ensureInvalidExampleValuesAreInvalid (fieldTypeName, validator, invalidTestCases) {
+  for (let i = 0; i < invalidTestCases.length; i++) {
+    if (validator(invalidTestCases[i])) {
       throw new JsonotronFieldTypeValidationError(fieldTypeName,
-        `Example invalid value '${JSON.stringify(invalidExampleValues[i])}' does (but should not) validate.\n` +
+        `Example invalid value '${JSON.stringify(invalidTestCases[i])}' does (but should not) validate.\n` +
         JSON.stringify(validator.errors, null, 2))
     }
   }
@@ -71,16 +71,12 @@ function ensureFieldTypeIsValid (ajv, fieldTypes, fieldType) {
 
   const fieldTypeValueValidator = createFieldTypeValueValidator(ajv, fieldTypes, fieldType.name)
 
-  if (Array.isArray(fieldType.docExamples)) {
-    ensureExampleValuesAreValid(fieldType.name, fieldTypeValueValidator, fieldType.docExamples)
+  if (Array.isArray(fieldType.validTestCases)) {
+    ensureExampleValuesAreValid(fieldType.name, fieldTypeValueValidator, fieldType.validTestCases)
   }
 
-  if (Array.isArray(fieldType.validExamples)) {
-    ensureExampleValuesAreValid(fieldType.name, fieldTypeValueValidator, fieldType.validExamples)
-  }
-
-  if (Array.isArray(fieldType.invalidExamples)) {
-    ensureInvalidExampleValuesAreInvalid(fieldType.name, fieldTypeValueValidator, fieldType.invalidExamples)
+  if (Array.isArray(fieldType.invalidTestCases)) {
+    ensureInvalidExampleValuesAreInvalid(fieldType.name, fieldTypeValueValidator, fieldType.invalidTestCases)
   }
 }
 

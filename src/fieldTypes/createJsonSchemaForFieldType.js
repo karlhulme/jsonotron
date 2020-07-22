@@ -27,7 +27,7 @@ function createJsonSchemaForFieldType (fieldTypes, fieldTypeName, fragment, exte
   const definitionsPath = typeof externalDefs === 'string' && externalDefs.length > 0 ? externalDefs : definitionsInternalPath
 
   const schema = {
-    title: `${fieldType.title} JSON Schema`,
+    title: `Field Type "${fieldType.name}"`,
     ...getJsonSchemaFragmentForFieldType(fieldType, definitionsPath)
   }
 

@@ -4,8 +4,8 @@ const createFieldTypeValueValidator = require('./createFieldTypeValueValidator')
 
 const createValidFieldType = () => ({
   name: 'candidateFieldType',
-  title: 'Candidate Field Type',
-  category: 'Candidate',
+  type: 'schema',
+  category: 'candidate',
   description: 'A candidate field type.',
   jsonSchema: {
     type: 'number',
@@ -15,8 +15,8 @@ const createValidFieldType = () => ({
 
 const createInvalidFieldType = () => ({
   name: 'invalidFieldType',
-  title: 'Invalid Field Type',
-  category: 'Candidate',
+  type: 'schema',
+  category: 'candidate',
   description: 'An invalid field type.',
   jsonSchema: {
     type: 'invalid'

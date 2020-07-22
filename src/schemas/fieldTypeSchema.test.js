@@ -7,12 +7,10 @@ test('Accept valid regular field type.', () => {
 
   const validRegularFieldType = {
     name: 'integer',
-    title: 'Integer',
-    category: 'Number',
-    description: 'A whole number.',
-    docExamples: [-25, 0, 25],
-    validExamples: [100000000, -10000000],
-    invalidExamples: ['a string', '', null, true, {}, []],
+    type: 'schema',
+    category: 'number',
+    validTestCases: [100000000, -10000000],
+    invalidTestCases: ['a string', '', null, true, {}, []],
     jsonSchema: {
       type: 'integer'
     }
@@ -26,11 +24,10 @@ test('Accept valid regular field type with referenced field types.', () => {
 
   const validRegularFieldTypeWithRefs = {
     name: 'integer',
-    title: 'Integer',
-    category: 'Number',
-    description: 'A whole number.',
-    docExamples: [-25, 0, 25],
-    invalidExamples: ['a string', '', null, true, {}, []],
+    type: 'schema',
+    category: 'number',
+    validTestCases: [-25, 0, 25],
+    invalidTestCases: ['a string', '', null, true, {}, []],
     jsonSchema: {
       type: 'integer'
     },
@@ -40,18 +37,17 @@ test('Accept valid regular field type with referenced field types.', () => {
   expect(ajv.validate(fieldTypeSchema, validRegularFieldTypeWithRefs)).toEqual(true)
 })
 
-test('Accept valid enum field type.', () => {
+test('Accept valid enum field type with optional symbols.', () => {
   const ajv = createCustomisedAjv()
 
   const validEnumFieldType = {
     name: 'currencyCode',
-    title: 'Currency Code',
-    category: 'Money',
-    description: 'A currency designator from ISO 4217.',
+    type: 'enum',
+    category: 'money',
     values: [
-      { value: 'AED', description: 'United Arab Emirates Dirham' },
-      { value: 'AFN', description: 'Afghan Afghani' },
-      { value: 'ALL', description: 'Albanian Lek' }
+      { value: 'AED', symbol: 'A' },
+      { value: 'AFN', symbol: 'B' },
+      { value: 'ALL' }
     ]
   }
 
@@ -63,11 +59,10 @@ test('Reject field types with both regular and enum fields.', () => {
 
   const invalidFieldType = {
     name: 'integer',
-    title: 'Integer',
-    category: 'Number',
-    description: 'A whole number.',
-    docExamples: [-25],
-    invalidExamples: ['a string'],
+    type: 'schema',
+    category: 'number',
+    validTestCases: [-25],
+    invalidTestCases: ['a string'],
     jsonSchema: {
       type: 'integer'
     },
@@ -89,7 +84,7 @@ test('Reject field types with both regular and enum fields.', () => {
       expect.objectContaining({
         keyword: 'additionalProperties',
         params: {
-          additionalProperty: 'docExamples'
+          additionalProperty: 'validTestCases'
         }
       }),
       expect.objectContaining({
@@ -105,9 +100,8 @@ test('Reject field types with neither regular nor enum fields.', () => {
 
   const invalidFieldType = {
     name: 'integer',
-    title: 'Integer',
-    category: 'Number',
-    description: 'A whole number.'
+    type: 'schema',
+    category: 'number'
   }
   expect(ajv.validate(fieldTypeSchema, invalidFieldType)).toEqual(false)
   expect(ajv.errors).toEqual(
@@ -115,13 +109,13 @@ test('Reject field types with neither regular nor enum fields.', () => {
       expect.objectContaining({
         keyword: 'required',
         params: {
-          missingProperty: 'docExamples'
+          missingProperty: 'validTestCases'
         }
       }),
       expect.objectContaining({
-        keyword: 'required',
+        keyword: 'const',
         params: {
-          missingProperty: 'values'
+          allowedValue: 'enum'
         }
       }),
       expect.objectContaining({

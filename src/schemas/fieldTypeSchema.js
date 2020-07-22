@@ -3,23 +3,18 @@ module.exports = {
   type: 'object',
   description: 'The definition of a field type.',
   oneOf: [
-    /* Regular Field */
+    /* Schema-based Field */
     {
       additionalProperties: false,
       properties: {
-        name: { type: 'string', description: 'Internal field name.' },
-        title: { type: 'string', description: 'Display field name.' },
-        category: { type: 'string', description: 'Display category name.' },
-        description: { type: 'string', description: 'The description of the field.' },
-        docExamples: {
-          type: 'array',
-          description: 'An array of examples values for the field that will be verified and used in the documentation.'
-        },
-        validExamples: {
+        name: { type: 'string', description: 'The field name.' },
+        type: { const: 'schema', description: 'The field is backed by a schema.' },
+        category: { type: 'string', description: 'The category name.' },
+        validTestCases: {
           type: 'array',
           description: 'An array of valid values used for testing the field that does not form part of the documentation.'
         },
-        invalidExamples: {
+        invalidTestCases: {
           type: 'array',
           description: 'An array of invalid values for the field.'
         },
@@ -34,16 +29,15 @@ module.exports = {
           items: { type: 'string' }
         }
       },
-      required: ['name', 'title', 'category', 'description', 'docExamples', 'invalidExamples', 'jsonSchema']
+      required: ['name', 'type', 'category', 'validTestCases', 'invalidTestCases', 'jsonSchema']
     },
     /* Enum Field */
     {
       additionalProperties: false,
       properties: {
-        name: { type: 'string', description: 'Internal field name.' },
-        title: { type: 'string', description: 'Display field name.' },
-        category: { type: 'string', description: 'Display category name.' },
-        description: { type: 'string', description: 'The description of the enum field.' },
+        name: { type: 'string', description: 'The field name.' },
+        type: { const: 'enum', description: 'The field is an enumeration.' },
+        category: { type: 'string', description: 'The category name.' },
         values: {
           type: 'array',
           description: 'An array of all the possible values for the enum field.',
@@ -51,13 +45,13 @@ module.exports = {
             type: 'object',
             properties: {
               value: { type: ['string', 'number', 'boolean'], description: 'A value.' },
-              description: { type: 'string', description: 'A description of the enum value.' }
+              symbol: { type: 'string', description: 'A symbol that represents the enum value.' }
             },
-            required: ['value', 'description']
+            required: ['value']
           }
         }
       },
-      required: ['name', 'title', 'category', 'description', 'values']
+      required: ['name', 'type', 'category', 'values']
     }
   ]
 }

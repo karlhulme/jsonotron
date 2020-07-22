@@ -4,8 +4,8 @@ const { JsonotronFieldTypeResolutionError } = require('jsonotron-errors')
 
 const fieldTypes = [{
   name: 'example',
-  title: 'Example',
-  category: 'Candidate',
+  type: 'schema',
+  category: 'candidate',
   jsonSchema: definitionsPath => ({
     type: 'object',
     properties: {
@@ -17,15 +17,15 @@ const fieldTypes = [{
   referencedFieldTypes: ['integer']
 }, {
   name: 'integer',
-  title: 'Integer',
-  category: 'Candidate',
+  type: 'schema',
+  category: 'candidate',
   jsonSchema: {
     type: 'number'
   }
 }, {
   name: 'film',
-  title: 'Film',
-  category: 'Candidate',
+  type: 'schema',
+  category: 'candidate',
   jsonSchema: {
     type: 'object',
     properties: {
@@ -37,7 +37,7 @@ const fieldTypes = [{
 
 test('Build a JSON Schema for a field with no dependencies.', () => {
   expect(createJsonSchemaForFieldType(fieldTypes, 'integer')).toEqual({
-    title: 'Integer JSON Schema',
+    title: 'Field Type "integer"',
     $schema: 'http://json-schema.org/draft-07/schema#',
     type: 'number',
     definitions: {}
@@ -46,7 +46,7 @@ test('Build a JSON Schema for a field with no dependencies.', () => {
 
 test('Build a JSON Schema for a field with referenced field types.', () => {
   expect(createJsonSchemaForFieldType(fieldTypes, 'example')).toEqual({
-    title: 'Example JSON Schema',
+    title: 'Field Type "example"',
     $schema: 'http://json-schema.org/draft-07/schema#',
     type: 'object',
     properties: {
@@ -62,7 +62,7 @@ test('Build a JSON Schema for a field with referenced field types.', () => {
 
 test('Build a JSON Schema for a field with referenced field types to be used as a fragment with external schemas.', () => {
   expect(createJsonSchemaForFieldType(fieldTypes, 'example', true, '#/components/schemas/')).toEqual({
-    title: 'Example JSON Schema',
+    title: 'Field Type "example"',
     type: 'object',
     properties: {
       first: { $ref: '#/components/schemas/integer' },
