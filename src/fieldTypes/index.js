@@ -1,5 +1,7 @@
 module.exports = {
   ensureFieldTypesAreValid: require('./ensureFieldTypesAreValid'),
+  ensureFieldTypeDocsAreValid: require('./ensureFieldTypeDocsAreValid'),
+  ensureFieldTypeValuesAreValid: require('./ensureFieldTypeValuesAreValid'),
 
   createJsonSchemaForFieldType: require('./createJsonSchemaForFieldType'),
   createJsonSchemaForFieldTypeArray: require('./createJsonSchemaForFieldTypeArray'),
