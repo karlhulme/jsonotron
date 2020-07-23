@@ -10,7 +10,6 @@ const createFieldTypeValueValidator = require('./createFieldTypeValueValidator')
  */
 function ensureFieldTypeAgainstFieldTypeSchema (ajv, fieldType) {
   check.assert.object(ajv)
-  check.assert.string(fieldType.name)
 
   const fieldTypeSchemaValidator = ajv.compile(fieldTypeSchema)
 
@@ -65,8 +64,6 @@ function ensureInvalidExampleValuesAreInvalid (fieldTypeName, validator, invalid
  * @param {Object} fieldType A field type to check for validatity.
  */
 function ensureFieldTypeIsValid (ajv, fieldTypes, fieldType) {
-  check.assert.string(fieldType.name)
-
   ensureFieldTypeAgainstFieldTypeSchema(ajv, fieldType)
 
   const fieldTypeValueValidator = createFieldTypeValueValidator(ajv, fieldTypes, fieldType.name)

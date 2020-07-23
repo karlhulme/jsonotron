@@ -16,7 +16,6 @@ const getSystemFields = require('./getSystemFields')
 function ensureDocTypeAgainstDocTypeSchema (ajv, docType) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
 
   const docTypeSchemaValidator = ajv.compile(docTypeSchema)
 
@@ -46,7 +45,6 @@ function getSystemAndDeclaredFields (docType) {
  */
 function ensureDeclaredFieldNamesDontClashWithSystemFieldNames (docType) {
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.object(docType.fields)
 
   for (const fieldName in docType.fields) {
@@ -66,7 +64,6 @@ function ensureDeclaredFieldNamesDontClashWithSystemFieldNames (docType) {
 function ensureDeclaredFieldTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   // check fields
@@ -89,7 +86,6 @@ function ensureDeclaredFieldTypesAreValid (ajv, docType, fieldTypes) {
 function ensureDeclaredFieldDefaultsAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   for (const fieldName in docType.fields) {
@@ -117,7 +113,6 @@ function ensureDeclaredFieldDefaultsAreValid (ajv, docType, fieldTypes) {
 function ensureDeclaredFieldExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   for (const fieldName in docType.fields) {
@@ -144,7 +139,6 @@ function ensureDeclaredFieldExamplesAreValid (ajv, docType, fieldTypes) {
 function ensureCalculatedFieldTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   if (docType.calculatedFields) {
@@ -169,7 +163,6 @@ function ensureCalculatedFieldTypesAreValid (ajv, docType, fieldTypes) {
 function ensureCalculatedFieldExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   for (const fieldName in docType.calculatedFields) {
@@ -194,7 +187,6 @@ function ensureCalculatedFieldExamplesAreValid (ajv, docType, fieldTypes) {
  */
 function ensureCalculatedFieldInputsAreValid (docType) {
   check.assert.object(docType)
-  check.assert.string(docType.name)
 
   const systemAndDeclaredFieldNames = getSystemAndDeclaredFields(docType)
 
@@ -221,7 +213,6 @@ function ensureCalculatedFieldInputsAreValid (docType) {
 function ensureFilterParameterTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   if (docType.filters) {
@@ -249,7 +240,6 @@ function ensureFilterParameterTypesAreValid (ajv, docType, fieldTypes) {
 function ensureFilterParameterExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   if (docType.filters) {
@@ -282,7 +272,6 @@ function ensureFilterParameterExamplesAreValid (ajv, docType, fieldTypes) {
 function ensureConstructorParameterTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   if (docType.ctor) {
@@ -308,7 +297,6 @@ function ensureConstructorParameterTypesAreValid (ajv, docType, fieldTypes) {
 function ensureConstructorParameterExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   if (docType.ctor) {
@@ -337,7 +325,6 @@ function ensureConstructorParameterExamplesAreValid (ajv, docType, fieldTypes) {
  */
 function ensureConstructorParameterLookupsAreValid (docType) {
   check.assert.object(docType)
-  check.assert.string(docType.name)
 
   const systemAndDeclaredFieldNames = getSystemAndDeclaredFields(docType)
 
@@ -364,7 +351,6 @@ function ensureConstructorParameterLookupsAreValid (docType) {
 function ensureOperationParameterTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   if (docType.operations) {
@@ -394,7 +380,6 @@ function ensureOperationParameterTypesAreValid (ajv, docType, fieldTypes) {
 function ensureOperationParameterExamplesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(ajv)
   check.assert.object(docType)
-  check.assert.string(docType.name)
   check.assert.array(fieldTypes)
 
   if (docType.operations) {
@@ -428,7 +413,6 @@ function ensureOperationParameterExamplesAreValid (ajv, docType, fieldTypes) {
  */
 function ensureOperationParameterLookupsAreValid (docType) {
   check.assert.object(docType)
-  check.assert.string(docType.name)
 
   const systemAndDeclaredFieldNames = getSystemAndDeclaredFields(docType)
 

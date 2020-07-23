@@ -20,8 +20,8 @@ const createValidEnumFieldType = () => ({
   type: 'enum',
   category: 'candidate',
   values: [
-    { value: 'A', description: 'The first letter of the alphabet.' },
-    { value: 'B', description: 'The second letter of the alphabet.' }
+    { value: 'A' },
+    { value: 'B', symbol: 'BBB', deprecated: true }
   ]
 })
 

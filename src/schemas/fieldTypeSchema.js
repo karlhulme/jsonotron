@@ -43,9 +43,11 @@ module.exports = {
           description: 'An array of all the possible values for the enum field.',
           items: {
             type: 'object',
+            additionalProperties: false,
             properties: {
-              value: { type: ['string', 'number', 'boolean'], description: 'A value.' },
-              symbol: { type: 'string', description: 'A symbol that represents the enum value.' }
+              value: { type: ['string', 'integer', 'boolean'], description: 'A value.' },
+              symbol: { type: 'string', description: 'A symbol that represents the enum value.' },
+              deprecated: { type: 'boolean', description: 'True if the value is no longer in use.' }
             },
             required: ['value']
           }

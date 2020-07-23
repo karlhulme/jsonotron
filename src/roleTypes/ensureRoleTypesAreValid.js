@@ -9,7 +9,6 @@ const { roleTypeSchema } = require('../schemas')
  */
 function ensureRoleTypeAgainstRoleTypeSchema (ajv, roleType) {
   check.assert.object(ajv)
-  check.assert.string(roleType.name)
 
   const roleTypeSchemaValidator = ajv.compile(roleTypeSchema)
 
