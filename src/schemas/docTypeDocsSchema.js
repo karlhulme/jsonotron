@@ -127,7 +127,7 @@ module.exports = {
             description: 'Each property defines a constructor parameter.',
             additionalProperties: false,
             properties: {
-              paragraphs: { type: 'string', items: { type: 'string' }, description: 'The description of the constructor parameter.' }
+              paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the constructor parameter.' }
             },
             required: ['paragraphs']
           }
