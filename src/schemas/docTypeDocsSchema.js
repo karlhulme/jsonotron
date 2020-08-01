@@ -73,7 +73,7 @@ module.exports = {
         description: 'Each property defines a filter',
         additionalProperties: false,
         properties: {
-          description: { type: 'array', items: { type: 'string' }, description: 'The description of the filter.' },
+          paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the filter.' },
           parameters: {
             type: 'object',
             description: 'The set of filter parameters',
@@ -119,6 +119,7 @@ module.exports = {
       description: 'A mechanism for constructing new instances of the document type.',
       additionalProperties: false,
       properties: {
+        paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the calculated field.' },
         parameters: {
           type: 'object',
           description: 'A set of constructor parameters, keyed by name.',
