@@ -62,3 +62,11 @@ test('Field type with valid value in the invalid test cases list fails verificat
   candidate.invalidTestCases.push(5)
   expect(() => ensureFieldTypesAreValid(ajv, [candidate])).toThrow(/invalid value '5' does [(]but should not[)] validate/)
 })
+
+test('Field type enum with duplicate value fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidEnumFieldType()
+  candidate.values.push({ value: 'A' })
+  expect(() => ensureFieldTypesAreValid(ajv, [candidate])).toThrow(JsonotronFieldTypeValidationError)
+  expect(() => ensureFieldTypesAreValid(ajv, [candidate])).toThrow('duplicate items (items ## 0 and 2 are identical)')
+})

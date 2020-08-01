@@ -8,7 +8,7 @@ module.exports = {
     lang: { type: 'string', description: 'The language.', pattern: '^[a-z]{2}(-[a-z]{2})?$' },
     title: { type: 'string', description: 'Display singular name.' },
     pluralTitle: { type: 'string', description: 'Display plural name.' },
-    paragraphs: { type: 'array', items: { type: 'string' } },
+    paragraphs: { type: 'array', items: { type: 'string' }, minItems: 1 },
 
     /* The fields that are stored in the database for this doc type. */
     fields: {

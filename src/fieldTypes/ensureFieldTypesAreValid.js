@@ -20,7 +20,7 @@ function ensureFieldTypeAgainstFieldTypeSchema (ajv, fieldType) {
 }
 
 /**
- * Raises an error if any of the given example values are
+ * Raises an error if any of the given valid test cases are
  * found to be invalid.
  * @param {String} fieldTypeName The name of a field type.
  * @param {Function} validator A validator function that accepts a single parameter
@@ -28,7 +28,7 @@ function ensureFieldTypeAgainstFieldTypeSchema (ajv, fieldType) {
  * returns false it should also store the reason on an errors property.
  * @param {Array} validTestCases An array of values.
  */
-function ensureExampleValuesAreValid (fieldTypeName, validator, validTestCases) {
+function ensureValidTestCasesAreValid (fieldTypeName, validator, validTestCases) {
   for (let i = 0; i < validTestCases.length; i++) {
     if (!validator(validTestCases[i])) {
       throw new JsonotronFieldTypeValidationError(fieldTypeName,
@@ -39,7 +39,7 @@ function ensureExampleValuesAreValid (fieldTypeName, validator, validTestCases) 
 }
 
 /**
- * Raises an error if any of the given invalid example values are
+ * Raises an error if any of the given invalid test cases are
  * found to be valid.
  * @param {String} fieldTypeName The name of a field type.
  * @param {Function} validator A validator function that accepts a single parameter
@@ -47,7 +47,7 @@ function ensureExampleValuesAreValid (fieldTypeName, validator, validTestCases) 
  * returns false it should also store the reason on an errors property.
  * @param {Array} invalidTestCases An array of values.
  */
-function ensureInvalidExampleValuesAreInvalid (fieldTypeName, validator, invalidTestCases) {
+function ensureInvalidTestCasesAreInvalid (fieldTypeName, validator, invalidTestCases) {
   for (let i = 0; i < invalidTestCases.length; i++) {
     if (validator(invalidTestCases[i])) {
       throw new JsonotronFieldTypeValidationError(fieldTypeName,
@@ -68,13 +68,13 @@ function ensureFieldTypeIsValid (ajv, fieldTypes, fieldType) {
 
   const fieldTypeValueValidator = createFieldTypeValueValidator(ajv, fieldTypes, fieldType.name)
 
-  if (Array.isArray(fieldType.validTestCases)) {
-    ensureExampleValuesAreValid(fieldType.name, fieldTypeValueValidator, fieldType.validTestCases)
+  if (fieldType.type === 'schema') {
+    ensureValidTestCasesAreValid(fieldType.name, fieldTypeValueValidator, fieldType.validTestCases)
+    ensureInvalidTestCasesAreInvalid(fieldType.name, fieldTypeValueValidator, fieldType.invalidTestCases)
   }
 
-  if (Array.isArray(fieldType.invalidTestCases)) {
-    ensureInvalidExampleValuesAreInvalid(fieldType.name, fieldTypeValueValidator, fieldType.invalidTestCases)
-  }
+  // Uniqueness of enum values is picked up by creating a Json Schema for the field type.
+  // This will build an enum: [a, b, c] which must contain unique elements to be a valid schema.
 }
 
 /**

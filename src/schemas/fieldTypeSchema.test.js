@@ -45,9 +45,9 @@ test('Accept valid enum field type with optional symbols.', () => {
     type: 'enum',
     category: 'money',
     values: [
-      { value: 'AED', symbol: 'A' },
-      { value: 'AFN', symbol: 'B' },
-      { value: 'ALL' }
+      { value: 'aed', symbol: 'A' },
+      { value: 'afn', symbol: 'B' },
+      { value: 'all' }
     ]
   }
 
@@ -67,9 +67,9 @@ test('Reject field types with both regular and enum fields.', () => {
       type: 'integer'
     },
     values: [
-      { value: 'AED', description: 'United Arab Emirates Dirham' },
-      { value: 'AFN', description: 'Afghan Afghani' },
-      { value: 'ALL', description: 'Albanian Lek' }
+      { value: 'aed', description: 'United Arab Emirates Dirham' },
+      { value: 'afn', description: 'Afghan Afghani' },
+      { value: 'all', description: 'Albanian Lek' }
     ]
   }
   expect(ajv.validate(fieldTypeSchema, invalidFieldType)).toEqual(false)
