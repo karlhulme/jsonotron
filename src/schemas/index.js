@@ -10,6 +10,7 @@ module.exports = {
 
   /* doc types */
   docTypeSchema: require('./docTypeSchema'),
+  docTypeDocsSchema: require('./docTypeDocsSchema'),
 
   /* role types */
   roleTypeSchema: require('./roleTypeSchema')

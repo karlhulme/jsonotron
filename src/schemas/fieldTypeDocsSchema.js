@@ -1,11 +1,11 @@
 module.exports = {
-  title: 'Field Type Docs Schema',
+  title: 'Field Type Documentation Schema',
   type: 'object',
   description: 'The documentation of a field type.',
   additionalProperties: false,
   properties: {
     name: { type: 'string', description: 'The field name.' },
-    lang: { type: 'string', description: 'The language.', pattern: '^[a-z]{2}$' },
+    lang: { type: 'string', description: 'The language.', pattern: '^[a-z]{2}(-[a-z]{2})?$' },
     title: { type: 'string', description: 'The title (display name) of the field.' },
     paragraphs: {
       type: 'array',

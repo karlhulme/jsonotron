@@ -5,7 +5,7 @@ module.exports = {
   additionalProperties: false,
   properties: {
     name: { type: 'string', description: 'The field name.' },
-    lang: { type: 'string', description: 'The language.', pattern: '^[a-z]{2}$' },
+    lang: { type: 'string', description: 'The language.', pattern: '^[a-z]{2}(-[a-z]{2})?$' },
     values: {
       type: 'array',
       minItems: 1,

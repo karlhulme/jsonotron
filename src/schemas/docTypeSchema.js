@@ -6,8 +6,6 @@ module.exports = {
   properties: {
     name: { type: 'string', description: 'Internal singular name.' },
     pluralName: { type: 'string', description: 'Internal plural name.' },
-    title: { type: 'string', description: 'Display singular name.' },
-    pluralTitle: { type: 'string', description: 'Display plural name.' },
 
     /* The fields that are stored in the database for this doc type. */
     fields: {
@@ -15,29 +13,16 @@ module.exports = {
       description: 'The set of fields for the document type, keyed by name.',
       additionalProperties: {
         type: 'object',
-        oneOf: [{
-          additionalProperties: false,
-          properties: {
-            type: { type: 'string', description: 'Type of the document field.' },
-            isRequired: { type: 'boolean', description: 'True if this field must always be populated.' },
-            isArray: { type: 'boolean', description: 'True if this field is an array.' },
-            deprecation: { type: 'string', description: 'A description of the field(s) that should be used in place of this deprecated one.' },
-            default: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'The value to be returned on a query if a value is not supplied by the store.' },
-            canUpdate: { type: 'boolean', description: 'True if this field can be updated via a merge patch rather than an operation.' },
-            description: { type: 'string', description: 'The description of the field.' },
-            example: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'An example value of the field.' }
-          },
-          required: ['type', 'description', 'example']
-        }, {
-          additionalProperties: false,
-          properties: {
-            ref: { type: 'string', description: 'The name of the document type referenced by this field.' },
-            cacheDurationInSeconds: { type: 'number', description: 'The number of seconds that referenced documents can be cached.' },
-            description: { type: 'string', description: 'The description of the field.' }
-          },
-          required: ['ref', 'cacheDurationInSeconds']
-        }],
-        description: 'Each property defines a field on the document type.'
+        description: 'Each property defines a field on the document type.',
+        properties: {
+          type: { type: 'string', description: 'Type of the document field.' },
+          isRequired: { type: 'boolean', description: 'True if this field must always be populated.' },
+          isArray: { type: 'boolean', description: 'True if this field is an array.' },
+          deprecation: { type: 'string', description: 'A description of the field(s) that should be used in place of this deprecated one.' },
+          default: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'The value to be returned on a query if a value is not supplied by the store.' },
+          canUpdate: { type: 'boolean', description: 'True if this field can be updated via a merge patch rather than an operation.' }
+        },
+        required: ['type']
       }
     },
 
@@ -58,7 +43,6 @@ module.exports = {
         description: 'Each property defines a calculated field.',
         additionalProperties: false,
         properties: {
-          description: { type: 'string', description: 'The description of the calculated field.' },
           inputFields: {
             type: 'array',
             items: {
@@ -67,10 +51,9 @@ module.exports = {
           },
           type: { type: 'string', description: 'Type of the calculated field.' },
           isArray: { type: 'boolean', description: 'True if this calculated field is an array.' },
-          example: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'An example value of the calculated field.' },
           value: { customTypeOf: 'function' }
         },
-        required: ['description', 'inputFields', 'type', 'example', 'value']
+        required: ['inputFields', 'type', 'value']
       }
     },
 
@@ -83,7 +66,6 @@ module.exports = {
         description: 'Each property defines a filter',
         additionalProperties: false,
         properties: {
-          description: { type: 'string', description: 'The description of the filter.' },
           parameters: {
             type: 'object',
             description: 'The set of filter parameters',
@@ -94,16 +76,14 @@ module.exports = {
               properties: {
                 type: { type: 'string', description: 'The field type of the filter parameter.' },
                 isArray: { type: 'boolean', description: 'True if this filter parameter is an array.' },
-                isRequired: { type: 'boolean', description: 'True if the parameter must be supplied.' },
-                description: { type: 'string', description: 'The description of the usage or purpose of the filter parameter.' },
-                example: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'An example value of the filter parameter.' }
+                isRequired: { type: 'boolean', description: 'True if the parameter must be supplied.' }
               },
-              required: ['type', 'description', 'example']
+              required: ['type']
             }
           },
           implementation: { customTypeOf: 'function' }
         },
-        required: ['description', 'parameters', 'implementation']
+        required: ['parameters', 'implementation']
       }
     },
 
@@ -118,16 +98,15 @@ module.exports = {
           description: 'A set of constructor parameters, keyed by name.',
           additionalProperties: {
             type: 'object',
+            description: 'Each property defines a constructor parameter.',
             oneOf: [{
               additionalProperties: false,
               properties: {
                 type: { type: 'string', description: 'Type of the constructor parameter.' },
                 isArray: { type: 'boolean', description: 'True if this constructor parameter is an array.' },
-                isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' },
-                description: { type: 'string', description: 'The description of the constructor parameter.' },
-                example: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'An example value of the filter parameter.' }
+                isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' }
               },
-              required: ['type', 'description', 'example']
+              required: ['type']
             }, {
               additionalProperties: false,
               properties: {
@@ -135,8 +114,7 @@ module.exports = {
                 isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' }
               },
               required: ['lookup']
-            }],
-            description: 'Each property defines a constructor parameter.'
+            }]
           }
         },
         implementation: { customTypeOf: 'function' }
@@ -153,8 +131,6 @@ module.exports = {
         description: 'Each property defines an operation.',
         additionalProperties: false,
         properties: {
-          title: { type: 'string', description: 'The display name of the operation.' },
-          description: { type: 'string', description: 'A description of the operation.' },
           parameters: {
             type: 'object',
             description: 'A set of operation parameters, keyed by name.',
@@ -165,11 +141,9 @@ module.exports = {
                 properties: {
                   type: { type: 'string', description: 'Type of the operation parameter.' },
                   isArray: { type: 'boolean', description: 'True if this operation parameter is an array.' },
-                  isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' },
-                  description: { type: 'string', description: 'The description of the operation parameter.' },
-                  example: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'An example value of the filter parameter.' }
+                  isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' }
                 },
-                required: ['type', 'description', 'example']
+                required: ['type']
               }, {
                 additionalProperties: false,
                 properties: {
@@ -183,7 +157,7 @@ module.exports = {
           },
           implementation: { customTypeOf: 'function' }
         },
-        required: ['title', 'description', 'parameters', 'implementation']
+        required: ['parameters', 'implementation']
       }
     },
 
@@ -206,6 +180,6 @@ module.exports = {
     }
   },
   required: [
-    'name', 'pluralName', 'title', 'pluralTitle', 'fields'
+    'name', 'pluralName', 'fields'
   ]
 }
