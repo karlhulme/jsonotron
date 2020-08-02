@@ -66,7 +66,6 @@ function ensureDeclaredFieldTypesAreValid (ajv, docType, fieldTypes) {
   check.assert.object(docType)
   check.assert.array(fieldTypes)
 
-  // check fields
   for (const fieldName in docType.fields) {
     const field = docType.fields[fieldName]
 
@@ -278,11 +277,9 @@ function ensureConstructorParameterTypesAreValid (ajv, docType, fieldTypes) {
     for (const parameterName in docType.ctor.parameters) {
       const parameter = docType.ctor.parameters[parameterName]
 
-      if (parameter.type) {
-        if (fieldTypes.findIndex(ft => ft.name === parameter.type) === -1) {
-          throw new JsonotronDocTypeValidationError(docType.name,
-            `Constructor parameter '${parameterName}' declares an unrecognised type of '${parameter.type}'.`)
-        }
+      if (fieldTypes.findIndex(ft => ft.name === parameter.type) === -1) {
+        throw new JsonotronDocTypeValidationError(docType.name,
+          `Constructor parameter '${parameterName}' declares an unrecognised type of '${parameter.type}'.`)
       }
     }
   }
@@ -319,30 +316,6 @@ function ensureConstructorParameterTypesAreValid (ajv, docType, fieldTypes) {
 // }
 
 /**
- * Raises an error if any of the constructor parameters
- * that are designated as a lookup are not declared on the doc type.
- * @param {Object} docType A doc type.
- */
-function ensureConstructorParameterLookupsAreValid (docType) {
-  check.assert.object(docType)
-
-  const systemAndDeclaredFieldNames = getSystemAndDeclaredFields(docType)
-
-  if (typeof docType.ctor === 'object' && typeof docType.ctor.parameters === 'object') {
-    for (const ctorParameterName in docType.ctor.parameters) {
-      const ctorParameter = docType.ctor.parameters[ctorParameterName]
-
-      if (ctorParameter.lookup === 'field') {
-        if (!systemAndDeclaredFieldNames.includes(ctorParameterName)) {
-          throw new JsonotronDocTypeValidationError(docType.name,
-            `Constructor parameter '${ctorParameterName}' is a lookup field but a matching declared field is missing.`)
-        }
-      }
-    }
-  }
-}
-
-/**
  * Raises an error if the given doc type operation parameters have any invalid field types.
  * @param {Object} ajv A JSON schema validator.
  * @param {Object} docType A doc type.
@@ -360,11 +333,9 @@ function ensureOperationParameterTypesAreValid (ajv, docType, fieldTypes) {
       for (const parameterName in operation.parameters) {
         const parameter = operation.parameters[parameterName]
 
-        if (parameter.type) {
-          if (fieldTypes.findIndex(ft => ft.name === parameter.type) === -1) {
-            throw new JsonotronDocTypeValidationError(docType.name,
-              `Operation '${operationName}' parameter '${parameterName}' declares an unrecognised type of '${parameter.type}'.`)
-          }
+        if (fieldTypes.findIndex(ft => ft.name === parameter.type) === -1) {
+          throw new JsonotronDocTypeValidationError(docType.name,
+            `Operation '${operationName}' parameter '${parameterName}' declares an unrecognised type of '${parameter.type}'.`)
         }
       }
     }
@@ -406,35 +377,6 @@ function ensureOperationParameterTypesAreValid (ajv, docType, fieldTypes) {
 // }
 
 /**
- * Raises an error if any of the operation parameters
- * (across all the defined operations)
- * that are designated as a lookup are not declared on the doc type.
- * @param {Object} docType A doc type.
- */
-function ensureOperationParameterLookupsAreValid (docType) {
-  check.assert.object(docType)
-
-  const systemAndDeclaredFieldNames = getSystemAndDeclaredFields(docType)
-
-  if (docType.operations) {
-    for (const operationName in docType.operations) {
-      const operation = docType.operations[operationName]
-
-      for (const operationParameterName in operation.parameters) {
-        const operationParameter = operation.parameters[operationParameterName]
-
-        if (operationParameter.lookup === 'field') {
-          if (!systemAndDeclaredFieldNames.includes(operationParameterName)) {
-            throw new JsonotronDocTypeValidationError(docType.name,
-              `Operation '${operationName}' states parameter '${operationParameterName}' is a lookup field but a matching declared field is missing.`)
-          }
-        }
-      }
-    }
-  }
-}
-
-/**
  * Raises an error if the given doc type is not valid.
  * @param {Object} ajv A JSON schema validator.
  * @param {Object} docType A doc type.
@@ -453,10 +395,8 @@ function ensureDocTypeIsValid (ajv, docType, fieldTypes) {
   // ensureFilterParameterExamplesAreValid(ajv, docType, fieldTypes)
   ensureConstructorParameterTypesAreValid(ajv, docType, fieldTypes)
   // ensureConstructorParameterExamplesAreValid(ajv, docType, fieldTypes)
-  ensureConstructorParameterLookupsAreValid(docType)
   ensureOperationParameterTypesAreValid(ajv, docType, fieldTypes)
   // ensureOperationParameterExamplesAreValid(ajv, docType, fieldTypes)
-  ensureOperationParameterLookupsAreValid(docType)
 }
 
 /**

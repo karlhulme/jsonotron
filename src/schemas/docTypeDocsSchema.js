@@ -44,7 +44,6 @@ module.exports = {
     /* The example documents. */
     examples: {
       type: 'array',
-      minItems: 1,
       description: 'An array of examples showing the document type in use.',
       items: {
         type: 'object',
@@ -89,7 +88,6 @@ module.exports = {
           },
           examples: {
             type: 'array',
-            minItems: 1,
             description: 'An array of examples showing the document type in use.',
             items: {
               type: 'object',
@@ -135,7 +133,6 @@ module.exports = {
         },
         examples: {
           type: 'array',
-          minItems: 1,
           description: 'An array of examples showing the document type in use.',
           items: {
             type: 'object',
@@ -183,7 +180,6 @@ module.exports = {
           },
           examples: {
             type: 'array',
-            minItems: 1,
             description: 'An array of examples showing the document type in use.',
             items: {
               type: 'object',

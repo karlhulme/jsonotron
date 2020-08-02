@@ -55,6 +55,13 @@ function ensureFieldTypeValuesMatchesUnderlyingFieldTypeValues (fieldTypeValues,
         `Field type value '${v.value}' not defined in field type values.`)
     }
   })
+
+  fieldTypeValues.values.forEach(v => {
+    if (fieldType.values.findIndex(ftv => ftv.value === v.value) === -1) {
+      throw new JsonotronFieldTypeValuesValidationError(fieldTypeValues.name, fieldTypeValues.lang,
+        `Documented value '${v.value}' is not defined in field type.`)
+    }
+  })
 }
 
 /**
@@ -73,16 +80,16 @@ function ensureFieldTypeValuesObjectIsValid (ajv, fieldTypeValues, fieldTypes) {
  * Raises an error if any of the given field type values are not valid.
  * A valid field type doc will conform to the fieldTypeValuesSchema.
  * @param {Object} ajv A json validator.
- * @param {Array} fieldTypeValues An array of field type value objects.
+ * @param {Array} fieldTypeValueObjects An array of field type value objects.
  * @param {Array} fieldTypes An array of field types.
  */
-function ensureFieldTypeValuesAreValid (ajv, fieldTypeValues, fieldTypes) {
+function ensureFieldTypeValuesAreValid (ajv, fieldTypeValueObjects, fieldTypes) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
-  check.assert.array.of.object(fieldTypeValues)
+  check.assert.array.of.object(fieldTypeValueObjects)
   check.assert.array.of.object(fieldTypes)
 
-  fieldTypeValues.forEach(ftv => ensureFieldTypeValuesObjectIsValid(ajv, ftv, fieldTypes))
+  fieldTypeValueObjects.forEach(ftv => ensureFieldTypeValuesObjectIsValid(ajv, ftv, fieldTypes))
 }
 
 module.exports = ensureFieldTypeValuesAreValid

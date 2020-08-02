@@ -59,16 +59,16 @@ function ensureFieldTypeDocsObjectIsValid (ajv, fieldTypeDocs, fieldTypes) {
  * Raises an error if any of the given field type docs are not valid.
  * A valid field type doc will conform to the fieldTypeDocsSchema.
  * @param {Object} ajv A json validator.
- * @param {Array} fieldTypeDocs An array of field types docs.
+ * @param {Array} fieldTypeDocObjects An array of field types doc objects.
  * @param {Array} fieldTypes An array of field types.
  */
-function ensureFieldTypeDocsAreValid (ajv, fieldTypeDocs, fieldTypes) {
+function ensureFieldTypeDocsAreValid (ajv, fieldTypeDocObjects, fieldTypes) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
-  check.assert.array.of.object(fieldTypeDocs)
+  check.assert.array.of.object(fieldTypeDocObjects)
   check.assert.array.of.object(fieldTypes)
 
-  fieldTypeDocs.forEach(ftd => ensureFieldTypeDocsObjectIsValid(ajv, ftd, fieldTypes))
+  fieldTypeDocObjects.forEach(ftd => ensureFieldTypeDocsObjectIsValid(ajv, ftd, fieldTypes))
 }
 
 module.exports = ensureFieldTypeDocsAreValid

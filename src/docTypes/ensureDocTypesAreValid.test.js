@@ -76,7 +76,6 @@ const createComplexValidDocType = () => ({
   validate: doc => null,
   ctor: {
     parameters: {
-      propA: { lookup: 'field', isRequired: true },
       c: { type: 'boolean' },
       d: { type: 'boolean', isArray: true }
     },
@@ -91,7 +90,6 @@ const createComplexValidDocType = () => ({
     changePropB: {
       parameters: {
         c: { type: 'string', isRequired: true },
-        propB: { lookup: 'field' },
         propQ: { type: 'string', isArray: true }
       },
       implementation: (doc, input) => {
@@ -213,23 +211,9 @@ test('Doc type with calculated field that refers to erroneous field fails valida
   expect(() => ensureDocTypesAreValid(ajv, [candidate], testFieldTypes)).toThrow(/Calculated field 'propAandB' requires unrecognised input field/)
 })
 
-test('Doc type with unresolvable lookup constructor parameters fails validation.', () => {
-  const ajv = createCustomisedAjv()
-  const candidate = createComplexValidDocType()
-  candidate.ctor.parameters.invalidParam = { lookup: 'field' }
-  expect(() => ensureDocTypesAreValid(ajv, [candidate], testFieldTypes)).toThrow(/Constructor parameter 'invalidParam' is a lookup field but/)
-})
-
 test('Doc type with a property that clashes with a system property name fails validation.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createComplexValidDocType()
   candidate.fields.id = { type: 'string' }
   expect(() => ensureDocTypesAreValid(ajv, [candidate], testFieldTypes)).toThrow(/clash with a reserved system field name/)
-})
-
-test('Doc type with unresolvable lookup operation parameters fails validation.', () => {
-  const ajv = createCustomisedAjv()
-  const candidate = createComplexValidDocType()
-  candidate.operations.changePropB.parameters.invalidParam = { lookup: 'field' }
-  expect(() => ensureDocTypesAreValid(ajv, [candidate], testFieldTypes)).toThrow(/Operation 'changePropB' states parameter 'invalidParam' is a lookup field but/)
 })

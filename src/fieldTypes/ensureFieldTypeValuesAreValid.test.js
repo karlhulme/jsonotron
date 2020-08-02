@@ -55,3 +55,11 @@ test('Field type values that are missing value definitions from the underlying f
   expect(() => ensureFieldTypeValuesAreValid(ajv, [candidate], fieldTypes)).toThrow(JsonotronFieldTypeValuesValidationError)
   expect(() => ensureFieldTypeValuesAreValid(ajv, [candidate], fieldTypes)).toThrow(/Field type value 'example 1' not defined in field type values./)
 })
+
+test('Field type values that contain surplus definitions compared to the underlying field type fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidFieldTypeValues()
+  candidate.values.push({ value: 'example 3', text: 'Example 3' })
+  expect(() => ensureFieldTypeValuesAreValid(ajv, [candidate], fieldTypes)).toThrow(JsonotronFieldTypeValuesValidationError)
+  expect(() => ensureFieldTypeValuesAreValid(ajv, [candidate], fieldTypes)).toThrow(/Documented value 'example 3' is not defined in field type./)
+})

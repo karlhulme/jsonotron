@@ -99,22 +99,12 @@ module.exports = {
           additionalProperties: {
             type: 'object',
             description: 'Each property defines a constructor parameter.',
-            oneOf: [{
-              additionalProperties: false,
-              properties: {
-                type: { type: 'string', description: 'Type of the constructor parameter.' },
-                isArray: { type: 'boolean', description: 'True if this constructor parameter is an array.' },
-                isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' }
-              },
-              required: ['type']
-            }, {
-              additionalProperties: false,
-              properties: {
-                lookup: { enum: ['field'], description: 'Indicates the definition of this parameter should be taken from the document fields.' },
-                isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' }
-              },
-              required: ['lookup']
-            }]
+            properties: {
+              type: { type: 'string', description: 'Type of the constructor parameter.' },
+              isArray: { type: 'boolean', description: 'True if this constructor parameter is an array.' },
+              isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' }
+            },
+            required: ['type']
           }
         },
         implementation: { customTypeOf: 'function' }
@@ -136,23 +126,14 @@ module.exports = {
             description: 'A set of operation parameters, keyed by name.',
             additionalProperties: {
               type: 'object',
-              oneOf: [{
-                additionalProperties: false,
-                properties: {
-                  type: { type: 'string', description: 'Type of the operation parameter.' },
-                  isArray: { type: 'boolean', description: 'True if this operation parameter is an array.' },
-                  isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' }
-                },
-                required: ['type']
-              }, {
-                additionalProperties: false,
-                properties: {
-                  lookup: { enum: ['field'], description: 'Indicates the definition of this parameter should be taken from the document fields.' },
-                  isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' }
-                },
-                required: ['lookup']
-              }],
-              description: 'Each property defines a operation parameter.'
+              description: 'Each property defines a operation parameter.',
+              additionalProperties: false,
+              properties: {
+                type: { type: 'string', description: 'Type of the operation parameter.' },
+                isArray: { type: 'boolean', description: 'True if this operation parameter is an array.' },
+                isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' }
+              },
+              required: ['type']
             }
           },
           implementation: { customTypeOf: 'function' }
