@@ -1,5 +1,5 @@
-const { getJsonSchemaFragmentForFieldType } = require('jsonotron-validation')
 const { JsonotronInternalError } = require('jsonotron-errors')
+const { getJsonSchemaFragmentForFieldType } = require('../fieldTypes')
 
 /**
  * Builds the 'definitions' section of a JSON schema for the given field types.

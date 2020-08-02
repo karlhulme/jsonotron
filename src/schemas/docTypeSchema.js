@@ -16,11 +16,11 @@ module.exports = {
         description: 'Each property defines a field on the document type.',
         properties: {
           type: { type: 'string', description: 'Type of the document field.' },
-          isRequired: { type: 'boolean', description: 'True if this field must always be populated.' },
-          isArray: { type: 'boolean', description: 'True if this field is an array.' },
-          deprecation: { type: 'string', description: 'A description of the field(s) that should be used in place of this deprecated one.' },
           default: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'The value to be returned on a query if a value is not supplied by the store.' },
-          canUpdate: { type: 'boolean', description: 'True if this field can be updated via a merge patch rather than an operation.' }
+          isRequired: { type: 'boolean', description: 'True if this field must always be populated in a saved document.' },
+          isArray: { type: 'boolean', description: 'True if this field is an array.' },
+          canUpdate: { type: 'boolean', description: 'True if this field can be updated via a merge patch rather than an operation.' },
+          deprecation: { type: 'string', description: 'A description of the field(s) that should be used in place of this deprecated one.' }
         },
         required: ['type']
       }

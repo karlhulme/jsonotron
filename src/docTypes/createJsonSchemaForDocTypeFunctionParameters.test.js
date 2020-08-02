@@ -49,21 +49,6 @@ test('Build a JSON Schema for doc type function parameter.', () => {
   })
 })
 
-test('Build a JSON Schema for doc type function parameter to be used as a fragment with external schemas.', () => {
-  expect(createJsonSchemaForDocTypeFunctionParameters(docType, 'Filter bySize', docType.filters.bySize.parameters, fieldTypes, true, '#/components/schemas/')).toEqual({
-    title: 'Doc Type "map" (Filter bySize)',
-    type: 'object',
-    additionalProperties: false,
-    properties: {
-      cost: { $ref: '#/components/schemas/money' },
-      maxSize: { $ref: '#/components/schemas/integer' },
-      listOfNumbers: { type: 'array', items: { $ref: '#/components/schemas/integer' } },
-      baseList: { type: 'array', items: { $ref: '#/components/schemas/integer' } }
-    },
-    required: ['cost']
-  })
-})
-
 test('Build a JSON Schema for empty function parameter.', () => {
   expect(createJsonSchemaForDocTypeFunctionParameters(docType, 'Filter byNothing', {}, [])).toEqual({
     title: 'Doc Type "map" (Filter byNothing)',

@@ -7,11 +7,17 @@ const fieldTypes = [{
 }, {
   name: 'dateTimeUtc',
   jsonSchema: { type: 'string' }
+}, {
+  name: 'string',
+  jsonSchema: { type: 'string' }
 }]
 
 const docType = {
   name: 'candidate',
-  fields: {},
+  fields: {
+    notPlace: { type: 'string' },
+    place: { type: 'string', canUpdate: true }
+  },
   ctor: {
     parameters: {
       amount: { type: 'money', isRequired: true },
@@ -28,12 +34,14 @@ test('Build a JSON Schema for doc type constructor parameters.', () => {
     additionalProperties: false,
     properties: {
       amount: { $ref: '#/definitions/money' },
-      event: { $ref: '#/definitions/dateTimeUtc' }
+      event: { $ref: '#/definitions/dateTimeUtc' },
+      place: { $ref: '#/definitions/string' }
     },
     required: ['amount'],
     definitions: {
       dateTimeUtc: { type: 'string' },
-      money: { type: 'float' }
+      money: { type: 'float' },
+      string: { type: 'string' }
     }
   })
 })

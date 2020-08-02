@@ -89,39 +89,30 @@ function buildRequiredSectionForDocTypeFunctionParameters (functionParameters) {
  * @param {String} subTitle A sub title to appear in the title of the schema.
  * @param {Object} functionParameters A parameter block.
  * @param {Array} fieldTypes An array of field types.
- * @param {Boolean} [fragment] True if the $schema property should be omitted from the result.
- * @param {String} [externalDefs] A path to external definitions.  If supplied, then
- * the definitions property will omitted from the result.
  */
-function createJsonSchemaForDocTypeFunctionParameters (docType, subTitle, functionParameters, fieldTypes, fragment, externalDefs) {
+function createJsonSchemaForDocTypeFunctionParameters (docType, subTitle, functionParameters, fieldTypes) {
   check.assert.object(docType)
   check.assert.string(subTitle)
   check.assert.object(functionParameters)
   check.assert.array.of.object(fieldTypes)
 
-  const definitionsInternalPath = '#/definitions/'
-  const definitionsPath = typeof externalDefs === 'string' && externalDefs.length > 0 ? externalDefs : definitionsInternalPath
+  const definitionsPath = '#/definitions/'
 
   const properties = buildPropertiesSectionForDocTypeFunctionParameters(docType, functionParameters, definitionsPath)
   const required = buildRequiredSectionForDocTypeFunctionParameters(functionParameters)
 
   const schema = {
     title: `Doc Type "${docType.name}" (${subTitle})`,
+    $schema: 'http://json-schema.org/draft-07/schema#',
     type: 'object',
     additionalProperties: false,
     properties,
     required
   }
 
-  if (!fragment) {
-    schema.$schema = 'http://json-schema.org/draft-07/schema#'
-  }
-
-  if (definitionsPath === definitionsInternalPath) {
-    const directlyReferencedFieldTypeNames = getDirectlyReferencedFieldTypeNamesFromFunctionParameters(docType, functionParameters)
-    const referencedFieldTypeNames = getReferencedFieldTypeNames(fieldTypes, directlyReferencedFieldTypeNames)
-    schema.definitions = createJsonSchemaDefinitionsSection(fieldTypes, referencedFieldTypeNames)
-  }
+  const directlyReferencedFieldTypeNames = getDirectlyReferencedFieldTypeNamesFromFunctionParameters(docType, functionParameters)
+  const referencedFieldTypeNames = getReferencedFieldTypeNames(fieldTypes, directlyReferencedFieldTypeNames)
+  schema.definitions = createJsonSchemaDefinitionsSection(fieldTypes, referencedFieldTypeNames)
 
   return schema
 }

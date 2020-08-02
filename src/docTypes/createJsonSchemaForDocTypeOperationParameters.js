@@ -7,17 +7,14 @@ const getOperationParameters = require('./getOperationParameters')
  * @param {Object} docType A document type.
  * @param {String} operationName The name of an operation.
  * @param {Array} fieldTypes An array of field types.
- * @param {Boolean} [fragment] True if the $schema property should be omitted from the result.
- * @param {String} [externalDefs] A path to external definitions.  If supplied, then
- * the definitions property will omitted from the result.
  */
-function createJsonSchemaForDocTypeOperationParameters (docType, operationName, fieldTypes, fragment, externalDefs) {
+function createJsonSchemaForDocTypeOperationParameters (docType, operationName, fieldTypes) {
   check.assert.object(docType)
   check.assert.string(operationName)
   check.assert.array.of.object(fieldTypes)
 
   const operationParameters = getOperationParameters(docType, operationName)
-  return createJsonSchemaForDocTypeFunctionParameters(docType, 'Operation ' + operationName, operationParameters, fieldTypes, fragment, externalDefs)
+  return createJsonSchemaForDocTypeFunctionParameters(docType, 'Operation ' + operationName, operationParameters, fieldTypes)
 }
 
 module.exports = createJsonSchemaForDocTypeOperationParameters

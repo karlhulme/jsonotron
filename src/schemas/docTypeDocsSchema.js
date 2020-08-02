@@ -72,6 +72,7 @@ module.exports = {
         description: 'Each property defines a filter',
         additionalProperties: false,
         properties: {
+          title: { type: 'string', description: 'The display name of the operation.' },
           paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the filter.' },
           parameters: {
             type: 'object',
@@ -103,11 +104,11 @@ module.exports = {
                   description: 'An array of paragraphs that describe the example.'
                 }
               },
-              required: ['value']
+              required: ['paragraphs', 'value']
             }
           }
         },
-        required: ['parameters', 'examples']
+        required: ['title', 'paragraphs', 'parameters', 'examples']
       }
     },
 
@@ -195,7 +196,7 @@ module.exports = {
                   description: 'An array of paragraphs that describe the example.'
                 }
               },
-              required: ['value']
+              required: ['paragraphs', 'value']
             }
           }
         },

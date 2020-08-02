@@ -7,7 +7,7 @@ const fieldTypes = [{
   name: 'string',
   jsonSchema: { type: 'string' }
 }, {
-  name: 'sysDateTime',
+  name: 'dateTimeUtc',
   jsonSchema: { type: 'string' }
 }, {
   name: 'sysDateTime',
@@ -35,13 +35,34 @@ const docTypes = [{
 }, {
   name: 'candidateDocType',
   fields: {
-    fieldA: { type: 'string' },
+    fieldA: { type: 'string', canUpdate: true },
     fieldB: { type: 'string' }
+  },
+  calculatedFields: {
+    theTotal: {
+      inputFields: ['fieldA', 'fieldB'],
+      type: 'string',
+      value: () => 3
+    }
   },
   filters: {
     byFieldB: {
       parameters: {
         fieldB: { type: 'string' }
+      }
+    }
+  },
+  ctor: {
+    parameters: {
+      fieldC: { type: 'dateTimeUtc', isRequired: true }
+    },
+    implementation: () => ({})
+  },
+  operations: {
+    doSomething: {
+      parameters: {
+        fieldX: { type: 'string', isRequired: true },
+        fieldY: { type: 'string', isRequired: true }
       }
     }
   }
@@ -69,6 +90,11 @@ const createValidDocTypeDocs = () => ({
     fieldA: { paragraphs: ['line 1'] },
     fieldB: { paragraphs: ['line 2'] }
   },
+  calculatedFields: {
+    theTotal: {
+      paragraphs: ['It returns 3.']
+    }
+  },
   examples: [{
     value: {
       id: 'example_id',
@@ -79,12 +105,44 @@ const createValidDocTypeDocs = () => ({
   }],
   filters: {
     byFieldB: {
+      title: 'By Field B',
+      paragraphs: [],
       parameters: {
         fieldB: { paragraphs: ['my notes on field B.'] }
       },
       examples: [{
+        paragraphs: [],
         value: {
           fieldB: 'my-search-value'
+        }
+      }]
+    }
+  },
+  ctor: {
+    parameters: {
+      fieldC: { paragraphs: ['Documenting the specialist constructor parameters.'] }
+    },
+    examples: [{
+      paragraphs: ['An example of a constructor.'],
+      value: {
+        fieldA: 'a field with canUpdate set',
+        fieldC: 'a constructor param'
+      }
+    }]
+  },
+  operations: {
+    doSomething: {
+      title: 'Do Something',
+      paragraphs: [],
+      parameters: {
+        fieldX: { paragraphs: ['This is the first param.'] },
+        fieldY: { paragraphs: ['This is the second param.'] }
+      },
+      examples: [{
+        paragraphs: ['An explanation of this operation.'],
+        value: {
+          fieldX: 'xx',
+          fieldY: 'yy'
         }
       }]
     }
@@ -136,12 +194,20 @@ test('Doc type docs with invalid example fails verification.', () => {
   expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/should be string/)
 })
 
-test('Doc type docs with missing filter for underlying doc type filter fails verification.', () => {
+test('Doc type docs with missing calculated fields section when underlying doc type declares a calculated field fails verification.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createValidDocTypeDocs()
-  delete candidate.filters.byFieldB
+  delete candidate.calculatedFields
   expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
-  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/Filter 'byFieldB' is not defined/)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/'calculatedFields' property is not defined/)
+})
+
+test('Doc type docs with missing calculated field for underlying doc type calculated field fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  delete candidate.calculatedFields.theTotal
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/Calculated field 'theTotal' is not defined/)
 })
 
 test('Doc type docs with missing filters section when underlying doc type declares a filter fails verification.', () => {
@@ -150,6 +216,14 @@ test('Doc type docs with missing filters section when underlying doc type declar
   delete candidate.filters
   expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
   expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/'filters' property is not defined/)
+})
+
+test('Doc type docs with missing filter for underlying doc type filter fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  delete candidate.filters.byFieldB
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/Filter 'byFieldB' is not defined/)
 })
 
 test('Doc type docs with missing filter parameter fails verification.', () => {
@@ -174,4 +248,76 @@ test('Doc type docs with invalid filter example fails verification.', () => {
   candidate.filters.byFieldB.examples.push({ value: { fieldB: 123 }, paragraphs: ['this will not work'] })
   expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
   expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/Unable to validate filter example at index 1/)
+})
+
+test('Doc type docs with missing ctor section when underlying doc type declares a ctor fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  delete candidate.ctor
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/'ctor' property is not defined/)
+})
+
+test('Doc type docs with missing ctor parameter fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  delete candidate.ctor.parameters.fieldC
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/'fieldC' that is not defined/)
+})
+
+test('Doc type docs with surplus ctor parameter fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  candidate.ctor.parameters.fieldD = { paragraphs: ['this is an extra parameter.'] }
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/'fieldD' but it is defined in the docs/)
+})
+
+test('Doc type docs with invalid filter example fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  candidate.ctor.examples.push({ value: { fieldA: 'but missing the required fieldC' }, paragraphs: ['this will not work'] })
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/Unable to validate constructor example at index 1/)
+})
+
+test('Doc type docs with missing operations section when underlying doc type declares a operation fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  delete candidate.operations
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/'operations' property is not defined/)
+})
+
+test('Doc type docs with missing operation for underlying doc type operation fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  delete candidate.operations.doSomething
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/Operation 'doSomething' is not defined/)
+})
+
+test('Doc type docs with missing operation parameter fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  delete candidate.operations.doSomething.parameters.fieldX
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/'fieldX' that is not defined/)
+})
+
+test('Doc type docs with surplus operation parameter fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  candidate.operations.doSomething.parameters.fieldZ = { paragraphs: ['this is an extra parameter.'] }
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/'fieldZ' but it is defined in the docs/)
+})
+
+test('Doc type docs with invalid operation example fails verification.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidDocTypeDocs()
+  candidate.operations.doSomething.examples.push({ value: { fieldX: 'only-one-param' }, paragraphs: ['this will not work'] })
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(JsonotronDocTypeDocsValidationError)
+  expect(() => ensureDocTypeDocsAreValid(ajv, [candidate], docTypes, fieldTypes)).toThrow(/Unable to validate operation example at index 1/)
 })
