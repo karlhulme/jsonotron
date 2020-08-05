@@ -17,7 +17,7 @@ function getFieldOrEnumTypeFromArrays (fieldTypeName, fieldTypes, enumTypes) {
 
   if (fieldType) {
     return fieldType
-  } else if(enumType) {
+  } else if (enumType) {
     return enumType
   } else {
     throw new JsonotronFieldTypeResolutionError(fieldTypeName)

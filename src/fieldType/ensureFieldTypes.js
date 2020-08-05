@@ -29,7 +29,7 @@ function validateEnumTypeWithSchema (ajv, fieldType) {
  */
 function patchFieldType (fieldType) {
   if (typeof fieldType.type === 'undefined') {
-    fieldType.type = 'schema'
+    fieldType.type = 'field'
   }
 
   if (typeof fieldType.title === 'undefined') {
@@ -66,7 +66,7 @@ function patchFieldType (fieldType) {
     fieldType.referencedFieldTypes = []
   }
 
-    if (typeof fieldType.referencedEnumTypes === 'undefined') {
+  if (typeof fieldType.referencedEnumTypes === 'undefined') {
     fieldType.referencedEnumTypes = []
   }
 }
@@ -157,7 +157,7 @@ function ensureFieldTypes (ajv, fieldTypes, enumTypes) {
     const validator = createValueValidatorForFieldType(ajv, fieldType, fieldTypes, enumTypes)
     ensureExamplesAreValid(fieldType.name, validator, fieldType.examples)
     ensureValidTestCasesAreValid(fieldType.name, validator, fieldType.validTestCases)
-    ensureInvalidTestCasesAreInvalid(fieldType.name, validator, fieldType.invalidTestCases)  
+    ensureInvalidTestCasesAreInvalid(fieldType.name, validator, fieldType.invalidTestCases)
   })
 }
 

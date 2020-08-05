@@ -5,7 +5,7 @@ const ensureFieldTypes = require('./ensureFieldTypes')
 
 const createValidFieldType = () => ({
   name: 'candidateFieldType',
-  type: 'schema',
+  type: 'field',
   title: 'Candidate',
   category: 'candidate',
   paragraphs: ['this is a', 'test field type'],
@@ -42,7 +42,7 @@ test('Empty field type can be verified.', () => {
   delete candidate.invalidTestCases
   delete candidate.referencedFieldTypes
   expect(() => ensureFieldTypes(ajv, [candidate], [])).not.toThrow()
-  expect(candidate.type).toEqual('schema')
+  expect(candidate.type).toEqual('field')
   expect(candidate.title).toEqual('Candidate Field Type')
   expect(candidate.category).toEqual('')
   expect(candidate.paragraphs).toEqual([])

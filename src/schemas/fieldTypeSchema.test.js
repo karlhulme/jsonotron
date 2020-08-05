@@ -7,7 +7,6 @@ test('Accept minimal field type.', () => {
 
   const validRegularFieldType = {
     name: 'minimal',
-    type: 'schema',
     jsonSchema: {
       type: 'string'
     }
@@ -21,7 +20,7 @@ test('Accept valid field type.', () => {
 
   const validFieldType = {
     name: 'integer',
-    type: 'schema',
+    type: 'field',
     title: 'The Integer',
     category: 'number',
     paragraphs: [

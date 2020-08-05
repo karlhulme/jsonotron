@@ -4,7 +4,7 @@ const createValueValidatorForFieldType = require('./createValueValidatorForField
 
 const createValidFieldType = () => ({
   name: 'candidateFieldType',
-  type: 'schema',
+  type: 'field',
   category: 'candidate',
   description: 'A candidate field type.',
   jsonSchema: {

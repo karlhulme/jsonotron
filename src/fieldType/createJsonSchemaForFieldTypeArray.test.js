@@ -3,7 +3,7 @@ const createJsonSchemaForFieldTypeArray = require('./createJsonSchemaForFieldTyp
 
 const fieldTypes = [{
   name: 'example',
-  type: 'schema',
+  type: 'field',
   jsonSchema: definitionsPath => ({
     type: 'object',
     properties: {

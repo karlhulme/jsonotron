@@ -3,7 +3,7 @@ const createJsonSchemaFragmentForFieldType = require('./createJsonSchemaFragment
 
 const fieldType = {
   name: 'fieldType',
-  type: 'schema',
+  type: 'field',
   jsonSchema: {
     type: 'string'
   }

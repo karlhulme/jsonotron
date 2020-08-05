@@ -1,15 +1,11 @@
 const check = require('check-types')
 const { JsonotronDocTypeValidationError } = require('jsonotron-errors')
 const { docTypeSchema } = require('../schemas')
-const {
-  createValueValidatorForFieldType,
-  createValueValidatorForFieldTypeArray,
-  ensureFieldTypes
-} = require('../fieldType')
-const { ensureEnumType } = require('../enumType')
+const { ensureFieldTypes } = require('../fieldType')
 const { consts, pascalToTitleCase } = require('../utils')
 const getFieldOrEnumTypeFromArrays = require('./getFieldOrEnumTypeFromArrays')
 const getSystemFieldNames = require('./getSystemFieldNames')
+const createValueValidatorForFieldOrEnumType = require('./createValueValidatorForFieldOrEnumType')
 
 /**
  * Raises an error if the given doc type does not conform
@@ -77,7 +73,7 @@ function patchDocType (docType) {
     docType.preSave = () => {}
   }
 
-  if (typeof docType.preSave === 'undefined') {
+  if (typeof docType.validate === 'undefined') {
     docType.validate = () => {}
   }
 
@@ -285,19 +281,14 @@ function ensureDeclaredFieldDefaultsAreValid (ajv, docType, fieldTypes, enumType
     const field = docType.fields[fieldName]
 
     if (field.default) {
-      const fieldType = getFieldOrEnumTypeFromArrays(field.type, fieldTypes, enumTypes)
+      const fieldOrEnumType = getFieldOrEnumTypeFromArrays(field.type, fieldTypes, enumTypes)
 
-      // don't do this!
-      if (fieldType.type === 'schema') {
-        const validator = field.isArray
-          ? createValueValidatorForFieldTypeArray(ajv, fieldType, fieldTypes, enumTypes)
-          : createValueValidatorForFieldType(ajv, fieldType, fieldTypes, enumTypes)
+      const validator = createValueValidatorForFieldOrEnumType(ajv, fieldOrEnumType, field.isArray, fieldTypes, enumTypes)
 
-        if (!validator(field.default)) {
-          throw new JsonotronDocTypeValidationError(docType.name,
-            `Field name '${fieldName}' declares a default value '${JSON.stringify(field.default)}' ` +
-            `that does not conform to the '${field.type}' type schema.\n${JSON.stringify(validator.errors, null, 2)}`)
-        }
+      if (!validator(field.default)) {
+        throw new JsonotronDocTypeValidationError(docType.name,
+          `Field name '${fieldName}' declares a default value '${JSON.stringify(field.default)}' ` +
+          `that does not conform to the '${field.type}' type schema.\n${JSON.stringify(validator.errors, null, 2)}`)
       }
     }
   }
