@@ -3,7 +3,8 @@ module.exports = {
   type: 'object',
   description: 'The definition of a role type.',
   properties: {
-    name: { type: 'string' },
+    name: { type: 'string', pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$', description: 'The role type name.' },
+    title: { type: 'string', description: 'The title (display name) of the role type.' },
     docPermissions: {
       oneOf: [{
         enum: [true]
@@ -14,19 +15,16 @@ module.exports = {
             enum: [true]
           }, {
             type: 'object',
-            additionalProperties: false,
             properties: {
               query: {
                 oneOf: [{
                   type: 'boolean'
                 }, {
                   type: 'object',
-                  additionalProperties: false,
                   properties: {
                     fieldsTreatment: { enum: ['whitelist', 'blacklist'] },
                     fields: { type: 'array', items: { type: 'string' } }
-                  },
-                  required: ['fieldsTreatment', 'fields']
+                  }
                 }]
               },
               update: {
@@ -34,15 +32,13 @@ module.exports = {
                   type: 'boolean'
                 }, {
                   type: 'object',
-                  additionalProperties: false,
                   properties: {
                     patch: { type: 'boolean' },
                     operations: { type: 'array', items: { type: 'string' } }
-                  },
-                  required: ['patch', 'operations']
+                  }
                 }]
               },
-              create: { type: 'boolean', description: 'True if documents can be created.' },
+              create: { type: 'boolean', description: 'True if documents can be created using the constructor.' },
               delete: { type: 'boolean', description: 'True if documents can be deleted.' },
               replace: { type: 'boolean', description: 'True if documents can be replaced.' }
             }
@@ -51,5 +47,5 @@ module.exports = {
       }]
     }
   },
-  required: ['name', 'docPermissions']
+  required: ['name']
 }

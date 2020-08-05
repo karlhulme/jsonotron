@@ -12,7 +12,6 @@ The schemas allow the use of functions to be added to the JS objects via the cus
 ctor: {
   type: 'object',
   description: 'A mechanism for constructing new instances of the document type.',
-  additionalProperties: false,
   properties: {
     parameters: { /* edited out */ }
     implementation: { customTypeOf: 'function' } // <-- function inline with the JSON Schema.
@@ -46,6 +45,10 @@ console.log(docTypeSchema)
 console.log(fieldTypeSchema)
 console.log(roleTypeSchema)
 ```
+
+## Notes
+
+1. The schemas allow additional properties to appear on the docType, fieldType, etc, so that support for new features can be added without breaking compatibility.
 
 ## Development
 

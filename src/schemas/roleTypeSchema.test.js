@@ -2,11 +2,22 @@
 const { createCustomisedAjv } = require('../validator')
 const roleTypeSchema = require('./roleTypeSchema')
 
+test('Accept valid empty role types.', () => {
+  const ajv = createCustomisedAjv()
+
+  const emptyAdminRoleType = {
+    name: 'empty'
+  }
+
+  expect(ajv.validate(roleTypeSchema, emptyAdminRoleType)).toEqual(true)
+})
+
 test('Accept valid super admin role types.', () => {
   const ajv = createCustomisedAjv()
 
   const validAdminRoleType = {
     name: 'admin',
+    title: 'Super Admin',
     docPermissions: true
   }
 
@@ -38,25 +49,6 @@ test('Accept valid role types.', () => {
   }
 
   expect(ajv.validate(roleTypeSchema, validRoleType)).toEqual(true)
-})
-
-test('Reject role types without docPermissions.', () => {
-  const ajv = createCustomisedAjv()
-
-  const invalidRoleType = {
-    name: 'myRole'
-  }
-  expect(ajv.validate(roleTypeSchema, invalidRoleType)).toEqual(false)
-  expect(ajv.errors).toEqual(
-    expect.arrayContaining([
-      expect.objectContaining({
-        keyword: 'required',
-        params: {
-          missingProperty: 'docPermissions'
-        }
-      })
-    ])
-  )
 })
 
 test('Reject role types with invalid query fieldsTreatment value.', () => {

@@ -1,0 +1,8 @@
+// function createValidatorForFieldType (ajv, fieldType, fieldTypes, enumTypes) {
+//   if (fieldType.type === 'schema') {
+//     const validator = field.isArray
+//       ? createValueValidatorForFieldTypeArray(ajv, fieldType, fieldTypes, enumTypes)
+//       : createValueValidatorForFieldType(ajv, fieldType, fieldTypes, enumTypes)
+// }
+
+// module.exports = createValidatorForFieldType

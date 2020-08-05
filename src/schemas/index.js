@@ -1,17 +1,7 @@
 module.exports = {
-  /* categories */
-  categorySchema: require('./categorySchema'),
-  categoryDocsSchema: require('./categoryDocsSchema'),
-
-  /* field types */
-  fieldTypeSchema: require('./fieldTypeSchema'),
-  fieldTypeDocsSchema: require('./fieldTypeDocsSchema'),
-  fieldTypeValuesSchema: require('./fieldTypeValuesSchema'),
-
-  /* doc types */
+  categoryTypeSchema: require('./categoryTypeSchema'),
   docTypeSchema: require('./docTypeSchema'),
-  docTypeDocsSchema: require('./docTypeDocsSchema'),
-
-  /* role types */
+  enumTypeSchema: require('./enumTypeSchema'),
+  fieldTypeSchema: require('./fieldTypeSchema'),
   roleTypeSchema: require('./roleTypeSchema')
 }

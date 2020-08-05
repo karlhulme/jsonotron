@@ -1,32 +1,23 @@
 /* eslint-env jest */
 const mdl = require('./index')
 
-test('The doc type validation methods are exported from the module.', () => {
-  expect(mdl).toHaveProperty('ensureDocTypesAreValid')
-  expect(mdl).toHaveProperty('getSystemFields')
-})
-
-test('The field type validation methods are exported from the module.', () => {
-  expect(mdl).toHaveProperty('ensureFieldTypesAreValid')
-
-  expect(mdl).toHaveProperty('createJsonSchemaForFieldType')
-  expect(mdl).toHaveProperty('createJsonSchemaForFieldTypeArray')
-  expect(mdl).toHaveProperty('createFieldTypeArrayValueValidator')
-  expect(mdl).toHaveProperty('createFieldTypeValueValidator')
-  expect(mdl).toHaveProperty('getJsonSchemaFragmentForFieldType')
-  expect(mdl).toHaveProperty('getReferencedFieldTypeNames')
-})
-
-test('The role type validation methods are exported from the module.', () => {
-  expect(mdl).toHaveProperty('ensureRoleTypesAreValid')
-})
-
 test('The schemas are exported from the module.', () => {
+  expect(mdl).toHaveProperty('categoryTypeSchema')
   expect(mdl).toHaveProperty('docTypeSchema')
+  expect(mdl).toHaveProperty('enumTypeSchema')
   expect(mdl).toHaveProperty('fieldTypeSchema')
   expect(mdl).toHaveProperty('roleTypeSchema')
 })
 
-test('The validator methods are exported from the module.', () => {
+test('The validation methods are exported from the module.', () => {
+  expect(mdl).toHaveProperty('ensureCategoryType')
+  expect(mdl).toHaveProperty('ensureDocType')
+  expect(mdl).toHaveProperty('ensureEnumType')
+  expect(mdl).toHaveProperty('ensureFieldTypes')
+  expect(mdl).toHaveProperty('ensureRoleType')
+})
+
+test('The additional helper methods are exported from the module.', () => {
   expect(mdl).toHaveProperty('createCustomisedAjv')
+  expect(mdl).toHaveProperty('getSystemFieldNames')
 })
