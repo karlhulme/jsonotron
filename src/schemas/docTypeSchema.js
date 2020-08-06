@@ -25,7 +25,7 @@ module.exports = {
           default: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'The value to be returned on a query if a value is not supplied by the store.' },
           isRequired: { type: 'boolean', description: 'True if this field must always be populated in a saved document.' },
           isArray: { type: 'boolean', description: 'True if this field is an array.' },
-          isDeprecated: { type: 'boolean', description: 'True if this field is deprecated' },
+          isDeprecated: { type: 'boolean', description: 'True if this field is deprecated.' },
           canUpdate: { type: 'boolean', description: 'True if this field can be updated via a merge patch rather than an operation.' },
           paragraphs: { type: 'array', items: { type: 'string' }, description: 'An array of markdown passages.  If the field is deprecated the paragraphs should include which fields to use instead.' }
         },
@@ -41,9 +41,24 @@ module.exports = {
        This function is used to perform validation where fields might depend upon each other. */
     validate: { customTypeOf: 'function', description: 'A function (doc) that raises an Error if the given doc is in an invalid state.' },
 
+    /* Examples that show the content of the documents when populated. */
     examples: {
       type: 'array',
-      description: 'An array of examples showing the document type in use.',
+      description: 'An array of examples that show the content of the documents when populated.',
+      items: {
+        type: 'object',
+        properties: {
+          value: { type: 'object' },
+          paragraphs: { type: 'array', items: { type: 'string' }, description: 'An array of paragraphs that describe the example.' }
+        },
+        required: ['value']
+      }
+    },
+
+    /* Examples that show a merge patch. */
+    patchExamples: {
+      type: 'array',
+      description: 'An array of examples that show a merge patch.',
       items: {
         type: 'object',
         properties: {
@@ -92,6 +107,7 @@ module.exports = {
                 type: { type: 'string', description: 'The field type of the filter parameter.' },
                 isArray: { type: 'boolean', description: 'True if this filter parameter is an array.' },
                 isRequired: { type: 'boolean', description: 'True if the parameter must be supplied.' },
+                isDeprecated: { type: 'boolean', description: 'True if this parameter is deprecated.' },
                 paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the filter parameter.' }
               },
               required: ['type']
@@ -109,7 +125,8 @@ module.exports = {
               },
               required: ['value']
             }
-          }
+          },
+          isDeprecated: { type: 'boolean', description: 'True if this filter is deprecated.' }
         },
         required: ['implementation']
       }
@@ -131,6 +148,7 @@ module.exports = {
               type: { type: 'string', description: 'Type of the constructor parameter.' },
               isArray: { type: 'boolean', description: 'True if this constructor parameter is an array.' },
               isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' },
+              isDeprecated: { type: 'boolean', description: 'True if this parameter is deprecated.' },
               paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the usage or purpose of the constructor parameter.' }
             },
             required: ['type']
@@ -173,6 +191,7 @@ module.exports = {
                 type: { type: 'string', description: 'Type of the operation parameter.' },
                 isArray: { type: 'boolean', description: 'True if this operation parameter is an array.' },
                 isRequired: { type: 'boolean', description: 'True if this parameter must be provided.' },
+                isDeprecated: { type: 'boolean', description: 'True if this parameter is deprecated.' },
                 paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the usage or purpose of the operation parameter.' }
               },
               required: ['type']
@@ -190,7 +209,8 @@ module.exports = {
               },
               required: ['value']
             }
-          }
+          },
+          isDeprecated: { type: 'boolean', description: 'True if this operation is deprecated.' }
         },
         required: []
       }

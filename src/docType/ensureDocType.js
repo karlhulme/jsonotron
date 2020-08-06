@@ -87,6 +87,16 @@ function patchDocType (docType) {
     if (typeof example.paragraphs === 'undefined') { example.paragraphs = [] }
   }
 
+  // patchExamples
+
+  if (typeof docType.patchExamples === 'undefined') {
+    docType.patchExamples = []
+  }
+
+  for (const example of docType.patchExamples) {
+    if (typeof example.paragraphs === 'undefined') { example.paragraphs = [] }
+  }
+
   // calculated fields
 
   if (typeof docType.calculatedFields === 'undefined') {
@@ -118,6 +128,7 @@ function patchDocType (docType) {
 
       if (typeof filterParameter.isArray === 'undefined') { filterParameter.isArray = false }
       if (typeof filterParameter.isRequired === 'undefined') { filterParameter.isRequired = false }
+      if (typeof filterParameter.isDeprecated === 'undefined') { filterParameter.isDeprecated = false }
       if (typeof filterParameter.paragraphs === 'undefined') { filterParameter.paragraphs = [] }
     }
 
@@ -126,6 +137,8 @@ function patchDocType (docType) {
     for (const example of filter.examples) {
       if (typeof example.paragraphs === 'undefined') { example.paragraphs = [] }
     }
+
+    if (typeof filter.isDeprecated === 'undefined') { filter.isDeprecated = false }
   }
 
   // constructor
@@ -147,6 +160,7 @@ function patchDocType (docType) {
 
     if (typeof ctorParameter.isArray === 'undefined') { ctorParameter.isArray = false }
     if (typeof ctorParameter.isRequired === 'undefined') { ctorParameter.isRequired = false }
+    if (typeof ctorParameter.isDeprecated === 'undefined') { ctorParameter.isDeprecated = false }
     if (typeof ctorParameter.paragraphs === 'undefined') { ctorParameter.paragraphs = [] }
   }
 
@@ -179,6 +193,7 @@ function patchDocType (docType) {
 
       if (typeof operationParameter.isArray === 'undefined') { operationParameter.isArray = false }
       if (typeof operationParameter.isRequired === 'undefined') { operationParameter.isRequired = false }
+      if (typeof operationParameter.isDeprecated === 'undefined') { operationParameter.isDeprecated = false }
       if (typeof operationParameter.paragraphs === 'undefined') { operationParameter.paragraphs = [] }
     }
 
@@ -189,6 +204,8 @@ function patchDocType (docType) {
     for (const example of operation.examples) {
       if (typeof example.paragraphs === 'undefined') { example.paragraphs = [] }
     }
+
+    if (typeof operation.isDeprecated === 'undefined') { operation.isDeprecated = false }
   }
 
   // policy
@@ -207,19 +224,6 @@ function patchDocType (docType) {
   if (typeof docType.docStoreOptions === 'undefined') {
     docType.docStoreOptions = {}
   }
-}
-
-/**
- * Returns an array containing all the declared field names
- * and system field names.  This is the complete list of fields
- * that can be retrieved from the database.
- * @param {Object} docType A doc type.
- */
-function getSystemAndDeclaredFields (docType) {
-  check.assert.object(docType)
-  check.assert.object(docType.fields)
-
-  return getSystemFieldNames().concat(Object.keys(docType.fields))
 }
 
 /**
@@ -301,18 +305,41 @@ function ensureDeclaredFieldDefaultsAreValid (ajv, docType, fieldTypes, enumType
  */
 function ensureCalculatedFieldInputsAreValid (docType) {
   check.assert.object(docType)
+  check.assert.object(docType.fields)
   check.assert.object(docType.calculatedFields)
 
-  const systemAndDeclaredFieldNames = getSystemAndDeclaredFields(docType)
+  const reservedNames = getSystemFieldNames().concat(Object.keys(docType.fields))
 
   for (const calculatedFieldName in docType.calculatedFields) {
     const calculatedField = docType.calculatedFields[calculatedFieldName]
 
     for (const inputFieldName of calculatedField.inputFields) {
-      if (!systemAndDeclaredFieldNames.includes(inputFieldName)) {
+      if (!reservedNames.includes(inputFieldName)) {
         throw new JsonotronDocTypeValidationError(docType.name,
           `Calculated field '${calculatedFieldName}' requires unrecognised input field '${inputFieldName}'.`)
       }
+    }
+  }
+}
+
+/**
+ * Raises an error if any of the constructor parameter names
+ * clash with an existing field.
+ * @param {Object} docType A doc type.
+ */
+function ensureConstructorParameterNamesAreValid (docType) {
+  check.assert.object(docType)
+  check.assert.object(docType.fields)
+  check.assert.object(docType.calculatedFields)
+  check.assert.object(docType.ctor)
+  check.assert.object(docType.ctor.parameters)
+
+  const reservedNames = getSystemFieldNames().concat(Object.keys(docType.fields)).concat(Object.keys(docType.calculatedFields))
+
+  for (const ctorParameterName in docType.ctor.parameters) {
+    if (reservedNames.includes(ctorParameterName)) {
+      throw new JsonotronDocTypeValidationError(docType.name,
+        `Constructor parameter '${ctorParameterName}' clashes with system field, document field or document calculated field.`)
     }
   }
 }
@@ -340,13 +367,16 @@ function ensureDocType (ajv, docType, fieldTypes, enumTypes) {
   // fill in the missing/optional parts
   patchDocType(docType)
 
-  // declard field checks
+  // declared field checks
   ensureDeclaredFieldNamesAreValid(docType)
   ensureDeclaredFieldDefaultsAreValid(ajv, docType, fieldTypes, enumTypes)
 
   // calculated field checks
   ensureCalculatedFieldNamesAreValid(docType)
   ensureCalculatedFieldInputsAreValid(docType)
+
+  // all constructor parameter checks
+  ensureConstructorParameterNamesAreValid(docType)
 
   // all field types and example checks
 }

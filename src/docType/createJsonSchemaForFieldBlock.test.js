@@ -41,9 +41,9 @@ const createFieldBlock = () => ({
   propQ: { type: 'string', isArray: true }
 })
 
-test('A simple doc type can be verified.', () => {
+test('A schema can be created for a field block.', () => {
   const fieldBlock = createFieldBlock()
-  expect(createJsonSchemaForFieldBlock('test', fieldBlock, testFieldTypes, testEnumTypes)).toEqual({
+  expect(createJsonSchemaForFieldBlock('test', fieldBlock, testFieldTypes, testEnumTypes, false)).toEqual({
     $schema: 'http://json-schema.org/draft-07/schema#',
     title: 'test',
     type: 'object',
@@ -52,6 +52,28 @@ test('A simple doc type can be verified.', () => {
       propB: { $ref: '#/definitions/float' },
       propE: { $ref: '#/definitions/trueFalse' },
       propQ: { type: 'array', items: { $ref: '#/definitions/string' } }
+    },
+    required: ['propA'],
+    definitions: {
+      integer: { type: 'integer' },
+      float: { type: 'number' },
+      trueFalse: { enum: [true, false] },
+      string: { type: 'string' }
+    }
+  })
+})
+
+test('A schema can be created for a nullable field block.', () => {
+  const fieldBlock = createFieldBlock()
+  expect(createJsonSchemaForFieldBlock('test', fieldBlock, testFieldTypes, testEnumTypes, true)).toEqual({
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    title: 'test',
+    type: 'object',
+    properties: {
+      propA: { oneOf: [{ type: 'null' }, { $ref: '#/definitions/integer' }] },
+      propB: { oneOf: [{ type: 'null' }, { $ref: '#/definitions/float' }] },
+      propE: { oneOf: [{ type: 'null' }, { $ref: '#/definitions/trueFalse' }] },
+      propQ: { type: ['array', 'null'], items: { $ref: '#/definitions/string' } }
     },
     required: ['propA'],
     definitions: {

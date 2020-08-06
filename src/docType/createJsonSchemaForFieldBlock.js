@@ -8,16 +8,21 @@ const getFieldOrEnumTypeFromArrays = require('./getFieldOrEnumTypeFromArrays')
  * @param {Object} fieldBlock A block of field declarations.
  * @param {Array} fieldTypes An array of field types.
  * @param {Array} enumTypes An array of enum types.
+ * @param {Boolean} isNullable True if the property values can be null.
  */
-function buildPropertiesObject (fieldBlock, fieldTypes, enumTypes) {
+function buildPropertiesObject (fieldBlock, fieldTypes, enumTypes, isNullable) {
   const properties = {}
 
   for (const fieldName in fieldBlock) {
     const field = fieldBlock[fieldName]
 
     properties[fieldName] = field.isArray
-      ? { type: 'array', items: { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type } }
-      : { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type }
+      ? isNullable
+        ? { type: ['array', 'null'], items: { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type } }
+        : { type: 'array', items: { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type } }
+      : isNullable
+        ? { oneOf: [{ type: 'null' }, { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type }] }
+        : { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type }
   }
 
   return properties
@@ -74,8 +79,9 @@ function buildDefinitionsBlock (fieldBlock, fieldTypes, enumTypes) {
  * @param {Object} fieldBlock A block of field declaratinons.
  * @param {Array} fieldTypes An array of field types.
  * @param {Array} enumTypes An array of enum types.
+ * @param {Boolean} isNullable True if the property values can be null.
  */
-function createJsonSchemaForFieldBlock (title, fieldBlock, fieldTypes, enumTypes) {
+function createJsonSchemaForFieldBlock (title, fieldBlock, fieldTypes, enumTypes, isNullable) {
   check.assert.string(title)
   check.assert.object(fieldBlock)
   check.assert.array.of.object(fieldTypes)
@@ -85,7 +91,7 @@ function createJsonSchemaForFieldBlock (title, fieldBlock, fieldTypes, enumTypes
     $schema: consts.JSON_SCHEMA_DECLARATION,
     title,
     type: 'object',
-    properties: buildPropertiesObject(fieldBlock, fieldTypes, enumTypes),
+    properties: buildPropertiesObject(fieldBlock, fieldTypes, enumTypes, isNullable),
     required: buildRequiredArray(fieldBlock),
     definitions: buildDefinitionsBlock(fieldBlock, fieldTypes, enumTypes)
   }

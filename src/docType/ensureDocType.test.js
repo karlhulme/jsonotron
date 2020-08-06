@@ -53,7 +53,11 @@ const createComplexValidDocType = () => ({
   },
   examples: [
     { value: { propA: 'a', propB: 'b' } },
-    { value: { propA: 'a', propB: 'b' }, paragraphs: ['some notes'] }
+    { value: { propA: 'c', propB: 'd' }, paragraphs: ['some notes'] }
+  ],
+  patchExamples: [
+    { value: { propA: 'a' } },
+    { value: { propA: 'b' }, paragraphs: ['patch notes'] }
   ],
   preSave: (doc) => {},
   validate: (doc) => {},
@@ -77,7 +81,7 @@ const createComplexValidDocType = () => ({
       paragraphs: ['how this filter works'],
       parameters: {
         x: { type: 'string', isRequired: true, paragraphs: ['parameter info'] },
-        y: { type: 'string', isArray: true }
+        y: { type: 'string', isArray: true, isDeprecated: true }
       },
       implementation: input => `some_col = "${input.x}"`,
       examples: [
@@ -86,12 +90,13 @@ const createComplexValidDocType = () => ({
       ]
     },
     byFixedValue: {
+      isDeprecated: true,
       implementation: input => 'some_col = "fixed"'
     }
   },
   ctor: {
     parameters: {
-      c: { type: 'boolean' },
+      c: { type: 'boolean', isDeprecated: true },
       d: { type: 'boolean', isArray: true, isRequired: true, paragraphs: ['a required parameter'] }
     },
     paragraphs: ['what the constructor', 'does'],
@@ -111,7 +116,7 @@ const createComplexValidDocType = () => ({
       title: 'Change Property B',
       paragraphs: ['this is what the operation does.'],
       parameters: {
-        c: { type: 'string', isRequired: true },
+        c: { type: 'string', isRequired: true, isDeprecated: true },
         propQ: { type: 'string', isArray: true, paragraphs: ['an array operation parameter.'] }
       },
       implementation: (doc, input) => {
@@ -124,7 +129,9 @@ const createComplexValidDocType = () => ({
         { value: { c: 'opText', propQ: ['marathon'] }, paragraphs: ['operation information'] }
       ]
     },
-    doNothing: {}
+    doNothing: {
+      isDeprecated: true
+    }
   },
   policy: {
     canDeleteDocuments: false,
@@ -215,4 +222,11 @@ test('Doc type with a calculated field name that clashes with a declared field n
   const candidate = createComplexValidDocType()
   candidate.calculatedFields.propA = { inputFields: [], type: 'string', value: () => 'hi' }
   expect(() => ensureDocType(ajv, candidate, testFieldTypes, testEnumTypes)).toThrow(/Calculated field name 'propA' clashes with a declared field name/)
+})
+
+test('Doc type with a constructor parameter name that clashes with a declared field name fails validation.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createComplexValidDocType()
+  candidate.ctor.parameters.propB = { type: 'string' }
+  expect(() => ensureDocType(ajv, candidate, testFieldTypes, testEnumTypes)).toThrow(/Constructor parameter 'propB' clashes/)
 })
