@@ -20,7 +20,7 @@ module.exports = {
         properties: {
           value: { type: ['string', 'integer', 'boolean'], description: 'A value.' },
           symbol: { type: 'string', description: 'A symbol that represents the enum value.' },
-          deprecated: { type: 'boolean', description: 'True if the value is no longer in use.' },
+          isDeprecated: { type: 'boolean', description: 'True if the value is no longer in use.' },
           paragraphs: { type: 'array', items: { type: 'string' }, description: 'The English display text of the value.' }
         },
         required: ['value']

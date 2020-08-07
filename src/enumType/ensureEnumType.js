@@ -61,8 +61,8 @@ function patchEnumType (enumType) {
       item.symbol = ''
     }
 
-    if (typeof item.deprecated === 'undefined') {
-      item.deprecated = false
+    if (typeof item.isDeprecated === 'undefined') {
+      item.isDeprecated = false
     }
   }
 }

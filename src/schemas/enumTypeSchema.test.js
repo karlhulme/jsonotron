@@ -10,7 +10,7 @@ test('Accept valid enum schema.', () => {
     type: 'enum',
     items: [
       { value: 'en', paragraphs: ['England'], symbol: 'EN' },
-      { value: 'us', parapraphs: ['United States'], deprecated: false },
+      { value: 'us', parapraphs: ['United States'], isDeprecated: false },
       { value: 'fr' }
     ]
   }
