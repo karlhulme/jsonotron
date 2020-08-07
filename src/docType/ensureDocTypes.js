@@ -6,6 +6,10 @@ const { consts, pascalToTitleCase } = require('../utils')
 const getFieldOrEnumTypeFromArrays = require('./getFieldOrEnumTypeFromArrays')
 const getSystemFieldNames = require('./getSystemFieldNames')
 const createValueValidatorForFieldOrEnumType = require('./createValueValidatorForFieldOrEnumType')
+const createJsonSchemaForConstructorParameters = require('./createJsonSchemaForConstructorParameters')
+const createJsonSchemaForFilterParameters = require('./createJsonSchemaForFilterParameters')
+const createJsonSchemaForMergePatch = require('./createJsonSchemaForMergePatch')
+const createJsonSchemaForOperationParameters = require('./createJsonSchemaForOperationParameters')
 
 /**
  * Raises an error if the given doc type does not conform
@@ -186,6 +190,7 @@ function patchDocType (docType) {
     const operation = docType.operations[operationName]
 
     if (typeof operation.title === 'undefined') { operation.title = pascalToTitleCase(operationName) }
+    if (typeof operation.parameters === 'undefined') { operation.parameters = {} }
     if (typeof operation.paragraphs === 'undefined') { operation.paragraphs = [] }
 
     for (const operationParameterName in operation.parameters) {
@@ -345,42 +350,153 @@ function ensureConstructorParameterNamesAreValid (docType) {
 }
 
 /**
- * Raises an error if the given doc type is not valid.
- * @param {Object} ajv A JSON schema validator.
+ * Raises an error if any examples do not conform to the schema.
+ * @param {Object} ajv A json validator.
  * @param {Object} docType A doc type.
  * @param {Array} fieldTypes An array of field types.
  * @param {Array} enumTypes An array of enum types.
  */
-function ensureDocType (ajv, docType, fieldTypes, enumTypes) {
+function ensureExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
+  const schema = createJsonSchemaForMergePatch(docType, fieldTypes, enumTypes)
+  const validator = ajv.compile(schema)
+
+  docType.examples.forEach((example, index) => {
+    if (!validator(example.value)) {
+      throw new JsonotronDocTypeValidationError(docType.name,
+        `Example at index ${index} does not match the schema.\n${JSON.stringify(validator.errors, null, 2)}`)
+    }
+  })
+}
+
+/**
+ * Raises an error if any patch examples do not conform to the schema.
+ * @param {Object} ajv A json validator.
+ * @param {Object} docType A doc type.
+ * @param {Array} fieldTypes An array of field types.
+ * @param {Array} enumTypes An array of enum types.
+ */
+function ensurePatchExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
+  const schema = createJsonSchemaForMergePatch(docType, fieldTypes, enumTypes)
+  const validator = ajv.compile(schema)
+
+  docType.patchExamples.forEach((example, index) => {
+    if (!validator(example.value)) {
+      throw new JsonotronDocTypeValidationError(docType.name,
+        `Patch example at index ${index} does not match the schema.\n${JSON.stringify(validator.errors, null, 2)}`)
+    }
+  })
+}
+
+/**
+ * Raises an error if any filter examples do not conform to the schema.
+ * @param {Object} ajv A json validator.
+ * @param {Object} docType A doc type.
+ * @param {Array} fieldTypes An array of field types.
+ * @param {Array} enumTypes An array of enum types.
+ */
+function ensureFilterExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
+  for (const filterName in docType.filters) {
+    const filter = docType.filters[filterName]
+
+    const schema = createJsonSchemaForFilterParameters(docType, filterName, fieldTypes, enumTypes)
+    const validator = ajv.compile(schema)
+
+    filter.examples.forEach((example, index) => {
+      if (!validator(example.value)) {
+        throw new JsonotronDocTypeValidationError(docType.name,
+          `Example for filter "${filterName}" at index ${index} does not match the schema.\n${JSON.stringify(validator.errors, null, 2)}`)
+      }
+    })
+  }
+}
+
+/**
+ * Raises an error if any constructor examples do not conform to the schema.
+ * @param {Object} ajv A json validator.
+ * @param {Object} docType A doc type.
+ * @param {Array} fieldTypes An array of field types.
+ * @param {Array} enumTypes An array of enum types.
+ */
+function ensureConstructorExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
+  const schema = createJsonSchemaForConstructorParameters(docType, fieldTypes, enumTypes)
+  const validator = ajv.compile(schema)
+
+  docType.ctor.examples.forEach((example, index) => {
+    if (!validator(example.value)) {
+      throw new JsonotronDocTypeValidationError(docType.name,
+        `Constructor example at index ${index} does not match the schema.\n${JSON.stringify(validator.errors, null, 2)}`)
+    }
+  })
+}
+
+/**
+ * Raises an error if any operation examples do not conform to the schema.
+ * @param {Object} ajv A json validator.
+ * @param {Object} docType A doc type.
+ * @param {Array} fieldTypes An array of field types.
+ * @param {Array} enumTypes An array of enum types.
+ */
+function ensureOperationExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
+  for (const operationName in docType.operations) {
+    const operation = docType.operations[operationName]
+
+    const schema = createJsonSchemaForOperationParameters(docType, operationName, fieldTypes, enumTypes)
+    const validator = ajv.compile(schema)
+
+    operation.examples.forEach((example, index) => {
+      if (!validator(example.value)) {
+        throw new JsonotronDocTypeValidationError(docType.name,
+          `Example for operation "${operationName}" at index ${index} does not match the schema.\n${JSON.stringify(validator.errors, null, 2)}`)
+      }
+    })
+  }
+}
+
+/**
+ * Raises an error if the given doc type is not valid.
+ * In order to validate a docType, we must first validate the field types
+ * and the enum types.  Due to avoid incurring this burden repeatedly,
+ * this method allows multiple docTypes to be validated together.
+ * @param {Object} ajv A JSON schema validator.
+ * @param {Array} docTypes An array of doc types.
+ * @param {Array} fieldTypes An array of field types.
+ * @param {Array} enumTypes An array of enum types.
+ */
+function ensureDocTypes (ajv, docTypes, fieldTypes, enumTypes) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
-  check.assert.object(docType)
+  check.assert.array.of.object(docTypes)
   check.assert.array.of.object(fieldTypes)
   check.assert.array.of.object(enumTypes)
 
   // check field types are valid (which implicitly checks the enumTypes too)
   ensureFieldTypes(ajv, fieldTypes, enumTypes)
 
-  // check schema
-  validateDocTypeWithSchema(ajv, docType)
+  docTypes.forEach(docType => {
+    // check schema
+    validateDocTypeWithSchema(ajv, docType)
 
-  // fill in the missing/optional parts
-  patchDocType(docType)
+    // fill in the missing/optional parts
+    patchDocType(docType)
 
-  // declared field checks
-  ensureDeclaredFieldNamesAreValid(docType)
-  ensureDeclaredFieldDefaultsAreValid(ajv, docType, fieldTypes, enumTypes)
+    // check declared fields
+    ensureDeclaredFieldNamesAreValid(docType)
+    ensureDeclaredFieldDefaultsAreValid(ajv, docType, fieldTypes, enumTypes)
 
-  // calculated field checks
-  ensureCalculatedFieldNamesAreValid(docType)
-  ensureCalculatedFieldInputsAreValid(docType)
+    // check calculated fields
+    ensureCalculatedFieldNamesAreValid(docType)
+    ensureCalculatedFieldInputsAreValid(docType)
 
-  // all constructor parameter checks
-  ensureConstructorParameterNamesAreValid(docType)
+    // check constructor parameters
+    ensureConstructorParameterNamesAreValid(docType)
 
-  // all field types and example checks
+    // check examples
+    ensureExamplesAreValid(ajv, docType, fieldTypes, enumTypes)
+    ensurePatchExamplesAreValid(ajv, docType, fieldTypes, enumTypes)
+    ensureFilterExamplesAreValid(ajv, docType, fieldTypes, enumTypes)
+    ensureConstructorExamplesAreValid(ajv, docType, fieldTypes, enumTypes)
+    ensureOperationExamplesAreValid(ajv, docType, fieldTypes, enumTypes)
+  })
 }
 
-// ensure doc types - which just validates the fields and enums once, before checking all the doc types
-
-module.exports = ensureDocType
+module.exports = ensureDocTypes

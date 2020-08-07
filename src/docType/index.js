@@ -1,4 +1,10 @@
 module.exports = {
-  ensureDocType: require('./ensureDocType'),
-  getSystemFieldNames: require('./getSystemFieldNames')
+  ensureDocTypes: require('./ensureDocTypes'),
+  getSystemFieldNames: require('./getSystemFieldNames'),
+
+  createJsonSchemaForConstructorParameters: require('./createJsonSchemaForConstructorParameters'),
+  createJsonSchemaForFilterParameters: require('./createJsonSchemaForFilterParameters'),
+  createJsonSchemaForInstance: require('./createJsonSchemaForInstance'),
+  createJsonSchemaForMergePatch: require('./createJsonSchemaForMergePatch'),
+  createJsonSchemaForOperationParameters: require('./createJsonSchemaForOperationParameters')
 }

@@ -11,10 +11,18 @@ test('The schemas are exported from the module.', () => {
 
 test('The validation methods are exported from the module.', () => {
   expect(mdl).toHaveProperty('ensureCategoryType')
-  expect(mdl).toHaveProperty('ensureDocType')
+  expect(mdl).toHaveProperty('ensureDocTypes')
   expect(mdl).toHaveProperty('ensureEnumType')
   expect(mdl).toHaveProperty('ensureFieldTypes')
   expect(mdl).toHaveProperty('ensureRoleType')
+})
+
+test('The schema creation methods are exported from the module', () => {
+  expect(mdl).toHaveProperty('createJsonSchemaForConstructorParameters')
+  expect(mdl).toHaveProperty('createJsonSchemaForFilterParameters')
+  expect(mdl).toHaveProperty('createJsonSchemaForInstance')
+  expect(mdl).toHaveProperty('createJsonSchemaForMergePatch')
+  expect(mdl).toHaveProperty('createJsonSchemaForOperationParameters')
 })
 
 test('The additional helper methods are exported from the module.', () => {

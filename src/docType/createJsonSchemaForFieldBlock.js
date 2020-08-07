@@ -16,13 +16,17 @@ function buildPropertiesObject (fieldBlock, fieldTypes, enumTypes, isNullable) {
   for (const fieldName in fieldBlock) {
     const field = fieldBlock[fieldName]
 
-    properties[fieldName] = field.isArray
-      ? isNullable
-        ? { type: ['array', 'null'], items: { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type } }
-        : { type: 'array', items: { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type } }
-      : isNullable
-        ? { oneOf: [{ type: 'null' }, { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type }] }
-        : { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type }
+    if (field.const) {
+      properties[fieldName] = { enum: [field.const] }
+    } else {
+      properties[fieldName] = field.isArray
+        ? isNullable
+          ? { type: ['array', 'null'], items: { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type } }
+          : { type: 'array', items: { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type } }
+        : isNullable
+          ? { oneOf: [{ type: 'null' }, { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type }] }
+          : { $ref: consts.JSON_SCHEMA_DEFINITIONS_PATH + field.type }
+    }
   }
 
   return properties
@@ -59,14 +63,16 @@ function buildDefinitionsBlock (fieldBlock, fieldTypes, enumTypes) {
   for (const fieldName in fieldBlock) {
     const field = fieldBlock[fieldName]
 
-    const fieldType = getFieldOrEnumTypeFromArrays(field.type, fieldTypes, enumTypes)
+    if (field.type) {
+      const fieldType = getFieldOrEnumTypeFromArrays(field.type, fieldTypes, enumTypes)
 
-    if (fieldType.type === 'field' && !refFieldTypes.includes(field.type)) {
-      refFieldTypes.push(field.type)
-    }
+      if (fieldType.type === 'field' && !refFieldTypes.includes(field.type)) {
+        refFieldTypes.push(field.type)
+      }
 
-    if (fieldType.type === 'enum' && !refEnumTypes.includes(field.type)) {
-      refEnumTypes.push(field.type)
+      if (fieldType.type === 'enum' && !refEnumTypes.includes(field.type)) {
+        refEnumTypes.push(field.type)
+      }
     }
   }
 
@@ -75,6 +81,8 @@ function buildDefinitionsBlock (fieldBlock, fieldTypes, enumTypes) {
 
 /**
  * Creates a JSON Schema for the given block of field declarations.
+ * This also supports non-field declarations such as { const: 'value' }
+ * and { any: true }.
  * @param {String} title The title to be applied to the returned schema.
  * @param {Object} fieldBlock A block of field declaratinons.
  * @param {Array} fieldTypes An array of field types.

@@ -53,8 +53,8 @@ function patchEnumType (enumType) {
   }
 
   for (const item of enumType.items) {
-    if (typeof item.text === 'undefined') {
-      item.text = pascalToTitleCase(item.value.toString())
+    if (typeof item.paragraphs === 'undefined') {
+      item.paragraphs = [pascalToTitleCase(item.value.toString())]
     }
 
     if (typeof item.symbol === 'undefined') {

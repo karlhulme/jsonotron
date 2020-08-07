@@ -10,8 +10,8 @@ function createValidEnumType () {
     title: 'Candidate Enum Type Here',
     paragraphs: ['A description of the enuum', 'appears here.'],
     items: [
-      { value: 'en', text: 'England', symbol: 'EN' },
-      { value: 'us', text: 'United States', deprecated: false },
+      { value: 'en', paragraphs: ['England'], symbol: 'EN' },
+      { value: 'us', paragraphs: ['United States'], deprecated: false },
       { value: 'fr' }
     ]
   }
@@ -32,9 +32,9 @@ test('Valid enum type can be verified.', () => {
   expect(() => ensureEnumType(ajv, et)).not.toThrow()
   expect(et.title).toEqual('Candidate Enum Type Here')
   expect(et.items.length).toEqual(3)
-  expect(et.items[0]).toEqual({ value: 'en', text: 'England', symbol: 'EN', deprecated: false })
-  expect(et.items[1]).toEqual({ value: 'us', text: 'United States', symbol: '', deprecated: false })
-  expect(et.items[2]).toEqual({ value: 'fr', text: 'Fr', symbol: '', deprecated: false })
+  expect(et.items[0]).toEqual({ value: 'en', paragraphs: ['England'], symbol: 'EN', deprecated: false })
+  expect(et.items[1]).toEqual({ value: 'us', paragraphs: ['United States'], symbol: '', deprecated: false })
+  expect(et.items[2]).toEqual({ value: 'fr', paragraphs: ['Fr'], symbol: '', deprecated: false })
 })
 
 test('Minimal enum type can be verified.', () => {
@@ -45,7 +45,7 @@ test('Minimal enum type can be verified.', () => {
   expect(et.title).toEqual('Minimal Enum Type')
   expect(et.paragraphs).toEqual([])
   expect(et.items.length).toEqual(1)
-  expect(et.items[0]).toEqual({ value: 'albatross', text: 'Albatross', symbol: '', deprecated: false })
+  expect(et.items[0]).toEqual({ value: 'albatross', paragraphs: ['Albatross'], symbol: '', deprecated: false })
 })
 
 test('Enum type with invalid name fails verification.', () => {

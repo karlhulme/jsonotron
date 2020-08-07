@@ -1,7 +1,7 @@
 /* eslint-env jest */
 const { JsonotronDocTypeValidationError } = require('jsonotron-errors')
 const { createCustomisedAjv } = require('../validator')
-const ensureDocType = require('./ensureDocType')
+const ensureDocTypes = require('./ensureDocTypes')
 
 const testEnumTypes = [
   {
@@ -85,8 +85,8 @@ const createComplexValidDocType = () => ({
       },
       implementation: input => `some_col = "${input.x}"`,
       examples: [
-        { value: { x: 'xx', y: 'yy' } },
-        { value: { x: 'xx', y: 'yy' }, paragraphs: ['filter information'] }
+        { value: { x: 'xx', y: ['yy'] } },
+        { value: { x: 'xx', y: ['yy'] }, paragraphs: ['filter information'] }
       ]
     },
     byFixedValue: {
@@ -147,19 +147,19 @@ const createComplexValidDocType = () => ({
 
 test('A simple doc type can be verified.', () => {
   const ajv = createCustomisedAjv()
-  expect(() => ensureDocType(ajv, createSimpleValidDocType(), testFieldTypes, testEnumTypes)).not.toThrow()
+  expect(() => ensureDocTypes(ajv, [createSimpleValidDocType()], testFieldTypes, testEnumTypes)).not.toThrow()
 })
 
 test('The functions added to a doc type by default can be executed.', () => {
   const ajv = createCustomisedAjv()
   const simpleDocType = createSimpleValidDocType()
-  ensureDocType(ajv, simpleDocType, testFieldTypes, testEnumTypes)
+  ensureDocTypes(ajv, [simpleDocType], testFieldTypes, testEnumTypes)
   expect(() => simpleDocType.preSave()).not.toThrow()
   expect(() => simpleDocType.validate()).not.toThrow()
   expect(simpleDocType.ctor.implementation()).toEqual({})
 
   const complexDocType = createComplexValidDocType()
-  ensureDocType(ajv, complexDocType, testFieldTypes, testEnumTypes)
+  ensureDocTypes(ajv, [complexDocType], testFieldTypes, testEnumTypes)
   expect(complexDocType.operations.doNothing.implementation()).toEqual({})
 })
 
@@ -167,66 +167,94 @@ test('A doc type without any fields can be verified.', () => {
   const ajv = createCustomisedAjv()
   const docType = createSimpleValidDocType()
   delete docType.fields
-  expect(() => ensureDocType(ajv, docType, testFieldTypes, testEnumTypes)).not.toThrow()
+  expect(() => ensureDocTypes(ajv, [docType], testFieldTypes, testEnumTypes)).not.toThrow()
 })
 
 test('A complex doc type can be verified.', () => {
   const ajv = createCustomisedAjv()
-  expect(() => ensureDocType(ajv, createComplexValidDocType(), testFieldTypes, testEnumTypes)).not.toThrow()
+  expect(() => ensureDocTypes(ajv, [createComplexValidDocType()], testFieldTypes, testEnumTypes)).not.toThrow()
 })
 
 test('An invalid doc type cannot be verified.', () => {
   const ajv = createCustomisedAjv()
   const docType = createSimpleValidDocType()
   delete docType.name
-  expect(() => ensureDocType(ajv, docType, testFieldTypes, testEnumTypes)).toThrow(JsonotronDocTypeValidationError)
+  expect(() => ensureDocTypes(ajv, [docType], testFieldTypes, testEnumTypes)).toThrow(JsonotronDocTypeValidationError)
 })
-
-// test('Doc type with unrecognised constructor parameter field type fails validation.', () => {
-//   const ajv = createCustomisedAjv()
-//   const candidate = createComplexValidDocType()
-//   candidate.ctor.parameters.propD = { type: 'invalid' }
-//   expect(() => ensureDocType(ajv, candidate, testFieldTypes, testEnumTypes)).toThrow(/Constructor parameter 'propD' declares an unrecognised type of 'invalid'./)
-// })
 
 test('Doc type with invalid default fails validation.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createComplexValidDocType()
   candidate.fields.propB.default = 999
-  expect(() => ensureDocType(ajv, candidate, testFieldTypes, testEnumTypes)).toThrow(/Field name 'propB' declares a default value '999'/)
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Field name 'propB' declares a default value '999'/)
 })
 
 test('Doc type with calculated field input that refers to unrecognised field fails validation.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createComplexValidDocType()
   candidate.calculatedFields.propAandB.inputFields = ['a', 'madeup', 'b']
-  expect(() => ensureDocType(ajv, candidate, testFieldTypes, testEnumTypes)).toThrow(/Calculated field 'propAandB' requires unrecognised input field/)
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Calculated field 'propAandB' requires unrecognised input field/)
 })
 
 test('Doc type with a field name that clashes with a system property name fails validation.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createComplexValidDocType()
   candidate.fields.id = { type: 'string' }
-  expect(() => ensureDocType(ajv, candidate, testFieldTypes, testEnumTypes)).toThrow(/Field name 'id' clashes with a reserved system field name/)
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Field name 'id' clashes with a reserved system field name/)
 })
 
 test('Doc type with a calculated field name that clashes with a system property name fails validation.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createComplexValidDocType()
   candidate.calculatedFields.id = { inputFields: [], type: 'string', value: () => 'hi' }
-  expect(() => ensureDocType(ajv, candidate, testFieldTypes, testEnumTypes)).toThrow(/Calculated field name 'id' clashes with a reserved system field name/)
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Calculated field name 'id' clashes with a reserved system field name/)
 })
 
 test('Doc type with a calculated field name that clashes with a declared field name fails validation.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createComplexValidDocType()
   candidate.calculatedFields.propA = { inputFields: [], type: 'string', value: () => 'hi' }
-  expect(() => ensureDocType(ajv, candidate, testFieldTypes, testEnumTypes)).toThrow(/Calculated field name 'propA' clashes with a declared field name/)
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Calculated field name 'propA' clashes with a declared field name/)
 })
 
 test('Doc type with a constructor parameter name that clashes with a declared field name fails validation.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createComplexValidDocType()
   candidate.ctor.parameters.propB = { type: 'string' }
-  expect(() => ensureDocType(ajv, candidate, testFieldTypes, testEnumTypes)).toThrow(/Constructor parameter 'propB' clashes/)
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Constructor parameter 'propB' clashes/)
+})
+
+test('Doc type with a invalid example fails validation.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createComplexValidDocType()
+  candidate.examples[0].value.propA = false
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Example at index 0 does not match the schema/)
+})
+
+test('Doc type with a invalid patch example fails validation.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createComplexValidDocType()
+  candidate.patchExamples[1].value.propA = 123
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Patch example at index 1 does not match the schema/)
+})
+
+test('Doc type with a invalid filter example fails validation.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createComplexValidDocType()
+  delete candidate.filters.byDateOfBirth.examples[0].value.x
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Example for filter "byDateOfBirth" at index 0 does not match the schema/)
+})
+
+test('Doc type with a invalid constructor example fails validation.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createComplexValidDocType()
+  candidate.ctor.examples[1].value.c = 'not-a-boolean'
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Constructor example at index 1 does not match the schema/)
+})
+
+test('Doc type with a invalid operation example fails validation.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createComplexValidDocType()
+  candidate.operations.changePropB.examples[0].value.propQ = 'not-an-array'
+  expect(() => ensureDocTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/Example for operation "changePropB" at index 0 does not match the schema/)
 })

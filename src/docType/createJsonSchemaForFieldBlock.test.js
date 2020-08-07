@@ -38,7 +38,8 @@ const createFieldBlock = () => ({
   propA: { type: 'integer', isRequired: true, canUpdate: true },
   propB: { type: 'float', default: 1.2 },
   propE: { type: 'trueFalse' },
-  propQ: { type: 'string', isArray: true }
+  propQ: { type: 'string', isArray: true },
+  propY: { const: 'hello' }
 })
 
 test('A schema can be created for a field block.', () => {
@@ -51,7 +52,8 @@ test('A schema can be created for a field block.', () => {
       propA: { $ref: '#/definitions/integer' },
       propB: { $ref: '#/definitions/float' },
       propE: { $ref: '#/definitions/trueFalse' },
-      propQ: { type: 'array', items: { $ref: '#/definitions/string' } }
+      propQ: { type: 'array', items: { $ref: '#/definitions/string' } },
+      propY: { enum: ['hello'] }
     },
     required: ['propA'],
     definitions: {
@@ -73,7 +75,8 @@ test('A schema can be created for a nullable field block.', () => {
       propA: { oneOf: [{ type: 'null' }, { $ref: '#/definitions/integer' }] },
       propB: { oneOf: [{ type: 'null' }, { $ref: '#/definitions/float' }] },
       propE: { oneOf: [{ type: 'null' }, { $ref: '#/definitions/trueFalse' }] },
-      propQ: { type: ['array', 'null'], items: { $ref: '#/definitions/string' } }
+      propQ: { type: ['array', 'null'], items: { $ref: '#/definitions/string' } },
+      propY: { enum: ['hello'] }
     },
     required: ['propA'],
     definitions: {
