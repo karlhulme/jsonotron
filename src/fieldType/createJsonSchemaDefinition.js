@@ -2,7 +2,7 @@ const check = require('check-types')
 const { consts } = require('../utils')
 const { createJsonSchemaFragmentForEnumType } = require('../enumType')
 const createJsonSchemaFragmentForFieldType = require('./createJsonSchemaFragmentForFieldType')
-const getReferencedFieldAndEnumTypeNames = require('./getReferencedFieldAndEnumTypeNames')
+const determineReferencedTypeNames = require('./determineReferencedTypeNames')
 
 /**
  * Creates the definitions portion of a JSON Schema that includes the
@@ -18,20 +18,21 @@ function createJsonSchemaDefinition (fieldTypeNames, enumTypeNames, fieldTypes, 
   check.assert.array.of.object(fieldTypes)
   check.assert.array.of.object(enumTypes)
 
-  const refFieldTypeNames = getReferencedFieldAndEnumTypeNames(fieldTypeNames.concat(enumTypeNames), fieldTypes, enumTypes)
+  const referencedTypeNames = determineReferencedTypeNames(fieldTypeNames, enumTypeNames, fieldTypes, enumTypes)
 
-  return refFieldTypeNames.reduce((acc, cur) => {
-    const refFieldType = fieldTypes.find(ft => ft.name === cur)
-    const refEnumType = enumTypes.find(et => et.name === cur)
+  const defs = {}
 
-    if (refFieldType) {
-      acc[cur] = createJsonSchemaFragmentForFieldType(refFieldType, consts.JSON_SCHEMA_DEFINITIONS_PATH)
-    } else {
-      acc[cur] = createJsonSchemaFragmentForEnumType(refEnumType)
-    }
+  for (const fieldTypeName of referencedTypeNames.fieldTypeNames) {
+    const fieldType = fieldTypes.find(ft => ft.name === fieldTypeName)
+    defs[fieldTypeName] = createJsonSchemaFragmentForFieldType(fieldType, consts.JSON_SCHEMA_DEFINITIONS_PATH)
+  }
 
-    return acc
-  }, {})
+  for (const enumTypeName of referencedTypeNames.enumTypeNames) {
+    const enumType = enumTypes.find(ft => ft.name === enumTypeName)
+    defs[enumTypeName] = createJsonSchemaFragmentForEnumType(enumType)
+  }
+
+  return defs
 }
 
 module.exports = createJsonSchemaDefinition

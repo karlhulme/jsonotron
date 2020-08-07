@@ -11,5 +11,5 @@ module.exports = {
   createValueValidatorForFieldType: require('./createValueValidatorForFieldType'),
   createValueValidatorForFieldTypeArray: require('./createValueValidatorForFieldTypeArray'),
 
-  getReferencedFieldAndEnumTypeNames: require('./getReferencedFieldAndEnumTypeNames')
+  determineReferencedTypeNames: require('./determineReferencedTypeNames')
 }
