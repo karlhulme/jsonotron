@@ -1,5 +1,5 @@
 const check = require('check-types')
-const { JsonotronDocTypeValidationError } = require('jsonotron-errors')
+const { JsonotronDocTypesDocumentationMissingError, JsonotronDocTypeValidationError } = require('jsonotron-errors')
 const { docTypeSchema } = require('../schemas')
 const { ensureFieldTypes } = require('../fieldType')
 const { consts, pascalToTitleCase } = require('../utils')
@@ -37,22 +37,23 @@ function validateDocTypeWithSchema (ajv, docType) {
 function patchDocType (docType) {
   check.assert.object(docType)
 
-  // top level
+  const missingDocumentationProperties = []
 
-  if (typeof docType.pluralName === 'undefined') {
-    docType.pluralName = docType.name + 's'
-  }
+  // top level
 
   if (typeof docType.title === 'undefined') {
     docType.title = pascalToTitleCase(docType.name)
+    missingDocumentationProperties.push('title')
   }
 
   if (typeof docType.pluralTitle === 'undefined') {
     docType.pluralTitle = pascalToTitleCase(docType.pluralName)
+    missingDocumentationProperties.push('pluralTitle')
   }
 
   if (typeof docType.paragraphs === 'undefined') {
     docType.paragraphs = []
+    missingDocumentationProperties.push('paragraphs')
   }
 
   // fields
@@ -68,7 +69,11 @@ function patchDocType (docType) {
     if (typeof field.isArray === 'undefined') { field.isArray = false }
     if (typeof field.isDeprecated === 'undefined') { field.isDeprecated = false }
     if (typeof field.canUpdate === 'undefined') { field.canUpdate = false }
-    if (typeof field.paragraphs === 'undefined') { field.paragraphs = [] }
+
+    if (typeof field.paragraphs === 'undefined') {
+      field.paragraphs = []
+      missingDocumentationProperties.push(`fields['${fieldName}'].paragraphs`)
+    }
   }
 
   // validation
@@ -87,9 +92,12 @@ function patchDocType (docType) {
     docType.examples = []
   }
 
-  for (const example of docType.examples) {
-    if (typeof example.paragraphs === 'undefined') { example.paragraphs = [] }
-  }
+  docType.examples.forEach((example, index) => {
+    if (typeof example.paragraphs === 'undefined') {
+      example.paragraphs = []
+      missingDocumentationProperties.push(`examples[${index}].paragraphs`)
+    }
+  })
 
   // patchExamples
 
@@ -97,9 +105,12 @@ function patchDocType (docType) {
     docType.patchExamples = []
   }
 
-  for (const example of docType.patchExamples) {
-    if (typeof example.paragraphs === 'undefined') { example.paragraphs = [] }
-  }
+  docType.patchExamples.forEach((example, index) => {
+    if (typeof example.paragraphs === 'undefined') {
+      example.paragraphs = []
+      missingDocumentationProperties.push(`patchExamples[${index}].paragraphs`)
+    }
+  })
 
   // calculated fields
 
@@ -111,7 +122,11 @@ function patchDocType (docType) {
     const calculatedField = docType.calculatedFields[calculatedFieldName]
 
     if (typeof calculatedField.isArray === 'undefined') { calculatedField.isArray = false }
-    if (typeof calculatedField.paragraphs === 'undefined') { calculatedField.paragraphs = [] }
+
+    if (typeof calculatedField.paragraphs === 'undefined') {
+      calculatedField.paragraphs = []
+      missingDocumentationProperties.push(`patchExamples['${calculatedFieldName}'].paragraphs`)
+    }
   }
 
   // filters
@@ -123,9 +138,17 @@ function patchDocType (docType) {
   for (const filterName in docType.filters) {
     const filter = docType.filters[filterName]
 
-    if (typeof filter.title === 'undefined') { filter.title = pascalToTitleCase(filterName) }
-    if (typeof filter.paragraphs === 'undefined') { filter.paragraphs = [] }
     if (typeof filter.parameters === 'undefined') { filter.parameters = {} }
+
+    if (typeof filter.title === 'undefined') {
+      filter.title = pascalToTitleCase(filterName)
+      missingDocumentationProperties.push(`filters['${filterName}'].title`)
+    }
+
+    if (typeof filter.paragraphs === 'undefined') {
+      filter.paragraphs = []
+      missingDocumentationProperties.push(`filters['${filterName}'].paragraphs`)
+    }
 
     for (const filterParameterName in filter.parameters) {
       const filterParameter = filter.parameters[filterParameterName]
@@ -133,14 +156,21 @@ function patchDocType (docType) {
       if (typeof filterParameter.isArray === 'undefined') { filterParameter.isArray = false }
       if (typeof filterParameter.isRequired === 'undefined') { filterParameter.isRequired = false }
       if (typeof filterParameter.isDeprecated === 'undefined') { filterParameter.isDeprecated = false }
-      if (typeof filterParameter.paragraphs === 'undefined') { filterParameter.paragraphs = [] }
+
+      if (typeof filterParameter.paragraphs === 'undefined') {
+        filterParameter.paragraphs = []
+        missingDocumentationProperties.push(`filters['${filterName}'].parameters['${filterParameterName}'].paragraphs`)
+      }
     }
 
     if (typeof filter.examples === 'undefined') { filter.examples = [] }
 
-    for (const example of filter.examples) {
-      if (typeof example.paragraphs === 'undefined') { example.paragraphs = [] }
-    }
+    filter.examples.forEach((example, index) => {
+      if (typeof example.paragraphs === 'undefined') {
+        example.paragraphs = []
+        missingDocumentationProperties.push(`filters['${filterName}'].examples[${index}].paragraphs`)
+      }
+    })
 
     if (typeof filter.isDeprecated === 'undefined') { filter.isDeprecated = false }
   }
@@ -153,6 +183,7 @@ function patchDocType (docType) {
 
   if (typeof docType.ctor.paragraphs === 'undefined') {
     docType.ctor.paragraphs = []
+    missingDocumentationProperties.push('ctor.paragraphs')
   }
 
   if (typeof docType.ctor.parameters === 'undefined') {
@@ -165,7 +196,11 @@ function patchDocType (docType) {
     if (typeof ctorParameter.isArray === 'undefined') { ctorParameter.isArray = false }
     if (typeof ctorParameter.isRequired === 'undefined') { ctorParameter.isRequired = false }
     if (typeof ctorParameter.isDeprecated === 'undefined') { ctorParameter.isDeprecated = false }
-    if (typeof ctorParameter.paragraphs === 'undefined') { ctorParameter.paragraphs = [] }
+
+    if (typeof ctorParameter.paragraphs === 'undefined') {
+      ctorParameter.paragraphs = []
+      missingDocumentationProperties.push(`ctor.parameters['${ctorParameterName}'].paragraphs`)
+    }
   }
 
   if (typeof docType.ctor.implementation === 'undefined') {
@@ -176,9 +211,12 @@ function patchDocType (docType) {
     docType.ctor.examples = []
   }
 
-  for (const example of docType.ctor.examples) {
-    if (typeof example.paragraphs === 'undefined') { example.paragraphs = [] }
-  }
+  docType.ctor.examples.forEach((example, index) => {
+    if (typeof example.paragraphs === 'undefined') {
+      example.paragraphs = []
+      missingDocumentationProperties.push(`ctor.examples[${index}].paragraphs`)
+    }
+  })
 
   // operations
 
@@ -189,9 +227,17 @@ function patchDocType (docType) {
   for (const operationName in docType.operations) {
     const operation = docType.operations[operationName]
 
-    if (typeof operation.title === 'undefined') { operation.title = pascalToTitleCase(operationName) }
     if (typeof operation.parameters === 'undefined') { operation.parameters = {} }
-    if (typeof operation.paragraphs === 'undefined') { operation.paragraphs = [] }
+
+    if (typeof operation.title === 'undefined') {
+      operation.title = pascalToTitleCase(operationName)
+      missingDocumentationProperties.push(`operations['${operationName}'].title`)
+    }
+
+    if (typeof operation.paragraphs === 'undefined') {
+      operation.paragraphs = []
+      missingDocumentationProperties.push(`operations['${operationName}'].paragraphs`)
+    }
 
     for (const operationParameterName in operation.parameters) {
       const operationParameter = operation.parameters[operationParameterName]
@@ -199,16 +245,23 @@ function patchDocType (docType) {
       if (typeof operationParameter.isArray === 'undefined') { operationParameter.isArray = false }
       if (typeof operationParameter.isRequired === 'undefined') { operationParameter.isRequired = false }
       if (typeof operationParameter.isDeprecated === 'undefined') { operationParameter.isDeprecated = false }
-      if (typeof operationParameter.paragraphs === 'undefined') { operationParameter.paragraphs = [] }
+
+      if (typeof operationParameter.paragraphs === 'undefined') {
+        operationParameter.paragraphs = []
+        missingDocumentationProperties.push(`operations['${operationName}'].parameters['${operationParameterName}'].paragraphs`)
+      }
     }
 
     if (typeof operation.implementation === 'undefined') { operation.implementation = () => ({}) }
 
     if (typeof operation.examples === 'undefined') { operation.examples = [] }
 
-    for (const example of operation.examples) {
-      if (typeof example.paragraphs === 'undefined') { example.paragraphs = [] }
-    }
+    operation.examples.forEach((example, index) => {
+      if (typeof example.paragraphs === 'undefined') {
+        example.paragraphs = []
+        missingDocumentationProperties.push(`operations['${operationName}'].examples[${index}].paragraphs`)
+      }
+    })
 
     if (typeof operation.isDeprecated === 'undefined') { operation.isDeprecated = false }
   }
@@ -229,6 +282,8 @@ function patchDocType (docType) {
   if (typeof docType.docStoreOptions === 'undefined') {
     docType.docStoreOptions = {}
   }
+
+  return missingDocumentationProperties
 }
 
 /**
@@ -461,23 +516,31 @@ function ensureOperationExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
  * @param {Array} docTypes An array of doc types.
  * @param {Array} fieldTypes An array of field types.
  * @param {Array} enumTypes An array of enum types.
+ * @param {Boolean} includeDocumentation True if missing documentation should
+ * cause the validation to fail.
  */
-function ensureDocTypes (ajv, docTypes, fieldTypes, enumTypes) {
+function ensureDocTypes (ajv, docTypes, fieldTypes, enumTypes, includeDocumentation) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
   check.assert.array.of.object(docTypes)
   check.assert.array.of.object(fieldTypes)
   check.assert.array.of.object(enumTypes)
 
+  const missingDocumentationBlocks = []
+
   // check field types are valid (which implicitly checks the enumTypes too)
-  ensureFieldTypes(ajv, fieldTypes, enumTypes)
+  ensureFieldTypes(ajv, fieldTypes, enumTypes, includeDocumentation)
 
   docTypes.forEach(docType => {
     // check schema
     validateDocTypeWithSchema(ajv, docType)
 
     // fill in the missing/optional parts
-    patchDocType(docType)
+    const missingDocumentationProperties = patchDocType(docType)
+
+    if (missingDocumentationProperties.length > 0) {
+      missingDocumentationBlocks.push({ docTypeName: docType.name, propertyPaths: missingDocumentationProperties })
+    }
 
     // check declared fields
     ensureDeclaredFieldNamesAreValid(docType)
@@ -497,6 +560,10 @@ function ensureDocTypes (ajv, docTypes, fieldTypes, enumTypes) {
     ensureConstructorExamplesAreValid(ajv, docType, fieldTypes, enumTypes)
     ensureOperationExamplesAreValid(ajv, docType, fieldTypes, enumTypes)
   })
+
+  if (includeDocumentation && missingDocumentationBlocks.length > 0) {
+    throw new JsonotronDocTypesDocumentationMissingError(missingDocumentationBlocks)
+  }
 }
 
 module.exports = ensureDocTypes

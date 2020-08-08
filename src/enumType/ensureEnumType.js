@@ -1,5 +1,5 @@
 const check = require('check-types')
-const { JsonotronEnumTypeValidationError } = require('jsonotron-errors')
+const { JsonotronEnumTypeDocumentationMissingError, JsonotronEnumTypeValidationError } = require('jsonotron-errors')
 const { enumTypeSchema } = require('../schemas')
 const { pascalToTitleCase } = require('../utils')
 
@@ -40,21 +40,26 @@ function validateItemValuesAreUnique (enumType) {
  * @param {Object} enumType An enum type object to check for validity.
  */
 function patchEnumType (enumType) {
+  const missingDocumentationProperties = []
+
   if (typeof enumType.type === 'undefined') {
     enumType.type = 'enum'
   }
 
   if (typeof enumType.title === 'undefined') {
     enumType.title = pascalToTitleCase(enumType.name)
+    missingDocumentationProperties.push('title')
   }
 
   if (typeof enumType.paragraphs === 'undefined') {
     enumType.paragraphs = []
+    missingDocumentationProperties.push('paragraphs')
   }
 
   for (const item of enumType.items) {
     if (typeof item.paragraphs === 'undefined') {
       item.paragraphs = [pascalToTitleCase(item.value.toString())]
+      missingDocumentationProperties.push(`items['${item.value}'].paragraphs`)
     }
 
     if (typeof item.symbol === 'undefined') {
@@ -65,6 +70,8 @@ function patchEnumType (enumType) {
       item.isDeprecated = false
     }
   }
+
+  return missingDocumentationProperties
 }
 
 /**
@@ -72,15 +79,21 @@ function patchEnumType (enumType) {
  * patches in any missing/optional fields.
  * @param {Object} ajv A JSON schema validator.
  * @param {Object} enumType An enum type object to check for validatity.
+ * @param {Boolean} includeDocumentation True if missing documentation should
+ * cause the validation to fail.
  */
-function ensureEnumType (ajv, enumType) {
+function ensureEnumType (ajv, enumType, includeDocumentation) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
   check.assert.object(enumType)
 
   validateEnumTypeWithSchema(ajv, enumType)
   validateItemValuesAreUnique(enumType)
-  patchEnumType(enumType)
+  const missingDocumentationProperties = patchEnumType(enumType)
+
+  if (includeDocumentation && missingDocumentationProperties.length > 0) {
+    throw new JsonotronEnumTypeDocumentationMissingError(enumType.name, missingDocumentationProperties)
+  }
 }
 
 module.exports = ensureEnumType

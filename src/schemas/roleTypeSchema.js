@@ -5,6 +5,11 @@ module.exports = {
   properties: {
     name: { type: 'string', pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$', description: 'The role type name.' },
     title: { type: 'string', description: 'The title (display name) of the role type.' },
+    paragraphs: {
+      type: 'array',
+      description: 'An array of paragraphs that describe the usage of the field.',
+      items: { type: 'string' }
+    },
     docPermissions: {
       oneOf: [{
         enum: [true]

@@ -1,5 +1,5 @@
 const check = require('check-types')
-const { JsonotronFieldTypeValidationError } = require('jsonotron-errors')
+const { JsonotronFieldTypesDocumentationMissingError, JsonotronFieldTypeValidationError } = require('jsonotron-errors')
 const { fieldTypeSchema } = require('../schemas')
 const { ensureEnumType } = require('../enumType')
 const { pascalToTitleCase } = require('../utils')
@@ -28,31 +28,37 @@ function validateEnumTypeWithSchema (ajv, fieldType) {
  * @param {Object} roleType A role type object to check for validity.
  */
 function patchFieldType (fieldType) {
+  const missingDocumentationProperties = []
+
   if (typeof fieldType.type === 'undefined') {
     fieldType.type = 'field'
   }
 
   if (typeof fieldType.title === 'undefined') {
     fieldType.title = pascalToTitleCase(fieldType.name)
+    missingDocumentationProperties.push('title')
   }
 
   if (typeof fieldType.category === 'undefined') {
     fieldType.category = ''
+    missingDocumentationProperties.push('category')
   }
 
   if (typeof fieldType.paragraphs === 'undefined') {
     fieldType.paragraphs = []
+    missingDocumentationProperties.push('paragraphs')
   }
 
   if (typeof fieldType.examples === 'undefined') {
     fieldType.examples = []
   }
 
-  for (const example of fieldType.examples) {
+  fieldType.examples.forEach((example, index) => {
     if (typeof example.paragraphs === 'undefined') {
       example.paragraphs = []
+      missingDocumentationProperties.push(`examples[${index}].paragraphs`)
     }
-  }
+  })
 
   if (typeof fieldType.validTestCases === 'undefined') {
     fieldType.validTestCases = []
@@ -69,6 +75,8 @@ function patchFieldType (fieldType) {
   if (typeof fieldType.referencedEnumTypes === 'undefined') {
     fieldType.referencedEnumTypes = []
   }
+
+  return missingDocumentationProperties
 }
 
 /**
@@ -134,12 +142,16 @@ function ensureInvalidTestCasesAreInvalid (fieldTypeName, validator, invalidTest
  * @param {Object} ajv A JSON schema validator.
  * @param {Array} fieldTypes An array of field types.
  * @param {Array} enumTypes An array of enum types.
+ * @param {Boolean} includeDocumentation True if missing documentation should
+ * cause the validation to fail.
  */
-function ensureFieldTypes (ajv, fieldTypes, enumTypes) {
+function ensureFieldTypes (ajv, fieldTypes, enumTypes, includeDocumentation) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
   check.assert.array.of.object(fieldTypes)
   check.assert.array.of.object(enumTypes)
+
+  const missingDocumentationBlocks = []
 
   // first ensure the enum types are valid
   enumTypes.forEach(enumType => ensureEnumType(ajv, enumType))
@@ -148,7 +160,12 @@ function ensureFieldTypes (ajv, fieldTypes, enumTypes) {
   // the schema and we patch in any missing fields.
   fieldTypes.forEach(fieldType => {
     validateEnumTypeWithSchema(ajv, fieldType)
-    patchFieldType(fieldType)
+
+    const missingDocumentationProperties = patchFieldType(fieldType)
+
+    if (missingDocumentationProperties.length > 0) {
+      missingDocumentationBlocks.push({ fieldTypeName: fieldType.name, propertyPaths: missingDocumentationProperties })
+    }
   })
 
   // in the second pass we build a validator (which may involve importing the definitions
@@ -159,6 +176,10 @@ function ensureFieldTypes (ajv, fieldTypes, enumTypes) {
     ensureValidTestCasesAreValid(fieldType.name, validator, fieldType.validTestCases)
     ensureInvalidTestCasesAreInvalid(fieldType.name, validator, fieldType.invalidTestCases)
   })
+
+  if (includeDocumentation && missingDocumentationBlocks.length > 0) {
+    throw new JsonotronFieldTypesDocumentationMissingError(missingDocumentationBlocks)
+  }
 }
 
 module.exports = ensureFieldTypes

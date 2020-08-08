@@ -1,12 +1,20 @@
 /* eslint-env jest */
-const { JsonotronRoleTypeValidationError } = require('jsonotron-errors')
+const { JsonotronRoleTypeDocumentationMissingError, JsonotronRoleTypeValidationError } = require('jsonotron-errors')
 const { createCustomisedAjv } = require('../validator')
 const ensureRoleType = require('./ensureRoleType')
+
+function createMinimalRoleType () {
+  return {
+    name: 'super',
+    docPermissions: true
+  }
+}
 
 function createValidRoleType () {
   return {
     name: 'candidateRole',
     title: 'The Role',
+    paragraphs: ['A candidate role.'],
     docPermissions: {
       place: {
         query: {
@@ -26,12 +34,20 @@ function createValidRoleType () {
   }
 }
 
-test('A role type with global document permissions will validate.', () => {
+test('A minimal role type will validate.', () => {
   const ajv = createCustomisedAjv()
-  const candidateRole = { name: 'super', docPermissions: true }
+  const candidateRole = createMinimalRoleType()
   expect(() => ensureRoleType(ajv, candidateRole)).not.toThrow()
   expect(candidateRole.title).toEqual('Super')
   expect(candidateRole.docPermissions).toEqual(true)
+})
+
+test('A minimal role type will yield documentation errors.', () => {
+  const ajv = createCustomisedAjv()
+  const role1 = createMinimalRoleType()
+  expect(() => ensureRoleType(ajv, role1, true)).toThrow(JsonotronRoleTypeDocumentationMissingError)
+  const role2 = createMinimalRoleType()
+  expect(() => ensureRoleType(ajv, role2, true)).toThrow(/title/)
 })
 
 test('A valid role type will validate.', () => {

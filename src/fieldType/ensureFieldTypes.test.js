@@ -1,24 +1,59 @@
 /* eslint-env jest */
 const { createCustomisedAjv } = require('../validator')
-const { JsonotronFieldTypeValidationError } = require('jsonotron-errors')
+const { JsonotronFieldTypesDocumentationMissingError, JsonotronFieldTypeValidationError } = require('jsonotron-errors')
 const ensureFieldTypes = require('./ensureFieldTypes')
 
-const createValidFieldType = () => ({
-  name: 'candidateFieldType',
-  type: 'field',
-  title: 'Candidate',
-  category: 'candidate',
-  paragraphs: ['this is a', 'test field type'],
-  examples: [
-    { value: 123, paragraphs: ['numbers 1 to 3'] }
-  ],
-  validTestCases: [4, 5, 6],
-  invalidTestCases: ['a string', '', null, true, {}, [], -34.56, -1, 0],
-  jsonSchema: {
-    type: 'number',
-    exclusiveMinimum: 0
-  },
-  referencedFieldTypes: []
+function createMinimalFieldType () {
+  return {
+    name: 'minimalFieldType',
+    jsonSchema: {
+      type: 'number',
+      exclusiveMinimum: 0
+    }
+  }
+}
+
+function createValidFieldType () {
+  return {
+    name: 'candidateFieldType',
+    type: 'field',
+    title: 'Candidate',
+    category: 'candidate',
+    paragraphs: ['this is a', 'test field type'],
+    examples: [
+      { value: 123, paragraphs: ['numbers 1 to 3'] }
+    ],
+    validTestCases: [4, 5, 6],
+    invalidTestCases: ['a string', '', null, true, {}, [], -34.56, -1, 0],
+    jsonSchema: {
+      type: 'number',
+      exclusiveMinimum: 0
+    },
+    referencedFieldTypes: [],
+    referencedEnumTypes: []
+  }
+}
+
+test('Minimal field type can be verified.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createMinimalFieldType()
+  expect(() => ensureFieldTypes(ajv, [candidate], [])).not.toThrow()
+  expect(candidate.type).toEqual('field')
+  expect(candidate.title).toEqual('Minimal Field Type')
+  expect(candidate.category).toEqual('')
+  expect(candidate.paragraphs).toEqual([])
+  expect(candidate.examples).toEqual([])
+  expect(candidate.validTestCases).toEqual([])
+  expect(candidate.invalidTestCases).toEqual([])
+  expect(candidate.referencedFieldTypes).toEqual([])
+})
+
+test('Minimal field type yields documentation errors.', () => {
+  const ajv = createCustomisedAjv()
+  const ft1 = createMinimalFieldType()
+  expect(() => ensureFieldTypes(ajv, [ft1], [], true)).toThrow(JsonotronFieldTypesDocumentationMissingError)
+  const ft2 = createMinimalFieldType()
+  expect(() => ensureFieldTypes(ajv, [ft2], [], true)).toThrow(/minimalFieldType/)
 })
 
 test('Valid field type can be verified.', () => {
@@ -28,28 +63,6 @@ test('Valid field type can be verified.', () => {
   expect(candidate.title).toEqual('Candidate')
   expect(candidate.paragraphs.length).toEqual(2)
   expect(candidate.examples.length).toEqual(1)
-})
-
-test('Empty field type can be verified.', () => {
-  const ajv = createCustomisedAjv()
-  const candidate = createValidFieldType()
-  delete candidate.type
-  delete candidate.title
-  delete candidate.category
-  delete candidate.paragraphs
-  delete candidate.examples
-  delete candidate.validTestCases
-  delete candidate.invalidTestCases
-  delete candidate.referencedFieldTypes
-  expect(() => ensureFieldTypes(ajv, [candidate], [])).not.toThrow()
-  expect(candidate.type).toEqual('field')
-  expect(candidate.title).toEqual('Candidate Field Type')
-  expect(candidate.category).toEqual('')
-  expect(candidate.paragraphs).toEqual([])
-  expect(candidate.examples).toEqual([])
-  expect(candidate.validTestCases).toEqual([])
-  expect(candidate.invalidTestCases).toEqual([])
-  expect(candidate.referencedFieldTypes).toEqual([])
 })
 
 test('Invalid field type cannot be verified.', () => {

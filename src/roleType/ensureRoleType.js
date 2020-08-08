@@ -1,5 +1,5 @@
 const check = require('check-types')
-const { JsonotronRoleTypeValidationError } = require('jsonotron-errors')
+const { JsonotronRoleTypeDocumentationMissingError, JsonotronRoleTypeValidationError } = require('jsonotron-errors')
 const { roleTypeSchema } = require('../schemas')
 const { pascalToTitleCase } = require('../utils')
 
@@ -23,8 +23,16 @@ function validateRoleTypeWithSchema (ajv, roleType) {
  * @param {Object} roleType A role type object to check for validity.
  */
 function patchRoleType (roleType) {
+  const missingDocumentationProperties = []
+
   if (typeof roleType.title === 'undefined') {
     roleType.title = pascalToTitleCase(roleType.name)
+    missingDocumentationProperties.push('title')
+  }
+
+  if (typeof roleType.paragraphs === 'undefined') {
+    roleType.paragraphs = []
+    missingDocumentationProperties.push('paragraphs')
   }
 
   if (typeof roleType.docPermissions === 'undefined') {
@@ -77,6 +85,8 @@ function patchRoleType (roleType) {
       }
     }
   }
+
+  return missingDocumentationProperties
 }
 
 /**
@@ -84,14 +94,20 @@ function patchRoleType (roleType) {
  * patches in any missing/optional fields.
  * @param {Object} ajv A JSON schema validator.
  * @param {Object} roleType A role type.
+ * @param {Boolean} includeDocumentation True if missing documentation should
+ * cause the validation to fail.
  */
-function ensureRoleType (ajv, roleType) {
+function ensureRoleType (ajv, roleType, includeDocumentation) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
   check.assert.object(roleType)
 
   validateRoleTypeWithSchema(ajv, roleType)
-  patchRoleType(roleType)
+  const missingDocumentationProperties = patchRoleType(roleType)
+
+  if (includeDocumentation && missingDocumentationProperties.length > 0) {
+    throw new JsonotronRoleTypeDocumentationMissingError(roleType.name, missingDocumentationProperties)
+  }
 }
 
 module.exports = ensureRoleType

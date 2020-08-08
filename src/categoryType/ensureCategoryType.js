@@ -1,5 +1,5 @@
 const check = require('check-types')
-const { JsonotronCategoryTypeValidationError } = require('jsonotron-errors')
+const { JsonotronCategoryTypeDocumentationMissingError, JsonotronCategoryTypeValidationError } = require('jsonotron-errors')
 const { categoryTypeSchema } = require('../schemas')
 const { pascalToTitleCase } = require('../utils')
 
@@ -19,17 +19,21 @@ function validateEnumTypeWithSchema (ajv, categoryType) {
 
 /**
  * Patches any missing/optional fields.
- * @param {Object} ajv A JSON schema validator.
  * @param {Object} categoryType A category type object to check for validatity.
  */
 function patchCategoryType (categoryType) {
+  const missingDocumentationProperties = []
+
   if (typeof categoryType.order === 'undefined') {
     categoryType.order = 1000
   }
 
   if (typeof categoryType.title === 'undefined') {
     categoryType.title = pascalToTitleCase(categoryType.name)
+    missingDocumentationProperties.push('title')
   }
+
+  return missingDocumentationProperties
 }
 
 /**
@@ -37,14 +41,20 @@ function patchCategoryType (categoryType) {
  * patches in any missing/optional fields.
  * @param {Object} ajv A JSON schema validator.
  * @param {Object} categoryType A category type to check for validatity.
+ * @param {Boolean} includeDocumentation True if missing documentation should
+ * cause the validation to fail.
  */
-function ensureCategoryType (ajv, categoryType) {
+function ensureCategoryType (ajv, categoryType, includeDocumentation) {
   check.assert.object(ajv)
   check.assert.function(ajv.validate)
   check.assert.object(categoryType)
 
   validateEnumTypeWithSchema(ajv, categoryType)
-  patchCategoryType(categoryType)
+  const missingDocumentationProperties = patchCategoryType(categoryType)
+
+  if (includeDocumentation && missingDocumentationProperties.length > 0) {
+    throw new JsonotronCategoryTypeDocumentationMissingError(categoryType.name, missingDocumentationProperties)
+  }
 }
 
 module.exports = ensureCategoryType

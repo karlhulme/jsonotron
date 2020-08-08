@@ -232,5 +232,5 @@ module.exports = {
       type: 'object'
     }
   },
-  required: ['name']
+  required: ['name', 'pluralName']
 }

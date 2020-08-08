@@ -1,6 +1,9 @@
 /* eslint-env jest */
 const { createCustomisedAjv } = require('../validator')
-const { JsonotronEnumTypeValidationError } = require('jsonotron-errors')
+const {
+  JsonotronEnumTypeDocumentationMissingError,
+  JsonotronEnumTypeValidationError
+} = require('jsonotron-errors')
 const ensureEnumType = require('./ensureEnumType')
 
 function createValidEnumType () {
@@ -46,6 +49,14 @@ test('Minimal enum type can be verified.', () => {
   expect(et.paragraphs).toEqual([])
   expect(et.items.length).toEqual(1)
   expect(et.items[0]).toEqual({ value: 'albatross', paragraphs: ['Albatross'], symbol: '', isDeprecated: false })
+})
+
+test('Minimal enum types yield documentation errors.', () => {
+  const ajv = createCustomisedAjv()
+  const et1 = createMinimalEnumType()
+  expect(() => ensureEnumType(ajv, et1, true)).toThrow(JsonotronEnumTypeDocumentationMissingError)
+  const et2 = createMinimalEnumType()
+  expect(() => ensureEnumType(ajv, et2, true)).toThrow(/items\['albatross'\].paragraphs/)
 })
 
 test('Enum type with invalid name fails verification.', () => {

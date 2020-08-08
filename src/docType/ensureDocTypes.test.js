@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const { JsonotronDocTypeValidationError } = require('jsonotron-errors')
+const { JsonotronDocTypesDocumentationMissingError, JsonotronDocTypeValidationError } = require('jsonotron-errors')
 const { createCustomisedAjv } = require('../validator')
 const ensureDocTypes = require('./ensureDocTypes')
 
@@ -34,10 +34,25 @@ const testFieldTypes = [
 
 const createSimpleValidDocType = () => ({
   name: 'simpleDoc',
+  pluralName: 'simpleDocs',
   fields: {
     propA: { type: 'integer', isRequired: true, canUpdate: true },
     propB: { type: 'float', default: 1.2 },
     propQ: { type: 'string', isArray: true }
+  }
+})
+
+const createSimpleYetFullyDocumentedDocType = () => ({
+  name: 'simpleDoc',
+  pluralName: 'simpleDocs',
+  title: 'Simple Doc',
+  pluralTitle: 'Simple Docs',
+  paragraphs: ['A simple yet fully documented doc type.'],
+  fields: {
+    propA: { type: 'integer', isRequired: true, canUpdate: true, paragraphs: ['A field.'] }
+  },
+  ctor: {
+    paragraphs: ['Create a new document']
   }
 })
 
@@ -145,9 +160,23 @@ const createComplexValidDocType = () => ({
   }
 })
 
-test('A simple doc type can be verified.', () => {
+test('A minimal doc type can be verified.', () => {
   const ajv = createCustomisedAjv()
   expect(() => ensureDocTypes(ajv, [createSimpleValidDocType()], testFieldTypes, testEnumTypes)).not.toThrow()
+})
+
+test('A minimal doc type will yield documentation errors.', () => {
+  const ajv = createCustomisedAjv()
+  const dt1 = createSimpleValidDocType()
+  expect(() => ensureDocTypes(ajv, [dt1], testFieldTypes, testEnumTypes, true)).toThrow(JsonotronDocTypesDocumentationMissingError)
+  const dt2 = createSimpleValidDocType()
+  expect(() => ensureDocTypes(ajv, [dt2], testFieldTypes, testEnumTypes, true)).toThrow(/simpleDoc/)
+})
+
+test('A minimal yet fully documented doc type will not yield documentation errors.', () => {
+  const ajv = createCustomisedAjv()
+  const documentedDocType = createSimpleYetFullyDocumentedDocType()
+  expect(() => ensureDocTypes(ajv, [documentedDocType], testFieldTypes, testEnumTypes, true)).not.toThrow()
 })
 
 test('The functions added to a doc type by default can be executed.', () => {
