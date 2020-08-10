@@ -7,6 +7,7 @@ module.exports = {
     pluralName: { type: 'string', pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$', description: 'The doc type plural name.' },
     title: { type: 'string', description: 'The title (display name) of the doc type.' },
     pluralTitle: { type: 'string', description: 'The plural title when there are more than one document.' },
+    summary: { type: 'string', description: 'A plain text summary of the document.' },
     paragraphs: {
       type: 'array',
       description: 'An array of paragraphs that describe the usage of the document.',

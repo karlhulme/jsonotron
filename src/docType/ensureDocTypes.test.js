@@ -47,6 +47,7 @@ const createSimpleYetFullyDocumentedDocType = () => ({
   pluralName: 'simpleDocs',
   title: 'Simple Doc',
   pluralTitle: 'Simple Docs',
+  summary: 'A simple document.',
   paragraphs: ['A simple yet fully documented doc type.'],
   fields: {
     propA: { type: 'integer', isRequired: true, canUpdate: true, paragraphs: ['A field.'] }
@@ -61,6 +62,7 @@ const createComplexValidDocType = () => ({
   pluralName: 'candidateDocs',
   title: 'Candidate',
   pluralTitle: 'Candidates',
+  summary: 'A candidate document',
   paragraphs: ['This is an introduction.'],
   fields: {
     propA: { type: 'string', isRequired: true, canUpdate: true, paragraphs: ['this is my description'] },

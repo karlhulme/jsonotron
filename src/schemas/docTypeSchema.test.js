@@ -11,6 +11,7 @@ test('Accept valid doc type.', () => {
     policy: {
       canFetchWholeCollection: false
     },
+    summary: 'A document that stores car information.',
     fields: {
       manufacturer: { type: 'mediumString', isRequired: true, canUpdate: true },
       model: { type: 'mediumString', isRequired: true, canUpdate: true },

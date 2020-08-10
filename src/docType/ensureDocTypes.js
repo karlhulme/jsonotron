@@ -51,6 +51,11 @@ function patchDocType (docType) {
     missingDocumentationProperties.push('pluralTitle')
   }
 
+  if (typeof docType.summary === 'undefined') {
+    docType.summary = ''
+    missingDocumentationProperties.push('summary')
+  }
+
   if (typeof docType.paragraphs === 'undefined') {
     docType.paragraphs = []
     missingDocumentationProperties.push('paragraphs')
