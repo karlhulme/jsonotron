@@ -2,6 +2,7 @@
 const mdl = require('./index')
 
 test('The schemas are exported from the module.', () => {
+  expect(mdl).toHaveProperty('apiResourceTypeSchema')
   expect(mdl).toHaveProperty('categoryTypeSchema')
   expect(mdl).toHaveProperty('docTypeSchema')
   expect(mdl).toHaveProperty('enumTypeSchema')
