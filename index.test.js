@@ -11,6 +11,7 @@ test('The schemas are exported from the module.', () => {
 })
 
 test('The validation methods are exported from the module.', () => {
+  expect(mdl).toHaveProperty('ensureApiResourceTypes')
   expect(mdl).toHaveProperty('ensureCategoryType')
   expect(mdl).toHaveProperty('ensureDocTypes')
   expect(mdl).toHaveProperty('ensureEnumType')

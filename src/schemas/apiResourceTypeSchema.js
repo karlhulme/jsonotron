@@ -3,7 +3,7 @@ module.exports = {
   type: 'object',
   description: 'The definition of a REST resource.',
   properties: {
-    urlRoot: { type: 'string', description: 'The path to the root of the REST resource. e.g. /example' },
+    urlRoot: { type: 'string', pattern: '^[/].*[^/]$', description: 'The path to the root of the REST resource. e.g. /example.  It must begin with a forward slash and cannot end with one.' },
     title: { type: 'string', description: 'The title (display name) of the doc type.' },
     pluralTitle: { type: 'string', description: 'The plural title when there are more than one document.' },
     summary: { type: 'string', description: 'A plain text summary of the document.' },
@@ -50,54 +50,88 @@ module.exports = {
         properties: {
           title: { type: 'string', description: 'The display name of the end-point.' },
           httpVerb: { enum: ['get', 'post', 'put', 'patch', 'delete'] },
-          url: { type: 'string', description: 'The path to be appended to the urlRoot.  It can be an empty string.  It can include parameters prefixed with a colon, e.g. :id.' },
+          url: { type: 'string', description: 'The path to be appended to the urlRoot. It can include parameters prefixed with a colon, e.g. :id.  If specified it must begin with a forward slash and cannot end with one.' },
           paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the end-point.' },
-          parameters: {
+          requestParameters: {
             type: 'object',
-            description: 'The set of filter parameters',
+            description: 'The set of request parameters',
             additionalProperties: {
               type: 'object',
-              description: 'Each property defines a filter parameter.',
+              description: 'Each property defines a request parameter.',
               properties: {
                 parameterType: { enum: ['httpHeader', 'urlPathParam', 'urlQueryParam'], description: 'How this parameter is specified.' },
-                tags: { enum: ['required', 'deprecated'], description: 'Tags that describe these parameters.' },
-                paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the filter parameter.' }
+                tags: { type: 'array', items: { enum: ['required', 'deprecated'] }, description: 'Tags that describe these parameters.' },
+                paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the parameter.' }
               },
               required: ['parameterType']
             }
           },
-          payloadLocation: { enum: ['httpBody', 'serialisedHttpQueryParam'] },
-          payloadHttpQueryParamName: { type: 'string' },
-          payload: {
+          requestPayload: {
+            location: { enum: ['httpBody', 'httpQueryParam'] },
+            httpQueryParamName: { type: 'string' },
+            fields: {
+              type: 'object',
+              description: 'The fields that can be specified in the request.',
+              additionalProperties: {
+                type: 'object',
+                description: 'Each property defines a field in the request payload.',
+                properties: {
+                  type: { type: 'string', description: 'The type of the field.' },
+                  isArray: { type: 'boolean', description: 'True if this field is an array.' },
+                  tags: { type: 'array', items: { enum: ['required', 'deprecated'] }, description: 'Tags that describe this field.' },
+                  paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the field.' }
+                },
+                required: ['type']
+              }
+            }
+          },
+          responseParameters: {
             type: 'object',
-            description: 'The set of filter parameters',
+            description: 'The set of response parameters',
             additionalProperties: {
               type: 'object',
-              description: 'Each property defines a filter parameter.',
+              description: 'Each property defines a response parameter.',
               properties: {
-                type: { type: 'string', description: 'The field type of the filter parameter.' },
-                isArray: { type: 'boolean', description: 'True if this filter parameter is an array.' },
-                tags: { enum: ['required', 'deprecated'], description: 'Tags that describe these parameters.' },
-                paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the filter parameter.' }
+                parameterType: { enum: ['httpHeader'], description: 'Where this parameter appears in the response.' },
+                tags: { type: 'array', items: { enum: ['deprecated'] }, description: 'Tags that describe this parameter.' },
+                paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the parameter.' }
               },
-              required: ['type']
+              required: ['parameterType']
+            }
+          },
+          responsePayload: {
+            fields: {
+              type: 'object',
+              description: 'The fields that can be specified in the response.',
+              additionalProperties: {
+                type: 'object',
+                description: 'Each property defines a field in the response payload.',
+                properties: {
+                  type: { type: 'string', description: 'The type of the field.' },
+                  isArray: { type: 'boolean', description: 'True if this field is an array.' },
+                  tags: { type: 'array', items: { enum: ['guaranteed', 'deprecated'] }, description: 'Tags that describe this field.' },
+                  paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the field.' }
+                },
+                required: ['type']
+              }
             }
           },
           examples: {
             type: 'array',
-            description: 'An array of examples showing the filter in use.',
+            description: 'An array of examples showing the end-point in use.',
             items: {
               type: 'object',
               properties: {
                 requestCommand: { type: 'array', items: { type: 'string' }, description: 'An array of command line statements to issue a request.' },
                 requestBody: { type: 'object' },
-                response: { type: 'object' },
+                responseCode: { type: 'integer', description: 'An HTTP response code.' },
+                responseBody: { type: 'object' },
                 paragraphs: { type: 'array', items: { type: 'string' }, description: 'An array of paragraphs that describe this usage example.' }
               },
-              required: ['requestCommand', 'requestBody', 'response']
+              required: ['requestCommand', 'requestBody', 'responseBody']
             }
           },
-          tags: { type: 'array', items: { type: 'string' }, description: 'An array of tags for this end-point.' },
+          tags: { type: 'array', items: { enum: ['deprecated'] }, description: 'An array of tags for this end-point.' },
           responseCodes: {
             type: 'array',
             description: 'An array of possible HTTP response codes.',
@@ -112,7 +146,7 @@ module.exports = {
             }
           }
         },
-        required: ['title', 'httpVerb', 'url']
+        required: ['title', 'httpVerb']
       }
     }
   },

@@ -1,4 +1,5 @@
 module.exports = {
+  ...require('./src/apiResourceType'),
   ...require('./src/categoryType'),
   ...require('./src/enumType'),
   ...require('./src/docType'),

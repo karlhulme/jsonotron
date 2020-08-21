@@ -513,9 +513,9 @@ function ensureOperationExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
 }
 
 /**
- * Raises an error if the given doc type is not valid.
+ * Raises an error if any of the given doc types are not valid.
  * In order to validate a docType, we must first validate the field types
- * and the enum types.  Due to avoid incurring this burden repeatedly,
+ * and the enum types.  To avoid incurring this burden repeatedly,
  * this method allows multiple docTypes to be validated together.
  * @param {Object} ajv A JSON schema validator.
  * @param {Array} docTypes An array of doc types.
