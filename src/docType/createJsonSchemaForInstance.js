@@ -1,5 +1,5 @@
 const check = require('check-types')
-const createJsonSchemaForFieldBlock = require('./createJsonSchemaForFieldBlock')
+const { createJsonSchemaForFieldBlock } = require('../fieldBlock')
 
 /**
  * Returns a JSON Schema for validating an instance of a doc type.

@@ -19,7 +19,8 @@ module.exports = {
         properties: {
           type: { type: 'string', description: 'Type of the document field.' },
           isArray: { type: 'boolean', description: 'True if this field is an array.' },
-          tags: { type: 'array', items: { enum: ['required', 'deprecated', 'patchable', 'calculated'] } },
+          isGuaranteed: { type: 'boolean', description: 'True if this field will always be populated in a resource.' },
+          isDeprecated: { type: 'boolean', description: 'True if this field is deprecated.' },
           paragraphs: { type: 'array', items: { type: 'string' }, description: 'An array of markdown passages.  If the field is deprecated the paragraphs should include which fields to use instead.' }
         },
         required: ['type']
@@ -54,20 +55,21 @@ module.exports = {
           paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the end-point.' },
           requestParameters: {
             type: 'object',
-            description: 'The set of request parameters',
+            description: 'The set of request parameters.',
             additionalProperties: {
               type: 'object',
               description: 'Each property defines a request parameter.',
               properties: {
-                parameterType: { enum: ['httpHeader', 'urlPathParam', 'urlQueryParam'], description: 'How this parameter is specified.' },
-                tags: { type: 'array', items: { enum: ['required', 'deprecated'] }, description: 'Tags that describe these parameters.' },
+                mechanism: { enum: ['httpHeader', 'urlPathParam', 'urlQueryParam'], description: 'How this parameter is specified.' },
+                isRequired: { type: 'boolean', description: 'True if this parameter must always be populated.' },
+                isDeprecated: { type: 'boolean', description: 'True if this parameter is deprecated.' },
                 paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the parameter.' }
               },
-              required: ['parameterType']
+              required: ['mechanism']
             }
           },
           requestPayload: {
-            location: { enum: ['httpBody', 'httpQueryParam'] },
+            mechanism: { enum: ['httpBody', 'httpQueryParam', 'none'] },
             httpQueryParamName: { type: 'string' },
             fields: {
               type: 'object',
@@ -78,7 +80,8 @@ module.exports = {
                 properties: {
                   type: { type: 'string', description: 'The type of the field.' },
                   isArray: { type: 'boolean', description: 'True if this field is an array.' },
-                  tags: { type: 'array', items: { enum: ['required', 'deprecated'] }, description: 'Tags that describe this field.' },
+                  isRequired: { type: 'boolean', description: 'True if this field must always be populated in a saved document.' },
+                  isDeprecated: { type: 'boolean', description: 'True if this field is deprecated.' },
                   paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the field.' }
                 },
                 required: ['type']
@@ -92,11 +95,12 @@ module.exports = {
               type: 'object',
               description: 'Each property defines a response parameter.',
               properties: {
-                parameterType: { enum: ['httpHeader'], description: 'Where this parameter appears in the response.' },
-                tags: { type: 'array', items: { enum: ['deprecated'] }, description: 'Tags that describe this parameter.' },
+                mechanism: { enum: ['httpHeader'], description: 'Where this parameter appears in the response.' },
+                isGuaranteed: { type: 'boolean', description: 'True if this parameter will always be populated in a resource.' },
+                isDeprecated: { type: 'boolean', description: 'True if this paremeter is deprecated.' },
                 paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the parameter.' }
               },
-              required: ['parameterType']
+              required: ['mechanism']
             }
           },
           responsePayload: {
@@ -109,7 +113,8 @@ module.exports = {
                 properties: {
                   type: { type: 'string', description: 'The type of the field.' },
                   isArray: { type: 'boolean', description: 'True if this field is an array.' },
-                  tags: { type: 'array', items: { enum: ['guaranteed', 'deprecated'] }, description: 'Tags that describe this field.' },
+                  isGuaranteed: { type: 'boolean', description: 'True if this field will always be populated.' },
+                  isDeprecated: { type: 'boolean', description: 'True if this field is deprecated.' },
                   paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the field.' }
                 },
                 required: ['type']
@@ -122,16 +127,35 @@ module.exports = {
             items: {
               type: 'object',
               properties: {
-                requestCommand: { type: 'array', items: { type: 'string' }, description: 'An array of command line statements to issue a request.' },
-                requestBody: { type: 'object' },
-                responseCode: { type: 'integer', description: 'An HTTP response code.' },
-                responseBody: { type: 'object' },
+                requestParameters: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      name: { type: 'string', description: 'The name of this request parameter.' },
+                      value: { type: 'string', description: 'The value of this request parameter.' }
+                    },
+                    required: ['name', 'value']
+                  }
+                },
+                requestPayload: { type: 'object' },
+                responseParameters: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      name: { type: 'string', description: 'The name of this response parameter.' },
+                      value: { type: 'string', description: 'The value of this response parameter.' }
+                    },
+                    required: ['name', 'value']
+                  }
+                },
+                responsePayload: { type: 'object' },
                 paragraphs: { type: 'array', items: { type: 'string' }, description: 'An array of paragraphs that describe this usage example.' }
               },
-              required: ['requestCommand', 'requestBody', 'responseBody']
+              required: ['requestPayload', 'responsePayload']
             }
           },
-          tags: { type: 'array', items: { enum: ['deprecated'] }, description: 'An array of tags for this end-point.' },
           responseCodes: {
             type: 'array',
             description: 'An array of possible HTTP response codes.',
@@ -144,7 +168,8 @@ module.exports = {
               },
               required: ['httpCode']
             }
-          }
+          },
+          isDeprecated: { type: 'boolean', description: 'True if this end-point is deprecated.' }
         },
         required: ['title', 'httpVerb']
       }

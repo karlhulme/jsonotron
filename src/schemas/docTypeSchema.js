@@ -24,8 +24,8 @@ module.exports = {
         properties: {
           type: { type: 'string', description: 'Type of the document field.' },
           default: { type: ['string', 'number', 'boolean', 'object', 'array'], description: 'The value to be returned on a query if a value is not supplied by the store.' },
-          isRequired: { type: 'boolean', description: 'True if this field must always be populated in a saved document.' },
           isArray: { type: 'boolean', description: 'True if this field is an array.' },
+          isRequired: { type: 'boolean', description: 'True if this field must always be populated in a saved document.' },
           isDeprecated: { type: 'boolean', description: 'True if this field is deprecated.' },
           canUpdate: { type: 'boolean', description: 'True if this field can be updated via a merge patch rather than an operation.' },
           paragraphs: { type: 'array', items: { type: 'string' }, description: 'An array of markdown passages.  If the field is deprecated the paragraphs should include which fields to use instead.' }

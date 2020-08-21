@@ -15,8 +15,8 @@ test('Accept valid doc type.', () => {
       'Some of them are Windows-based, some of them are OSX-based.'
     ],
     fields: {
-      manufacturer: { type: 'mediumString', tags: ['required'] },
-      os: { type: 'mediumString', tags: ['patchable'] },
+      manufacturer: { type: 'mediumString', isRequired: true },
+      os: { type: 'mediumString' },
       price: { type: 'positiveFloatOrZero' },
       peripherals: { type: 'string', isArray: true }
     }

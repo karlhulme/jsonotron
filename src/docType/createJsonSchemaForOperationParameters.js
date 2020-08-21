@@ -1,6 +1,6 @@
 const check = require('check-types')
 const { JsonotronUnrecognisedOperationNameError } = require('jsonotron-errors')
-const createJsonSchemaForFieldBlock = require('./createJsonSchemaForFieldBlock')
+const { createJsonSchemaForFieldBlock } = require('../fieldBlock')
 
 /**
  * Returns a JSON Schema for validating the parameters of an operation.

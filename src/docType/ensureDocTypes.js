@@ -3,11 +3,12 @@ const { JsonotronDocTypesDocumentationMissingError, JsonotronDocTypeValidationEr
 const { docTypeSchema } = require('../schemas')
 const { ensureFieldTypes } = require('../fieldType')
 const { consts, pascalToTitleCase } = require('../utils')
-const getFieldOrEnumTypeFromArrays = require('./getFieldOrEnumTypeFromArrays')
+const { getFieldOrEnumTypeFromArrays } = require('../fieldBlock')
 const getSystemFieldNames = require('./getSystemFieldNames')
 const createValueValidatorForFieldOrEnumType = require('./createValueValidatorForFieldOrEnumType')
 const createJsonSchemaForConstructorParameters = require('./createJsonSchemaForConstructorParameters')
 const createJsonSchemaForFilterParameters = require('./createJsonSchemaForFilterParameters')
+const createJsonSchemaForInstance = require('./createJsonSchemaForInstance')
 const createJsonSchemaForMergePatch = require('./createJsonSchemaForMergePatch')
 const createJsonSchemaForOperationParameters = require('./createJsonSchemaForOperationParameters')
 
@@ -417,7 +418,7 @@ function ensureConstructorParameterNamesAreValid (docType) {
  * @param {Array} enumTypes An array of enum types.
  */
 function ensureExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
-  const schema = createJsonSchemaForMergePatch(docType, fieldTypes, enumTypes)
+  const schema = createJsonSchemaForInstance(docType, fieldTypes, enumTypes)
   const validator = ajv.compile(schema)
 
   docType.examples.forEach((example, index) => {

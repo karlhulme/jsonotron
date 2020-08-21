@@ -1,6 +1,6 @@
 const check = require('check-types')
 const { propFilter, propMap } = require('../utils')
-const createJsonSchemaForFieldBlock = require('./createJsonSchemaForFieldBlock')
+const { createJsonSchemaForFieldBlock } = require('../fieldBlock')
 
 /**
  * Returns a JSON Schema for validating a merge patch.

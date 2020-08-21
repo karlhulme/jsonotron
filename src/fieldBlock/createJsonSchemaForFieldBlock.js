@@ -42,7 +42,7 @@ function buildRequiredArray (fieldBlock) {
   for (const fieldName in fieldBlock) {
     const field = fieldBlock[fieldName]
 
-    if (field.isRequired) {
+    if (field.isRequired || field.isGuaranteed) {
       required.push(fieldName)
     }
   }

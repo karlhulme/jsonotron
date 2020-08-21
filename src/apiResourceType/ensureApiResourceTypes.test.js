@@ -3,6 +3,35 @@ const { JsonotronApiResourceTypesDocumentationMissingError, JsonotronApiResource
 const { createCustomisedAjv } = require('../validator')
 const ensureApiResourceTypes = require('./ensureApiResourceTypes')
 
+const testEnumTypes = [
+  {
+    name: 'boolean',
+    items: [
+      { value: true },
+      { value: false }
+    ]
+  }
+]
+
+const testFieldTypes = [
+  {
+    name: 'integer',
+    jsonSchema: {
+      type: 'integer'
+    }
+  }, {
+    name: 'float',
+    jsonSchema: {
+      type: 'number'
+    }
+  }, {
+    name: 'string',
+    jsonSchema: {
+      type: 'string'
+    }
+  }
+]
+
 function createMinimalApiResourceType () {
   return {
     urlRoot: '/resources',
@@ -18,7 +47,7 @@ function createValidApiResourceType () {
     summary: 'An example resource',
     paragraphs: ['Information about this example resource'],
     fields: {
-      a: { type: 'string', tags: ['required'] },
+      a: { type: 'string', isGuaranteed: true },
       b: { type: 'integer', isArray: false },
       c: { type: 'boolean', paragraphs: ['Describe this field.'] }
     },
@@ -34,41 +63,44 @@ function createValidApiResourceType () {
       url: '/:id',
       paragraphs: ['Describe this end-point.'],
       requestParameters: {
-        id: { parameterType: 'urlPathParam', tags: ['required'] },
-        maxCount: { parameterType: 'urlQueryParam', paragraphs: ['Describe this maxCount parameter.'] }
+        id: { mechanism: 'urlPathParam', isRequired: true },
+        maxCount: { mechanism: 'urlQueryParam', paragraphs: ['Describe this maxCount parameter.'] }
       },
       requestPayload: {
-        location: 'httpQueryParam',
+        mechanism: 'httpQueryParam',
         httpQueryParamName: 'filterParams',
         fields: {
-          d: { type: 'string', tags: ['required'] },
+          d: { type: 'string', isRequired: true },
           e: { type: 'integer', isArray: false },
           f: { type: 'boolean', paragraphs: ['Describe this field.'] }
         }
       },
       responseParameters: {
-        'X-PROC-TIME': { parameterType: 'httpHeader', paragraphs: ['The processing time.'] }
+        'X-PROC-TIME': { mechanism: 'httpHeader', isGuaranteed: false, paragraphs: ['The processing time.'] },
+        'X-OTHER': { mechanism: 'httpHeader' }
       },
       responsePayload: {
         fields: {
-          g: { type: 'string', tags: ['guaranteed'] },
+          g: { type: 'string', isGuaranteed: true },
           h: { type: 'integer', isArray: false },
           i: { type: 'boolean', paragraphs: ['Describe this field.'] }
         }
       },
       examples: [{
-        requestCommand: ['curl -H Bearer some_token -d the_payload.json'],
-        requestBody: { d: 'd', e: 2, f: false },
-        responseCode: 200,
-        responseBody: { g: '1234' }
-      }, {
-        requestCommand: ['curl -H Bearer some_token -d the_new_payload.json'],
-        requestBody: { d: 'd', e: 8, f: false },
-        responseCode: 200,
-        responseBody: { g: '4321', h: 4321 },
+        requestParameters: [
+          { name: 'id', value: '1234' }
+        ],
+        requestPayload: { d: 'd', e: 2, f: false },
+        responseParameters: [
+          { name: 'X-PROC-TIME', value: '12ms' }
+        ],
+        responsePayload: { g: '1234' },
         paragraphs: ['Describe this example.']
+      }, {
+        requestPayload: { d: 'd', e: 8, f: false },
+        responsePayload: { g: '4321', h: 4321 }
       }],
-      tags: [],
+      isDeprecated: false,
       responseCodes: [{
         httpCode: 200
       }, {
@@ -85,16 +117,16 @@ function createValidApiResourceType () {
 test('A minimal api resource type will validate.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createMinimalApiResourceType()
-  expect(() => ensureApiResourceTypes(ajv, [candidate])).not.toThrow()
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).not.toThrow()
   expect(candidate.pluralTitle).toEqual('Resources')
 })
 
 test('A minimal api resource type will yield documentation errors.', () => {
   const ajv = createCustomisedAjv()
   const candidate1 = createMinimalApiResourceType()
-  expect(() => ensureApiResourceTypes(ajv, [candidate1], true)).toThrow(JsonotronApiResourceTypesDocumentationMissingError)
+  expect(() => ensureApiResourceTypes(ajv, [candidate1], testFieldTypes, testEnumTypes, true)).toThrow(JsonotronApiResourceTypesDocumentationMissingError)
   const candidate2 = createMinimalApiResourceType()
-  expect(() => ensureApiResourceTypes(ajv, [candidate2], true)).toThrow(/pluralTitle/)
+  expect(() => ensureApiResourceTypes(ajv, [candidate2], testFieldTypes, testEnumTypes, true)).toThrow(/pluralTitle/)
 })
 
 test('A fully documented api resource type will validate including documentation checks.', () => {
@@ -103,23 +135,22 @@ test('A fully documented api resource type will validate including documentation
   candidate.pluralTitle = 'Resources'
   candidate.summary = 'A summary'
   candidate.paragraphs = ['Paragraphs.']
-  expect(() => ensureApiResourceTypes(ajv, [candidate], true)).not.toThrow()
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes, true)).not.toThrow()
 })
 
 test('A valid api resource type will validate and will be patched.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createValidApiResourceType()
-  expect(() => ensureApiResourceTypes(ajv, [candidate])).not.toThrow()
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).not.toThrow()
   expect(candidate.pluralTitle).toEqual('The Resources')
 
   expect(candidate.endPoints[1].paragraphs).toEqual([])
   expect(candidate.endPoints[1].requestParameters).toEqual({})
   expect(candidate.endPoints[1].requestPayload).toBeDefined()
-  expect(candidate.endPoints[1].requestPayload.location).toEqual('httpBody')
+  expect(candidate.endPoints[1].requestPayload.mechanism).toEqual('none')
   expect(candidate.endPoints[1].requestPayload.httpQueryParamName).toEqual('')
   expect(candidate.endPoints[1].requestPayload.fields).toEqual({})
   expect(candidate.endPoints[1].examples).toEqual([])
-  expect(candidate.endPoints[1].tags).toEqual([])
   expect(candidate.endPoints[1].responseCodes).toEqual([])
 })
 
@@ -127,5 +158,45 @@ test('An invalid api resource type will not validate.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createValidApiResourceType()
   candidate.pluralTitle = 15
-  expect(() => ensureApiResourceTypes(ajv, [candidate])).toThrow(JsonotronApiResourceTypeValidationError)
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(JsonotronApiResourceTypeValidationError)
+})
+
+test('An invalid example resource will cause validation to fail.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidApiResourceType()
+  candidate.examples[0].value.b = 'not-an-integer'
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(JsonotronApiResourceTypeValidationError)
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/should be integer/)
+})
+
+test('An unrecognised request parameter in an example will cause validation to fail.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidApiResourceType()
+  candidate.endPoints[0].examples[0].requestParameters[0].name = 'invalid-param'
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(JsonotronApiResourceTypeValidationError)
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/invalid-param/)
+})
+
+test('An invalid request body example will cause validation to fail.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidApiResourceType()
+  delete candidate.endPoints[0].examples[0].requestPayload.d
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(JsonotronApiResourceTypeValidationError)
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/should have required property 'd'/)
+})
+
+test('An unrecognised response parameter in an example will cause validation to fail.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidApiResourceType()
+  candidate.endPoints[0].examples[0].responseParameters[0].name = 'X-INVALID-PARAM'
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(JsonotronApiResourceTypeValidationError)
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/X-INVALID-PARAM/)
+})
+
+test('An invalid response body example will cause validation to fail.', () => {
+  const ajv = createCustomisedAjv()
+  const candidate = createValidApiResourceType()
+  delete candidate.endPoints[0].examples[0].responsePayload.g
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(JsonotronApiResourceTypeValidationError)
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/should have required property 'g'/)
 })
