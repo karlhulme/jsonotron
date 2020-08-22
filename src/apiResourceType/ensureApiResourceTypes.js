@@ -2,7 +2,7 @@ const check = require('check-types')
 const { JsonotronApiResourceTypesDocumentationMissingError, JsonotronApiResourceTypeValidationError } = require('jsonotron-errors')
 const { ensureFieldTypes } = require('../fieldType')
 const { apiResourceTypeSchema } = require('../schemas')
-const { createJsonSchemaForFieldBlock } = require('../fieldBlock')
+const { createJsonSchemaForFieldBlock, createJsonSchemaForParameterStringBlock } = require('../blocks')
 
 /**
  * Raises an error if the given api resource type does not conform to the apiResourceTypeSchema.
@@ -127,6 +127,10 @@ function patchApiResourceType (apiResourceType) {
       }
     }
 
+    if (typeof endPoint.responseParameters === 'undefined') {
+      endPoint.responseParameters = {}
+    }
+
     for (const parameterName in endPoint.responseParameters) {
       const parameter = endPoint.responseParameters[parameterName]
 
@@ -166,11 +170,11 @@ function patchApiResourceType (apiResourceType) {
 
     endPoint.examples.forEach((example, eIndex) => {
       if (typeof example.requestParameters === 'undefined') {
-        example.requestParameters = []
+        example.requestParameters = {}
       }
 
       if (typeof example.responseParameters === 'undefined') {
-        example.responseParameters = []
+        example.responseParameters = {}
       }
 
       if (typeof example.paragraphs === 'undefined') {
@@ -227,25 +231,31 @@ function ensureResourceExamplesAreValid (ajv, apiResourceType, fieldTypes, enumT
  */
 function ensureEndPointExamplesRequestDataIsValid (ajv, apiResourceType, fieldTypes, enumTypes) {
   apiResourceType.endPoints.forEach((endPoint, index) => {
-    const schema = createJsonSchemaForFieldBlock(
-      `API Resource Type "${apiResourceType.urlRoot}" Request Body "${apiResourceType.urlRoot}${endPoint.url}"`,
+    const requestParametersSchema = createJsonSchemaForParameterStringBlock(
+      `API Resource Type "${apiResourceType.urlRoot}" Request Parameters "${apiResourceType.urlRoot}${endPoint.url}"`,
+      endPoint.requestParameters)
+
+    const requestParametersValidator = ajv.compile(requestParametersSchema)
+
+    const requestPayloadSchema = createJsonSchemaForFieldBlock(
+      `API Resource Type "${apiResourceType.urlRoot}" Request Payload "${apiResourceType.urlRoot}${endPoint.url}"`,
       endPoint.requestPayload.fields, fieldTypes, enumTypes)
 
-    const validator = ajv.compile(schema)
+    const requestPayloadValidator = ajv.compile(requestPayloadSchema)
 
     endPoint.examples.forEach((example, eIndex) => {
       // check request parameters are defined
-      example.requestParameters.forEach((param, pIndex) => {
-        if (typeof endPoint.requestParameters[param.name] === 'undefined') {
-          throw new JsonotronApiResourceTypeValidationError(apiResourceType.urlRoot,
-            `Example at index ${eIndex} of end point '${apiResourceType.urlRoot}${endPoint.url}' contains undefined request parameter "${param.name}".`)
-        }
-      })
+      if (!requestParametersValidator(example.requestParameters)) {
+        throw new JsonotronApiResourceTypeValidationError(apiResourceType.urlRoot,
+          `Example at index ${eIndex} of end point '${apiResourceType.urlRoot}${endPoint.url}' ` +
+          `does not match the request parameters schema.\n${JSON.stringify(requestParametersValidator.errors, null, 2)}`)
+      }
 
       // check request payload matches request fields definitions
-      if (!validator(example.requestPayload)) {
+      if (!requestPayloadValidator(example.requestPayload)) {
         throw new JsonotronApiResourceTypeValidationError(apiResourceType.urlRoot,
-          `Example at index ${eIndex} of end point '${apiResourceType.urlRoot}${endPoint.url}' does not match the schema.\n${JSON.stringify(validator.errors, null, 2)}`)
+          `Example at index ${eIndex} of end point '${apiResourceType.urlRoot}${endPoint.url}' ` +
+          `does not match the request payload schema.\n${JSON.stringify(requestPayloadValidator.errors, null, 2)}`)
       }
     })
   })
@@ -260,25 +270,31 @@ function ensureEndPointExamplesRequestDataIsValid (ajv, apiResourceType, fieldTy
  */
 function ensureEndPointExamplesResponseDataIsValid (ajv, apiResourceType, fieldTypes, enumTypes) {
   apiResourceType.endPoints.forEach((endPoint, index) => {
-    const schema = createJsonSchemaForFieldBlock(
+    const responseParametersSchema = createJsonSchemaForParameterStringBlock(
+      `API Resource Type "${apiResourceType.urlRoot}" Response Parameters "${apiResourceType.urlRoot}${endPoint.url}"`,
+      endPoint.responseParameters)
+
+    const responseParametersValidator = ajv.compile(responseParametersSchema)
+
+    const responsePayloadSchema = createJsonSchemaForFieldBlock(
       `API Resource Type "${apiResourceType.urlRoot}" Response Body "${apiResourceType.urlRoot}${endPoint.url}"`,
       endPoint.responsePayload.fields, fieldTypes, enumTypes)
 
-    const validator = ajv.compile(schema)
+    const responsePayloadValidator = ajv.compile(responsePayloadSchema)
 
     endPoint.examples.forEach((example, eIndex) => {
-      // check request parameters are defined
-      example.responseParameters.forEach((param, pIndex) => {
-        if (typeof endPoint.responseParameters[param.name] === 'undefined') {
-          throw new JsonotronApiResourceTypeValidationError(apiResourceType.urlRoot,
-            `Example at index ${eIndex} of end point '${apiResourceType.urlRoot}${endPoint.url}' contains undefined response parameter "${param.name}".`)
-        }
-      })
+      // check response parameters are defined
+      if (!responseParametersValidator(example.responseParameters)) {
+        throw new JsonotronApiResourceTypeValidationError(apiResourceType.urlRoot,
+          `Example at index ${eIndex} of end point '${apiResourceType.urlRoot}${endPoint.url}' ` +
+          `does not match the response parameters schema.\n${JSON.stringify(responseParametersValidator.errors, null, 2)}`)
+      }
 
       // check request payload matches request fields definitions
-      if (!validator(example.responsePayload)) {
+      if (!responsePayloadValidator(example.responsePayload)) {
         throw new JsonotronApiResourceTypeValidationError(apiResourceType.urlRoot,
-          `Example at index ${eIndex} of end point '${apiResourceType.urlRoot}${endPoint.url}' does not match the schema.\n${JSON.stringify(validator.errors, null, 2)}`)
+          `Example at index ${eIndex} of end point '${apiResourceType.urlRoot}${endPoint.url}' ` +
+          `does not match the response payload schema.\n${JSON.stringify(responsePayloadValidator.errors, null, 2)}`)
       }
     })
   })

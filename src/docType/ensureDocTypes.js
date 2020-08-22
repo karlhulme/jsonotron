@@ -3,7 +3,7 @@ const { JsonotronDocTypesDocumentationMissingError, JsonotronDocTypeValidationEr
 const { docTypeSchema } = require('../schemas')
 const { ensureFieldTypes } = require('../fieldType')
 const { consts, pascalToTitleCase } = require('../utils')
-const { getFieldOrEnumTypeFromArrays } = require('../fieldBlock')
+const { getFieldOrEnumTypeFromArrays } = require('../blocks')
 const getSystemFieldNames = require('./getSystemFieldNames')
 const createValueValidatorForFieldOrEnumType = require('./createValueValidatorForFieldOrEnumType')
 const createJsonSchemaForConstructorParameters = require('./createJsonSchemaForConstructorParameters')

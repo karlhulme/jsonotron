@@ -76,7 +76,7 @@ function createValidApiResourceType () {
         }
       },
       responseParameters: {
-        'X-PROC-TIME': { mechanism: 'httpHeader', isGuaranteed: false, paragraphs: ['The processing time.'] },
+        'X-PROC-TIME': { mechanism: 'httpHeader', isGuaranteed: true, paragraphs: ['The processing time.'] },
         'X-OTHER': { mechanism: 'httpHeader' }
       },
       responsePayload: {
@@ -87,17 +87,15 @@ function createValidApiResourceType () {
         }
       },
       examples: [{
-        requestParameters: [
-          { name: 'id', value: '1234' }
-        ],
+        requestParameters: { id: '1234' },
         requestPayload: { d: 'd', e: 2, f: false },
-        responseParameters: [
-          { name: 'X-PROC-TIME', value: '12ms' }
-        ],
+        responseParameters: { 'X-PROC-TIME': '12ms' },
         responsePayload: { g: '1234' },
         paragraphs: ['Describe this example.']
       }, {
+        requestParameters: { id: '1234' },
         requestPayload: { d: 'd', e: 8, f: false },
+        responseParameters: { 'X-PROC-TIME': '12ms' },
         responsePayload: { g: '4321', h: 4321 }
       }],
       isDeprecated: false,
@@ -109,6 +107,13 @@ function createValidApiResourceType () {
       }]
     }, {
       title: 'Post data',
+      httpVerb: 'post',
+      examples: [{
+        requestPayload: {},
+        responsePayload: {}
+      }]
+    }, {
+      title: 'Post more data',
       httpVerb: 'post'
     }]
   }
@@ -150,8 +155,15 @@ test('A valid api resource type will validate and will be patched.', () => {
   expect(candidate.endPoints[1].requestPayload.mechanism).toEqual('none')
   expect(candidate.endPoints[1].requestPayload.httpQueryParamName).toEqual('')
   expect(candidate.endPoints[1].requestPayload.fields).toEqual({})
-  expect(candidate.endPoints[1].examples).toEqual([])
+  expect(candidate.endPoints[1].examples).toEqual([{
+    paragraphs: [],
+    requestParameters: {},
+    requestPayload: {},
+    responseParameters: {},
+    responsePayload: {}
+  }])
   expect(candidate.endPoints[1].responseCodes).toEqual([])
+  expect(candidate.endPoints[2].examples).toEqual([])
 })
 
 test('An invalid api resource type will not validate.', () => {
@@ -169,12 +181,12 @@ test('An invalid example resource will cause validation to fail.', () => {
   expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/should be integer/)
 })
 
-test('An unrecognised request parameter in an example will cause validation to fail.', () => {
+test('A missing required request parameter in an example will cause validation to fail.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createValidApiResourceType()
-  candidate.endPoints[0].examples[0].requestParameters[0].name = 'invalid-param'
+  delete candidate.endPoints[0].examples[0].requestParameters.id
   expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(JsonotronApiResourceTypeValidationError)
-  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/invalid-param/)
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/id/)
 })
 
 test('An invalid request body example will cause validation to fail.', () => {
@@ -185,12 +197,12 @@ test('An invalid request body example will cause validation to fail.', () => {
   expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/should have required property 'd'/)
 })
 
-test('An unrecognised response parameter in an example will cause validation to fail.', () => {
+test('A missing required response parameter in an example will cause validation to fail.', () => {
   const ajv = createCustomisedAjv()
   const candidate = createValidApiResourceType()
-  candidate.endPoints[0].examples[0].responseParameters[0].name = 'X-INVALID-PARAM'
+  delete candidate.endPoints[0].examples[0].responseParameters['X-PROC-TIME']
   expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(JsonotronApiResourceTypeValidationError)
-  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/X-INVALID-PARAM/)
+  expect(() => ensureApiResourceTypes(ajv, [candidate], testFieldTypes, testEnumTypes)).toThrow(/X-PROC-TIME/)
 })
 
 test('An invalid response body example will cause validation to fail.', () => {

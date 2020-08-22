@@ -1,6 +1,6 @@
 const check = require('check-types')
 const { propFilter, propMap } = require('../utils')
-const { createJsonSchemaForFieldBlock } = require('../fieldBlock')
+const { createJsonSchemaForFieldBlock } = require('../blocks')
 
 /**
  * Returns a JSON Schema for validating the parameters of a constructor.

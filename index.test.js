@@ -28,6 +28,7 @@ test('The schema creation methods are exported from the module', () => {
 })
 
 test('The additional helper methods are exported from the module.', () => {
+  expect(mdl).toHaveProperty('createApiResourceTypeFromDocType')
   expect(mdl).toHaveProperty('createCustomisedAjv')
   expect(mdl).toHaveProperty('getSystemFieldNames')
 })

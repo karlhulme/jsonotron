@@ -128,27 +128,13 @@ module.exports = {
               type: 'object',
               properties: {
                 requestParameters: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      name: { type: 'string', description: 'The name of this request parameter.' },
-                      value: { type: 'string', description: 'The value of this request parameter.' }
-                    },
-                    required: ['name', 'value']
-                  }
+                  type: 'object',
+                  additionalProperties: { type: 'string' }
                 },
                 requestPayload: { type: 'object' },
                 responseParameters: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    properties: {
-                      name: { type: 'string', description: 'The name of this response parameter.' },
-                      value: { type: 'string', description: 'The value of this response parameter.' }
-                    },
-                    required: ['name', 'value']
-                  }
+                  type: 'object',
+                  additionalProperties: { type: 'string' }
                 },
                 responsePayload: { type: 'object' },
                 paragraphs: { type: 'array', items: { type: 'string' }, description: 'An array of paragraphs that describe this usage example.' }
