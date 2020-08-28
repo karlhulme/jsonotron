@@ -341,8 +341,6 @@ function ensureApiResourceTypes (ajv, apiResourceTypes, fieldTypes, enumTypes, i
 
     // check the response body examples match the response payload fields
     ensureEndPointExamplesResponseDataIsValid(ajv, apiResourceType, fieldTypes, enumTypes)
-
-    // THEN WRITE METHOD createApiResourceTypeFromDocType
   })
 
   if (includeDocumentation && missingDocumentationBlocks.length > 0) {

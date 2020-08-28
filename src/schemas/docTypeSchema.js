@@ -138,6 +138,7 @@ module.exports = {
       type: 'object',
       description: 'A mechanism for constructing new instances of the document type.',
       properties: {
+        title: { type: 'string', description: 'The display name of the constructor.' },
         paragraphs: { type: 'array', items: { type: 'string' }, description: 'The description of the constructor.' },
         parameters: {
           type: 'object',

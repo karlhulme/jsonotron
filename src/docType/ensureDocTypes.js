@@ -187,6 +187,11 @@ function patchDocType (docType) {
     docType.ctor = {}
   }
 
+  if (typeof docType.ctor.title === 'undefined') {
+    docType.ctor.title = `Create New ${docType.title}`
+    missingDocumentationProperties.push('ctor.title')
+  }
+
   if (typeof docType.ctor.paragraphs === 'undefined') {
     docType.ctor.paragraphs = []
     missingDocumentationProperties.push('ctor.paragraphs')

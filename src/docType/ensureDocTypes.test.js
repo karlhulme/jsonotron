@@ -53,7 +53,8 @@ const createSimpleYetFullyDocumentedDocType = () => ({
     propA: { type: 'integer', isRequired: true, canUpdate: true, paragraphs: ['A field.'] }
   },
   ctor: {
-    paragraphs: ['Create a new document']
+    title: 'Create New Document',
+    paragraphs: ['Create a new document.']
   }
 })
 
