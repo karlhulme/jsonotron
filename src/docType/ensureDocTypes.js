@@ -6,11 +6,11 @@ const { consts, pascalToTitleCase } = require('../utils')
 const { getFieldOrEnumTypeFromArrays } = require('../blocks')
 const getSystemFieldNames = require('./getSystemFieldNames')
 const createValueValidatorForFieldOrEnumType = require('./createValueValidatorForFieldOrEnumType')
-const createJsonSchemaForConstructorParameters = require('./createJsonSchemaForConstructorParameters')
-const createJsonSchemaForFilterParameters = require('./createJsonSchemaForFilterParameters')
-const createJsonSchemaForInstance = require('./createJsonSchemaForInstance')
-const createJsonSchemaForMergePatch = require('./createJsonSchemaForMergePatch')
-const createJsonSchemaForOperationParameters = require('./createJsonSchemaForOperationParameters')
+const createJsonSchemaForDocTypeConstructorParameters = require('./createJsonSchemaForDocTypeConstructorParameters')
+const createJsonSchemaForDocTypeFilterParameters = require('./createJsonSchemaForDocTypeFilterParameters')
+const createJsonSchemaForDocTypeInstance = require('./createJsonSchemaForDocTypeInstance')
+const createJsonSchemaForDocTypeMergePatch = require('./createJsonSchemaForDocTypeMergePatch')
+const createJsonSchemaForDocTypeOperationParameters = require('./createJsonSchemaForDocTypeOperationParameters')
 
 /**
  * Raises an error if the given doc type does not conform
@@ -423,7 +423,7 @@ function ensureConstructorParameterNamesAreValid (docType) {
  * @param {Array} enumTypes An array of enum types.
  */
 function ensureExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
-  const schema = createJsonSchemaForInstance(docType, fieldTypes, enumTypes)
+  const schema = createJsonSchemaForDocTypeInstance(docType, fieldTypes, enumTypes)
   const validator = ajv.compile(schema)
 
   docType.examples.forEach((example, index) => {
@@ -442,7 +442,7 @@ function ensureExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
  * @param {Array} enumTypes An array of enum types.
  */
 function ensurePatchExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
-  const schema = createJsonSchemaForMergePatch(docType, fieldTypes, enumTypes)
+  const schema = createJsonSchemaForDocTypeMergePatch(docType, fieldTypes, enumTypes)
   const validator = ajv.compile(schema)
 
   docType.patchExamples.forEach((example, index) => {
@@ -464,7 +464,7 @@ function ensureFilterExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
   for (const filterName in docType.filters) {
     const filter = docType.filters[filterName]
 
-    const schema = createJsonSchemaForFilterParameters(docType, filterName, fieldTypes, enumTypes)
+    const schema = createJsonSchemaForDocTypeFilterParameters(docType, filterName, fieldTypes, enumTypes)
     const validator = ajv.compile(schema)
 
     filter.examples.forEach((example, index) => {
@@ -484,7 +484,7 @@ function ensureFilterExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
  * @param {Array} enumTypes An array of enum types.
  */
 function ensureConstructorExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
-  const schema = createJsonSchemaForConstructorParameters(docType, fieldTypes, enumTypes)
+  const schema = createJsonSchemaForDocTypeConstructorParameters(docType, fieldTypes, enumTypes)
   const validator = ajv.compile(schema)
 
   docType.ctor.examples.forEach((example, index) => {
@@ -506,7 +506,7 @@ function ensureOperationExamplesAreValid (ajv, docType, fieldTypes, enumTypes) {
   for (const operationName in docType.operations) {
     const operation = docType.operations[operationName]
 
-    const schema = createJsonSchemaForOperationParameters(docType, operationName, fieldTypes, enumTypes)
+    const schema = createJsonSchemaForDocTypeOperationParameters(docType, operationName, fieldTypes, enumTypes)
     const validator = ajv.compile(schema)
 
     operation.examples.forEach((example, index) => {

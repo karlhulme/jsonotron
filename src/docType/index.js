@@ -3,9 +3,9 @@ module.exports = {
   getSystemFieldNames: require('./getSystemFieldNames'),
 
   createApiResourceTypeFromDocType: require('./createApiResourceTypeFromDocType'),
-  createJsonSchemaForConstructorParameters: require('./createJsonSchemaForConstructorParameters'),
-  createJsonSchemaForFilterParameters: require('./createJsonSchemaForFilterParameters'),
-  createJsonSchemaForInstance: require('./createJsonSchemaForInstance'),
-  createJsonSchemaForMergePatch: require('./createJsonSchemaForMergePatch'),
-  createJsonSchemaForOperationParameters: require('./createJsonSchemaForOperationParameters')
+  createJsonSchemaForDocTypeConstructorParameters: require('./createJsonSchemaForDocTypeConstructorParameters'),
+  createJsonSchemaForDocTypeFilterParameters: require('./createJsonSchemaForDocTypeFilterParameters'),
+  createJsonSchemaForDocTypeInstance: require('./createJsonSchemaForDocTypeInstance'),
+  createJsonSchemaForDocTypeMergePatch: require('./createJsonSchemaForDocTypeMergePatch'),
+  createJsonSchemaForDocTypeOperationParameters: require('./createJsonSchemaForDocTypeOperationParameters')
 }

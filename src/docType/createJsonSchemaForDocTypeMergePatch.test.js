@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const createJsonSchemaForMergePatch = require('./createJsonSchemaForMergePatch')
+const createJsonSchemaForDocTypeMergePatch = require('./createJsonSchemaForDocTypeMergePatch')
 
 const testFieldTypes = [
   {
@@ -23,7 +23,7 @@ const createDocType = () => ({
 
 test('The json schema for a merge patch can be created.', () => {
   const docType = createDocType()
-  expect(createJsonSchemaForMergePatch(docType, testFieldTypes, [])).toEqual({
+  expect(createJsonSchemaForDocTypeMergePatch(docType, testFieldTypes, [])).toEqual({
     $schema: 'http://json-schema.org/draft-07/schema#',
     title: 'Doc Type "candidate" Merge Patch',
     type: 'object',

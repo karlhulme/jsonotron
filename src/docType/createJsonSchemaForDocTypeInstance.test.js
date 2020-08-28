@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const createJsonSchemaForInstance = require('./createJsonSchemaForInstance')
+const createJsonSchemaForDocTypeInstance = require('./createJsonSchemaForDocTypeInstance')
 
 const testFieldTypes = [
   {
@@ -41,7 +41,7 @@ const createDocType = () => ({
 
 test('The json schema for an instance can be created.', () => {
   const docType = createDocType()
-  expect(createJsonSchemaForInstance(docType, testFieldTypes, [])).toEqual({
+  expect(createJsonSchemaForDocTypeInstance(docType, testFieldTypes, [])).toEqual({
     $schema: 'http://json-schema.org/draft-07/schema#',
     title: 'Doc Type "candidate"',
     type: 'object',
@@ -60,7 +60,7 @@ test('The json schema for an instance can be created.', () => {
 
 test('The json schema for an instance, including system header fields, can be created.', () => {
   const docType = createDocType()
-  expect(createJsonSchemaForInstance(docType, testFieldTypes, [], true)).toEqual({
+  expect(createJsonSchemaForDocTypeInstance(docType, testFieldTypes, [], true)).toEqual({
     $schema: 'http://json-schema.org/draft-07/schema#',
     title: 'Doc Type "candidate"',
     type: 'object',

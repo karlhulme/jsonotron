@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const createJsonSchemaForConstructorParameters = require('./createJsonSchemaForConstructorParameters')
+const createJsonSchemaForDocTypeConstructorParameters = require('./createJsonSchemaForDocTypeConstructorParameters')
 
 const testFieldTypes = [
   {
@@ -28,7 +28,7 @@ const createDocType = () => ({
 
 test('The json schema for the parameters of a constructor can be created.', () => {
   const docType = createDocType()
-  expect(createJsonSchemaForConstructorParameters(docType, testFieldTypes, [])).toEqual({
+  expect(createJsonSchemaForDocTypeConstructorParameters(docType, testFieldTypes, [])).toEqual({
     $schema: 'http://json-schema.org/draft-07/schema#',
     title: 'Doc Type "candidate" Constructor',
     type: 'object',
