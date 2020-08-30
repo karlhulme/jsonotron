@@ -22,7 +22,6 @@ test('Accept valid field type.', () => {
     name: 'integer',
     type: 'field',
     title: 'The Integer',
-    category: 'number',
     paragraphs: [
       'This is line one.',
       'This is line two.'

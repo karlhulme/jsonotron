@@ -39,11 +39,6 @@ function patchFieldType (fieldType) {
     missingDocumentationProperties.push('title')
   }
 
-  if (typeof fieldType.category === 'undefined') {
-    fieldType.category = ''
-    missingDocumentationProperties.push('category')
-  }
-
   if (typeof fieldType.paragraphs === 'undefined') {
     fieldType.paragraphs = []
     missingDocumentationProperties.push('paragraphs')

@@ -18,7 +18,6 @@ function createValidFieldType () {
     name: 'candidateFieldType',
     type: 'field',
     title: 'Candidate',
-    category: 'candidate',
     paragraphs: ['this is a', 'test field type'],
     examples: [
       { value: 123, paragraphs: ['numbers 1 to 3'] }
@@ -40,7 +39,6 @@ test('Minimal field type can be verified.', () => {
   expect(() => ensureFieldTypes(ajv, [candidate], [])).not.toThrow()
   expect(candidate.type).toEqual('field')
   expect(candidate.title).toEqual('Minimal Field Type')
-  expect(candidate.category).toEqual('')
   expect(candidate.paragraphs).toEqual([])
   expect(candidate.examples).toEqual([])
   expect(candidate.validTestCases).toEqual([])
