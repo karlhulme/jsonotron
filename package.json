@@ -1,6 +1,6 @@
 {
   "name": "jsonotron-validation",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "type": "module",
   "description": "A library of schemas used by the Jsonotron system.",
   "main": "index.js",
