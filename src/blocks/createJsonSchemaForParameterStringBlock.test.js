@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const createJsonSchemaForParameterStringBlock = require('./createJsonSchemaForParameterStringBlock')
+import { createJsonSchemaForParameterStringBlock } from './createJsonSchemaForParameterStringBlock'
 
 const createParameterBlock = () => ({
   propA: { isRequired: true, paragraphs: ['A description'] },

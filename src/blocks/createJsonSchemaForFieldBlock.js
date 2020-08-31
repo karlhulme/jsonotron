@@ -1,7 +1,7 @@
-const check = require('check-types')
-const { createJsonSchemaDefinition } = require('../fieldType')
-const { consts } = require('../utils')
-const getFieldOrEnumTypeFromArrays = require('./getFieldOrEnumTypeFromArrays')
+import check from 'check-types'
+import { createJsonSchemaDefinition } from '../schemaType'
+import { consts } from '../utils'
+import { getFieldOrEnumTypeFromArrays } from './getFieldOrEnumTypeFromArrays'
 
 /**
  * Build the properties object.
@@ -89,7 +89,7 @@ function buildDefinitionsBlock (fieldBlock, fieldTypes, enumTypes) {
  * @param {Array} enumTypes An array of enum types.
  * @param {Boolean} isNullable True if the property values can be null.
  */
-function createJsonSchemaForFieldBlock (title, fieldBlock, fieldTypes, enumTypes, isNullable) {
+export function createJsonSchemaForFieldBlock (title, fieldBlock, fieldTypes, enumTypes, isNullable) {
   check.assert.string(title)
   check.assert.object(fieldBlock)
   check.assert.array.of.object(fieldTypes)
@@ -104,5 +104,3 @@ function createJsonSchemaForFieldBlock (title, fieldBlock, fieldTypes, enumTypes
     definitions: buildDefinitionsBlock(fieldBlock, fieldTypes, enumTypes)
   }
 }
-
-module.exports = createJsonSchemaForFieldBlock

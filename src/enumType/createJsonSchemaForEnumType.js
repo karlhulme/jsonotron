@@ -1,12 +1,12 @@
-const check = require('check-types')
-const createJsonSchemaFragmentForEnumType = require('./createJsonSchemaFragmentForEnumType')
-const { consts } = require('../utils')
+import check from 'check-types'
+import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType'
+import { consts } from '../utils'
 
 /**
  * Creates a JSON Schema for the given enum type.
  * @param {String} enumType The name of a field type.
  */
-function createJsonSchemaForEnumType (enumType) {
+export function createJsonSchemaForEnumType (enumType) {
   check.assert.object(enumType)
   check.assert.string(enumType.name)
 
@@ -16,5 +16,3 @@ function createJsonSchemaForEnumType (enumType) {
     ...createJsonSchemaFragmentForEnumType(enumType)
   }
 }
-
-module.exports = createJsonSchemaForEnumType

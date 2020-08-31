@@ -1,4 +1,4 @@
-const check = require('check-types')
+import check from 'check-types'
 
 /**
  * Returns the JSON schema fragment for the given enum type.  This is
@@ -6,7 +6,7 @@ const check = require('check-types')
  * values of the given enum type.
  * @param {Object} enumType A field type.
  */
-function getJsonSchemaFragmentForEnumType (enumType) {
+export function createJsonSchemaFragmentForEnumType (enumType) {
   check.assert.object(enumType)
   check.assert.array(enumType.items)
 
@@ -14,5 +14,3 @@ function getJsonSchemaFragmentForEnumType (enumType) {
     enum: enumType.items.map(item => item.value)
   }
 }
-
-module.exports = getJsonSchemaFragmentForEnumType

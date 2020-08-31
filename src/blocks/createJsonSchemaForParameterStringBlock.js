@@ -1,5 +1,5 @@
-const check = require('check-types')
-const { consts } = require('../utils')
+import check from 'check-types'
+import { consts } from '../utils'
 
 /**
  * Build the properties object.
@@ -38,7 +38,7 @@ function buildRequiredArray (parameterBlock) {
  * @param {String} title The title to be applied to the returned schema.
  * @param {Object} parameterBlock A block of field declaratinons.
  */
-function createJsonSchemaForParameterStringBlock (title, parameterBlock) {
+export function createJsonSchemaForParameterStringBlock (title, parameterBlock) {
   check.assert.string(title)
   check.assert.object(parameterBlock)
 
@@ -50,5 +50,3 @@ function createJsonSchemaForParameterStringBlock (title, parameterBlock) {
     required: buildRequiredArray(parameterBlock)
   }
 }
-
-module.exports = createJsonSchemaForParameterStringBlock

@@ -1,6 +1,6 @@
 /* eslint-env jest */
-const getFieldOrEnumTypeFromArrays = require('./getFieldOrEnumTypeFromArrays')
-const { JsonotronFieldTypeResolutionError } = require('jsonotron-errors')
+import errors from 'jsonotron-errors'
+import { getFieldOrEnumTypeFromArrays } from './getFieldOrEnumTypeFromArrays'
 
 const fieldTypes = [{
   name: 'found'
@@ -21,6 +21,6 @@ test('A named enum type can be found from the arrays.', () => {
 })
 
 test('An unrecognised field type cannot be found from an array.', () => {
-  expect(() => getFieldOrEnumTypeFromArrays('missing', fieldTypes, enumTypes)).toThrow(JsonotronFieldTypeResolutionError)
+  expect(() => getFieldOrEnumTypeFromArrays('missing', fieldTypes, enumTypes)).toThrow(errors.JsonotronFieldTypeResolutionError)
   expect(() => getFieldOrEnumTypeFromArrays('missing', fieldTypes, enumTypes)).toThrow(/missing/)
 })

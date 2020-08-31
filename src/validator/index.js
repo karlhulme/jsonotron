@@ -1,3 +1,1 @@
-module.exports = {
-  createCustomisedAjv: require('./createCustomisedAjv')
-}
+export * from './createCustomisedAjv'

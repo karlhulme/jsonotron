@@ -1,9 +1,5 @@
-module.exports = {
-  ...require('./src/apiResourceType'),
-  ...require('./src/enumType'),
-  ...require('./src/docType'),
-  ...require('./src/fieldType'),
-  ...require('./src/roleType'),
-  ...require('./src/schemas'),
-  ...require('./src/validator')
-}
+export { createEnumTypeSchema, validateEnumType, patchEnumType } from './src/enumType'
+export { createSchemaTypeSchema, validateSchemaType, patchSchemaType } from './src/schemaType'
+export { validateTypeSystem } from './src/typeSystem'
+export { consts, ValidationResult } from './src/utils'
+export { createCustomisedAjv } from './src/validator'

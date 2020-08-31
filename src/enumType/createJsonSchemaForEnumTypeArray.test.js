@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const createJsonSchemaForEnumTypeArray = require('./createJsonSchemaForEnumTypeArray')
+import { createJsonSchemaForEnumTypeArray } from './createJsonSchemaForEnumTypeArray'
 
 function createValidEnumType () {
   return {

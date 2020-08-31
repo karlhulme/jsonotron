@@ -1,6 +1,6 @@
 /* eslint-env jest */
-const { createCustomisedAjv } = require('../validator')
-const createValueValidatorForEnumTypeArray = require('./createValueValidatorForEnumTypeArray')
+import { createCustomisedAjv } from '../validator'
+import { createValueValidatorForEnumTypeArray } from './createValueValidatorForEnumTypeArray'
 
 const createValidEnumType = () => ({
   name: 'candidateEnumType',

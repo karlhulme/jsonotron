@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const pascalToTitleCase = require('./pascalToTitleCase')
+import { pascalToTitleCase } from './pascalToTitleCase'
 
 test('Can convert pascal names to title case.', () => {
   expect(pascalToTitleCase('helloWorld')).toEqual('Hello World')

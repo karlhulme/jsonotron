@@ -1,5 +1,3 @@
-module.exports = {
-  createJsonSchemaForFieldBlock: require('./createJsonSchemaForFieldBlock'),
-  createJsonSchemaForParameterStringBlock: require('./createJsonSchemaForParameterStringBlock'),
-  getFieldOrEnumTypeFromArrays: require('./getFieldOrEnumTypeFromArrays')
-}
+export * from './createJsonSchemaForFieldBlock'
+export * from './createJsonSchemaForParameterStringBlock'
+export * from './getFieldOrEnumTypeFromArrays'
