@@ -1,6 +1,5 @@
 import check from 'check-types'
-import { consts } from '../utils'
-import { createJsonSchemaFragmentForEnumType } from '../enumType'
+import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType'
 import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType'
 import { determineReferencedTypeNames } from './determineReferencedTypeNames'
 
@@ -12,7 +11,7 @@ import { determineReferencedTypeNames } from './determineReferencedTypeNames'
  * @param {Array} schemaTypes An array of schema types that may be referenced by the named schema types.
  * @param {Array} enumTypes An array of enum types that may be referenced by the named schema types.
  */
-export function createJsonSchemaDefinition (schemaTypeNames, enumTypeNames, schemaTypes, enumTypes) {
+export function createJsonSchemaDefinitionsSection (schemaTypeNames, enumTypeNames, schemaTypes, enumTypes) {
   check.assert.array.of.string(schemaTypeNames)
   check.assert.array.of.string(enumTypeNames)
   check.assert.array.of.object(schemaTypes)
@@ -24,7 +23,7 @@ export function createJsonSchemaDefinition (schemaTypeNames, enumTypeNames, sche
 
   for (const schemaTypeName of referencedTypeNames.schemaTypeNames) {
     const schemaType = schemaTypes.find(ft => ft.name === schemaTypeName)
-    defs[schemaTypeName] = createJsonSchemaFragmentForSchemaType(schemaType, consts.JSON_SCHEMA_DEFINITIONS_PATH)
+    defs[schemaTypeName] = createJsonSchemaFragmentForSchemaType(schemaType)
   }
 
   for (const enumTypeName of referencedTypeNames.enumTypeNames) {

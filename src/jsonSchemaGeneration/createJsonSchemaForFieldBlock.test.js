@@ -4,7 +4,6 @@ import { createJsonSchemaForFieldBlock } from './createJsonSchemaForFieldBlock'
 const testEnumTypes = [
   {
     name: 'trueFalse',
-    type: 'enum',
     items: [
       { value: true },
       { value: false }
@@ -12,22 +11,19 @@ const testEnumTypes = [
   }
 ]
 
-const testFieldTypes = [
+const testSchemaTypes = [
   {
     name: 'integer',
-    type: 'field',
     jsonSchema: {
       type: 'integer'
     }
   }, {
     name: 'float',
-    type: 'field',
     jsonSchema: {
       type: 'number'
     }
   }, {
     name: 'string',
-    type: 'field',
     jsonSchema: {
       type: 'string'
     }
@@ -45,7 +41,7 @@ const createFieldBlock = () => ({
 
 test('A schema can be created for a field block.', () => {
   const fieldBlock = createFieldBlock()
-  expect(createJsonSchemaForFieldBlock('test', fieldBlock, testFieldTypes, testEnumTypes, false)).toEqual({
+  expect(createJsonSchemaForFieldBlock('test', fieldBlock, testSchemaTypes, testEnumTypes, false)).toEqual({
     $schema: 'http://json-schema.org/draft-07/schema#',
     title: 'test',
     type: 'object',
@@ -69,7 +65,7 @@ test('A schema can be created for a field block.', () => {
 
 test('A schema can be created for a nullable field block.', () => {
   const fieldBlock = createFieldBlock()
-  expect(createJsonSchemaForFieldBlock('test', fieldBlock, testFieldTypes, testEnumTypes, true)).toEqual({
+  expect(createJsonSchemaForFieldBlock('test', fieldBlock, testSchemaTypes, testEnumTypes, true)).toEqual({
     $schema: 'http://json-schema.org/draft-07/schema#',
     title: 'test',
     type: 'object',

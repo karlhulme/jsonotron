@@ -1,14 +1,10 @@
 /* eslint-env jest */
 import {
-  createCustomisedAjv,
   createEnumTypeSchema, validateEnumType, patchEnumType,
   createSchemaTypeSchema, validateSchemaType, patchSchemaType,
-  validateTypeSystem
+  validateTypeSystem,
+  consts, createCustomisedAjv, ValidationResult
 } from './index'
-
-test('The json validator functions are exported.', () => {
-  expect(createCustomisedAjv).toBeDefined()
-})
 
 test('The functions for handling enums types are exported.', () => {
   expect(createEnumTypeSchema).toBeDefined()
@@ -22,6 +18,12 @@ test('The functions for handling schema types are exported.', () => {
   expect(patchSchemaType).toBeDefined()
 })
 
-test('The functions for validating a type system are exported.', () => {
+test('The type system functions are exported.', () => {
   expect(validateTypeSystem).toBeDefined()
+})
+
+test('The constants and utility functions are exported.', () => {
+  expect(consts).toBeDefined()
+  expect(createCustomisedAjv).toBeDefined()
+  expect(ValidationResult).toBeDefined()
 })

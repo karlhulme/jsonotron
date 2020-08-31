@@ -3,14 +3,14 @@ import { createJsonSchemaForSchemaTypeArray } from './createJsonSchemaForSchemaT
 
 const schemaTypes = [{
   name: 'example',
-  jsonSchema: definitionsPath => ({
+  jsonSchema: {
     type: 'object',
     properties: {
-      first: { $ref: `${definitionsPath}integer` },
-      second: { $ref: `${definitionsPath}integer` }
+      first: { $ref: '#/definitions/integer' },
+      second: { $ref: '#/definitions/integer' }
     },
     required: ['first', 'second']
-  }),
+  },
   referencedSchemaTypes: ['integer'],
   referencedEnumTypes: []
 }, {

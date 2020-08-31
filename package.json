@@ -3,7 +3,8 @@
   "version": "5.1.0",
   "type": "module",
   "description": "A library of schemas used by the Jsonotron system.",
-  "main": "index.js",
+  "main": "./index.js",
+  "exports": "./index.js",
   "scripts": {
     "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js && standard",
     "reinstall": "rm -rf node_modules && npm install"
@@ -19,14 +20,13 @@
   },
   "homepage": "https://github.com/karlhulme/jsonotron-validation#readme",
   "devDependencies": {
-    "acorn": "^7.1.1",
+    "acorn": "^8.0.1",
     "jest": "^26.4.2",
-    "standard": "^14.3.3"
+    "standard": "^14.3.4"
   },
   "dependencies": {
     "ajv": "^6.10.2",
-    "check-types": "^11.1.2",
-    "jsonotron-errors": "^1.3.1"
+    "check-types": "^11.1.2"
   },
   "jest": {
     "collectCoverage": true,

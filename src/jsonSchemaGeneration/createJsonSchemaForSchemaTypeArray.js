@@ -1,7 +1,7 @@
 import check from 'check-types'
-import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType'
-import { createJsonSchemaDefinition } from './createJsonSchemaDefinition'
 import { consts } from '../utils'
+import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType'
+import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection'
 
 /**
  * Creates a JSON Schema for the given schema type.
@@ -20,8 +20,8 @@ export function createJsonSchemaForSchemaTypeArray (schemaType, schemaTypes, enu
     title: `Array of Schema Type "${schemaType.name}"`,
     type: 'array',
     items: {
-      ...createJsonSchemaFragmentForSchemaType(schemaType, consts.JSON_SCHEMA_DEFINITIONS_PATH)
+      ...createJsonSchemaFragmentForSchemaType(schemaType)
     },
-    definitions: createJsonSchemaDefinition(schemaType.referencedSchemaTypes, schemaType.referencedEnumTypes, schemaTypes, enumTypes)
+    definitions: createJsonSchemaDefinitionsSection(schemaType.referencedSchemaTypes, schemaType.referencedEnumTypes, schemaTypes, enumTypes)
   }
 }

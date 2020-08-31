@@ -1,5 +1,4 @@
-import { createCustomisedAjv } from '../validator'
-import { ValidationResult } from '../utils'
+import { createCustomisedAjv, ValidationResult } from '../utils'
 import { createSchemaTypeSchema } from './createSchemaTypeSchema'
 
 /**
