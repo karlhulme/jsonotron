@@ -1,6 +1,6 @@
 {
   "name": "jsonotron-validation",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "type": "module",
   "description": "A library for managing a JSON schema based type system.",
   "main": "./index.js",
