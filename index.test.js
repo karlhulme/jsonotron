@@ -1,29 +1,26 @@
 /* eslint-env jest */
-import {
-  createEnumTypeSchema, validateEnumType, patchEnumType,
-  createSchemaTypeSchema, validateSchemaType, patchSchemaType,
-  validateTypeSystem,
-  consts, createCustomisedAjv, ValidationResult
-} from './index'
+import * as lib from './index'
 
-test('The functions for handling enums types are exported.', () => {
-  expect(createEnumTypeSchema).toBeDefined()
-  expect(validateEnumType).toBeDefined()
-  expect(patchEnumType).toBeDefined()
-})
+test('The functions are exported.', () => {
+  const testCases = [
+    // type system
+    'validateTypeSystem',
 
-test('The functions for handling schema types are exported.', () => {
-  expect(createSchemaTypeSchema).toBeDefined()
-  expect(validateSchemaType).toBeDefined()
-  expect(patchSchemaType).toBeDefined()
-})
+    // enum types
+    'createEnumTypeSchema',
+    'validateEnumType',
+    'patchEnumType',
 
-test('The type system functions are exported.', () => {
-  expect(validateTypeSystem).toBeDefined()
-})
+    // schema types
+    'createSchemaTypeSchema',
+    'validateSchemaType',
+    'patchSchemaType',
 
-test('The constants and utility functions are exported.', () => {
-  expect(consts).toBeDefined()
-  expect(createCustomisedAjv).toBeDefined()
-  expect(ValidationResult).toBeDefined()
+    // utils
+    'consts',
+    'createCustomisedAjv',
+    'ValidationResult'
+  ]
+
+  testCases.forEach((testCase) => expect(lib).toHaveProperty(testCase))
 })
