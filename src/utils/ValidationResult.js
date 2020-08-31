@@ -85,4 +85,14 @@ export class ValidationResult {
   isSuccessfulWithNoWarnings () {
     return this.errors.length === 0 && this.warnings.length === 0
   }
+
+  /**
+   * Returns a POJO with the errors and warnings.
+   */
+  toObject () {
+    return {
+      errors: this.getErrors(),
+      warnings: this.getWarnings()
+    }
+  }
 }

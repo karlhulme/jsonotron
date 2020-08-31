@@ -46,3 +46,15 @@ test('A validation result can be added to an existing result.', () => {
   expect(target.getErrors()).toEqual([{ typeName: 'Type1', message: 'an error', details: { foo: 'foo' } }])
   expect(target.getWarnings()).toEqual([{ typeName: 'Type1', message: 'a warning', details: { bar: 'bar' } }])
 })
+
+test('A validation result can be converted to a POJO.', () => {
+  const result = new ValidationResult()
+
+  result.addError('Type1', 'an error', { keyword: 'aaa' })
+  result.addWarning('Type1', 'a warning', { keyword: 'bbb' })
+
+  expect(result.toObject()).toEqual({
+    errors: [{ typeName: 'Type1', message: 'an error', details: { keyword: 'aaa' } }],
+    warnings: [{ typeName: 'Type1', message: 'a warning', details: { keyword: 'bbb' } }]
+  })
+})
