@@ -113,7 +113,7 @@ if (!validationResult.isSuccessfulWithNoWarnings()) {
 npm install jsonotron
 ```
 
-There are lots of common enum types, schema types and format validators already defined in `jsonotron-type-library` and `jsonotron-fv-library`.
+There are lots of common enum types, schema types and format validators already defined in `jsonotron-core-field-types` and `jsonotron-core-format-validators`.
 
 ## Enum Types
 
