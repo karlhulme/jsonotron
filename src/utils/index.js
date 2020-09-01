@@ -1,5 +1,3 @@
 export * from './consts'
-export * from './createCustomisedAjv'
 export * from './deepClone'
 export * from './pascalToTitleCase'
-export * from './ValidationResult'

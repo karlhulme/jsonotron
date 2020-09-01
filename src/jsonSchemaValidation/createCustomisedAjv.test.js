@@ -4,6 +4,7 @@ import { createCustomisedAjv } from './createCustomisedAjv'
 test('Can create a customised Ajv with bespoke keywords.', () => {
   const ajv = createCustomisedAjv()
   expect(ajv).toBeDefined()
+  expect(ajv.getKeyword('customTypeOf')).toBeTruthy()
 })
 
 test('Can create a customised Ajv with bespoke format validators.', () => {

@@ -2,7 +2,7 @@ import check from 'check-types'
 import { patchEnumType, validateEnumType } from '../enumType'
 import { patchSchemaType, validateSchemaType } from '../schemaType'
 import { createJsonSchemaForSchemaType } from '../jsonSchemaGeneration'
-import { createCustomisedAjv, ValidationResult } from '../utils'
+import { createCustomisedAjv, ValidationResult } from '../jsonSchemaValidation'
 
 /**
  * Returns an array of validated and patched enum types.  The result will

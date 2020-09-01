@@ -1,5 +1,6 @@
 import check from 'check-types'
 import Ajv from 'ajv'
+import { customTypeOfGenerator } from './customTypeOfGenerator'
 
 /**
  * Creates an instance of AJV with full formatting and support for the given formatValidators.
@@ -19,6 +20,9 @@ export function createCustomisedAjv (formatValidators = []) {
   for (const formatValidator of formatValidators) {
     ajv.addFormat(formatValidator.name, { validate: formatValidator.validate })
   }
+
+  // add the customTypeOf keyword used by schemas that support functions
+  ajv.addKeyword('customTypeOf', { compile: customTypeOfGenerator })
 
   return ajv
 }
