@@ -1,6 +1,6 @@
 import check from 'check-types'
-import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType'
 import { consts } from '../utils'
+import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType'
 
 /**
  * Creates a JSON Schema for the given enum type.

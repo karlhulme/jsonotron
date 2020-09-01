@@ -27,13 +27,13 @@ Notice that each field is given a type.  A type can be an enum type or it can be
 An **enum type** is based around a list of allowed values.  The same concept as an enum in many programming languages.  The allowed values will usually be strings but booleans are also allowed.  When you define it, you can also provide all the documentation for it.
 
 ```javascript
-{
+const myEnumType = {
   name: 'directions',
   title: 'Directions',
   paragraphs: ['My commonmark describing the purpose or usage of the enum.'],
   items: [
-    { value: 'up', symbol: '/\\', paragraphs: ['More documentation.'] },
-    { value: 'down', symbol: '\\/', isDeprecated: true, paragraphs: ['Last bit of documentation.'] }
+    { value: 'up', text: 'Up', symbol: '/\\', paragraphs: ['More documentation.'] },
+    { value: 'down', text: 'Down', symbol: '\\/', isDeprecated: true, paragraphs: ['Last bit of documentation.'] }
   ]
 }
 ```
@@ -41,12 +41,12 @@ An **enum type** is based around a list of allowed values.  The same concept as 
 A **schema type** is based on a JSON schema.  For schema types you can provide example values for documentation.  You can also provide valid and invalid test cases.  Jsonotron will check that the valid test cases are accepted by the json schema, and similarly that the invalid test cases are rejected by the json schema.
 
 ```javascript
-{
+const mySchemaType = {
   name: 'coordinate',
   title: 'Co-ordinate',
   paragraphs: ['My commonmark describing the purpose or usage of the schema type.'],
   examples: [
-    { coordX: 3, coordY: 4 }
+    { value: { coordX: 3, coordY: 4 }, paragraphs: ['This example shows...'] }
   ],
   validTestCases: [{ coordX: 5, coordY: 6 }],
   invalidTestCases: [0, 'invalid', false, [], {}],
@@ -67,6 +67,7 @@ When defining the JSON schema you can use any of the JSON Schema Draft 7 capabil
 A schema type can reference external enum types and schema types too using the `{ $ref: '#/definitions/<typeName>' }` expression.
 
 ```javascript
+const mySchemaTypeWithExternalRefs = {
   name: 'typeWithExternalRef',
   jsonSchema: {
     type: 'object',
@@ -78,6 +79,7 @@ A schema type can reference external enum types and schema types too using the `
   },
   referencedSchemaTypes: ['externalSchemaType'],
   referencedEnumTypes: ['externalEnumType']
+}
 ```
 
 You can check that your enum types and schema types are valid.  The example below shows validating an enum type, but the process is identical for schema types.  Note schema types are only validated for basic form.  To check json schemas are valid and that all external references are resolved, see validateTypeSystem below.
@@ -174,10 +176,14 @@ When you validate an enum, the item values will also be checked for uniqueness.
 
 I experimented with having a json validator function passed into the library.  This complicated the library and offered little benefit since a json validator is required to make Jsonotron work.  Picking a json validator means the library has no setup which is better for consumers.
 
-Internal dependencies run as shown below.  This is why the createCustomisedAjv and ValidationResult currently sit in the *./src/utils* folder.
-```
-typeSystem > enumType & schemaType & jsonSchemaGeneration > utils
-```
+Internal dependencies run as shown below:
+
+  * typeSystem *depends on* enumType, schemaType, jsonSchemaGeneration, jsonSchemaValidation and utils.
+  * enumType *depends on* jsonSchemaValidation and utils.
+  * schemaType *depends on* jsonSchemaValidation and utils.
+  * jsonSchemaGeneration *depends on* utils.
+  * jsonSchemaValidation *depends on* nothing.
+  * utils *depends on* nothing.
 
 ## Development
 

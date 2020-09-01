@@ -1,6 +1,6 @@
 import check from 'check-types'
-import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection'
 import { consts } from '../utils'
+import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection'
 
 /**
  * Build the properties object.

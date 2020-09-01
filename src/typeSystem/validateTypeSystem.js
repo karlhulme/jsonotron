@@ -137,6 +137,7 @@ function validateInvalidTestCases (result, validator, schemaType) {
  * @param {Array} enumTypes An array of enum types.
  * @param {Array} schemaTypes An array of schema types.
  * @param {Array} formatValidators An array of format validators.
+ * @returns {ValidationResult}
  */
 export function validateTypeSystem (enumTypes, schemaTypes, formatValidators) {
   check.assert.array.of.object(enumTypes)
