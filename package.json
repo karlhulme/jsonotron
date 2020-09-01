@@ -1,5 +1,5 @@
 {
-  "name": "jsonotron-validation",
+  "name": "jsonotron",
   "version": "5.2.1",
   "type": "module",
   "description": "A library for managing a JSON schema based type system.",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/karlhulme/jsonotron-validation.git"
+    "url": "git+https://github.com/karlhulme/jsonotron.git"
   },
   "author": "Karl Hulme <karlhulme@hotmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/karlhulme/jsonotron-validation/issues"
+    "url": "https://github.com/karlhulme/jsonotron/issues"
   },
-  "homepage": "https://github.com/karlhulme/jsonotron-validation#readme",
+  "homepage": "https://github.com/karlhulme/jsonotron#readme",
   "devDependencies": {
     "acorn": "^8.0.1",
     "jest": "^26.4.2",

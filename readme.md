@@ -1,7 +1,7 @@
 # A property type system for Javascript based on JSON schemas.
 
-![](https://github.com/karlhulme/jsonotron-validation/workflows/CD/badge.svg)
-[![npm](https://img.shields.io/npm/v/jsonotron-validation.svg)](https://www.npmjs.com/package/jsonotron-validation)
+![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
+[![npm](https://img.shields.io/npm/v/jsonotron.svg)](https://www.npmjs.com/package/jsonotron)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 This is a library for validating **field blocks**, where each field type is defined by a **JSON schema**.
