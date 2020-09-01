@@ -15,7 +15,7 @@ test('A minimal enum type is patched.', () => {
   const patchedCandidated = patchEnumType(candidate)
   expect(patchedCandidated.title).toEqual('Candidate Enum Type')
   expect(patchedCandidated.paragraphs).toEqual([''])
-  expect(patchedCandidated.items[0]).toEqual({ value: 'en', symbol: '', isDeprecated: false, paragraphs: ['En'] })
+  expect(patchedCandidated.items[0]).toEqual({ value: 'en', symbol: '', isDeprecated: false, paragraphs: [] })
 })
 
 test('A patched object should not change if re-patched.', () => {

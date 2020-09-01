@@ -20,16 +20,17 @@ export function createEnumTypeSchema ({ includeDocs } = {}) {
           type: 'object',
           properties: {
             value: { type: ['string', 'boolean'], description: 'A value.' },
+            text: { type: 'string', description: 'The display text.' },
             symbol: { type: 'string', description: 'A symbol that represents the enum value.' },
             isDeprecated: { type: 'boolean', description: 'True if the value is no longer in use.' },
             paragraphs: {
               type: 'array',
-              description: 'The English display text of the value.',
-              minItems: includeDocs ? 1 : 0,
+              description: 'The description of the item.',
+              minItems: 0,
               items: { type: 'string' }
             }
           },
-          required: ['value'].concat(includeDocs ? ['paragraphs'] : [])
+          required: ['value', 'text']
         }
       }
     },

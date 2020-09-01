@@ -7,9 +7,9 @@ function createFullEnumType () {
     title: 'Candidate Enum Type Here',
     paragraphs: ['A description of the enum', 'appears here.'],
     items: [
-      { value: 'en', paragraphs: ['England'], symbol: 'EN' },
-      { value: 'us', paragraphs: ['United States'], isDeprecated: false },
-      { value: 'fr', paragraphs: ['France'] }
+      { value: 'en', text: 'England', paragraphs: [], symbol: 'EN' },
+      { value: 'us', text: 'United States', paragraphs: ['The United States of America'], isDeprecated: false },
+      { value: 'fr', text: 'France' }
     ]
   }
 }
@@ -39,6 +39,8 @@ test('An invalid enum type is not successfully validated', () => {
   testBody(e => { delete e.items[0].value }, false, false)
   testBody(e => { e.items[0].value = 123 }, false, false)
   testBody(e => { e.items[1].value = 'en' }, false, false) // this creates 'en' as a duplicated value
+  testBody(e => { delete e.items[0].text }, false, false)
+  testBody(e => { e.items[0].text = 123 }, false, false)
   testBody(e => { e.items[0].symbol = 123 }, false, false)
   testBody(e => { e.items[0].isDeprecated = 123 }, false, false)
   testBody(e => { e.items[0].paragraphs = 123 }, false, false)
@@ -50,9 +52,6 @@ test('An undocumented enum type is successfully validated but not without warnin
 
   testBody(e => { delete e.paragraphs }, true, false)
   testBody(e => { e.paragraphs = [] }, true, false)
-
-  testBody(e => { delete e.items[0].paragraphs }, true, false)
-  testBody(e => { e.items[0].paragraphs = [] }, true, false)
 })
 
 test('A fully documented enum type is successfully validated with no warnings', () => {

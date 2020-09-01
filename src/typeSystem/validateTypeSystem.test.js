@@ -7,9 +7,9 @@ function createFullEnumType () {
     title: 'Country Code',
     paragraphs: ['A code for a country.'],
     items: [
-      { value: 'en', paragraphs: ['England'], symbol: 'EN' },
-      { value: 'us', paragraphs: ['United States'], isDeprecated: false },
-      { value: 'fr', paragraphs: ['France'] }
+      { value: 'en', text: 'England', symbol: 'EN' },
+      { value: 'us', text: 'United States', isDeprecated: false },
+      { value: 'fr', text: 'France' }
     ]
   }
 }

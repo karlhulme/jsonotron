@@ -21,7 +21,7 @@ export function patchEnumType (enumType) {
 
   for (const item of result.items) {
     if (typeof item.paragraphs === 'undefined') {
-      item.paragraphs = [pascalToTitleCase(item.value.toString())]
+      item.paragraphs = []
     }
 
     if (typeof item.symbol === 'undefined') {
