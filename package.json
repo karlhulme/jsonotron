@@ -1,6 +1,6 @@
 {
   "name": "jsonotron",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "type": "module",
   "description": "A library for managing a JSON schema based type system.",
   "main": "./index.js",
