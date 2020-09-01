@@ -4,17 +4,17 @@ export function createEnumTypeSchema ({ includeDocs } = {}) {
     type: 'object',
     description: includeDocs ? 'The definition of an enum type including documentation.' : 'The definition of an enum type.',
     properties: {
-      name: { type: 'string', description: 'The enum type name.', pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$' },
+      name: { type: 'string', description: 'The enum type name.', pattern: '^([_a-zA-Z][_a-zA-Z0-9]*[.])?[_a-zA-Z][_a-zA-Z0-9]*$' },
       title: { type: 'string', description: 'The title (display name) of the enum type.' },
       paragraphs: {
         type: 'array',
-        description: 'An array of paragraphs that describe the usage of the field.',
+        description: 'An array of paragraphs that describe the usage of the enum type.',
         minItems: includeDocs ? 1 : 0,
         items: { type: 'string' }
       },
       items: {
         type: 'array',
-        description: 'An array of all the possible values for the enum field.',
+        description: 'An array of all the possible values for the enum type.',
         minItems: 1,
         items: {
           type: 'object',

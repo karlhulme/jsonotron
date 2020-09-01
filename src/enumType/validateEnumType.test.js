@@ -26,6 +26,9 @@ test('An invalid enum type is not successfully validated', () => {
   testBody(e => { delete e.name }, false, false)
   testBody(e => { e.name = 123 }, false, false)
   testBody(e => { e.name = '123' }, false, false)
+  testBody(e => { e.name = '.abc' }, false, false)
+  testBody(e => { e.name = 'abc.' }, false, false)
+  testBody(e => { e.name = 'too.many.dots' }, false, false)
 
   testBody(e => { e.title = 123 }, false, false)
 
@@ -56,4 +59,5 @@ test('An undocumented enum type is successfully validated but not without warnin
 
 test('A fully documented enum type is successfully validated with no warnings', () => {
   testBody(e => e, true, true)
+  testBody(e => { e.name = 'namespace.candidateEnumType' }, true, true)
 })

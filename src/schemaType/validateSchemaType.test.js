@@ -29,6 +29,9 @@ test('An invalid schema type is not successfully validated', () => {
   testBody(s => { delete s.name }, false, false)
   testBody(s => { s.name = 123 }, false, false)
   testBody(s => { s.name = '123' }, false, false)
+  testBody(s => { s.name = '.abc' }, false, false)
+  testBody(s => { s.name = 'abc.' }, false, false)
+  testBody(s => { s.name = 'too.many.dots' }, false, false)
 
   testBody(s => { s.title = 123 }, false, false)
 
@@ -74,4 +77,5 @@ test('An undocumented or untested schema type is successfully validated but not 
 
 test('A fully documented enum type is successfully validated with no warnings', () => {
   testBody(s => s, true, true)
+  testBody(s => { s.name = 'namespace.candidateEnumType' }, true, true)
 })
