@@ -126,6 +126,7 @@ title | An optional display name for the enum type, typically prefixed with a ca
 paragraphs | An optional array of commonmark strings.
 items | An array of objects.
 items.value | A string or boolean value that is unique within the array.
+items.text | A string to be used as the display text.
 items.symbol | An optional string that represents the value.
 items.isDeprecated | An optional boolean that indicates if the value is no longer in usage.
 items.paragraphs | An optional array of commonmark strings.
