@@ -12,7 +12,7 @@ A field block could define the contents of a JSON document that is being saved t
 
 The library can be used to create a single type system that is used from the database (e.g. [Sengi](https://github.com/karlhulme/sengi)) all the way to the API layer.  You can produce API documentation and you can use it in the browser too.
 
-When validation fails, you get clear errors about what went wrong, thanks to [Ajv](https://github.com/ajv-validator/ajv).  There's Ajv libraries to improve that further if you wish.  Either way you can return it do consumers and they'll know how to fix their code.
+When validation fails, you get clear errors about what went wrong, thanks to [Ajv](https://github.com/ajv-validator/ajv).  There's Ajv libraries to improve that further if you wish.  Either way you can return the errors to a consumer and they'll know how to fix their code.
 
 ## Motivation
 
@@ -28,7 +28,7 @@ You can install jsonotron in the usual way.
 npm install jsonotron
 ```
 
-It's likely you'll want the core field types and core format validators because they define all the standard types you'd want from a type system.
+It's likely you'll want the (core field types)[https://github.com/karlhulme/jsonotron-core-field-types] and (core format validators)[https://github.com/karlhulme/jsonotron-core-format-validators].  These libraries define a bunch of core types for numbers, strings, date/times and currencies.
 
 ```bash
 npm install jsonotron-core-field-types
@@ -61,17 +61,17 @@ That's enough to compile our type system.
 
 ```javascript
 import { compile } from 'jsonotron'
-import { mediumString, shortString, countryCode, utcDateTime } from 'jsonotron-core-field-types'
-import { utcDateTime as utcDateTimeFV } from 'jsonotron-core-format-validators'
+import { allEnumTypes, allSchemaTypes } from 'jsonotron-core-field-types'
+import { allFormatValidators } from 'jsonotron-core-format-validators'
 import { compile } from 'jsonotron'
 
 const addressFieldBlockType { ... }
 
 // compile the type system (typically do this on startup and save the result)
 const typeSystem = compile({
-  enumTypes = [countryCode],
-  schemaTypes = [mediumString, shortString, utcDateTime],
-  formatValidators = [utcDateTimeFV),
+  enumTypes = allEnumTypes,
+  schemaTypes = allSchemaTypes,
+  formatValidators = allFormatValidators,
   fieldBlockTypes = [addressFieldBlockType]
 })
 ```
