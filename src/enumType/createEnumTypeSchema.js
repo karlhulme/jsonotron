@@ -1,3 +1,8 @@
+/**
+ * Creates a JSON Schema for validating enum types.
+ * @param {Object} options An options object.
+ * @param {Boolean} options.includeDocs True if the documentation fields should be mandatory.
+ */
 export function createEnumTypeSchema ({ includeDocs } = {}) {
   return {
     title: includeDocs ? 'Enum Type (with Documentation) Schema' : 'Enum Type Schema',

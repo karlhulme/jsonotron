@@ -30,20 +30,23 @@ const testSchemaTypes = [
   }
 ]
 
-const createFieldBlock = () => ({
-  propA: { type: 'integer', isRequired: true, canUpdate: true },
-  propB: { type: 'float', default: 1.2 },
-  propC: { type: 'integer', isGuaranteed: true },
-  propE: { type: 'trueFalse' },
-  propQ: { type: 'string', isArray: true },
-  propY: { const: 'hello' }
+const createFieldBlock = (isNullable) => ({
+  name: 'candidateFieldBlock',
+  fields: {
+    propA: { type: 'integer', isRequired: true, isNullable },
+    propB: { type: 'float', isNullable },
+    propC: { type: 'integer', isRequired: true, isNullable },
+    propE: { type: 'trueFalse', isNullable },
+    propQ: { type: 'string', isArray: true, isNullable },
+    propY: { type: 'string', const: 'hello', isNullable }
+  }
 })
 
 test('A schema can be created for a field block.', () => {
-  const fieldBlock = createFieldBlock()
-  expect(createJsonSchemaForFieldBlock('test', fieldBlock, testSchemaTypes, testEnumTypes, false)).toEqual({
+  const fieldBlock = createFieldBlock(false)
+  expect(createJsonSchemaForFieldBlock(fieldBlock, testSchemaTypes, testEnumTypes)).toEqual({
     $schema: 'http://json-schema.org/draft-07/schema#',
-    title: 'test',
+    title: 'candidateFieldBlock',
     type: 'object',
     properties: {
       propA: { $ref: '#/definitions/integer' },
@@ -64,10 +67,10 @@ test('A schema can be created for a field block.', () => {
 })
 
 test('A schema can be created for a nullable field block.', () => {
-  const fieldBlock = createFieldBlock()
-  expect(createJsonSchemaForFieldBlock('test', fieldBlock, testSchemaTypes, testEnumTypes, true)).toEqual({
+  const fieldBlock = createFieldBlock(true)
+  expect(createJsonSchemaForFieldBlock(fieldBlock, testSchemaTypes, testEnumTypes)).toEqual({
     $schema: 'http://json-schema.org/draft-07/schema#',
-    title: 'test',
+    title: 'candidateFieldBlock',
     type: 'object',
     properties: {
       propA: { oneOf: [{ type: 'null' }, { $ref: '#/definitions/integer' }] },

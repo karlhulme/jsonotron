@@ -1,5 +1,2 @@
-export { createEnumTypeSchema, validateEnumType, patchEnumType } from './src/enumType'
-export { createCustomisedAjv, ValidationResult } from './src/jsonSchemaValidation'
-export { createSchemaTypeSchema, validateSchemaType, patchSchemaType } from './src/schemaType'
-export { validateTypeSystem } from './src/typeSystem'
-export { consts } from './src/utils'
+export { compile } from './src/compilation'
+export { TypeSystem, JSON_SCHEMA_DECLARATION, JSON_SCHEMA_DEFINITIONS_PATH } from './src/shared'

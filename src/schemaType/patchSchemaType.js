@@ -23,11 +23,11 @@ export function patchSchemaType (schemaType) {
     result.examples = []
   }
 
-  for (const example of result.examples) {
+  result.examples.forEach(example => {
     if (typeof example.paragraphs === 'undefined') {
       example.paragraphs = ['']
     }
-  }
+  })
 
   if (typeof result.validTestCases === 'undefined') {
     result.validTestCases = []

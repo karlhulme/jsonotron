@@ -1,5 +1,5 @@
 import check from 'check-types'
-import { consts } from '../utils'
+import { JSON_SCHEMA_DECLARATION } from '../shared'
 import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType'
 
 /**
@@ -11,7 +11,7 @@ export function createJsonSchemaForEnumTypeArray (enumType) {
   check.assert.string(enumType.name)
 
   return {
-    $schema: consts.JSON_SCHEMA_DECLARATION,
+    $schema: JSON_SCHEMA_DECLARATION,
     title: `Array of Enum Type "${enumType.name}"`,
     type: 'array',
     items: {

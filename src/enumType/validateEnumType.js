@@ -1,4 +1,4 @@
-import { createCustomisedAjv, ValidationResult } from '../jsonSchemaValidation'
+import { ValidationResult } from '../jsonSchemaValidation'
 import { createEnumTypeSchema } from './createEnumTypeSchema'
 
 /**
@@ -19,7 +19,7 @@ function validateWithSchema (result, ajv, enumType) {
 
   if (!validator(enumType)) {
     validator.errors.forEach(error => {
-      result.addError(enumType.name, 'Failed to validate against enumType schema.', error)
+      result.addError(enumType.name, 'Enum Type has invalid or missing properties.', error)
     })
   }
 }
@@ -40,7 +40,7 @@ function validateWithDocsSchema (result, ajv, enumType) {
   if (!docsValidator(enumType)) {
     docsValidator.errors.forEach(error => {
       if (!result.containsError(error)) {
-        result.addWarning(enumType.name, 'Failed to validate against enumType schema with documentation.', error)
+        result.addWarning(enumType.name, 'Enum Type has missing documentation.', error)
       }
     })
   }
@@ -58,7 +58,7 @@ function validateItemValuesAreUnique (result, enumType) {
     enumType.items.forEach((item, index) => {
       if (typeof item === 'object') {
         if (seen.includes(item.value)) {
-          result.addError(enumType.name, `The value '${item.value}' at index ${index} is not unique.`, { dataPath: `items[${index}].value` })
+          result.addError(enumType.name, `Enum Type has value '${item.value}' at index ${index} that is not unique.`, { dataPath: `items[${index}].value` })
         } else {
           seen.push(item.value)
         }
@@ -68,12 +68,12 @@ function validateItemValuesAreUnique (result, enumType) {
 }
 
 /**
- * Validates the given enum type and returns a ValidationResult.
+ * Validates the given enum type and places the results into the given validation result.
+ * @param {Ajv} ajv A json schema validator.
  * @param {Object} enumType An enum type.
  */
-export function validateEnumType (enumType) {
+export function validateEnumType (ajv, enumType) {
   const result = new ValidationResult()
-  const ajv = createCustomisedAjv()
 
   validateWithSchema(result, ajv, enumType)
   validateWithDocsSchema(result, ajv, enumType)

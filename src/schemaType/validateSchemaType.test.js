@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import { validateSchemaType } from './validateSchemaType'
+import { createCustomisedAjv } from '../jsonSchemaValidation'
 
 function createFullSchemaType () {
   return {
@@ -18,9 +19,10 @@ function createFullSchemaType () {
 }
 
 function testBody (mutator, isSuccessful, isSuccessulWithNoWarnings) {
+  const ajv = createCustomisedAjv()
   const candidate = createFullSchemaType()
   mutator(candidate)
-  const result = validateSchemaType(candidate)
+  const result = validateSchemaType(ajv, candidate)
   expect(result.isSuccessful()).toEqual(isSuccessful)
   expect(result.isSuccessfulWithNoWarnings()).toEqual(isSuccessulWithNoWarnings)
 }

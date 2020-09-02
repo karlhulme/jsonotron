@@ -14,7 +14,8 @@ function createMinimalSchemaTypeWithExample () {
   return {
     name: 'candidateSchemaType',
     examples: [
-      { value: 'a' }
+      { value: 'a' },
+      { value: 'b', paragraphs: ['An example.'] }
     ],
     jsonSchema: {
       type: 'string'
@@ -36,12 +37,12 @@ test('A minimal schema type is patched.', () => {
 test('A minimal schema type with example is patched.', () => {
   const candidate = createMinimalSchemaTypeWithExample()
   const patchedCandidate = patchSchemaType(candidate)
-  expect(patchedCandidate.examples).toEqual([{ value: 'a', paragraphs: [''] }])
+  expect(patchedCandidate.examples[0]).toEqual({ value: 'a', paragraphs: [''] })
 })
 
 test('A patched object should not change if re-patched.', () => {
   // this exercises the branch where the schema type is fully populated
   const candidate = createMinimalSchemaTypeWithExample()
-  const patchedCandidated = patchSchemaType(candidate)
-  expect(patchSchemaType(patchedCandidated)).toEqual(patchedCandidated)
+  const patchedCandidate = patchSchemaType(candidate)
+  expect(patchSchemaType(patchedCandidate)).toEqual(patchedCandidate)
 })

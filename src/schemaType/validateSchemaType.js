@@ -1,4 +1,4 @@
-import { createCustomisedAjv, ValidationResult } from '../jsonSchemaValidation'
+import { ValidationResult } from '../jsonSchemaValidation'
 import { createSchemaTypeSchema } from './createSchemaTypeSchema'
 
 /**
@@ -19,7 +19,7 @@ function validateWithSchema (result, ajv, schemaType) {
 
   if (!validator(schemaType)) {
     validator.errors.forEach(error => {
-      result.addError(schemaType.name, 'Failed to validate against schemaType schema.', error)
+      result.addError(schemaType.name, 'Schema Type has invalid or missing properties.', error)
     })
   }
 }
@@ -40,7 +40,7 @@ function validateWithDocsAndTestsSchema (result, ajv, schemaType) {
   if (!docsAndTestsValidator(schemaType)) {
     docsAndTestsValidator.errors.forEach(error => {
       if (!result.containsError(error)) {
-        result.addWarning(schemaType.name, 'Failed to validate against schemaType schema with documentation and test values.', error)
+        result.addWarning(schemaType.name, 'Schema Type has missing documentation or tests.', error)
       }
     })
   }
@@ -51,11 +51,11 @@ function validateWithDocsAndTestsSchema (result, ajv, schemaType) {
  * The validation process ensures that the required fields are present
  * but it does not compile the json schema or check that test cases and examples
  * conform to it.
- * @param {Object} schemaType A schema type.
+ * @param {Ajv} ajv A json schema validator.
+ * @param {Object} enumType An enum type.
  */
-export function validateSchemaType (schemaType) {
+export function validateSchemaType (ajv, schemaType) {
   const result = new ValidationResult()
-  const ajv = createCustomisedAjv()
 
   validateWithSchema(result, ajv, schemaType)
   validateWithDocsAndTestsSchema(result, ajv, schemaType)

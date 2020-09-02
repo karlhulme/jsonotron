@@ -1,6 +1,7 @@
 /**
- * Creates a validation result with methods for adding
- * errors and warnings.
+ * Represents the result of a validation attempt.  This object
+ * has methods for adding warnings and errors and then helper
+ * methods for determining if the validation process was successful or not.
  */
 export class ValidationResult {
   constructor () {
@@ -10,7 +11,7 @@ export class ValidationResult {
 
   /**
    * Add an error to the validation result.
-   * @param {String} typeName The name of a type that is being validated.
+   * @param {String} typeName The name of a type that is being compild.
    * @param {String} message A message that describes the error.
    * @param {Object} details An object that contains additional details on the error.
    */
@@ -20,22 +21,12 @@ export class ValidationResult {
 
   /**
    * Add a warning to the validation result.
-   * @param {String} typeName The name of a type that is being validated.
+   * @param {String} typeName The name of a type that is being compiled.
    * @param {String} message A message that describes the warning.
    * @param {Object} details An object that contains additional details on the warning.
    */
   addWarning (typeName, message, details) {
     this.warnings.push({ typeName, message, details })
-  }
-
-  /**
-   * Adds the errors and warnings from the given validation result
-   * into this instance.
-   * @param {ValidationResult} vr A validation result.
-   */
-  addExisting (vr) {
-    this.errors.push(...vr.errors)
-    this.warnings.push(...vr.warnings)
   }
 
   /**
@@ -87,12 +78,12 @@ export class ValidationResult {
   }
 
   /**
-   * Returns a POJO with the errors and warnings.
+   * Returns a formatted string containing the errors and warnings.
    */
-  toObject () {
-    return {
+  toString () {
+    return JSON.stringify({
       errors: this.getErrors(),
       warnings: this.getWarnings()
-    }
+    }, null, 2)
   }
 }

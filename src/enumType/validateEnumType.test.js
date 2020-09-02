@@ -1,5 +1,6 @@
 /* eslint-env jest */
 import { validateEnumType } from './validateEnumType'
+import { createCustomisedAjv } from '../jsonSchemaValidation'
 
 function createFullEnumType () {
   return {
@@ -15,9 +16,10 @@ function createFullEnumType () {
 }
 
 function testBody (mutator, isSuccessful, isSuccessulWithNoWarnings) {
+  const ajv = createCustomisedAjv()
   const candidate = createFullEnumType()
   mutator(candidate)
-  const result = validateEnumType(candidate)
+  const result = validateEnumType(ajv, candidate)
   expect(result.isSuccessful()).toEqual(isSuccessful)
   expect(result.isSuccessfulWithNoWarnings()).toEqual(isSuccessulWithNoWarnings)
 }

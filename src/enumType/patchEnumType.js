@@ -19,7 +19,7 @@ export function patchEnumType (enumType) {
     result.paragraphs = ['']
   }
 
-  for (const item of result.items) {
+  result.items.forEach(item => {
     if (typeof item.paragraphs === 'undefined') {
       item.paragraphs = []
     }
@@ -31,7 +31,7 @@ export function patchEnumType (enumType) {
     if (typeof item.isDeprecated === 'undefined') {
       item.isDeprecated = false
     }
-  }
+  })
 
   return result
 }

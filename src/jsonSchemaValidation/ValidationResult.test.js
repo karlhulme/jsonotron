@@ -36,25 +36,12 @@ test('A validation result can find the presence of existing error using the deta
   expect(result.containsError({ keyword: 'bbb' })).toEqual(true)
 })
 
-test('A validation result can be added to an existing result.', () => {
-  const source = new ValidationResult()
-  source.addError('Type1', 'an error', { foo: 'foo' })
-  source.addWarning('Type1', 'a warning', { bar: 'bar' })
-
-  const target = new ValidationResult()
-  target.addExisting(source)
-  expect(target.getErrors()).toEqual([{ typeName: 'Type1', message: 'an error', details: { foo: 'foo' } }])
-  expect(target.getWarnings()).toEqual([{ typeName: 'Type1', message: 'a warning', details: { bar: 'bar' } }])
-})
-
-test('A validation result can be converted to a POJO.', () => {
+test('A validation result can be converted to an object.', () => {
   const result = new ValidationResult()
 
-  result.addError('Type1', 'an error', { keyword: 'aaa' })
-  result.addWarning('Type1', 'a warning', { keyword: 'bbb' })
-
-  expect(result.toObject()).toEqual({
-    errors: [{ typeName: 'Type1', message: 'an error', details: { keyword: 'aaa' } }],
-    warnings: [{ typeName: 'Type1', message: 'a warning', details: { keyword: 'bbb' } }]
-  })
+  result.addError('Type1', 'my message', { keyword: 'bbb' })
+  expect(result.toString()).toEqual(JSON.stringify({
+    errors: [{ typeName: 'Type1', message: 'my message', details: { keyword: 'bbb' } }],
+    warnings: []
+  }, null, 2))
 })

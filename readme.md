@@ -6,29 +6,202 @@
 
 This is a library for validating **field blocks**, where each field type is defined by a **JSON schema**.
 
-A field block could define the contents of JSON document that is being saved to a NoSQL database.  Or it could be the parameters to a REST API call.
+A field block could define the contents of a JSON document that is being saved to a NoSQL database, or it could be the parameters to a REST API call.  Anywhere you need to define a set of fields and be able to validate them using a rich type system, Jsonotron can be used.
 
-## Overview
+The library can be used to create a single type system that is used from the database (e.g. [Sengi](https://github.com/karhulme/sengi)) all the way to the API layer.  You can produce API documentation and you can use it in the browser too.
 
-Suppose you wanted to define a field block for an address.
+When validation fails, you get clear errors about what went wrong, thanks to [Ajv](https://github.com/ajv-validator/ajv).  There's Ajv libraries to improve that further if you wish.  Either way you can return it do consumers and they'll know how to fix their code.
+
+## Motivation
+
+JSON Schema already allows us to validate arbitrary blocks of JSON.  It also allows re-use by referencing external JSON schemas.  However, a system built this way becomes hard to administer because the errors are described in terms of the resultant JSON, not in terms of what you were trying to achieve by combining them.
+
+This is where Jsonotron makes a trade-off.  It considers each top level property of an object to be a field.  A field can be a primitive (boolean, string, etc) or it can be a complex deeply-nested object, but the validation is always targetted at field level.  It's analogous to validating arguments passed to a method call.  You could define every method as accepting an object and then validate it using JSON Schema but you'd lose something by doing that.  Jsonotron brings this concept of individual arguments to JSON as it moves through a system.
+
+## Installation
+
+You can install jsonotron in the usual way.
+
+```bash
+npm install jsonotron
+```
+
+It's likely you'll want the core field types and core format validators because they define all the standard types you'd want from a type system.
+
+```bash
+npm install jsonotron-core-field-types
+npm install jsonotron-core-format-validators
+```
+
+## Getting Started
+
+Suppose you have a bunch of API calls that create and read addresses and maybe you store that address in a Mongo database too.  You want to be able to validate the fields that make up an address whenever you see them.  You start by defining a Field Block Type.
 
 ```javascript
-const addressFieldBlock = {
-  addressLine1: { type: 'mediumString', isRequired: true },
-  addressLine2: { type: 'mediumString' },
-  town: { type: 'mediumString' },
-  postCode: { type: 'ukPostcode', isRequired: true },
-  country: { type: 'countryCode', isRequired: true }
+const addressFieldBlockType = {
+  name: 'examples.address',
+  fields: {
+    addressLine1: { type: 'mediumString', isRequired: true },
+    addressLine2: { type: 'mediumString' },
+    town: { type: 'mediumString' },
+    postCode: { type: 'shortString', isRequired: true },
+    country: { type: 'countryCode', isRequired: true },
+    lastPhotographed: { type: 'utcDateTime', }
+  }
 }
 ```
 
-Notice that each field is given a type.  A type can be an enum type or it can be a schema type.
+All the types used above (`mediumString`, `shortString`, `countryCode` and `utcDateTime`) are defined in the `jsonotron-core-field-types` library.
 
-An **enum type** is based around a list of allowed values.  The same concept as an enum in many programming languages.  The allowed values will usually be strings but booleans are also allowed.  When you define it, you can also provide all the documentation for it.
+The `utcDateTime` field uses a format validator.  This means that additional code has to run, beyond the capabilities provided by JSON schema, to determine if a supplied value is valid.  In this case the format validator uses (moment)[https://github.com/moment/moment] to check the date and time is valid.  The one we need is defined in the `jsonotron-core-format-validators` library.
+
+That's enough to compile our type system.
+
+```javascript
+import { compile } from 'jsonotron'
+import { mediumString, shortString, countryCode, utcDateTime } from 'jsonotron-core-field-types'
+import { utcDateTime as utcDateTimeFV } from 'jsonotron-core-format-validators'
+import { compile } from 'jsonotron'
+
+const addressFieldBlockType { ... }
+
+// compile the type system (typically do this on startup and save the result)
+const typeSystem = compile({
+  enumTypes = [countryCode],
+  schemaTypes = [mediumString, shortString, utcDateTime],
+  formatValidators = [utcDateTimeFV),
+  fieldBlockTypes = [addressFieldBlockType]
+})
+```
+
+Then we can validate any address to see if it's valid.
+
+```javascript
+// here's the address we're going to validate
+const candidateAddress = {
+  addressLine1: '115 Acacia Avenue',
+  town: 'London',
+  postCode: 'W1 3AS',
+  country: 'en',
+  lastPhotographed: '2020-09-02T15:31:00'
+}
+
+// perform the validation
+const result = typeSystem.executeFieldBlockTypeValidator('examples.address', candidateAddress)
+
+// check the result
+if (!result.validated) {
+  console.log('Houston we have a problem.')
+  console.log(result.errors)
+}
+```
+
+## Type System
+
+The only entry point is the `compile (resources)` method.  It expects a resources object with the properties described below.  It checks the types are valid and then builds functions that can be used for validation. 
+
+* **enumTypes** - An array of enum type objects.
+* **schemaTypes** - An array of schema type objects.
+* **formatValidators** - An array of format validators.
+* **fieldBlockTypes** - An array of field block type objects.
+
+All these different types are defined below.
+
+To determine if the compilation process was successful call `isSuccessful()` or `isSuccessfulWithNoErrors()`.  Both these methods return a boolean.
+
+To convert warnings and errors into a formatted string call `toString()`.
+
+As part of the compilation process, Jsonotron will patch all the missing fields of the various types.  It can be useful to have access to these because it saves you checking for nulls or undefineds on the optional properties.  You can access these via `getPatchedEnumTypes()`, `getPatchedSchemaTypes()` and `getPatchedFieldBlockTypes()`.
+
+Finally, once the type system has been produced, you can execute the validator functions by calling `executeFieldTypeValidator (fieldTypeName, fieldValue)` or `executeFieldBlockTypeValidator (fieldBlockTypeName, fieldBlockValue)`.  Note that the executeFieldTypeValidator will find enum types first and then schema types second.
+
+## Checking for Errors ##
+
+Afer you've compiled your resources you'll get a `TypeSystem` object.
+
+Typically, if the compilation failed you would want to stop processing.  You can call `getErrors()` and `getWarnings()` to retrieve those as an array of `{ typeName, message, details }` objects.  The structure of the `details` object varies depending on the type of error information available.
+
+There is a convenience method `toString()` which formats the errors into a printable string.
+
+```javascript
+import { compile } from 'jsonotron'
+
+const typeSystem = compile({ enumTypes = ['invalid!'] })
+
+if (!typeSystem.isSuccessful()) {
+  throw new Error('Compilation failed: ' + typeSystem.toString())
+}
+```
+
+The code above can be used as the basis for the automated tests of your enum types, schema types and field block types.  You can be really strict and ensure that all types are fully documented as well.
+
+```javascript
+if (!typeSystem.isSuccessfulWithNoWarnings()) {
+  throw new Error('Compilation failed: ' + typeSystem.toString())
+}
+```
+
+## Defining Field Block Types
+
+You define a Field Block Type by giving it a name and a list of field objects.  Crucially, each field object is given a type.
+
+```javascript
+const addressFieldBlockType = {
+  name: 'examples.address',
+  title: 'Address',
+  isNullable: false,
+  fields: {
+    addressLine1: { type: 'mediumString', isRequired: true },
+    addressLine2: { type: 'mediumString' },
+    town: { type: 'mediumString', default: '' },
+    postCode: { type: 'shortString', isRequired: true },
+    country: { type: 'countryCode', isRequired: true },
+    lastPhotographed: { type: 'utcDateTime', }
+  },
+  examples: [{
+    value: { addressLine1: '1 Rabbit Hole', town: 'Forest', postCode: '12341' country: 'fr', lastPhotographed: '2020-09-02T16:07:00Z' },
+    paragraphs: ['An example.']
+  }]
+}
+```
+
+Some of the libraries using Jsonotron use a higher level concept and then produce Field Block Types from that.  For example, Sengi defines Doc Types and then produces Field Block Types for the constructor, filter parameters, operation parameters, etc.
+
+The table below describes the properties of a field block type.
+
+Property Name | Description
+---|---
+name | A name for the field block type.
+title | The display name for the field block type.
+paragraphs | An optional array of commonmark strings.
+fields | An array of objects.
+fields.type | The name of an enum type or a schema type.
+fields.isRequired | An optional boolean that indicates if the field must be supplied. (Works the same is isGuaranteed.)
+fields.isGuaranteed | An optional boolean that indicates if the field will be supplied. (Works the same is isRequired.)
+fields.isNullable | An optional boolean that determines if the field can be null.
+fields.isNullable | An optional boolean that determines if the field is an array of values rather than a single value.
+fields.default | Any value that can be used in place of a missing field.
+fields.const | If present, this field will be a constant string and the type will not be used.
+fields.paragraphs | An optional array of commonmark strings.
+examples | An array of objects.
+examples.value | An example value that satisfies the contraints of this field block type.
+examples.paragraphs | An array of commonmark strings that describes this example.
+
+## Defining Enum Types and Schema Types
+
+The `jsonotron-core-field-types` library provides lots of useful enum types and schema types but of course you will want to provide your own.
+
+I recommend giving your types a namespace, e.g. `examples.myType` when you name them.  This ensures they will never clash with the core types. 
+
+A type can be an **enum type** or it can be a **schema type**.
+
+## Enum Types
+
+An enum type is based around a list of allowed values.  The same concept as an enum in many programming languages.  The allowed values will usually be strings but booleans are also allowed.
 
 ```javascript
 const myEnumType = {
-  name: 'directions',
+  name: 'examples.directions',
   title: 'Directions',
   paragraphs: ['My commonmark describing the purpose or usage of the enum.'],
   items: [
@@ -38,11 +211,27 @@ const myEnumType = {
 }
 ```
 
-A **schema type** is based on a JSON schema.  For schema types you can provide example values for documentation.  You can also provide valid and invalid test cases.  Jsonotron will check that the valid test cases are accepted by the json schema, and similarly that the invalid test cases are rejected by the json schema.
+The table below describes the properties of an enum type.
+
+Property Name | Description
+---|---
+name | A name for the enum type.
+title | An optional display name for the enum type, typically prefixed with a capital letter.
+paragraphs | An optional array of commonmark strings.
+items | An array of objects.
+items.value | A string or boolean value that is unique within the array.
+items.text | A string to be used as the display text.
+items.symbol | An optional string that represents the value.
+items.isDeprecated | An optional boolean that indicates if the value is no longer in usage.
+items.paragraphs | An optional array of commonmark strings.
+
+## Schema Types ##
+
+A schema type is based on a JSON schema.  For schema types you can provide example values for documentation.  You can also provide valid and invalid test cases.  Jsonotron will check that the valid test cases are accepted by the json schema, and similarly that the invalid test cases are rejected by the json schema.
 
 ```javascript
 const mySchemaType = {
-  name: 'coordinate',
+  name: 'examples.coordinate',
   title: 'Co-ordinate',
   paragraphs: ['My commonmark describing the purpose or usage of the schema type.'],
   examples: [
@@ -62,13 +251,13 @@ const mySchemaType = {
 }
 ```
 
-When defining the JSON schema you can use any of the JSON Schema Draft 7 capabilities as implemented by https://ajv.js.org/.
+When defining the JSON schema you can use any of the JSON Schema Draft 7 capabilities as implemented by Ajv.
 
-A schema type can reference external enum types and schema types too using the `{ $ref: '#/definitions/<typeName>' }` expression.
+A schema type can reference external enum types and schema types too using the `{ $ref: '#/definitions/<typeName>' }` expression.  You don't need to plug in the actual definition because Jsonotron will do that for you if you add your requirements to the `referencedSchemaTypes` and `referencedEnumTypes` properties.
 
 ```javascript
 const mySchemaTypeWithExternalRefs = {
-  name: 'typeWithExternalRef',
+  name: 'examples.typeWithExternalRef',
   jsonSchema: {
     type: 'object',
     properties: {
@@ -81,60 +270,6 @@ const mySchemaTypeWithExternalRefs = {
   referencedEnumTypes: ['externalEnumType']
 }
 ```
-
-You can check that your enum types and schema types are valid.  The example below shows validating an enum type, but the process is identical for schema types.  Note schema types are only validated for basic form.  To check json schemas are valid and that all external references are resolved, see validateTypeSystem below.
-
-```javascript
-import { validateEnumType } from 'jsonotron'
-const myEnumType = { ... }
-
-const validationResult = validateEnumType(myEnumType)
-
-if (!validationResult.isSuccessfulWithNoWarnings()) {
-  console.log(JSON.stringify(validationResult.toObject(), null, 2))
-}
-```
-
-You can validate a complete type system.
-
-```javascript
-import { validateTypeSystem } from 'jsonotron'
-const enumTypes = [{ ... }]
-const schemaTypes = [{ ... }]
-const formatValidators = [{ ... }]
-
-const validationResult = validateTypeSystem(enumTypes, schemaTypes, formatValidators)
-
-if (!validationResult.isSuccessfulWithNoWarnings()) {
-  console.log(JSON.stringify(validationResult.toObject(), null, 2))
-}
-```
-## Installation
-
-```bash
-npm install jsonotron
-```
-
-There are lots of common enum types, schema types and format validators already defined in `jsonotron-core-field-types` and `jsonotron-core-format-validators`.
-
-## Enum Types
-
-The table below describes the properties of an enum type.
-
-Property Name | Description
----|---
-name | A name for the enum type.
-title | An optional display name for the enum type, typically prefixed with a capital letter.
-paragraphs | An optional array of commonmark strings.
-items | An array of objects.
-items.value | A string or boolean value that is unique within the array.
-items.text | A string to be used as the display text.
-items.symbol | An optional string that represents the value.
-items.isDeprecated | An optional boolean that indicates if the value is no longer in usage.
-items.paragraphs | An optional array of commonmark strings.
-
-## Schema Types
-
 The table below describes the properties of a schema type.
 
 Property Name | Description
@@ -149,11 +284,39 @@ jsonSchema | A json schema object.
 referencedSchemaTypes | An optional string array naming the schema types that are referenced by the jsonSchema.
 referencedEnumTypes | An optional string array naming the enum types that are referenced by the jsonSchema.
 
-You can reference other schema types and enum types if needed.
+You can reference other schema types and enum types as needed.
 
 ## Format Validators
 
 A format validator is a function that tests whether a given string adheres to a known format.  For example, a credit card number is a string but it has a specific format.  A JSON schema can use the `format` keyword to reference custom validation and this is how you plug that custom code into Jsonotron.  
+
+The example below shows the format validator that uses the moment library to ensure a utc date time is formatted correctly.
+
+```javascript
+export const localDateTime = {
+  name: 'jsonotron-local-date-time',
+
+  validate: function (v) {
+    return moment(v, 'YYYY-MM-DD[T]HH:mm:ssZZ', true).isValid() && !v.toLowerCase().endsWith('z')
+  }
+}
+```
+
+To reference the above formatter from a Schema Type, you include the format validator name as the name property.  The example below is a cut down version of the utcDateTime type.
+
+```javascript
+export const dateTimeUtc = {
+  name: 'dateTimeUtc',
+  jsonSchema: {
+    type: 'string',
+    format: 'jsonotron-utc-date-time' // notice this is the same 'name' property used when defining the format validator.
+  }
+}
+```
+
+The format validators shipped with Jsonotron are prefixed with `jsonotron-`.
+
+I recommend you prefix your format validators with a company name or similar.
 
 The table below describes the properties of a format validator.
 
@@ -162,28 +325,23 @@ Property Name | Description
 name | A name for the format validator.
 validate | A function (value) that returns true if the given value is valid, otherwise it returns false.
 
-## Validation Result
-
-When validating types (by calling `validateEnumType` or `validateSchemaType`) you will receive a `ValidationResult` object.
-
-You can call `getErrors` or `getWarnings` on a `ValidationResult` to get an array of `{ typeName, message, details }` objects.
-
-You can call `isSuccessful` and `isSuccessfulWithNoWarnings` to get a boolean result of the validation process.  Warnings refer to missing documentation.
-
-When you validate an enum, the item values will also be checked for uniqueness.
-
 ## Design Decisions
+
+Externally you use the `compile` function and this returns a `TypeSystem` which includes all the artefacts and errors/warnings.  Internally, we go through several distinct processes:
+
+ * **Validation** is the process of checking that the enumType, schemaType and fieldBlocks have valid properties.  We're looking at the property names and the property types.  We do NOT check the values (e.g. the schema example values) at this stage.
+ * **Patching** is the process of adding defaults for any of the properties not supplied.  Once done, the library doesn't have to check for nulls or undefineds.
+ * **Schema Generation** is the process of generating a new JSON schema from the enumType, schemaType or fieldBlock. 
+ * **Schema Compilation** is the process of converting the generated JSON schema into a validator method.
+ * **Verification** is the process of checking the example values using the validator method.
 
 I experimented with having a json validator function passed into the library.  This complicated the library and offered little benefit since a json validator is required to make Jsonotron work.  Picking a json validator means the library has no setup which is better for consumers.
 
-Internal dependencies run as shown below:
+Field Block Types cannot contain other Field Block Types.  I don't know if this desirable or workable.
 
-  * typeSystem *depends on* enumType, schemaType, jsonSchemaGeneration, jsonSchemaValidation and utils.
-  * enumType *depends on* jsonSchemaValidation and utils.
-  * schemaType *depends on* jsonSchemaValidation and utils.
-  * jsonSchemaGeneration *depends on* utils.
-  * jsonSchemaValidation *depends on* nothing.
-  * utils *depends on* nothing.
+The executeXYZValidator functions do not raise Errors because validation is expected to regularly fail.  It's not an exception to the method contract.
+
+The Jsonotron library includes properties that are intended to document the types, even though Jsonotron doesn't need this to actually validate data.  Now that we're in the documentation game, we should include flags for other known pieces of data (like canUpdate or isGuaranteed) which is useful for documentation generators.  Consumers are free to attach further flags that are unknown to Jsonotron but where known flags are supplied the expected types will be enforced.
 
 ## Development
 
@@ -197,4 +355,6 @@ npm test
 
 ## Continuous Deployment
 
-Any commits to master will cause the library to be re-published.
+Any pushes or pull-requests on non-master branches will trigger the test runner.
+
+Any pushes to master will cause the library to be re-published.

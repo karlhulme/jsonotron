@@ -3,25 +3,14 @@ import * as lib from './index'
 
 test('The functions are exported.', () => {
   const testCases = [
-    // enum types
-    'createEnumTypeSchema',
-    'validateEnumType',
-    'patchEnumType',
 
-    // json schema validation
-    'createCustomisedAjv',
-    'ValidationResult',
+    // compilation
+    'compile',
 
-    // schema types
-    'createSchemaTypeSchema',
-    'validateSchemaType',
-    'patchSchemaType',
-
-    // type system
-    'validateTypeSystem',
-
-    // utils
-    'consts'
+    // shared
+    'TypeSystem',
+    'JSON_SCHEMA_DECLARATION',
+    'JSON_SCHEMA_DEFINITIONS_PATH'
   ]
 
   testCases.forEach((testCase) => expect(lib).toHaveProperty(testCase))
