@@ -10,7 +10,7 @@ This is a library for validating **field blocks**, where each field type is defi
 
 A field block could define the contents of a JSON document that is being saved to a NoSQL database, or it could be the parameters to a REST API call.  Anywhere you need to define a set of fields and be able to validate them using a rich type system, Jsonotron can be used.
 
-The library can be used to create a single type system that is used from the database (e.g. [Sengi](https://github.com/karhulme/sengi)) all the way to the API layer.  You can produce API documentation and you can use it in the browser too.
+The library can be used to create a single type system that is used from the database (e.g. [Sengi](https://github.com/karlhulme/sengi)) all the way to the API layer.  You can produce API documentation and you can use it in the browser too.
 
 When validation fails, you get clear errors about what went wrong, thanks to [Ajv](https://github.com/ajv-validator/ajv).  There's Ajv libraries to improve that further if you wish.  Either way you can return it do consumers and they'll know how to fix their code.
 
