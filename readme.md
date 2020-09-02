@@ -1,4 +1,6 @@
-# A property type system for Javascript based on JSON schemas.
+# Jsonotron
+
+A library for managing a JSON schema based type system.
 
 ![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
 [![npm](https://img.shields.io/npm/v/jsonotron.svg)](https://www.npmjs.com/package/jsonotron)
