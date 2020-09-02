@@ -327,6 +327,16 @@ Property Name | Description
 name | A name for the format validator.
 validate | A function (value) that returns true if the given value is valid, otherwise it returns false.
 
+## Additional Exports
+
+The following functions are also exported from the library as a convenience for libraries that are using Jsonotron as a base for further validation.
+
+Export Name | Description
+---|---
+deepClone | Returns a deep cloned copy of the given object.  The clone is performed by converting the given object to a JSON string and back to an object.
+pascalCaseToTitleCase | Returns the given string converted into title case.  For example, "helloWorld" becomes "Hello World".
+createCustomisedAjv | Creates an instance of AJV with full format validation, support for the customTypeOf keywords and support for the given formatValidators.
+
 ## Design Decisions
 
 Externally you use the `compile` function and this returns a `TypeSystem` which includes all the artefacts and errors/warnings.  Internally, we go through several distinct processes:

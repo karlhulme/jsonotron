@@ -3,7 +3,8 @@ import Ajv from 'ajv'
 import { customTypeOfGenerator } from './customTypeOfGenerator'
 
 /**
- * Creates an instance of AJV with full formatting and support for the given formatValidators.
+ * Creates an instance of AJV with full format validation, support for the customTypeOf keywords
+ * and support for the given formatValidators.
  * @param {Array} [formatValidators] An array of objects { name, validator }.
  * @param {String} formatValidators.name The name of the format validator.
  * @param {Function} formatValidators.validate A function (value) that returns true if the sole parameter is valid.

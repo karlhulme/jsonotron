@@ -10,7 +10,11 @@ test('The functions are exported.', () => {
     // shared
     'TypeSystem',
     'JSON_SCHEMA_DECLARATION',
-    'JSON_SCHEMA_DEFINITIONS_PATH'
+    'JSON_SCHEMA_DEFINITIONS_PATH',
+
+    // utils
+    'deepClone',
+    'pascalToTitleCase'
   ]
 
   testCases.forEach((testCase) => expect(lib).toHaveProperty(testCase))
