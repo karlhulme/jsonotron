@@ -7,6 +7,10 @@ test('The functions are exported.', () => {
     // compilation
     'compile',
 
+    // jsonSchemaValidation
+    'createCustomisedAjv',
+    'ValidationResult',
+
     // shared
     'TypeSystem',
     'JSON_SCHEMA_DECLARATION',

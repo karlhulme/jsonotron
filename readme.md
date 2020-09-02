@@ -336,6 +336,7 @@ Export Name | Description
 deepClone | Returns a deep cloned copy of the given object.  The clone is performed by converting the given object to a JSON string and back to an object.
 pascalCaseToTitleCase | Returns the given string converted into title case.  For example, "helloWorld" becomes "Hello World".
 createCustomisedAjv | Creates an instance of AJV with full format validation, support for the customTypeOf keywords and support for the given formatValidators.
+ValidationResult | Represents the result of a validation attempt.  This object has methods for adding warnings and errors and then helper methods for determining if the validation process was successful or not.
 
 ## Design Decisions
 
