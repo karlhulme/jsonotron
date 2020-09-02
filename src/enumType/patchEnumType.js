@@ -16,7 +16,7 @@ export function patchEnumType (enumType) {
   }
 
   if (typeof result.paragraphs === 'undefined') {
-    result.paragraphs = ['']
+    result.paragraphs = []
   }
 
   result.items.forEach(item => {
