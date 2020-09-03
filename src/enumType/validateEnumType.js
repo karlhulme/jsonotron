@@ -54,17 +54,13 @@ function validateWithDocsSchema (result, ajv, enumType) {
 function validateItemValuesAreUnique (result, enumType) {
   const seen = []
 
-  if (Array.isArray(enumType.items)) {
-    enumType.items.forEach((item, index) => {
-      if (typeof item === 'object') {
-        if (seen.includes(item.value)) {
-          result.addError(enumType.name, `Enum Type has value '${item.value}' at index ${index} that is not unique.`, { dataPath: `items[${index}].value` })
-        } else {
-          seen.push(item.value)
-        }
-      }
-    })
-  }
+  enumType.items.forEach((item, index) => {
+    if (seen.includes(item.value)) {
+      result.addError(enumType.name, `Enum Type has value '${item.value}' at index ${index} that is not unique.`, { dataPath: `items[${index}].value` })
+    } else {
+      seen.push(item.value)
+    }
+  })
 }
 
 /**
@@ -77,7 +73,12 @@ export function validateEnumType (ajv, enumType) {
 
   validateWithSchema(result, ajv, enumType)
   validateWithDocsSchema(result, ajv, enumType)
-  validateItemValuesAreUnique(result, enumType)
+
+  // this interim check means that for subsequent validation functions we can assume that
+  // any present data has the correct types.
+  if (result.isSuccessful()) {
+    validateItemValuesAreUnique(result, enumType)
+  }
 
   return result
 }
