@@ -30,8 +30,6 @@ test('A minimal schema type is patched.', () => {
   expect(patchedCandidate.paragraphs).toEqual([''])
   expect(patchedCandidate.validTestCases).toEqual([])
   expect(patchedCandidate.invalidTestCases).toEqual([])
-  expect(patchedCandidate.referencedSchemaTypes).toEqual([])
-  expect(patchedCandidate.referencedEnumTypes).toEqual([])
 })
 
 test('A minimal schema type with example is patched.', () => {

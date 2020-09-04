@@ -2,6 +2,7 @@ import check from 'check-types'
 import { JSON_SCHEMA_DECLARATION } from '../shared'
 import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType'
 import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection'
+import { extractTypeNamesFromJsonSchema } from './extractTypeNamesFromJsonSchema'
 
 /**
  * Creates a JSON Schema for the given schema type.
@@ -15,6 +16,8 @@ export function createJsonSchemaForSchemaTypeArray (schemaType, schemaTypes, enu
   check.assert.array.of.object(schemaTypes)
   check.assert.array.of.object(enumTypes)
 
+  const typeNames = extractTypeNamesFromJsonSchema(schemaType.jsonSchema)
+
   return {
     $schema: JSON_SCHEMA_DECLARATION,
     title: `Array of Schema Type "${schemaType.name}"`,
@@ -22,6 +25,6 @@ export function createJsonSchemaForSchemaTypeArray (schemaType, schemaTypes, enu
     items: {
       ...createJsonSchemaFragmentForSchemaType(schemaType)
     },
-    definitions: createJsonSchemaDefinitionsSection(schemaType.referencedSchemaTypes, schemaType.referencedEnumTypes, schemaTypes, enumTypes)
+    definitions: createJsonSchemaDefinitionsSection(typeNames, schemaTypes, enumTypes)
   }
 }

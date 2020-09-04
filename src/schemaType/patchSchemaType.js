@@ -37,13 +37,5 @@ export function patchSchemaType (schemaType) {
     result.invalidTestCases = []
   }
 
-  if (typeof result.referencedSchemaTypes === 'undefined') {
-    result.referencedSchemaTypes = []
-  }
-
-  if (typeof result.referencedEnumTypes === 'undefined') {
-    result.referencedEnumTypes = []
-  }
-
   return result
 }

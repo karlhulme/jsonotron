@@ -6,18 +6,16 @@ import { determineReferencedTypeNames } from './determineReferencedTypeNames'
 /**
  * Creates the definitions portion of a JSON Schema that includes the
  * json schemas defined for the given schemaTypeNames and enumTypeNames.
- * @param {Array} schemaTypeNames An array of schema type names.
- * @param {Array} schemaTypeNames An array of enum type names.
+ * @param {Array} typeNames An array of type names.
  * @param {Array} schemaTypes An array of schema types that may be referenced by the named schema types.
  * @param {Array} enumTypes An array of enum types that may be referenced by the named schema types.
  */
-export function createJsonSchemaDefinitionsSection (schemaTypeNames, enumTypeNames, schemaTypes, enumTypes) {
-  check.assert.array.of.string(schemaTypeNames)
-  check.assert.array.of.string(enumTypeNames)
+export function createJsonSchemaDefinitionsSection (typeNames, schemaTypes, enumTypes) {
+  check.assert.array.of.string(typeNames)
   check.assert.array.of.object(schemaTypes)
   check.assert.array.of.object(enumTypes)
 
-  const referencedTypeNames = determineReferencedTypeNames(schemaTypeNames, enumTypeNames, schemaTypes, enumTypes)
+  const referencedTypeNames = determineReferencedTypeNames(typeNames, schemaTypes, enumTypes)
 
   const defs = {}
 

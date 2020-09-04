@@ -49,16 +49,6 @@ export function createSchemaTypeSchema ({ includeDocs, includeTests } = {}) {
       jsonSchema: {
         type: 'object',
         description: 'A JSON schema that governs values for this schema type.'
-      },
-      referencedSchemaTypes: {
-        type: 'array',
-        description: 'An array of the schema types referenced directly by this schema type.',
-        items: { type: 'string' }
-      },
-      referencedEnumTypes: {
-        type: 'array',
-        description: 'An array of the enum types referenced directly by this schema type.',
-        items: { type: 'string' }
       }
     },
     required: ['name', 'jsonSchema'].concat(includeDocs ? ['title', 'paragraphs', 'examples'] : []).concat(includeTests ? ['validTestCases', 'invalidTestCases'] : [])

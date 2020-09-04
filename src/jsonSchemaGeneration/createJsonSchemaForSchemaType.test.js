@@ -10,16 +10,12 @@ const schemaTypes = [{
       second: { $ref: '#/definitions/integer' }
     },
     required: ['first', 'second']
-  },
-  referencedSchemaTypes: ['integer'],
-  referencedEnumTypes: []
+  }
 }, {
   name: 'integer',
   jsonSchema: {
     type: 'number'
-  },
-  referencedSchemaTypes: [],
-  referencedEnumTypes: []
+  }
 }]
 
 test('Build a JSON Schema for a schema with no dependencies.', () => {

@@ -12,9 +12,7 @@ function createFullSchemaType () {
     invalidTestCases: [false, { not: 'valid' }],
     jsonSchema: {
       type: 'string'
-    },
-    referencedSchemaTypes: [],
-    referencedEnumTypes: []
+    }
   }
 }
 
@@ -51,12 +49,6 @@ test('An invalid schema type is not successfully validated', () => {
 
   testBody(s => { delete s.jsonSchema }, false, false)
   testBody(s => { s.jsonSchema = 123 }, false, false)
-
-  testBody(s => { s.referencedSchemaTypes = 123 }, false, false)
-  testBody(s => { s.referencedSchemaTypes = [123] }, false, false)
-
-  testBody(s => { s.referencedEnumTypes = 123 }, false, false)
-  testBody(s => { s.referencedEnumTypes = [123] }, false, false)
 })
 
 test('An undocumented or untested schema type is successfully validated but not without warnings', () => {

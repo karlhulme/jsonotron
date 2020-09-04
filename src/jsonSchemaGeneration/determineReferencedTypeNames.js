@@ -1,80 +1,65 @@
 import check from 'check-types'
+import { extractTypeNamesFromJsonSchema } from './extractTypeNamesFromJsonSchema'
 
 /**
- * Returns an object containing four arrays.
+ * Returns an object containing two arrays.
  * The first array contains all the schema types directly or indirectly referenced by the given schema type names.
  * The second array contains the enum types directly or indirectly referenced by the given schema type and enum type names.
- * @param {Array} schemaTypeNames An array of schema type names.
- * @param {Array} enumTypeNames An array of enum type names.
+ * @param {Array} rawTypeNames An initial set of type names.
  * @param {Array} schemaTypes An array of schema types.
  * @param {Array} enumTypes An array of enum types.
  */
-export function determineReferencedTypeNames (schemaTypeNames, enumTypeNames, schemaTypes, enumTypes) {
-  check.assert.array.of.string(schemaTypeNames)
-  check.assert.array.of.string(enumTypeNames)
+export function determineReferencedTypeNames (rawTypeNames, schemaTypes, enumTypes) {
+  check.assert.array.of.string(rawTypeNames)
   check.assert.array.of.object(schemaTypes)
   check.assert.array.of.object(enumTypes)
 
+  const unresolvedTypeNames = []
   const resolvedSchemaTypeNames = []
   const resolvedEnumTypeNames = []
 
-  // de-duplicate the provided schema type names
-  for (const name of schemaTypeNames) {
-    if (!resolvedSchemaTypeNames.includes(name)) {
-      resolvedSchemaTypeNames.push(name)
+  // de-duplicate the raw types
+  rawTypeNames.forEach(typeName => {
+    if (!unresolvedTypeNames.includes(typeName)) {
+      unresolvedTypeNames.push(typeName)
     }
-  }
-
-  // de-duplicate the provided enum type names
-  for (const name of enumTypeNames) {
-    if (!resolvedEnumTypeNames.includes(name)) {
-      resolvedEnumTypeNames.push(name)
-    }
-  }
+  })
 
   let index = 0
 
-  // walk through the resolved schema type names, check they are valid, and look for referenced enum/schema types
-  while (index < resolvedSchemaTypeNames.length) {
-    const target = resolvedSchemaTypeNames[index]
-    const refSchemaType = schemaTypes.find(ft => ft.name === target)
+  // walk through the unresolved type names and look for enum/schema types
+  while (index < unresolvedTypeNames.length) {
+    const target = unresolvedTypeNames[index]
 
-    if (refSchemaType) {
-      // add any referenced schema types to the resolved array if not already present
-      if (Array.isArray(refSchemaType.referencedSchemaTypes)) {
-        for (let i = 0; i < refSchemaType.referencedSchemaTypes.length; i++) {
-          if (!resolvedSchemaTypeNames.includes(refSchemaType.referencedSchemaTypes[i])) {
-            resolvedSchemaTypeNames.push(refSchemaType.referencedSchemaTypes[i])
-          }
-        }
-      }
-
-      // check any referenced enum types are valid and then add to the resolved array if not already present
-      if (Array.isArray(refSchemaType.referencedEnumTypes)) {
-        for (let i = 0; i < refSchemaType.referencedEnumTypes.length; i++) {
-          const candidateEnumTypeName = refSchemaType.referencedEnumTypes[i]
-
-          if (!resolvedEnumTypeNames.includes(candidateEnumTypeName)) {
-            resolvedEnumTypeNames.push(candidateEnumTypeName)
-          }
-        }
-      }
+    // try to match an enum type
+    if (enumTypes.findIndex(e => e.name === target) > -1) {
+      resolvedEnumTypeNames.push(target)
     } else {
-      throw new Error(`Unable to resolve schemaType '${target}'.`)
+      // else try to match a schema type
+      const matchedSchemaType = schemaTypes.find(s => s.name === target)
+
+      if (matchedSchemaType) {
+        resolvedSchemaTypeNames.push(target)
+
+        // for schema types - check for downstream references and add new ones to the unresolved list.
+        const subReferencedRawTypeNames = extractTypeNamesFromJsonSchema(matchedSchemaType.jsonSchema)
+
+        subReferencedRawTypeNames.forEach(subRawTypeName => {
+          if (!unresolvedTypeNames.includes(subRawTypeName)) {
+            unresolvedTypeNames.push(subRawTypeName)
+          }
+        })
+      } else {
+        // type was not found
+        throw new Error(`Unable to resolve type name '${target}'.`)
+      }
     }
 
     index++
   }
 
-  // check the enums are valid
-  resolvedEnumTypeNames.forEach(enumTypeName => {
-    if (enumTypes.findIndex(et => et.name === enumTypeName) === -1) {
-      throw new Error(`Unable to resolve enumType '${enumTypeName}'.`)
-    }
-  })
-
   return {
-    schemaTypeNames: resolvedSchemaTypeNames,
-    enumTypeNames: resolvedEnumTypeNames
+    schemaTypeNames: resolvedSchemaTypeNames.sort(),
+    enumTypeNames: resolvedEnumTypeNames.sort()
   }
 }

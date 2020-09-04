@@ -27,9 +27,7 @@ function createFullSchemaTypeMinusDocs () {
         country: { $ref: '#/definitions/countryCode' }
       },
       required: ['pop', 'country']
-    },
-    referencedSchemaTypes: [],
-    referencedEnumTypes: ['countryCode']
+    }
   }
 }
 

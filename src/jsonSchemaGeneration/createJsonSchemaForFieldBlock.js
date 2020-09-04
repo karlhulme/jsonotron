@@ -53,29 +53,11 @@ function buildRequiredArray (fieldBlock) {
  * @param {Array} enumTypes An array of enum types.
  */
 function buildDefinitionsBlock (fieldBlock, schemaTypes, enumTypes) {
-  const refFieldTypes = []
-  const refEnumTypes = []
+  const typeNames = Object.keys(fieldBlock.fields)
+    .filter(fieldName => !fieldBlock.fields[fieldName].const) // filter out constants
+    .map(fieldName => fieldBlock.fields[fieldName].type)
 
-  for (const fieldName in fieldBlock.fields) {
-    const field = fieldBlock.fields[fieldName]
-
-    if (field.const) {
-      // no definition required for constants
-    } else {
-      const isFieldASchemaType = schemaTypes.findIndex(st => st.name === field.type) > -1
-      const isFieldAnEnumType = enumTypes.findIndex(et => et.name === field.type) > -1
-
-      if (isFieldASchemaType && !refFieldTypes.includes(field.type)) {
-        refFieldTypes.push(field.type)
-      }
-
-      if (isFieldAnEnumType && !refEnumTypes.includes(field.type)) {
-        refEnumTypes.push(field.type)
-      }
-    }
-  }
-
-  return createJsonSchemaDefinitionsSection(refFieldTypes, refEnumTypes, schemaTypes, enumTypes)
+  return createJsonSchemaDefinitionsSection(typeNames, schemaTypes, enumTypes)
 }
 
 /**

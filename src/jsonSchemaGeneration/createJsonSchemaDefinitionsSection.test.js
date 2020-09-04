@@ -19,20 +19,16 @@ const schemaTypes = [{
       third: { $ref: '#/definitions/choice' }
     },
     required: ['first', 'second']
-  },
-  referencedSchemaTypes: ['integer'],
-  referencedEnumTypes: ['choice']
+  }
 }, {
   name: 'integer',
   jsonSchema: {
     type: 'number'
-  },
-  referencedSchemaTypes: [],
-  referencedEnumTypes: []
+  }
 }]
 
 test('Create the definition portion of a json schema for a set of referenced schema and enum types.', () => {
-  expect(createJsonSchemaDefinitionsSection(['example'], [], schemaTypes, enumTypes)).toEqual({
+  expect(createJsonSchemaDefinitionsSection(['example'], schemaTypes, enumTypes)).toEqual({
     example: {
       type: 'object',
       properties: {
