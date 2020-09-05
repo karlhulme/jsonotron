@@ -247,15 +247,13 @@ const mySchemaType = {
       coordX: { type: 'number' },
       coordY: { type: 'number' }
     }
-  },
-  referencedSchemaTypes: [],
-  referencedEnumTypes: []
+  }
 }
 ```
 
 When defining the JSON schema you can use any of the JSON Schema Draft 7 capabilities as implemented by Ajv.
 
-A schema type can reference external enum types and schema types too using the `{ $ref: '#/definitions/<typeName>' }` expression.  You don't need to plug in the actual definition because Jsonotron will do that for you if you add your requirements to the `referencedSchemaTypes` and `referencedEnumTypes` properties.
+A schema type can reference external enum types and schema types too using the `{ $ref: '#/definitions/<typeName>' }` expression.  You don't need to plug in the actual definition because Jsonotron will do that for you.
 
 ```javascript
 const mySchemaTypeWithExternalRefs = {
@@ -267,9 +265,7 @@ const mySchemaTypeWithExternalRefs = {
       externalSchemaTypeField: { $ref: '#/definitions/externalSchemaType' },
       externalEnumTypeField: { $ref: '#/definitions/externalEnumType' }
     }
-  },
-  referencedSchemaTypes: ['externalSchemaType'],
-  referencedEnumTypes: ['externalEnumType']
+  }
 }
 ```
 The table below describes the properties of a schema type.
@@ -283,8 +279,6 @@ examples | An optional array of example values that conform to the json schema a
 validTestCases | An optional array of values that should be accepted as valid.
 invalidTestCases | An optional array of values that should be rejected as invalid.
 jsonSchema | A json schema object.
-referencedSchemaTypes | An optional string array naming the schema types that are referenced by the jsonSchema.
-referencedEnumTypes | An optional string array naming the enum types that are referenced by the jsonSchema.
 
 You can reference other schema types and enum types as needed.
 
