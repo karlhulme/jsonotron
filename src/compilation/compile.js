@@ -211,7 +211,7 @@ function verifyFieldBlockTypeDefaultValues (result, fieldBlockType) {
  * @param {Array} [resources.enumTypes] An array of enum types.
  * @param {Array} [resources.schemaTypes] An array of schema types.
  * @param {Array} [resources.formatValidators] An array of format validators.
- * @param {Array} [resources.fieldBlocks] An array of field blocks.
+ * @param {Array} [resources.fieldBlockTypes] An array of field blocks.
  * @returns {TypeSystem}
  */
 export function compile ({ enumTypes = [], schemaTypes = [], formatValidators = [], fieldBlockTypes = [] } = {}) {
