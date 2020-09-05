@@ -4,15 +4,13 @@ import * as lib from './index'
 test('The functions are exported.', () => {
   const testCases = [
 
-    // compilation
-    'compile',
+    // Jsonotron
+    'Jsonotron',
 
     // jsonSchemaValidation
     'createCustomisedAjv',
-    'ValidationResult',
 
     // shared
-    'TypeSystem',
     'JSON_SCHEMA_DECLARATION',
     'JSON_SCHEMA_DEFINITIONS_PATH',
 

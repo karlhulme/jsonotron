@@ -17,7 +17,6 @@ export function createFieldBlockDefinitionSchema () {
           properties: {
             type: { type: 'string', description: 'The enum or schema type.  This value can be namespaced.', pattern: '^([_a-zA-Z][_a-zA-Z0-9]*[.])?[_a-zA-Z][_a-zA-Z0-9]*$' },
             const: { type: 'string', description: 'The only value that can appear in the field.  Set the type to string.' },
-            default: { type: ['string', 'boolean', 'number', 'object', 'array'] },
             isRequired: { type: 'boolean', description: 'True if the field must be supplied.' },
             isNullable: { type: 'boolean', description: 'True if the field can be null.' },
             isArray: { type: 'boolean', description: 'True if the field is an array of values.' }

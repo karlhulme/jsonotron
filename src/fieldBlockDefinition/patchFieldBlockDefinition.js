@@ -1,5 +1,5 @@
 import check from 'check-types'
-import { deepClone } from '../utils'
+import { deepClone } from '../shared'
 
 /**
  * Patches a field block type so that all the optional fields have values.

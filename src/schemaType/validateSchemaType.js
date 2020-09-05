@@ -1,5 +1,5 @@
-import { ValidationResult } from '../jsonSchemaValidation'
 import { createSchemaTypeSchema } from './createSchemaTypeSchema'
+import { arrayContainsErrorOrWarningWithAjvDetails, createErrorOrWarning } from '../shared'
 
 /**
  * @typedef {import('ajv').Ajv} Ajv
@@ -7,58 +7,55 @@ import { createSchemaTypeSchema } from './createSchemaTypeSchema'
 
 /**
  * Validates the given schemaType against a schemaType schema,
- * using the given Ajv, and
- * adds any errors to the given ValidationResult.
- * @param {ValidationResult} result A validation result.
+ * using the given Ajv, and returns any errors.
  * @param {Ajv} ajv A json schema validator.
  * @param {Object} schemaType A schema type.
  */
-function validateWithSchema (result, ajv, schemaType) {
+function validateWithSchema (ajv, schemaType) {
   const schemaTypeSchema = createSchemaTypeSchema()
   const validator = ajv.compile(schemaTypeSchema)
 
-  if (!validator(schemaType)) {
-    validator.errors.forEach(error => {
-      result.addError(schemaType.name, 'Schema Type has invalid or missing properties.', error)
-    })
-  }
+  return validator(schemaType)
+    ? []
+    : validator.errors.map(error => createErrorOrWarning(schemaType.name, 'Schema Type has invalid or missing properties.', error))
 }
 
 /**
  * Validates the given schemaType against a schemaType schema
  * that includes the documentation and the testing,
- * using the given Ajv, and
- * adds any unseen errors to the given ValidationResult as warnings.
- * @param {ValidationResult} result A validation result.
+ * using the given Ajv, and returns any unseen errors.
  * @param {Ajv} ajv A json schema validator.
  * @param {Object} schemaType A schema type.
+ * @param {Array} existingErrors An array of errors already registered.
  */
-function validateWithDocsAndTestsSchema (result, ajv, schemaType) {
+function validateWithDocsAndTestsSchema (ajv, schemaType, existingErrors) {
   const schemaTypeDocsAndTestsSchema = createSchemaTypeSchema({ includeDocs: true, includeTests: true })
   const docsAndTestsValidator = ajv.compile(schemaTypeDocsAndTestsSchema)
 
-  if (!docsAndTestsValidator(schemaType)) {
-    docsAndTestsValidator.errors.forEach(error => {
-      if (!result.containsError(error)) {
-        result.addWarning(schemaType.name, 'Schema Type has missing documentation or tests.', error)
-      }
-    })
-  }
+  return docsAndTestsValidator(schemaType)
+    ? []
+    : docsAndTestsValidator.errors
+      .filter(error => !arrayContainsErrorOrWarningWithAjvDetails(existingErrors, error))
+      .map(error => createErrorOrWarning(schemaType.name, 'Enum Type has missing documentation.', error))
 }
 
 /**
- * Validates the given schema type and returns a ValidationResult.
+ * Validates the given schema type and records any error or warnings using the given functions.
  * The validation process ensures that the required fields are present
  * but it does not compile the json schema or check that test cases and examples
  * conform to it.
+ * Returns true if the schema type successfully validated.
  * @param {Ajv} ajv A json schema validator.
  * @param {Object} enumType An enum type.
+ * @param {Function} recordErrorFunc A function for recording validation errors.
+ * @param {Function} recordWarningFunc A function for recording validation warnings.
  */
-export function validateSchemaType (ajv, schemaType) {
-  const result = new ValidationResult()
+export function validateSchemaType (ajv, schemaType, recordErrorFunc, recordWarningFunc) {
+  const schemaErrors = validateWithSchema(ajv, schemaType)
+  const docWarnings = validateWithDocsAndTestsSchema(ajv, schemaType, schemaErrors)
 
-  validateWithSchema(result, ajv, schemaType)
-  validateWithDocsAndTestsSchema(result, ajv, schemaType)
+  schemaErrors.forEach(error => recordErrorFunc(error))
+  docWarnings.forEach(warning => recordWarningFunc(warning))
 
-  return result
+  return schemaErrors.length === 0
 }

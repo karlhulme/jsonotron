@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { jest, test, expect } from '@jest/globals'
 import { validateEnumType } from './validateEnumType'
 import { createCustomisedAjv } from '../jsonSchemaValidation'
 
@@ -16,12 +16,25 @@ function createFullEnumType () {
 }
 
 function testBody (mutator, isSuccessful, isSuccessulWithNoWarnings) {
+  const errorFunc = jest.fn()
+  const warningFunc = jest.fn()
+
   const ajv = createCustomisedAjv()
   const candidate = createFullEnumType()
   mutator(candidate)
-  const result = validateEnumType(ajv, candidate)
-  expect(result.isSuccessful()).toEqual(isSuccessful)
-  expect(result.isSuccessfulWithNoWarnings()).toEqual(isSuccessulWithNoWarnings)
+  expect(validateEnumType(ajv, candidate, errorFunc, warningFunc)).toEqual(isSuccessful)
+
+  if (isSuccessful) {
+    expect(errorFunc.mock.calls.length).toEqual(0)
+
+    if (isSuccessulWithNoWarnings) {
+      expect(warningFunc.mock.calls.length).toEqual(0)
+    } else {
+      expect(warningFunc.mock.calls.length).toBeGreaterThan(0)
+    }
+  } else {
+    expect(errorFunc.mock.calls.length).toBeGreaterThan(0)
+  }
 }
 
 test('An invalid enum type is not successfully validated', () => {

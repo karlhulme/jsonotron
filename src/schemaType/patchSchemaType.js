@@ -1,5 +1,5 @@
 import check from 'check-types'
-import { deepClone, pascalToTitleCase } from '../utils'
+import { deepClone, pascalToTitleCase } from '../shared'
 
 /**
  * Patches a schema type so that all the optional fields have values.

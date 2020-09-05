@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { jest, test, expect } from '@jest/globals'
 import { validateSchemaType } from './validateSchemaType'
 import { createCustomisedAjv } from '../jsonSchemaValidation'
 
@@ -17,12 +17,25 @@ function createFullSchemaType () {
 }
 
 function testBody (mutator, isSuccessful, isSuccessulWithNoWarnings) {
+  const errorFunc = jest.fn()
+  const warningFunc = jest.fn()
+
   const ajv = createCustomisedAjv()
   const candidate = createFullSchemaType()
   mutator(candidate)
-  const result = validateSchemaType(ajv, candidate)
-  expect(result.isSuccessful()).toEqual(isSuccessful)
-  expect(result.isSuccessfulWithNoWarnings()).toEqual(isSuccessulWithNoWarnings)
+  expect(validateSchemaType(ajv, candidate, errorFunc, warningFunc)).toEqual(isSuccessful)
+
+  if (isSuccessful) {
+    expect(errorFunc.mock.calls.length).toEqual(0)
+
+    if (isSuccessulWithNoWarnings) {
+      expect(warningFunc.mock.calls.length).toEqual(0)
+    } else {
+      expect(warningFunc.mock.calls.length).toBeGreaterThan(0)
+    }
+  } else {
+    expect(errorFunc.mock.calls.length).toBeGreaterThan(0)
+  }
 }
 
 test('An invalid schema type is not successfully validated', () => {
