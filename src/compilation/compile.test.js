@@ -31,22 +31,14 @@ function createFullSchemaTypeMinusDocs () {
   }
 }
 
-function createFullFieldBlockTypeMinusDocs () {
+function createFullFieldBlockDefinitionMinusDocs () {
   return {
     name: 'popHistory',
-    isNullable: true,
     fields: {
       year2000: { type: 'populace', isRequired: true },
       year2010: { type: 'populace' },
       year2020: { type: 'populace', default: { pop: 10000000, country: 'en' } }
-    },
-    examples: [{
-      value: {
-        year2000: { pop: 50000000, country: 'en' },
-        year2010: { pop: 60000000, country: 'en' },
-        year2020: { pop: 70000000, country: 'en' }
-      }
-    }]
+    }
   }
 }
 
@@ -56,20 +48,20 @@ test('Compiling without resources produces no errors.', () => {
   expect(typeSystem.isSuccessful()).toEqual(true)
   expect(typeSystem.getPatchedEnumTypes()).toHaveLength(0)
   expect(typeSystem.getPatchedSchemaTypes()).toHaveLength(0)
-  expect(typeSystem.getPatchedFieldBlockTypes()).toHaveLength(0)
+  expect(typeSystem.getPatchedFieldBlockDefinitions()).toHaveLength(0)
 })
 
 test('Compiling valid enum, schema and field block types produces patched types and validators.', () => {
   const typeSystem = compile({
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [createFullSchemaTypeMinusDocs()],
-    fieldBlockTypes: [createFullFieldBlockTypeMinusDocs()]
+    fieldBlockDefinitions: [createFullFieldBlockDefinitionMinusDocs()]
   })
 
   expect(typeSystem.isSuccessful()).toEqual(true)
   expect(typeSystem.getPatchedEnumTypes()).toHaveLength(1)
   expect(typeSystem.getPatchedSchemaTypes()).toHaveLength(1)
-  expect(typeSystem.getPatchedFieldBlockTypes()).toHaveLength(1)
+  expect(typeSystem.getPatchedFieldBlockDefinitions()).toHaveLength(1)
 })
 
 test('Compiling an invalid enum type produces errors.', () => {
@@ -79,7 +71,7 @@ test('Compiling an invalid enum type produces errors.', () => {
   const typeSystem = compile({
     enumTypes: [enumType],
     schemaTypes: [createFullSchemaTypeMinusDocs()],
-    fieldBlockTypes: [createFullFieldBlockTypeMinusDocs()]
+    fieldBlockDefinitions: [createFullFieldBlockDefinitionMinusDocs()]
   })
 
   expect(typeSystem.isSuccessful()).toEqual(false)
@@ -93,7 +85,7 @@ test('Compiling an invalid schema type produces errors.', () => {
   const typeSystem = compile({
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType],
-    fieldBlockTypes: [createFullFieldBlockTypeMinusDocs()]
+    fieldBlockDefinitions: [createFullFieldBlockDefinitionMinusDocs()]
   })
 
   expect(typeSystem.isSuccessful()).toEqual(false)
@@ -107,7 +99,7 @@ test('Compiling a schema type with an invalid json schema produces errors.', () 
   const typeSystem = compile({
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType],
-    fieldBlockTypes: [createFullFieldBlockTypeMinusDocs()]
+    fieldBlockDefinitions: [createFullFieldBlockDefinitionMinusDocs()]
   })
 
   expect(typeSystem.isSuccessful()).toEqual(false)
@@ -121,7 +113,7 @@ test('Compiling a schema type with an invalid example produces errors.', () => {
   const typeSystem = compile({
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType],
-    fieldBlockTypes: [createFullFieldBlockTypeMinusDocs()]
+    fieldBlockDefinitions: [createFullFieldBlockDefinitionMinusDocs()]
   })
 
   expect(typeSystem.isSuccessful()).toEqual(false)
@@ -135,7 +127,7 @@ test('Compiling a schema type with an invalid "valid test case" produces errors.
   const typeSystem = compile({
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType],
-    fieldBlockTypes: [createFullFieldBlockTypeMinusDocs()]
+    fieldBlockDefinitions: [createFullFieldBlockDefinitionMinusDocs()]
   })
 
   expect(typeSystem.isSuccessful()).toEqual(false)
@@ -149,7 +141,7 @@ test('Compiling a schema type with an invalid "invalid test case" produces error
   const typeSystem = compile({
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType],
-    fieldBlockTypes: [createFullFieldBlockTypeMinusDocs()]
+    fieldBlockDefinitions: [createFullFieldBlockDefinitionMinusDocs()]
   })
 
   expect(typeSystem.isSuccessful()).toEqual(false)
@@ -157,41 +149,27 @@ test('Compiling a schema type with an invalid "invalid test case" produces error
 })
 
 test('Compiling an invalid field block type produces errors.', () => {
-  const fieldBlockType = createFullFieldBlockTypeMinusDocs()
-  delete fieldBlockType.fields
+  const fieldBlockDefinition = createFullFieldBlockDefinitionMinusDocs()
+  delete fieldBlockDefinition.fields
 
   const typeSystem = compile({
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [createFullSchemaTypeMinusDocs()],
-    fieldBlockTypes: [fieldBlockType]
+    fieldBlockDefinitions: [fieldBlockDefinition]
   })
 
   expect(typeSystem.isSuccessful()).toEqual(false)
-  expect(typeSystem.toString()).toContain('Field Block Type has invalid or missing properties.')
-})
-
-test('Compiling a field block type with an invalid example produces errors.', () => {
-  const fieldBlockType = createFullFieldBlockTypeMinusDocs()
-  fieldBlockType.examples.push({ value: 'invalid' })
-
-  const typeSystem = compile({
-    enumTypes: [createFullEnumTypeMinusDocs()],
-    schemaTypes: [createFullSchemaTypeMinusDocs()],
-    fieldBlockTypes: [fieldBlockType]
-  })
-
-  expect(typeSystem.isSuccessful()).toEqual(false)
-  expect(typeSystem.toString()).toContain('Verification failed for examples[1]')
+  expect(typeSystem.toString()).toContain('Field Block Definition has invalid or missing properties.')
 })
 
 test('Compiling a field block type with an invalid default produces errors.', () => {
-  const fieldBlockType = createFullFieldBlockTypeMinusDocs()
-  fieldBlockType.fields.year2020.default = 'invalid'
+  const fieldBlockDefinition = createFullFieldBlockDefinitionMinusDocs()
+  fieldBlockDefinition.fields.year2020.default = 'invalid'
 
   const typeSystem = compile({
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [createFullSchemaTypeMinusDocs()],
-    fieldBlockTypes: [fieldBlockType]
+    fieldBlockDefinitions: [fieldBlockDefinition]
   })
 
   expect(typeSystem.isSuccessful()).toEqual(false)

@@ -1,6 +1,6 @@
 import check from 'check-types'
 import { patchEnumType, validateEnumType } from '../enumType'
-import { patchFieldBlockType, validateFieldBlockType } from '../fieldBlockType'
+import { patchFieldBlockDefinition, validateFieldBlockDefinition } from '../fieldBlockDefinition'
 import { patchSchemaType, validateSchemaType } from '../schemaType'
 import { createJsonSchemaForFieldBlock, createJsonSchemaForSchemaType, createJsonSchemaForEnumType } from '../jsonSchemaGeneration'
 import { createCustomisedAjv } from '../jsonSchemaValidation'
@@ -45,20 +45,21 @@ function validateAndPatchSchemaType (typeSystem, ajv, schemaType) {
 }
 
 /**
- * Validates the field block types, patching and adding those that are successfully validated to the given result.
+ * Validates the field block definition, patching and adding those that are successfully validated to the given result.
  * @param {TypeSystem} typeSystem A type system.
  * @param {Ajv} ajv A json validator.
- * @param {Object} fieldBlockType A field block type.
+ * @param {Object} fieldBlockDefinition A field block definition.
  */
-function validateAndPatchFieldBlockType (typeSystem, ajv, fieldBlockType) {
-  const fieldBlockTypeValidationResult = validateFieldBlockType(ajv, fieldBlockType)
+function validateAndPatchFieldBlockDefinition (typeSystem, ajv, fieldBlockDefinition) {
+  const fieldBlockDefinitionValidationResult = validateFieldBlockDefinition(ajv, fieldBlockDefinition)
 
-  if (fieldBlockTypeValidationResult.isSuccessful()) {
-    typeSystem.addPatchedFieldBlockType(patchFieldBlockType(fieldBlockType))
+  if (fieldBlockDefinitionValidationResult.isSuccessful()) {
+    typeSystem.addPatchedFieldBlockDefinition(patchFieldBlockDefinition(fieldBlockDefinition))
   }
 
-  fieldBlockTypeValidationResult.getErrors().forEach(error => typeSystem.addErrorObject(error))
-  fieldBlockTypeValidationResult.getWarnings().forEach(warning => typeSystem.addWarningObject(warning))
+  fieldBlockDefinitionValidationResult.getErrors().forEach(error => typeSystem.addErrorObject(error))
+  // no mechanism for field block definitions to produce warnings because they are not documented.
+  // fieldBlockDefinitionValidationResult.getWarnings().forEach(warning => typeSystem.addWarningObject(warning))
 }
 
 /**
@@ -79,18 +80,18 @@ function generateJsonSchemaForSchemaType (result, schemaType, schemaTypes, enumT
 }
 
 /**
- * Generate a json schema for the given fieldBlockType.
+ * Generate a json schema for the given fieldBlockDefinition.
  * If the schema generation fails then the error will be recorded in the result.
  * @param {TypeSystem} result A type system.
- * @param {Object} fieldBlockType A field block type to generate a schema for.
+ * @param {Object} fieldBlockDefinition A field block definition to generate a schema for.
  * @param {Array} schemaTypes An array of schema types.
  * @param {Array} enumTypes An array of enum types.
  */
-function generateJsonSchemaForFieldBlockType (result, fieldBlockType, schemaTypes, enumTypes) {
+function generateJsonSchemaForFieldBlockDefinition (result, fieldBlockDefinition, schemaTypes, enumTypes) {
   try {
-    return createJsonSchemaForFieldBlock(fieldBlockType, schemaTypes, enumTypes)
+    return createJsonSchemaForFieldBlock(fieldBlockDefinition, schemaTypes, enumTypes)
   } catch (err) {
-    result.addError(fieldBlockType.name, 'Field Block Type JSON Schema generation failed.', { message: err.toString() })
+    result.addError(fieldBlockDefinition.name, 'Field Block Type JSON Schema generation failed.', { message: err.toString() })
   }
 }
 
@@ -163,32 +164,14 @@ function verifySchemaTypeInvalidTestCases (result, validator, schemaType) {
 }
 
 /**
- * Checks that the examples on the field block type conform to the json schema.
+ * Checks that the default values on any fields in the field block definition conform to the json schema.
  * If not, errors are added to the type system.
  * @param {TypeSystem} result A type system.
- * @param {Function} validator A function that returns true if the sole parameter conforms to a pre-set json schema.
- * @param {Object} fieldBlockType A field block type.
+ * @param {Object} fieldBlockDefinition A field block definition.
  */
-function verifyFieldBlockTypeExamples (result, validator, fieldBlockType) {
-  fieldBlockType.examples.forEach((example, index) => {
-    if (!validator(example.value)) {
-      validator.errors.forEach(error => {
-        // include the error message in the templated string so that each error has a unique message.
-        result.addError(fieldBlockType.name, `Verification failed for examples[${index}]': ${error.message}`, error)
-      })
-    }
-  })
-}
-
-/**
- * Checks that the examples on the field block type conform to the json schema.
- * If not, errors are added to the type system.
- * @param {TypeSystem} result A type system.
- * @param {Object} fieldBlockType A field block type.
- */
-function verifyFieldBlockTypeDefaultValues (result, fieldBlockType) {
-  Object.keys(fieldBlockType.fields).forEach(fieldName => {
-    const field = fieldBlockType.fields[fieldName]
+function verifyFieldBlockDefinitionDefaultValues (result, fieldBlockDefinition) {
+  Object.keys(fieldBlockDefinition.fields).forEach(fieldName => {
+    const field = fieldBlockDefinition.fields[fieldName]
 
     if (typeof field.default !== 'undefined') {
       const fieldTypeValidationResult = result.executeFieldTypeValidator(field.type, field.default)
@@ -197,7 +180,7 @@ function verifyFieldBlockTypeDefaultValues (result, fieldBlockType) {
       if (!fieldTypeValidationResult.validated) {
         fieldTypeValidationResult.errors.forEach(error => {
           // include the error message in the templated string so that each error has a unique message.
-          result.addError(fieldBlockType.name, `Verification failed for default value of field '${fieldName}': ${error.message}`, error)
+          result.addError(fieldBlockDefinition.name, `Verification failed for default value of field '${fieldName}': ${error.message}`, error)
         })
       }
     }
@@ -211,21 +194,21 @@ function verifyFieldBlockTypeDefaultValues (result, fieldBlockType) {
  * @param {Array} [resources.enumTypes] An array of enum types.
  * @param {Array} [resources.schemaTypes] An array of schema types.
  * @param {Array} [resources.formatValidators] An array of format validators.
- * @param {Array} [resources.fieldBlockTypes] An array of field blocks.
+ * @param {Array} [resources.fieldBlockDefinitions] An array of field block definitions.
  * @returns {TypeSystem}
  */
-export function compile ({ enumTypes = [], schemaTypes = [], formatValidators = [], fieldBlockTypes = [] } = {}) {
+export function compile ({ enumTypes = [], schemaTypes = [], formatValidators = [], fieldBlockDefinitions = [] } = {}) {
   check.assert.array.of.object(enumTypes)
   check.assert.array.of.object(schemaTypes)
   check.assert.array.of.object(formatValidators)
-  check.assert.array.of.object(fieldBlockTypes)
+  check.assert.array.of.object(fieldBlockDefinitions)
 
   const ajv = createCustomisedAjv(formatValidators)
   const typeSystem = new TypeSystem()
 
   enumTypes.forEach(enumType => validateAndPatchEnumType(typeSystem, ajv, enumType))
   schemaTypes.forEach(schemaType => validateAndPatchSchemaType(typeSystem, ajv, schemaType))
-  fieldBlockTypes.forEach(fieldBlockType => validateAndPatchFieldBlockType(typeSystem, ajv, fieldBlockType))
+  fieldBlockDefinitions.forEach(fieldBlockDefinition => validateAndPatchFieldBlockDefinition(typeSystem, ajv, fieldBlockDefinition))
 
   typeSystem.getPatchedEnumTypes().forEach(enumType => {
     const jsonSchema = createJsonSchemaForEnumType(enumType)
@@ -248,16 +231,15 @@ export function compile ({ enumTypes = [], schemaTypes = [], formatValidators = 
     }
   })
 
-  typeSystem.getPatchedFieldBlockTypes().forEach(fieldBlockType => {
-    const jsonSchema = generateJsonSchemaForFieldBlockType(typeSystem, fieldBlockType, typeSystem.getPatchedSchemaTypes(), typeSystem.getPatchedEnumTypes())
+  typeSystem.getPatchedFieldBlockDefinitions().forEach(fieldBlockDefinition => {
+    const jsonSchema = generateJsonSchemaForFieldBlockDefinition(typeSystem, fieldBlockDefinition, typeSystem.getPatchedSchemaTypes(), typeSystem.getPatchedEnumTypes())
 
     if (jsonSchema) {
-      const validator = compileJsonSchema(typeSystem, ajv, fieldBlockType.name, jsonSchema)
+      const validator = compileJsonSchema(typeSystem, ajv, fieldBlockDefinition.name, jsonSchema)
 
       if (validator) {
-        verifyFieldBlockTypeExamples(typeSystem, validator, fieldBlockType)
-        verifyFieldBlockTypeDefaultValues(typeSystem, fieldBlockType)
-        typeSystem.addFieldBlockTypeValidator(fieldBlockType.name, validator)
+        verifyFieldBlockDefinitionDefaultValues(typeSystem, fieldBlockDefinition)
+        typeSystem.addFieldBlockDefinitionValidator(fieldBlockDefinition.name, validator)
       }
     }
   })

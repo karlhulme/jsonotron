@@ -61,15 +61,15 @@ test('A compilation result with errors should be considred unsuccessful.', () =>
   expect(result.getErrors()).toEqual([{ typeName: 'Type1', message: 'this is my error', details: { bar: 'foo' } }])
 })
 
-test('Patched enumTypes, schemaTypes and fieldBlockTypes can be added to a compilation result.', () => {
+test('Patched enumTypes, schemaTypes and fieldBlockDefinitions can be added to a compilation result.', () => {
   const result = new TypeSystem()
   result.addPatchedEnumType({ name: 'theEnum' })
   result.addPatchedSchemaType({ name: 'theSchema' })
-  result.addPatchedFieldBlockType({ name: 'theFieldBlock' })
+  result.addPatchedFieldBlockDefinition({ name: 'theFieldBlock' })
 
   expect(result.getPatchedEnumTypes()).toEqual([{ name: 'theEnum' }])
   expect(result.getPatchedSchemaTypes()).toEqual([{ name: 'theSchema' }])
-  expect(result.getPatchedFieldBlockTypes()).toEqual([{ name: 'theFieldBlock' }])
+  expect(result.getPatchedFieldBlockDefinitions()).toEqual([{ name: 'theFieldBlock' }])
 })
 
 test('A compilation result can be converted to a string.', () => {
@@ -101,12 +101,12 @@ test('A field type validator can be executed based on enum or schema types.', ()
   expect(result.executeFieldTypeValidator('madeup', 'foo')).toEqual({ found: false, validated: false, errors: null })
 })
 
-test('A field block type validator can be executed.', () => {
+test('A field block definition validator can be executed.', () => {
   const result = new TypeSystem()
 
-  result.addFieldBlockTypeValidator('fieldBlockVal', fooValidator)
+  result.addFieldBlockDefinitionValidator('fieldBlockVal', fooValidator)
 
-  expect(result.executeFieldBlockTypeValidator('fieldBlockVal', 'foo')).toEqual({ found: true, validated: true, errors: null })
-  expect(result.executeFieldBlockTypeValidator('fieldBlockVal', 'bar')).toEqual({ found: true, validated: false, errors: [{ msg: 'here' }] })
-  expect(result.executeFieldBlockTypeValidator('madeup', 'foo')).toEqual({ found: false, validated: false, errors: null })
+  expect(result.executeFieldBlockDefinitionValidator('fieldBlockVal', 'foo')).toEqual({ found: true, validated: true, errors: null })
+  expect(result.executeFieldBlockDefinitionValidator('fieldBlockVal', 'bar')).toEqual({ found: true, validated: false, errors: [{ msg: 'here' }] })
+  expect(result.executeFieldBlockDefinitionValidator('madeup', 'foo')).toEqual({ found: false, validated: false, errors: null })
 })

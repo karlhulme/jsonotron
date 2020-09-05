@@ -6,19 +6,39 @@ A library for managing a JSON schema based type system.
 [![npm](https://img.shields.io/npm/v/jsonotron.svg)](https://www.npmjs.com/package/jsonotron)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-This is a library for validating **field blocks**, where each field type is defined by a **JSON schema**.
+This is a library for validating a **field block**:
+
+```javascript
+{
+  planet: 'saturn',
+  discovered: '1610-03-21'
+}
+```
+
+Against a **field block definition**:
+
+```javascript
+{
+  planet: { type: 'shortString' },
+  discovered: { type: 'date' }
+}
+```
+
+The `{ type: 'shortString' }` and `{ type: 'date' }` expressions are referencing JSON schemas.  There is a `jsonotron-core-field-types` library that includes lots of these.  The idea is you can then build industry/application specific types on top and re-use them across a wider system whenever you need to validate a block of fields.
 
 A field block could define the contents of a JSON document that is being saved to a NoSQL database, or it could be the parameters to a REST API call.  Anywhere you need to define a set of fields and be able to validate them using a rich type system, Jsonotron can be used.
 
-The library can be used to create a single type system that is used from the database (e.g. [Sengi](https://github.com/karlhulme/sengi)) all the way to the API layer.  You can produce API documentation and you can use it in the browser too.
+The library can be used to create a single type system that is used for validation at the database level (e.g. [Sengi](https://github.com/karlhulme/sengi)) all the way to the API layer.  You can produce API documentation and you can use it in the browser too.
 
-When validation fails, you get clear errors about what went wrong, thanks to [Ajv](https://github.com/ajv-validator/ajv).  There's Ajv libraries to improve that further if you wish.  Either way you can return the errors to a consumer and they'll know how to fix their code.
+When validation fails, you get clear errors about what went wrong, thanks to [Ajv](https://github.com/ajv-validator/ajv).  There are  Ajv plugin libraries to improve that further if you wish.  Either way you can return the errors to a consumer and they'll know how to fix their code.
 
 ## Motivation
 
 JSON Schema already allows us to validate arbitrary blocks of JSON.  It also allows re-use by referencing external JSON schemas.  However, a system built this way becomes hard to administer because the errors are described in terms of the resultant JSON, not in terms of what you were trying to achieve by combining them.
 
-This is where Jsonotron makes a trade-off.  It considers each top level property of an object to be a field.  A field can be a primitive (boolean, string, etc) or it can be a complex deeply-nested object, but the validation is always targetted at field level.  It's analogous to validating arguments passed to a method call.  You could define every method as accepting an object and then validate it using JSON Schema but you'd lose something by doing that.  Jsonotron brings this concept of individual arguments to JSON as it moves through a system.
+This is where Jsonotron makes a trade-off.  **It considers each top level property of an object to be a field.**  A field can be a primitive (boolean, string, etc) or it can be a complex deeply-nested object, but the validation is always targetted at field level.
+
+It's analogous to validating arguments passed to a method call.  You could define every method as accepting an object and then validate it using JSON Schema but you'd lose something by doing that.  Jsonotron brings this concept of individual arguments to JSON as it moves through a system.
 
 ## Installation
 
@@ -102,10 +122,10 @@ if (!result.validated) {
 
 The only entry point is the `compile (resources)` method.  It expects a resources object with the properties described below.  It checks the types are valid and then builds functions that can be used for validation. 
 
-* **enumTypes** - An array of enum type objects.
-* **schemaTypes** - An array of schema type objects.
+* **enumTypes** - An array of (documented) enum type objects.
+* **schemaTypes** - An array of (documented) schema type objects.
 * **formatValidators** - An array of format validators.
-* **fieldBlockTypes** - An array of field block type objects.
+* **fieldBlockDefinitions** - An array of field block definitions.
 
 All these different types are defined below.
 
@@ -135,7 +155,7 @@ if (!typeSystem.isSuccessful()) {
 }
 ```
 
-The code above can be used as the basis for the automated tests of your enum types, schema types and field block types.  You can be really strict and ensure that all types are fully documented as well.
+The code above can be used as the basis for the automated tests of your enum types, schema types and field block definitions.  You can be really strict and ensure that all types are fully documented as well.
 
 ```javascript
 if (!typeSystem.isSuccessfulWithNoWarnings()) {
@@ -169,13 +189,11 @@ const addressFieldBlockType = {
 
 Some of the libraries using Jsonotron use a higher level concept and then produce Field Block Types from that.  For example, Sengi defines Doc Types and then produces Field Block Types for the constructor, filter parameters, operation parameters, etc.
 
-The table below describes the properties of a field block type.
+The table below describes the properties of a field block definition.
 
 Property Name | Description
 ---|---
-name | A name for the field block type.
-title | The display name for the field block type.
-paragraphs | An optional array of commonmark strings.
+name | A name for the field block definition.
 fields | An array of objects.
 fields.type | The name of an enum type or a schema type.
 fields.isRequired | An optional boolean that indicates if the field must be supplied. (Works the same is isGuaranteed.)
@@ -184,10 +202,6 @@ fields.isNullable | An optional boolean that determines if the field can be null
 fields.isNullable | An optional boolean that determines if the field is an array of values rather than a single value.
 fields.default | Any value that can be used in place of a missing field.
 fields.const | If present, this field will be a constant string and the type will not be used.
-fields.paragraphs | An optional array of commonmark strings.
-examples | An array of objects.
-examples.value | An example value that satisfies the contraints of this field block type.
-examples.paragraphs | An array of commonmark strings that describes this example.
 
 ## Defining Enum Types and Schema Types
 
@@ -336,19 +350,19 @@ ValidationResult | Represents the result of a validation attempt.  This object h
 
 Externally you use the `compile` function and this returns a `TypeSystem` which includes all the artefacts and errors/warnings.  Internally, we go through several distinct processes:
 
- * **Validation** is the process of checking that the enumType, schemaType and fieldBlocks have valid properties.  We're looking at the property names and the property types.  We do NOT check the values (e.g. the schema example values) at this stage.
+ * **Validation** is the process of checking that the enumType, schemaType, formatValidators and fieldBlockDefinitions have valid properties.  We're looking at the property names and the property types.  We do NOT check the values (e.g. the schema type example values) at this stage.
  * **Patching** is the process of adding defaults for any of the properties not supplied.  Once done, the library doesn't have to check for nulls or undefineds.
- * **Schema Generation** is the process of generating a new JSON schema from the enumType, schemaType or fieldBlock. 
- * **Schema Compilation** is the process of converting the generated JSON schema into a validator method.
+ * **Schema Generation** is the process of generating a new JSON schema from a enumType, schemaType or fieldBlockDefinition. 
+ * **Schema Compilation** is the process of converting a generated JSON schema into a validator method.
  * **Verification** is the process of checking the example values using the validator method.
 
 I experimented with having a json validator function passed into the library.  This complicated the library and offered little benefit since a json validator is required to make Jsonotron work.  Picking a json validator means the library has no setup which is better for consumers.
 
-Field Block Types cannot contain other Field Block Types.  I don't know if this desirable or workable.
+Field Block Definitions cannot contain other Field Block Definitions.  I don't know if this desirable or workable.
 
 The executeXYZValidator functions do not raise Errors because validation is expected to regularly fail.  It's not an exception to the method contract.
 
-The Jsonotron library includes properties that are intended to document the types, even though Jsonotron doesn't need this to actually validate data.  Now that we're in the documentation game, we should include flags for other known pieces of data (like canUpdate or isGuaranteed) which is useful for documentation generators.  Consumers are free to attach further flags that are unknown to Jsonotron but where known flags are supplied the expected types will be enforced.
+The Jsonotron library includes properties that are intended to document the types.  Without this documentation the primitives are not considered to be completely defined.  This only applies to enumTypes and schemaTypes.  It doesn't apply to fieldBlockDefinitions because these should be created from some higher level concept (such as docType or apiResourceType).  This is because recording an error for a FieldBlockDefinition will be hard to understand since the FieldBlockDefinition.name is probably produced in code.
 
 ## Development
 

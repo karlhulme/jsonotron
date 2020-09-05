@@ -28,12 +28,12 @@ export class TypeSystem {
     // patched types
     this.patchedEnumTypes = []
     this.patchedSchemaTypes = []
-    this.patchedFieldBlockTypes = []
+    this.patchedFieldBlockDefinitions = []
 
     // validators
     this.enumTypeValidators = {}
     this.schemaTypeValidators = {}
-    this.fieldBlockTypeValidators = {}
+    this.fieldBlockDefinitionValidators = {}
   }
 
   /**
@@ -113,14 +113,14 @@ export class TypeSystem {
   }
 
   /**
-   * Add a patched field block type to the compilation result.
-   * @param {Object} fieldBlockType A field block type.
+   * Add a patched field block definition to the compilation result.
+   * @param {Object} fieldBlockDefinition A field block definition.
    */
-  addPatchedFieldBlockType (fieldBlockType) {
-    check.assert.object(fieldBlockType)
-    check.assert.string(fieldBlockType.name)
+  addPatchedFieldBlockDefinition (fieldBlockDefinition) {
+    check.assert.object(fieldBlockDefinition)
+    check.assert.string(fieldBlockDefinition.name)
 
-    this.patchedFieldBlockTypes.push(fieldBlockType)
+    this.patchedFieldBlockDefinitions.push(fieldBlockDefinition)
   }
 
   /**
@@ -148,15 +148,15 @@ export class TypeSystem {
   }
 
   /**
-   * Adds the given validator to the list of field block type validators
-   * @param {String} fieldBlockTypeName The name of a field block type.
+   * Adds the given validator to the list of field block definition validators
+   * @param {String} fieldBlockDefinitionName The name of a field block definition.
    * @param {Function} validator A validator function.
    */
-  addFieldBlockTypeValidator (fieldBlockTypeName, validator) {
-    check.assert.string(fieldBlockTypeName)
+  addFieldBlockDefinitionValidator (fieldBlockDefinitionName, validator) {
+    check.assert.string(fieldBlockDefinitionName)
     check.assert.function(validator)
 
-    this.fieldBlockTypeValidators[fieldBlockTypeName] = validator
+    this.fieldBlockDefinitionValidators[fieldBlockDefinitionName] = validator
   }
 
   /**
@@ -192,12 +192,12 @@ export class TypeSystem {
   }
 
   /**
-   * Returns the patched field block types that passed the validation process.
-   * The field blocks may have subsequently failed the schema generation,
+   * Returns the patched field block definitions that passed the validation process.
+   * The field block definitions may have subsequently failed the schema generation,
    * schema compilation or verification steps.
    */
-  getPatchedFieldBlockTypes () {
-    return [...this.patchedFieldBlockTypes]
+  getPatchedFieldBlockDefinitions () {
+    return [...this.patchedFieldBlockDefinitions]
   }
 
   /**
@@ -223,12 +223,12 @@ export class TypeSystem {
   }
 
   /**
-   * Executes a field block type validator to see if the given field block value is valid.
-   * @param {String} fieldBlockTypeName The name of the field block type.
+   * Executes a field block definition validator to see if the given field block value is valid.
+   * @param {String} fieldBlockDefinitionName The name of the field block definition.
    * @param {Object} fieldBlockValue Any value.
    */
-  executeFieldBlockTypeValidator (fieldBlockTypeName, fieldBlockValue) {
-    const validator = this.fieldBlockTypeValidators[fieldBlockTypeName]
+  executeFieldBlockDefinitionValidator (fieldBlockDefinitionName, fieldBlockValue) {
+    const validator = this.fieldBlockDefinitionValidators[fieldBlockDefinitionName]
 
     if (validator) {
       const result = validator(fieldBlockValue)
