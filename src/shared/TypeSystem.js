@@ -201,6 +201,37 @@ export class TypeSystem {
   }
 
   /**
+   * Returns the names of the field type validators.  That is the names
+   * of the enum type validators and the schema type validators combined.
+   */
+  getFieldTypeValidatorNames () {
+    return Object.keys(this.enumTypeValidators).concat(Object.keys(this.schemaTypeValidators))
+  }
+
+  /**
+   * Returns the names of the field block definition validators.
+   */
+  getFieldBlockDefinitionValidatorNames () {
+    return Object.keys(this.fieldBlockDefinitionValidators)
+  }
+
+  /**
+   * Returns the validator for the named field type.
+   * @param {String} fieldTypeName The name of a field type.
+   */
+  getFieldTypeValidator (fieldTypeName) {
+    return this.enumTypeValidators[fieldTypeName] || this.schemaTypeValidators[fieldTypeName]
+  }
+
+  /**
+   * Returns the validator for the named field block definition.
+   * @param {String} fieldBlockDefinitionName The name of a field block definition.
+   */
+  getFieldBlockDefinitionValidator (fieldBlockDefinitionName) {
+    return this.fieldBlockDefinitionValidators[fieldBlockDefinitionName]
+  }
+
+  /**
    * Executes an enum type validator or schema type validator to see if
    * the given value is valid.
    * @param {String} fieldTypeName The name of an enum type or schema type.

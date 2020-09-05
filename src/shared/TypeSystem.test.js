@@ -110,3 +110,18 @@ test('A field block definition validator can be executed.', () => {
   expect(result.executeFieldBlockDefinitionValidator('fieldBlockVal', 'bar')).toEqual({ found: true, validated: false, errors: [{ msg: 'here' }] })
   expect(result.executeFieldBlockDefinitionValidator('madeup', 'foo')).toEqual({ found: false, validated: false, errors: null })
 })
+
+test('The validators can be extracted.', () => {
+  const result = new TypeSystem()
+
+  result.addEnumTypeValidator('enumVal', fooValidator)
+  result.addSchemaTypeValidator('schemaVal', fooValidator)
+  result.addFieldBlockDefinitionValidator('fieldBlockVal', fooValidator)
+
+  expect(result.getFieldTypeValidatorNames()).toEqual(['enumVal', 'schemaVal'])
+  expect(result.getFieldTypeValidator('enumVal')).toEqual(expect.any(Function))
+  expect(result.getFieldTypeValidator('schemaVal')).toEqual(expect.any(Function))
+
+  expect(result.getFieldBlockDefinitionValidatorNames()).toEqual(['fieldBlockVal'])
+  expect(result.getFieldBlockDefinitionValidator('fieldBlockVal')).toEqual(expect.any(Function))
+})
