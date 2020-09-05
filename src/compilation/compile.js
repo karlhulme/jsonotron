@@ -12,59 +12,53 @@ import { TypeSystem } from '../shared'
 
 /**
  * Validates the enum types, patching and adding those that are successfully validated to the given result.
- * @param {TypeSystem} result A type system.
+ * @param {TypeSystem} typeSystem A type system.
  * @param {Ajv} ajv A json validator.
- * @param {Array} enumTypes An array of enum types.
+ * @param {Object} enumType An enun type.
  */
-function validateAndPatchEnumTypes (result, ajv, enumTypes) {
-  enumTypes.forEach(enumType => {
-    const enumTypeValidationResult = validateEnumType(ajv, enumType)
+function validateAndPatchEnumType (typeSystem, ajv, enumType) {
+  const enumTypeValidationResult = validateEnumType(ajv, enumType)
 
-    if (enumTypeValidationResult.isSuccessful()) {
-      result.addPatchedEnumType(patchEnumType(enumType))
-    }
+  if (enumTypeValidationResult.isSuccessful()) {
+    typeSystem.addPatchedEnumType(patchEnumType(enumType))
+  }
 
-    enumTypeValidationResult.getErrors().forEach(error => result.addErrorObject(error))
-    enumTypeValidationResult.getWarnings().forEach(warning => result.addWarningObject(warning))
-  })
+  enumTypeValidationResult.getErrors().forEach(error => typeSystem.addErrorObject(error))
+  enumTypeValidationResult.getWarnings().forEach(warning => typeSystem.addWarningObject(warning))
 }
 
 /**
  * Validates the schema types, patching and adding those that are successfully validated to the given result.
- * @param {TypeSystem} result A type system.
+ * @param {TypeSystem} typeSystem A type system.
  * @param {Ajv} ajv A json validator.
- * @param {Array} schemaTypes An array of schema types.
+ * @param {Object} schemaType A schema type.
  */
-function validateAndPatchSchemaTypes (result, ajv, schemaTypes) {
-  schemaTypes.forEach(schemaType => {
-    const schemaTypeValidationResult = validateSchemaType(ajv, schemaType)
+function validateAndPatchSchemaType (typeSystem, ajv, schemaType) {
+  const schemaTypeValidationResult = validateSchemaType(ajv, schemaType)
 
-    if (schemaTypeValidationResult.isSuccessful()) {
-      result.addPatchedSchemaType(patchSchemaType(schemaType))
-    }
+  if (schemaTypeValidationResult.isSuccessful()) {
+    typeSystem.addPatchedSchemaType(patchSchemaType(schemaType))
+  }
 
-    schemaTypeValidationResult.getErrors().forEach(error => result.addErrorObject(error))
-    schemaTypeValidationResult.getWarnings().forEach(warning => result.addWarningObject(warning))
-  })
+  schemaTypeValidationResult.getErrors().forEach(error => typeSystem.addErrorObject(error))
+  schemaTypeValidationResult.getWarnings().forEach(warning => typeSystem.addWarningObject(warning))
 }
 
 /**
  * Validates the field block types, patching and adding those that are successfully validated to the given result.
- * @param {TypeSystem} result A type system.
+ * @param {TypeSystem} typeSystem A type system.
  * @param {Ajv} ajv A json validator.
- * @param {Array} fieldBlockTypes An array of field block types.
+ * @param {Object} fieldBlockType A field block type.
  */
-function validateAndPatchFieldBlockTypes (result, ajv, fieldBlockTypes) {
-  fieldBlockTypes.forEach(fieldBlockType => {
-    const fieldBlockTypeValidationResult = validateFieldBlockType(ajv, fieldBlockType)
+function validateAndPatchFieldBlockType (typeSystem, ajv, fieldBlockType) {
+  const fieldBlockTypeValidationResult = validateFieldBlockType(ajv, fieldBlockType)
 
-    if (fieldBlockTypeValidationResult.isSuccessful()) {
-      result.addPatchedFieldBlockType(patchFieldBlockType(fieldBlockType))
-    }
+  if (fieldBlockTypeValidationResult.isSuccessful()) {
+    typeSystem.addPatchedFieldBlockType(patchFieldBlockType(fieldBlockType))
+  }
 
-    fieldBlockTypeValidationResult.getErrors().forEach(error => result.addErrorObject(error))
-    fieldBlockTypeValidationResult.getWarnings().forEach(warning => result.addWarningObject(warning))
-  })
+  fieldBlockTypeValidationResult.getErrors().forEach(error => typeSystem.addErrorObject(error))
+  fieldBlockTypeValidationResult.getWarnings().forEach(warning => typeSystem.addWarningObject(warning))
 }
 
 /**
@@ -227,46 +221,46 @@ export function compile ({ enumTypes = [], schemaTypes = [], formatValidators = 
   check.assert.array.of.object(fieldBlockTypes)
 
   const ajv = createCustomisedAjv(formatValidators)
-  const result = new TypeSystem()
+  const typeSystem = new TypeSystem()
 
-  validateAndPatchEnumTypes(result, ajv, enumTypes)
-  validateAndPatchSchemaTypes(result, ajv, schemaTypes)
-  validateAndPatchFieldBlockTypes(result, ajv, fieldBlockTypes)
+  enumTypes.forEach(enumType => validateAndPatchEnumType(typeSystem, ajv, enumType))
+  schemaTypes.forEach(schemaType => validateAndPatchSchemaType(typeSystem, ajv, schemaType))
+  fieldBlockTypes.forEach(fieldBlockType => validateAndPatchFieldBlockType(typeSystem, ajv, fieldBlockType))
 
-  result.getPatchedEnumTypes().forEach(enumType => {
+  typeSystem.getPatchedEnumTypes().forEach(enumType => {
     const jsonSchema = createJsonSchemaForEnumType(enumType)
-    const validator = compileJsonSchema(result, ajv, enumType.name, jsonSchema)
-    result.addEnumTypeValidator(enumType.name, validator)
+    const validator = compileJsonSchema(typeSystem, ajv, enumType.name, jsonSchema)
+    typeSystem.addEnumTypeValidator(enumType.name, validator)
   })
 
-  result.getPatchedSchemaTypes().forEach(schemaType => {
-    const jsonSchema = generateJsonSchemaForSchemaType(result, schemaType, result.getPatchedSchemaTypes(), result.getPatchedEnumTypes())
+  typeSystem.getPatchedSchemaTypes().forEach(schemaType => {
+    const jsonSchema = generateJsonSchemaForSchemaType(typeSystem, schemaType, typeSystem.getPatchedSchemaTypes(), typeSystem.getPatchedEnumTypes())
 
     if (jsonSchema) {
-      const validator = compileJsonSchema(result, ajv, schemaType.name, jsonSchema)
+      const validator = compileJsonSchema(typeSystem, ajv, schemaType.name, jsonSchema)
 
       if (validator) {
-        verifySchemaTypeExamples(result, validator, schemaType)
-        verifySchemaTypeValidTestCases(result, validator, schemaType)
-        verifySchemaTypeInvalidTestCases(result, validator, schemaType)
-        result.addSchemaTypeValidator(schemaType.name, validator)
+        verifySchemaTypeExamples(typeSystem, validator, schemaType)
+        verifySchemaTypeValidTestCases(typeSystem, validator, schemaType)
+        verifySchemaTypeInvalidTestCases(typeSystem, validator, schemaType)
+        typeSystem.addSchemaTypeValidator(schemaType.name, validator)
       }
     }
   })
 
-  result.getPatchedFieldBlockTypes().forEach(fieldBlockType => {
-    const jsonSchema = generateJsonSchemaForFieldBlockType(result, fieldBlockType, result.getPatchedSchemaTypes(), result.getPatchedEnumTypes())
+  typeSystem.getPatchedFieldBlockTypes().forEach(fieldBlockType => {
+    const jsonSchema = generateJsonSchemaForFieldBlockType(typeSystem, fieldBlockType, typeSystem.getPatchedSchemaTypes(), typeSystem.getPatchedEnumTypes())
 
     if (jsonSchema) {
-      const validator = compileJsonSchema(result, ajv, fieldBlockType.name, jsonSchema)
+      const validator = compileJsonSchema(typeSystem, ajv, fieldBlockType.name, jsonSchema)
 
       if (validator) {
-        verifyFieldBlockTypeExamples(result, validator, fieldBlockType)
-        verifyFieldBlockTypeDefaultValues(result, fieldBlockType)
-        result.addFieldBlockTypeValidator(fieldBlockType.name, validator)
+        verifyFieldBlockTypeExamples(typeSystem, validator, fieldBlockType)
+        verifyFieldBlockTypeDefaultValues(typeSystem, fieldBlockType)
+        typeSystem.addFieldBlockTypeValidator(fieldBlockType.name, validator)
       }
     }
   })
 
-  return result
+  return typeSystem
 }
