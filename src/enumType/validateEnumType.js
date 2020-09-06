@@ -1,46 +1,28 @@
 import { createEnumTypeSchema } from './createEnumTypeSchema'
-import { arrayContainsErrorOrWarningWithAjvDetails, createErrorOrWarning } from '../shared'
+import { createTypeProcError } from '../shared'
 
 /**
  * @typedef {import('ajv').Ajv} Ajv
  */
 
 /**
- * Validates the given enumType against an enumType schema,
- * using the given Ajv, and returns any errors.
+ * Validates the given enumType against an enum type schema,
+ * using the given Ajv, and returns an array of TypeProcErrors.
  * @param {Ajv} ajv A json schema validator.
  * @param {Object} enumType An enum type.
+ * @param {Boolean} includeDocs True if the documentation should be also be validated.
  */
-function validateWithSchema (ajv, enumType) {
-  const enumTypeSchema = createEnumTypeSchema()
+function validateWithSchema (ajv, enumType, includeDocs) {
+  const enumTypeSchema = createEnumTypeSchema({ includeDocs })
   const validator = ajv.compile(enumTypeSchema)
 
   return validator(enumType)
     ? []
-    : validator.errors.map(error => createErrorOrWarning(enumType.name, 'Enum Type has invalid or missing properties.', error))
+    : validator.errors.map(error => createTypeProcError(enumType.name, 'Enum Type has invalid or missing properties.', error))
 }
 
 /**
- * Validates the given enumType against an enumType schema
- * that includes the documentation,
- * using the given Ajv, and returns any unseen errors.
- * @param {Ajv} ajv A json schema validator.
- * @param {Object} enumType An enum type.
- * @param {Array} existingErrors An array of existings.
- */
-function validateWithDocsSchema (ajv, enumType, existingErrors) {
-  const enumTypeDocsSchema = createEnumTypeSchema({ includeDocs: true })
-  const docsValidator = ajv.compile(enumTypeDocsSchema)
-
-  return docsValidator(enumType)
-    ? []
-    : docsValidator.errors
-      .filter(error => !arrayContainsErrorOrWarningWithAjvDetails(existingErrors, error))
-      .map(error => createErrorOrWarning(enumType.name, 'Enum Type has missing documentation.', error))
-}
-
-/**
- * Adds an error to the result if any of the item values are not unique.
+ * Validates the uniqueness of the item values and returns an array of TypeProcErrors.
  * @param {Object} enumType An enum type object to check.
  */
 function validateItemValuesAreUnique (enumType) {
@@ -49,7 +31,7 @@ function validateItemValuesAreUnique (enumType) {
 
   enumType.items.forEach((item, index) => {
     if (seen.includes(item.value)) {
-      errors.push(createErrorOrWarning(enumType.name, `Enum Type has value '${item.value}' at index ${index} that is not unique.`, { dataPath: `items[${index}].value` }))
+      errors.push(createTypeProcError(enumType.name, `Enum Type has value '${item.value}' at index ${index} that is not unique.`, { dataPath: `items[${index}].value` }))
     } else {
       seen.push(item.value)
     }
@@ -63,12 +45,11 @@ function validateItemValuesAreUnique (enumType) {
  * Returns true if the enum type successfully validated.
  * @param {Ajv} ajv A json schema validator.
  * @param {Object} enumType An enum type.
- * @param {Function} recordErrorFunc A function for recording validation errors.
- * @param {Function} recordWarningFunc A function for recording validation warnings.
+ * @param {Function} recordErrorFunc A function for recording TypeProcErrors.
+ * @param {Boolean} includeDocs True if the documentation should be also be validated.
  */
-export function validateEnumType (ajv, enumType, recordErrorFunc, recordWarningFunc) {
-  const schemaErrors = validateWithSchema(ajv, enumType)
-  const docWarnings = validateWithDocsSchema(ajv, enumType, schemaErrors)
+export function validateEnumType (ajv, enumType, recordErrorFunc, includeDocs) {
+  const schemaErrors = validateWithSchema(ajv, enumType, includeDocs)
 
   // check we don't have any schemas errors before trying to validate further.
   const itemErrors = schemaErrors.length === 0
@@ -78,7 +59,6 @@ export function validateEnumType (ajv, enumType, recordErrorFunc, recordWarningF
   const combinedErrors = schemaErrors.concat(itemErrors)
 
   combinedErrors.forEach(error => recordErrorFunc(error))
-  docWarnings.forEach(warning => recordWarningFunc(warning))
 
   return combinedErrors.length === 0
 }

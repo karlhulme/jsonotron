@@ -1,4 +1,5 @@
 /* eslint-env jest */
+import { JsonotronFieldBlockDefinitionCompilationError, JsonotronInitialisationError } from '../errors'
 import { Jsonotron } from './Jsonotron'
 
 function createFullEnumTypeMinusDocs () {
@@ -50,103 +51,129 @@ function createFieldBlock () {
   }
 }
 
-test('Creating a Jsonotron without types produces no errors and warnings.', () => {
-  const jsonotron = new Jsonotron()
+function expectInitialisationFailure (ctorParameters, errorMessage) {
+  try {
+    const jsonotron = new Jsonotron(ctorParameters)
+    expect(jsonotron).not.toBeDefined()
+  } catch (err) {
+    expect(err).toBeInstanceOf(JsonotronInitialisationError)
+    expect(JSON.stringify(err)).toContain(errorMessage)
+  }
+}
 
-  expect(jsonotron.isSuccessful()).toEqual(true)
-  expect(jsonotron.isSuccessfulWithNoWarnings()).toEqual(true)
+function expectFieldBlockDefinitionCompilationFailure (fieldBlockDefinition, errorMessage) {
+  try {
+    const jsonotron = new Jsonotron({
+      enumTypes: [createFullEnumTypeMinusDocs()],
+      schemaTypes: [createFullSchemaTypeMinusDocs()]
+    })
+
+    jsonotron.compileFieldBlockDefinition(fieldBlockDefinition)
+    throw new Error('Should not reach')
+  } catch (err) {
+    expect(err).toBeInstanceOf(JsonotronFieldBlockDefinitionCompilationError)
+    expect(JSON.stringify(err)).toContain(errorMessage)
+  }
+}
+
+test('Calling the constructor without types produces an empty Jsonotron.', () => {
+  const jsonotron = new Jsonotron()
+  expect(jsonotron).toBeDefined()
   expect(jsonotron.getPatchedEnumTypes()).toHaveLength(0)
   expect(jsonotron.getPatchedSchemaTypes()).toHaveLength(0)
 })
 
-test('Creating a Jsonotron with valid enum types and schema types but missing docs produces patched types and validators as well as warnings.', () => {
+test('Calling the constructor with valid enum types and schema types produces a Jsonotron.', () => {
   const jsonotron = new Jsonotron({
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [createFullSchemaTypeMinusDocs()]
   })
 
-  expect(jsonotron.isSuccessful()).toEqual(true)
-  expect(jsonotron.isSuccessfulWithNoWarnings()).toEqual(false)
+  expect(jsonotron).toBeDefined()
   expect(jsonotron.getPatchedEnumTypes()).toHaveLength(1)
   expect(jsonotron.getPatchedSchemaTypes()).toHaveLength(1)
+})
+
+test('Calling the constructor with undocumented enum types and schema types and with documentation validation enabled throws an error.', () => {
+  const ctorParams = {
+    enumTypes: [createFullEnumTypeMinusDocs()],
+    schemaTypes: [createFullSchemaTypeMinusDocs()],
+    validateDocs: true
+  }
+
+  expectInitialisationFailure(ctorParams, 'has invalid or missing properties')
 })
 
 test('Creating a Jsonotron with an invalid enum type produces errors.', () => {
   const enumType = createFullEnumTypeMinusDocs()
   delete enumType.items
 
-  const jsonotron = new Jsonotron({
+  const ctorParams = {
     enumTypes: [enumType],
     schemaTypes: [createFullSchemaTypeMinusDocs()]
-  })
+  }
 
-  expect(jsonotron.isSuccessful()).toEqual(false)
-  expect(jsonotron.toString()).toContain('Enum Type has invalid or missing properties')
+  expectInitialisationFailure(ctorParams, 'Enum Type has invalid or missing properties')
 })
 
 test('Creating a Jsonotron with an invalid schema type produces errors.', () => {
   const schemaType = createFullSchemaTypeMinusDocs()
   delete schemaType.jsonSchema
 
-  const jsonotron = new Jsonotron({
+  const ctorParams = {
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType]
-  })
+  }
 
-  expect(jsonotron.isSuccessful()).toEqual(false)
-  expect(jsonotron.toString()).toContain('Schema Type has invalid or missing properties')
+  expectInitialisationFailure(ctorParams, 'Schema Type has invalid or missing properties')
 })
 
 test('Creating a Jsonotron with an invalid json schema produces errors.', () => {
   const schemaType = createFullSchemaTypeMinusDocs()
-  schemaType.jsonSchema.type = 'invalid'
+  schemaType.jsonSchema = { type: 'not-a-valid-json-schema' }
 
-  const jsonotron = new Jsonotron({
+  const ctorParams = {
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType]
-  })
+  }
 
-  expect(jsonotron.isSuccessful()).toEqual(false)
-  expect(jsonotron.toString()).toContain('Schema Type JSON Schema compilation failed.')
+  expectInitialisationFailure(ctorParams, 'Schema Type JSON Schema compilation failed')
 })
 
 test('Creating a Jsonotron with an invalid example produces errors.', () => {
   const schemaType = createFullSchemaTypeMinusDocs()
   schemaType.examples.push({ value: 'invalid' })
 
-  const jsonotron = new Jsonotron({
+  const ctorParams = {
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType]
-  })
+  }
 
-  expect(jsonotron.isSuccessful()).toEqual(false)
-  expect(jsonotron.toString()).toContain('Verification failed for examples[1]')
+  expectInitialisationFailure(ctorParams, 'Verification failed for examples[1]')
 })
 
 test('Creating a Jsonotron with an invalid "valid test case" produces errors.', () => {
   const schemaType = createFullSchemaTypeMinusDocs()
   schemaType.validTestCases.push('invalid')
 
-  const jsonotron = new Jsonotron({
+  const ctorParams = {
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType]
-  })
+  }
 
-  expect(jsonotron.isSuccessful()).toEqual(false)
-  expect(jsonotron.toString()).toContain('Verification failed for validTestCases[1]')
+  expectInitialisationFailure(ctorParams, 'Verification failed for validTestCases[1]')
 })
 
 test('Creating a Jsonotron with an invalid "invalid test case" produces errors.', () => {
   const schemaType = createFullSchemaTypeMinusDocs()
   schemaType.invalidTestCases.push({ pop: 80134911, country: 'fr' })
 
-  const jsonotron = new Jsonotron({
+  const ctorParams = {
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [schemaType]
-  })
+  }
 
-  expect(jsonotron.isSuccessful()).toEqual(false)
-  expect(jsonotron.toString()).toContain('Verification passed (but should have failed) for invalidTestCases[9]')
+  expectInitialisationFailure(ctorParams, 'Verification passed (but should have failed) for invalidTestCases[9]')
 })
 
 test('Executing a field type validator produces the correct result.', () => {
@@ -154,8 +181,6 @@ test('Executing a field type validator produces the correct result.', () => {
     enumTypes: [createFullEnumTypeMinusDocs()],
     schemaTypes: [createFullSchemaTypeMinusDocs()]
   })
-
-  expect(jsonotron.isSuccessful()).toEqual(true)
 
   expect(jsonotron.validateFieldValue('countryCode', 'fr')).toEqual({ recognised: true, validated: true, errors: null })
   expect(jsonotron.validateFieldValue('countryCode', 'de')).toEqual({ recognised: true, validated: false, errors: expect.anything() })
@@ -172,48 +197,23 @@ test('A valid field block definition can be compiled.', () => {
     schemaTypes: [createFullSchemaTypeMinusDocs()]
   })
 
-  expect(jsonotron.compileFieldBlockDefinition(createFullFieldBlockDefinition())).toEqual({
-    compiled: true,
-    errors: null
-  })
+  const candidate = createFullFieldBlockDefinition()
+
+  expect(() => jsonotron.compileFieldBlockDefinition(candidate)).not.toThrow()
 })
 
 test('A malformed field block definition cannot be compiled.', () => {
-  const jsonotron = new Jsonotron({
-    enumTypes: [createFullEnumTypeMinusDocs()],
-    schemaTypes: [createFullSchemaTypeMinusDocs()]
-  })
-
   const candidate = createFullFieldBlockDefinition()
   delete candidate.fields.year2000.type
 
-  expect(jsonotron.compileFieldBlockDefinition(candidate)).toEqual({
-    compiled: false,
-    errors: [{
-      typeName: 'popHistory',
-      message: 'Field Block Definition has invalid or missing properties.',
-      details: expect.anything()
-    }]
-  })
+  expectFieldBlockDefinitionCompilationFailure(candidate, 'Field Block Definition has invalid or missing properties')
 })
 
 test('A field block definition with an unrecognised type cannot be compiled.', () => {
-  const jsonotron = new Jsonotron({
-    enumTypes: [createFullEnumTypeMinusDocs()],
-    schemaTypes: [createFullSchemaTypeMinusDocs()]
-  })
-
   const candidate = createFullFieldBlockDefinition()
   candidate.fields.year2000.type = 'invalid'
 
-  expect(jsonotron.compileFieldBlockDefinition(candidate)).toEqual({
-    compiled: false,
-    errors: [{
-      typeName: 'popHistory',
-      message: 'Field Block Definition JSON Schema generation failed.',
-      details: expect.anything()
-    }]
-  })
+  expectFieldBlockDefinitionCompilationFailure(candidate, 'Field Block Definition JSON Schema generation failed')
 })
 
 test('Executing a field block definition validator produces the correct result.', () => {

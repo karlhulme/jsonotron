@@ -1,6 +1,4 @@
-export * from './arrayContainsErrorOrWarningWithAjvDetails'
-export * from './createCompilationResult'
-export * from './createErrorOrWarning'
+export * from './createTypeProcError'
 export * from './createValidationResult'
 export * from './consts'
 export * from './deepClone'

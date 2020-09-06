@@ -3,8 +3,9 @@ import { createCustomisedAjv } from '../jsonSchemaValidation'
 import { createJsonSchemaForEnumType, createJsonSchemaForSchemaType, createJsonSchemaForFieldBlock } from '../jsonSchemaGeneration'
 import { patchEnumType, validateEnumType } from '../enumType'
 import { validateSchemaType, patchSchemaType } from '../schemaType'
-import { createErrorOrWarning, createValidationResult, createCompilationResult } from '../shared'
+import { createTypeProcError, createValidationResult } from '../shared'
 import { validateFieldBlockDefinition, patchFieldBlockDefinition } from '../fieldBlockDefinition'
+import { JsonotronFieldBlockDefinitionCompilationError, JsonotronInitialisationError } from '../errors'
 
 /**
  * Generate a json schema for the given schemaType using the other arrays
@@ -19,7 +20,7 @@ function generateJsonSchemaForSchemaType (schemaType, schemaTypes, enumTypes, re
   try {
     return createJsonSchemaForSchemaType(schemaType, schemaTypes, enumTypes)
   } catch (err) {
-    recordErrorFunc(createErrorOrWarning(schemaType.name, 'Schema Type JSON Schema generation failed.', { message: err.toString() }))
+    recordErrorFunc(createTypeProcError(schemaType.name, 'Schema Type JSON Schema generation failed.', { message: err.toString() }))
     return null
   }
 }
@@ -36,7 +37,7 @@ function compileJsonSchemaForSchemaType (ajv, schemaTypeName, jsonSchema, record
   try {
     return ajv.compile(jsonSchema)
   } catch (err) {
-    recordErrorFunc(createErrorOrWarning(schemaTypeName, 'Schema Type JSON Schema compilation failed.', { message: err.toString() }))
+    recordErrorFunc(createTypeProcError(schemaTypeName, 'Schema Type JSON Schema compilation failed.', { message: err.toString() }))
     return null
   }
 }
@@ -52,23 +53,9 @@ function generateJsonSchemaForFieldBlockDefinition (fieldBlockDefinition, schema
   try {
     return createJsonSchemaForFieldBlock(fieldBlockDefinition, schemaTypes, enumTypes)
   } catch (err) {
-    recordErrorFunc(createErrorOrWarning(fieldBlockDefinition.name, 'Field Block Definition JSON Schema generation failed.', { message: err.toString() }))
+    recordErrorFunc(createTypeProcError(fieldBlockDefinition.name, 'Field Block Definition JSON Schema generation failed.', { message: err.toString() }))
     return null
   }
-}
-
-/**
- * Add an error or warning object to an array.
- * @param {Object} errorOrWarning An object that has typeName, message and details properties.
- * @param {Array} array An array.
- */
-function addErrorOrWarningObjectToArray (errorOrWarning, array) {
-  check.assert.object(errorOrWarning)
-  check.assert.string(errorOrWarning.typeName)
-  check.assert.string(errorOrWarning.message)
-  check.assert.object(errorOrWarning.details)
-
-  array.push(errorOrWarning)
 }
 
 /**
@@ -83,7 +70,7 @@ function verifySchemaTypeExamples (validator, schemaType, recordErrorFunc) {
     if (!validator(example.value)) {
       validator.errors.forEach(error => {
         // include the error message in the templated string so that each error has a unique message.
-        recordErrorFunc(createErrorOrWarning(schemaType.name, `Verification failed for examples[${index}]: ${error.message}`, error))
+        recordErrorFunc(createTypeProcError(schemaType.name, `Verification failed for examples[${index}]: ${error.message}`, error))
       })
     }
   })
@@ -101,7 +88,7 @@ function verifySchemaTypeValidTestCases (validator, schemaType, recordErrorFunc)
     if (!validator(validTestCase)) {
       validator.errors.forEach(error => {
         // include the error message in the templated string so that each error has a unique message.
-        recordErrorFunc(createErrorOrWarning(schemaType.name, `Verification failed for validTestCases[${index}]: ${error.message}`, error))
+        recordErrorFunc(createTypeProcError(schemaType.name, `Verification failed for validTestCases[${index}]: ${error.message}`, error))
       })
     }
   })
@@ -117,7 +104,7 @@ function verifySchemaTypeValidTestCases (validator, schemaType, recordErrorFunc)
 function verifySchemaTypeInvalidTestCases (validator, schemaType, recordErrorFunc) {
   schemaType.invalidTestCases.forEach((invalidTestCase, index) => {
     if (validator(invalidTestCase)) {
-      recordErrorFunc(createErrorOrWarning(schemaType.name, `Verification passed (but should have failed) for invalidTestCases[${index}].`, { message: 'Validation was expected to fail but passed.' }))
+      recordErrorFunc(createTypeProcError(schemaType.name, `Verification passed (but should have failed) for invalidTestCases[${index}].`, { message: 'Validation was expected to fail but passed.' }))
     }
   })
 }
@@ -126,14 +113,11 @@ function verifySchemaTypeInvalidTestCases (validator, schemaType, recordErrorFun
  * Provides methods for validating field blocks.
  */
 export class Jsonotron {
-  constructor ({ enumTypes = [], schemaTypes = [], formatValidators = [] } = {}) {
+  constructor ({ enumTypes = [], schemaTypes = [], formatValidators = [], validateDocs = false } = {}) {
     check.assert.array.of.object(enumTypes)
     check.assert.array.of.object(schemaTypes)
     check.assert.array.of.object(formatValidators)
-
-    // error and warning arrays
-    this.errors = []
-    this.warnings = []
+    check.assert.boolean(validateDocs)
 
     // patched types
     this.patchedEnumTypes = []
@@ -148,20 +132,25 @@ export class Jsonotron {
     // initialise the ajv
     this.ajv = createCustomisedAjv(formatValidators)
 
-    // create functions for recording errors and warnings
-    const recordErrorFunc = error => addErrorOrWarningObjectToArray(error, this.errors)
-    const recordWarningFunc = warning => addErrorOrWarningObjectToArray(warning, this.warnings)
+    // create objects for handling errors during initialisation
+    const errors = []
+    const recordErrorFunc = function (error) {
+      check.assert.object(error)
+      check.assert.string(error.message)
+      check.assert.object(error.details)
+      errors.push(error)
+    }
 
     // validate and patch enum types
     enumTypes.forEach(enumType => {
-      if (validateEnumType(this.ajv, enumType, recordErrorFunc, recordWarningFunc)) {
+      if (validateEnumType(this.ajv, enumType, recordErrorFunc, validateDocs)) {
         this.patchedEnumTypes.push(patchEnumType(enumType))
       }
     })
 
     // validate and patch schema types
     schemaTypes.forEach(schemaType => {
-      if (validateSchemaType(this.ajv, schemaType, recordErrorFunc, recordWarningFunc)) {
+      if (validateSchemaType(this.ajv, schemaType, recordErrorFunc, validateDocs)) {
         this.patchedSchemaTypes.push(patchSchemaType(schemaType))
       }
     })
@@ -188,20 +177,11 @@ export class Jsonotron {
         }
       }
     })
-  }
 
-  /**
-   * Returns the errors as an array of (message, details) elements.
-   */
-  getErrors () {
-    return [...this.errors]
-  }
-
-  /**
-   * Returns the warnings as an array of (message, details) elements.
-   */
-  getWarnings () {
-    return [...this.warnings]
+    // fail initialisation if any errors were encountered
+    if (errors.length > 0) {
+      throw new JsonotronInitialisationError(errors)
+    }
   }
 
   /**
@@ -254,7 +234,12 @@ export class Jsonotron {
     check.assert.string(fieldBlockDefinition.name)
 
     const compileErrors = []
-    const recordErrorFunc = error => addErrorOrWarningObjectToArray(error, compileErrors)
+    const recordErrorFunc = function (error) {
+      check.assert.object(error)
+      check.assert.string(error.message)
+      check.assert.object(error.details)
+      compileErrors.push(error)
+    }
 
     if (validateFieldBlockDefinition(this.ajv, fieldBlockDefinition, recordErrorFunc)) {
       const patchedFieldBlockDefinition = patchFieldBlockDefinition(fieldBlockDefinition)
@@ -265,11 +250,12 @@ export class Jsonotron {
       if (jsonSchema) {
         const validator = this.ajv.compile(jsonSchema)
         this.fieldBlockDefinitionValidators[patchedFieldBlockDefinition.name] = validator
-        return createCompilationResult(true, null)
       }
     }
 
-    return createCompilationResult(false, compileErrors)
+    if (compileErrors.length > 0) {
+      throw new JsonotronFieldBlockDefinitionCompilationError(compileErrors)
+    }
   }
 
   /**
@@ -292,29 +278,5 @@ export class Jsonotron {
     } else {
       return createValidationResult(false, false, null)
     }
-  }
-
-  /**
-   * Returns true if the compilation result contains no errors.
-   */
-  isSuccessful () {
-    return this.errors.length === 0
-  }
-
-  /**
-   * Returns true if the compilation result contains no errors and no warnings.
-   */
-  isSuccessfulWithNoWarnings () {
-    return this.errors.length === 0 && this.warnings.length === 0
-  }
-
-  /**
-   * Returns a formatted string containing the errors and warnings.
-   */
-  toString () {
-    return JSON.stringify({
-      errors: this.getErrors(),
-      warnings: this.getWarnings()
-    }, null, 2)
   }
 }

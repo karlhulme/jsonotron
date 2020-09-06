@@ -7,15 +7,18 @@ test('The functions are exported.', () => {
     // Jsonotron
     'Jsonotron',
 
+    // errors
+    'JsonotronFieldBlockDefinitionCompilationError',
+    'JsonotronInitialisationError',
+
     // jsonSchemaValidation
     'createCustomisedAjv',
 
     // shared
+    'createTypeProcError',
+    'deepClone',
     'JSON_SCHEMA_DECLARATION',
     'JSON_SCHEMA_DEFINITIONS_PATH',
-
-    // utils
-    'deepClone',
     'pascalToTitleCase'
   ]
 

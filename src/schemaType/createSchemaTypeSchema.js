@@ -2,9 +2,8 @@
  * Creates a JSON Schema for validating schema types.
  * @param {Object} options An options object.
  * @param {Boolean} options.includeDocs True if the documentation fields should be mandatory.
- * @param {Boolean} options.includeTests True if the test case fields should be mandatory.
  */
-export function createSchemaTypeSchema ({ includeDocs, includeTests } = {}) {
+export function createSchemaTypeSchema ({ includeDocs } = {}) {
   return {
     title: 'Schema Type Schema',
     type: 'object',
@@ -38,12 +37,10 @@ export function createSchemaTypeSchema ({ includeDocs, includeTests } = {}) {
       },
       validTestCases: {
         type: 'array',
-        minItems: includeTests ? 1 : 0,
         description: 'An array of valid values used for testing the json schema of the schema type that does not form part of the documentation.'
       },
       invalidTestCases: {
         type: 'array',
-        minItems: includeTests ? 1 : 0,
         description: 'An array of invalid values for the schema type.'
       },
       jsonSchema: {
@@ -51,6 +48,6 @@ export function createSchemaTypeSchema ({ includeDocs, includeTests } = {}) {
         description: 'A JSON schema that governs values for this schema type.'
       }
     },
-    required: ['name', 'jsonSchema'].concat(includeDocs ? ['title', 'paragraphs', 'examples'] : []).concat(includeTests ? ['validTestCases', 'invalidTestCases'] : [])
+    required: ['name', 'jsonSchema'].concat(includeDocs ? ['title', 'paragraphs', 'examples'] : [])
   }
 }

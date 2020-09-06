@@ -1,4 +1,4 @@
-import { jest, test, expect } from '@jest/globals'
+/* eslint-env jest */
 import { validateSchemaType } from './validateSchemaType'
 import { createCustomisedAjv } from '../jsonSchemaValidation'
 
@@ -16,29 +16,16 @@ function createFullSchemaType () {
   }
 }
 
-function testBody (mutator, isSuccessful, isSuccessulWithNoWarnings) {
-  const errorFunc = jest.fn()
-  const warningFunc = jest.fn()
-
+function testBody (mutator, passWithoutDocs, passWithDocs) {
+  const errorFunc = () => {}
   const ajv = createCustomisedAjv()
   const candidate = createFullSchemaType()
   mutator(candidate)
-  expect(validateSchemaType(ajv, candidate, errorFunc, warningFunc)).toEqual(isSuccessful)
-
-  if (isSuccessful) {
-    expect(errorFunc.mock.calls.length).toEqual(0)
-
-    if (isSuccessulWithNoWarnings) {
-      expect(warningFunc.mock.calls.length).toEqual(0)
-    } else {
-      expect(warningFunc.mock.calls.length).toBeGreaterThan(0)
-    }
-  } else {
-    expect(errorFunc.mock.calls.length).toBeGreaterThan(0)
-  }
+  expect(validateSchemaType(ajv, candidate, errorFunc, false)).toEqual(passWithoutDocs)
+  expect(validateSchemaType(ajv, candidate, errorFunc, true)).toEqual(passWithDocs)
 }
 
-test('An invalid schema type is not successfully validated', () => {
+test('An invalid schema type is not successfully validated.', () => {
   testBody(s => { delete s.name }, false, false)
   testBody(s => { s.name = 123 }, false, false)
   testBody(s => { s.name = '123' }, false, false)
@@ -64,7 +51,7 @@ test('An invalid schema type is not successfully validated', () => {
   testBody(s => { s.jsonSchema = 123 }, false, false)
 })
 
-test('An undocumented or untested schema type is successfully validated but not without warnings', () => {
+test('An undocumented schema type is successfully validated unless documentation is required.', () => {
   testBody(s => { delete s.title }, true, false)
 
   testBody(s => { delete s.paragraphs }, true, false)
@@ -74,15 +61,9 @@ test('An undocumented or untested schema type is successfully validated but not 
   testBody(s => { s.examples = [] }, true, false)
   testBody(s => { delete s.examples[0].paragraphs }, true, false)
   testBody(s => { s.examples[0].paragraphs = [] }, true, false)
-
-  testBody(s => { delete s.validTestCases }, true, false)
-  testBody(s => { s.validTestCases = [] }, true, false)
-
-  testBody(s => { delete s.invalidTestCases }, true, false)
-  testBody(s => { s.invalidTestCases = [] }, true, false)
 })
 
-test('A fully documented enum type is successfully validated with no warnings', () => {
+test('A fully documented enum type is successfully validated.', () => {
   testBody(s => s, true, true)
   testBody(s => { s.name = 'namespace.candidateEnumType' }, true, true)
 })

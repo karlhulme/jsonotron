@@ -1,4 +1,4 @@
-import { jest, test, expect } from '@jest/globals'
+/* eslint-env jest */
 import { validateEnumType } from './validateEnumType'
 import { createCustomisedAjv } from '../jsonSchemaValidation'
 
@@ -15,29 +15,16 @@ function createFullEnumType () {
   }
 }
 
-function testBody (mutator, isSuccessful, isSuccessulWithNoWarnings) {
-  const errorFunc = jest.fn()
-  const warningFunc = jest.fn()
-
+function testBody (mutator, passWithoutDocs, passWithDocs) {
+  const errorFunc = () => {}
   const ajv = createCustomisedAjv()
   const candidate = createFullEnumType()
   mutator(candidate)
-  expect(validateEnumType(ajv, candidate, errorFunc, warningFunc)).toEqual(isSuccessful)
-
-  if (isSuccessful) {
-    expect(errorFunc.mock.calls.length).toEqual(0)
-
-    if (isSuccessulWithNoWarnings) {
-      expect(warningFunc.mock.calls.length).toEqual(0)
-    } else {
-      expect(warningFunc.mock.calls.length).toBeGreaterThan(0)
-    }
-  } else {
-    expect(errorFunc.mock.calls.length).toBeGreaterThan(0)
-  }
+  expect(validateEnumType(ajv, candidate, errorFunc, false)).toEqual(passWithoutDocs)
+  expect(validateEnumType(ajv, candidate, errorFunc, true)).toEqual(passWithDocs)
 }
 
-test('An invalid enum type is not successfully validated', () => {
+test('An invalid enum type is not successfully validated.', () => {
   testBody(e => { delete e.name }, false, false)
   testBody(e => { e.name = 123 }, false, false)
   testBody(e => { e.name = '123' }, false, false)
@@ -65,14 +52,14 @@ test('An invalid enum type is not successfully validated', () => {
   testBody(e => { e.items[0].paragraphs = [123] }, false, false)
 })
 
-test('An undocumented enum type is successfully validated but not without warnings', () => {
+test('An undocumented enum type is successfully validated unless documentation is required.', () => {
   testBody(e => { delete e.title }, true, false)
 
   testBody(e => { delete e.paragraphs }, true, false)
   testBody(e => { e.paragraphs = [] }, true, false)
 })
 
-test('A fully documented enum type is successfully validated with no warnings', () => {
+test('A fully documented enum type is successfully validated.', () => {
   testBody(e => e, true, true)
   testBody(e => { e.name = 'namespace.candidateEnumType' }, true, true)
 })

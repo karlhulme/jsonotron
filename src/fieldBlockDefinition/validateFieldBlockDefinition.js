@@ -1,5 +1,5 @@
 import { createFieldBlockDefinitionSchema } from './createFieldBlockDefinitionSchema'
-import { createErrorOrWarning } from '../shared'
+import { createTypeProcError } from '../shared'
 
 /**
  * @typedef {import('ajv').Ajv} Ajv
@@ -17,7 +17,7 @@ function validateWithSchema (ajv, fieldBlockDefinition) {
 
   return validator(fieldBlockDefinition)
     ? []
-    : validator.errors.map(error => createErrorOrWarning(fieldBlockDefinition.name, 'Field Block Definition has invalid or missing properties.', error))
+    : validator.errors.map(error => createTypeProcError(fieldBlockDefinition.name, 'Field Block Definition has invalid or missing properties.', error))
 }
 
 /**

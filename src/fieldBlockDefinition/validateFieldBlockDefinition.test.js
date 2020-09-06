@@ -1,4 +1,4 @@
-import { jest, test, expect } from '@jest/globals'
+/* eslint-env jest */
 import { createCustomisedAjv } from '../jsonSchemaValidation'
 import { validateFieldBlockDefinition } from './validateFieldBlockDefinition'
 
@@ -12,19 +12,12 @@ function createFullFieldBlockDefinition () {
   }
 }
 
-function testBody (mutator, isSuccessful) {
-  const errorFunc = jest.fn()
-
+function testBody (mutator, pass) {
+  const errorFunc = () => {}
   const ajv = createCustomisedAjv()
   const candidate = createFullFieldBlockDefinition()
   mutator(candidate)
-  expect(validateFieldBlockDefinition(ajv, candidate, errorFunc)).toEqual(isSuccessful)
-
-  if (isSuccessful) {
-    expect(errorFunc.mock.calls.length).toEqual(0)
-  } else {
-    expect(errorFunc.mock.calls.length).toBeGreaterThan(0)
-  }
+  expect(validateFieldBlockDefinition(ajv, candidate, errorFunc)).toEqual(pass)
 }
 
 test('An invalid field block is not successfully validated.', () => {
