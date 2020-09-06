@@ -124,6 +124,7 @@ To create a Jsonotron you tell it about the types you want to support.
 * **enumTypes** - An array of (documented) enum type objects.
 * **schemaTypes** - An array of (documented) schema type objects.
 * **formatValidators** - An array of format validators.
+* **validateDocs** - True if missing documentation should cause initialisation to fail.  (Default = false)
 
 All these different types are defined below.
 
