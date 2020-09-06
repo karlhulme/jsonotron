@@ -113,6 +113,14 @@ function verifySchemaTypeInvalidTestCases (validator, schemaType, recordErrorFun
  * Provides methods for validating field blocks.
  */
 export class Jsonotron {
+  /**
+   * Constructs a new instance of the Jsonotron class.
+   * @param {Object} options An object.
+   * @param {Array} [enumTypes] An array of enum types.
+   * @param {Array} [schemaTypes] An array of schema types.
+   * @param {Array} [formatValidators] An array of format validators.
+   * @param {Boolean} [validateDocs] True if missing documentation should cause the initialisation to fail.
+   */
   constructor ({ enumTypes = [], schemaTypes = [], formatValidators = [], validateDocs = false } = {}) {
     check.assert.array.of.object(enumTypes)
     check.assert.array.of.object(schemaTypes)
