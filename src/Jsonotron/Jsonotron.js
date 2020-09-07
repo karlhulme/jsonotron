@@ -193,18 +193,14 @@ export class Jsonotron {
   }
 
   /**
-   * Returns the patched enum types that passed the validation process.
-   * The enum types here may have subsequently failed the schema generation,
-   * schema compilation or verification steps.
+   * Returns the patched enum types.
    */
   getPatchedEnumTypes () {
     return [...this.patchedEnumTypes]
   }
 
   /**
-   * Returns the patched schema types that passed the validation process.
-   * The schema types here may have subsequently failed the schema generation,
-   * schema compilation or verification steps.
+   * Returns the patched schema types.
    */
   getPatchedSchemaTypes () {
     return [...this.patchedSchemaTypes]
