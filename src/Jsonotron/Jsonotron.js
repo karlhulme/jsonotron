@@ -3,7 +3,7 @@ import { createCustomisedAjv } from '../jsonSchemaValidation'
 import { createJsonSchemaForEnumType, createJsonSchemaForSchemaType, createJsonSchemaForFieldBlock } from '../jsonSchemaGeneration'
 import { patchEnumType, validateEnumType } from '../enumType'
 import { validateSchemaType, patchSchemaType } from '../schemaType'
-import { createTypeProcError, createValidationResult } from '../shared'
+import { createTypeProcError, createValidationResult, deepClone } from '../shared'
 import { validateFieldBlockDefinition, patchFieldBlockDefinition } from '../fieldBlockDefinition'
 import { JsonotronFieldBlockDefinitionCompilationError, JsonotronInitialisationError } from '../errors'
 
@@ -196,14 +196,14 @@ export class Jsonotron {
    * Returns the patched enum types.
    */
   getPatchedEnumTypes () {
-    return JSON.parse(JSON.stringify(this.patchedEnumTypes))
+    return deepClone(this.patchedEnumTypes)
   }
 
   /**
    * Returns the patched schema types.
    */
   getPatchedSchemaTypes () {
-    return JSON.parse(JSON.stringify(this.patchedSchemaTypes))
+    return deepClone(this.patchedSchemaTypes)
   }
 
   /**
