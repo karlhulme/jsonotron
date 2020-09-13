@@ -196,14 +196,14 @@ export class Jsonotron {
    * Returns the patched enum types.
    */
   getPatchedEnumTypes () {
-    return [...this.patchedEnumTypes]
+    return JSON.parse(JSON.stringify(this.patchedEnumTypes))
   }
 
   /**
    * Returns the patched schema types.
    */
   getPatchedSchemaTypes () {
-    return [...this.patchedSchemaTypes]
+    return JSON.parse(JSON.stringify(this.patchedSchemaTypes))
   }
 
   /**
