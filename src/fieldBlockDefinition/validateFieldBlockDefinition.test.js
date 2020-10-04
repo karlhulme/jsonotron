@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { createCustomisedAjv } from '../jsonSchemaValidation/index.js'
 import { validateFieldBlockDefinition } from './validateFieldBlockDefinition.js'
 

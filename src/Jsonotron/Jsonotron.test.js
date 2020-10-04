@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { JsonotronFieldBlockDefinitionCompilationError, JsonotronInitialisationError } from '../errors/index.js'
 import { Jsonotron } from './Jsonotron.js'
 

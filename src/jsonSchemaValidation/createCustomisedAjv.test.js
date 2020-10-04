@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { createCustomisedAjv } from './createCustomisedAjv.js'
 
 test('Can create a customised Ajv with bespoke keywords.', () => {

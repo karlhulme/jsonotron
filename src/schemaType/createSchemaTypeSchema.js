@@ -1,7 +1,7 @@
 /**
  * Creates a JSON Schema for validating schema types.
  * @param {Object} options An options object.
- * @param {Boolean} options.includeDocs True if the documentation fields should be mandatory.
+ * @param {Boolean} [options.includeDocs] True if the documentation fields should be mandatory.
  */
 export function createSchemaTypeSchema ({ includeDocs } = {}) {
   return {

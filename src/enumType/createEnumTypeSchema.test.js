@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { test, expect } from '@jest/globals'
 import Ajv from 'ajv'
 import { createEnumTypeSchema } from './createEnumTypeSchema.js'
 

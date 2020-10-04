@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { deepClone } from './deepClone.js'
 
 test('A clone should be equal in structure.', () => {

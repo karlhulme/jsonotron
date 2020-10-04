@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { determineReferencedTypeNames } from './determineReferencedTypeNames.js'
 
 const enumTypes = [{

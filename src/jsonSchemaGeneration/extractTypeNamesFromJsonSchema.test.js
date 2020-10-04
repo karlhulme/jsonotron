@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { extractTypeNamesFromJsonSchema } from './extractTypeNamesFromJsonSchema.js'
 
 test('Extract type names from a schema with referenced types.', () => {

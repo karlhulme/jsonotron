@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { pascalToTitleCase } from './pascalToTitleCase.js'
 
 test('Can convert pascal names to title case.', () => {

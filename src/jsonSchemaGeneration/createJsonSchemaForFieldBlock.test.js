@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { createJsonSchemaForFieldBlock } from './createJsonSchemaForFieldBlock.js'
 
 const testEnumTypes = [

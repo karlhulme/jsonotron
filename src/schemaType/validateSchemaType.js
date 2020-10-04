@@ -28,7 +28,7 @@ function validateWithSchema (ajv, schemaType, includeDocs) {
  * conform to it.
  * Returns true if the schema type successfully validated.
  * @param {Ajv} ajv A json schema validator.
- * @param {Object} enumType An enum type.
+ * @param {Object} schemaType An enum type.
  * @param {Function} recordErrorFunc A function for recording TypeProcErrors.
  * @param {Boolean} includeDocs True if the documentation should be also be validated.
  */

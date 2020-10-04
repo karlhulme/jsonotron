@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { createValidationResult } from './createValidationResult.js'
 
 test('Creating a validator result returns an object.', () => {

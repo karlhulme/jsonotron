@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import * as lib from './index.js'
 
 test('The functions are exported.', () => {

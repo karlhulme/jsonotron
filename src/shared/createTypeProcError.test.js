@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { createTypeProcError } from './createTypeProcError.js'
 
 test('Creating a type processing error returns an object.', () => {

@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType.js'
 
 const schemaType = {

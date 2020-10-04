@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { customTypeOfGenerator } from './customTypeOfGenerator.js'
 
 test('The customTypeOfGenerator recognises functions.', () => {

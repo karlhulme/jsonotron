@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import Ajv from 'ajv'
 import { createSchemaTypeSchema } from './createSchemaTypeSchema.js'
 

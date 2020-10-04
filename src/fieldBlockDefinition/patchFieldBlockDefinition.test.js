@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { patchFieldBlockDefinition } from './patchFieldBlockDefinition.js'
 
 function createMinimalFieldBlock () {

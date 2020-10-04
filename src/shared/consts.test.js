@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import * as consts from './consts.js'
 
 test('All expected consts have been exported', () => {

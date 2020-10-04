@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { createJsonSchemaForSchemaTypeArray } from './createJsonSchemaForSchemaTypeArray.js'
 
 const schemaTypes = [{

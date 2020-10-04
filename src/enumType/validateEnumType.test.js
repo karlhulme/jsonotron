@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { validateEnumType } from './validateEnumType.js'
 import { createCustomisedAjv } from '../jsonSchemaValidation/index.js'
 

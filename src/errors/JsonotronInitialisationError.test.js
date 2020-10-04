@@ -1,4 +1,4 @@
-/* eslint-env jest */
+import { expect, test } from '@jest/globals'
 import { JsonotronInitialisationError } from './JsonotronInitialisationError.js'
 
 test('The JsonotronInitialisationError is constructed correctly.', () => {
