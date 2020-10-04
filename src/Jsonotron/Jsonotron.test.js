@@ -261,3 +261,22 @@ test('Executing a field block definition validator produces the correct result.'
 
   expect(jsonotron.validateFieldBlock('madeup', { anything: 'here' })).toEqual({ recognised: false, validated: false, errors: null })
 })
+
+test('Validating a field block definition with a dynamically provided definition causes compilation.', () => {
+  const jsonotron = new Jsonotron({
+    enumTypes: [createFullEnumTypeMinusDocs()],
+    schemaTypes: [createFullSchemaTypeMinusDocs()]
+  })
+
+  expect(jsonotron.getPatchedFieldBlockDefinitions()).toHaveLength(0)
+
+  const candidate1 = createFieldBlock()
+  const fieldBlockDefinition = createFullFieldBlockDefinition()
+
+  expect(jsonotron.validateFieldBlockWithDefinition(fieldBlockDefinition, candidate1)).toEqual({ recognised: true, validated: true, errors: null })
+  expect(jsonotron.getPatchedFieldBlockDefinitions()).toHaveLength(1)
+
+  // on second execution it should not compile, so number of patched field blocks remains at 1
+  expect(jsonotron.validateFieldBlockWithDefinition(fieldBlockDefinition, candidate1)).toEqual({ recognised: true, validated: true, errors: null })
+  expect(jsonotron.getPatchedFieldBlockDefinitions()).toHaveLength(1)
+})

@@ -272,12 +272,11 @@ export class Jsonotron {
 
     if (validateFieldBlockDefinition(this.ajv, fieldBlockDefinition, recordErrorFunc)) {
       const patchedFieldBlockDefinition = patchFieldBlockDefinition(fieldBlockDefinition)
-      this.patchedFieldBlockDefinitions.push(patchedFieldBlockDefinition)
-
       const jsonSchema = generateJsonSchemaForFieldBlockDefinition(patchedFieldBlockDefinition, this.patchedSchemaTypes, this.patchedEnumTypes, recordErrorFunc)
 
       if (jsonSchema) {
         const validator = this.ajv.compile(jsonSchema)
+        this.patchedFieldBlockDefinitions.push(patchedFieldBlockDefinition)
         this.fieldBlockDefinitionValidators[patchedFieldBlockDefinition.name] = validator
       }
     }
@@ -307,5 +306,22 @@ export class Jsonotron {
     } else {
       return createValidationResult(false, false, null)
     }
+  }
+
+  /**
+   * It compiles a field block definition into a validator (if it's new), and then executes the validator to see if
+   * the given value is valid.
+   * @param {Object} fieldBlockDefinition A field block definition.
+   * @param {Object} value Any value.
+   */
+  validateFieldBlockWithDefinition (fieldBlockDefinition, value) {
+    check.assert.object(fieldBlockDefinition)
+    check.assert.string(fieldBlockDefinition.name)
+
+    if (!this.fieldBlockDefinitionValidators[fieldBlockDefinition.name]) {
+      this.compileFieldBlockDefinition(fieldBlockDefinition)
+    }
+
+    return this.validateFieldBlock(fieldBlockDefinition.name, value)
   }
 }
