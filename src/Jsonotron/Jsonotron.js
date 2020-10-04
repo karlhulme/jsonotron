@@ -1,4 +1,5 @@
 import check from 'check-types'
+import stringify from 'fast-json-stable-stringify'
 import { createCustomisedAjv } from '../jsonSchemaValidation'
 import { createJsonSchemaForEnumType, createJsonSchemaForSchemaType, createJsonSchemaForFieldBlock } from '../jsonSchemaGeneration'
 import { patchEnumType, validateEnumType } from '../enumType'
@@ -309,14 +310,19 @@ export class Jsonotron {
   }
 
   /**
-   * It compiles a field block definition into a validator (if it's new), and then executes the validator to see if
+   * It creates a field block definition, using the given fieldBlockDefinitionFields, and compiles
+   * it into a validator (if it's new), and then executes the validator to see if
    * the given value is valid.
-   * @param {Object} fieldBlockDefinition A field block definition.
+   * @param {Object} fieldBlockDefinitionFields The fields section of a fieldBlockDefinition.
    * @param {Object} value Any value.
    */
-  validateFieldBlockWithDefinition (fieldBlockDefinition, value) {
-    check.assert.object(fieldBlockDefinition)
-    check.assert.string(fieldBlockDefinition.name)
+  validateFieldBlockWithFields (fieldBlockDefinitionFields, value) {
+    check.assert.object(fieldBlockDefinitionFields)
+
+    const fieldBlockDefinition = {
+      name: stringify(fieldBlockDefinitionFields),
+      fields: fieldBlockDefinitionFields
+    }
 
     if (!this.fieldBlockDefinitionValidators[fieldBlockDefinition.name]) {
       this.compileFieldBlockDefinition(fieldBlockDefinition)

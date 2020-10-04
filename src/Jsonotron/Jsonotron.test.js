@@ -271,12 +271,14 @@ test('Validating a field block definition with a dynamically provided definition
   expect(jsonotron.getPatchedFieldBlockDefinitions()).toHaveLength(0)
 
   const candidate1 = createFieldBlock()
-  const fieldBlockDefinition = createFullFieldBlockDefinition()
+  const fieldBlockDefinitionFields1 = createFullFieldBlockDefinition().fields
+  const fieldBlockDefinitionFields2 = createFullFieldBlockDefinition().fields
 
-  expect(jsonotron.validateFieldBlockWithDefinition(fieldBlockDefinition, candidate1)).toEqual({ recognised: true, validated: true, errors: null })
+  expect(jsonotron.validateFieldBlockWithFields(fieldBlockDefinitionFields1, candidate1)).toEqual({ recognised: true, validated: true, errors: null })
   expect(jsonotron.getPatchedFieldBlockDefinitions()).toHaveLength(1)
 
-  // on second execution it should not compile, so number of patched field blocks remains at 1
-  expect(jsonotron.validateFieldBlockWithDefinition(fieldBlockDefinition, candidate1)).toEqual({ recognised: true, validated: true, errors: null })
+  // on second execution it will not compile, because the schema has been seen before,
+  //  so the number of patched field block definitions remains at 1
+  expect(jsonotron.validateFieldBlockWithFields(fieldBlockDefinitionFields2, candidate1)).toEqual({ recognised: true, validated: true, errors: null })
   expect(jsonotron.getPatchedFieldBlockDefinitions()).toHaveLength(1)
 })
