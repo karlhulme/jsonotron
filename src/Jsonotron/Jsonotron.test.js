@@ -81,17 +81,20 @@ test('Calling the constructor without types produces an empty Jsonotron.', () =>
   expect(jsonotron).toBeDefined()
   expect(jsonotron.getPatchedEnumTypes()).toHaveLength(0)
   expect(jsonotron.getPatchedSchemaTypes()).toHaveLength(0)
+  expect(jsonotron.getPatchedFieldBlockDefinitions()).toHaveLength(0)
 })
 
-test('Calling the constructor with valid enum types and schema types produces a Jsonotron.', () => {
+test('Calling the constructor with valid enum types, schema types and field block definitions produces a Jsonotron.', () => {
   const jsonotron = new Jsonotron({
     enumTypes: [createFullEnumTypeMinusDocs()],
-    schemaTypes: [createFullSchemaTypeMinusDocs()]
+    schemaTypes: [createFullSchemaTypeMinusDocs()],
+    fieldBlockDefinitions: [createFullFieldBlockDefinition()]
   })
 
   expect(jsonotron).toBeDefined()
   expect(jsonotron.getPatchedEnumTypes()).toHaveLength(1)
   expect(jsonotron.getPatchedSchemaTypes()).toHaveLength(1)
+  expect(jsonotron.getPatchedFieldBlockDefinitions()).toHaveLength(1)
 })
 
 test('Calling the constructor with undocumented enum types and schema types and with documentation validation enabled throws an error.', () => {
@@ -128,7 +131,20 @@ test('Creating a Jsonotron with an invalid schema type produces errors.', () => 
   expectInitialisationFailure(ctorParams, 'Schema Type has invalid or missing properties')
 })
 
-test('Creating a Jsonotron with an invalid json schema produces errors.', () => {
+test('Creating a Jsonotron with an invalid field block definition produces errors.', () => {
+  const fieldBlockDefinition = createFullFieldBlockDefinition()
+  delete fieldBlockDefinition.name
+
+  const ctorParams = {
+    enumTypes: [createFullEnumTypeMinusDocs()],
+    schemaTypes: [createFullSchemaTypeMinusDocs()],
+    fieldBlockDefinitions: [fieldBlockDefinition]
+  }
+
+  expectInitialisationFailure(ctorParams, 'Field Block Definition has invalid or missing properties')
+})
+
+test('Creating a Jsonotron with a schema type with an invalid json schema produces errors.', () => {
   const schemaType = createFullSchemaTypeMinusDocs()
   schemaType.jsonSchema = { type: 'not-a-valid-json-schema' }
 
@@ -174,6 +190,19 @@ test('Creating a Jsonotron with an invalid "invalid test case" produces errors.'
   }
 
   expectInitialisationFailure(ctorParams, 'Verification passed (but should have failed) for invalidTestCases[9]')
+})
+
+test('Creating a Jsootron with a field block definition with an unrecognised type produces errors.', () => {
+  const candidate = createFullFieldBlockDefinition()
+  candidate.fields.year2000.type = 'invalid'
+
+  const ctorParams = {
+    enumTypes: [createFullEnumTypeMinusDocs()],
+    schemaTypes: [createFullSchemaTypeMinusDocs()],
+    fieldBlockDefinitions: [candidate]
+  }
+
+  expectInitialisationFailure(ctorParams, 'Field Block Definition JSON Schema generation failed')
 })
 
 test('Executing a field type validator produces the correct result.', () => {

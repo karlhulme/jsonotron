@@ -121,10 +121,11 @@ export class Jsonotron {
    * @param {Array} [formatValidators] An array of format validators.
    * @param {Boolean} [validateDocs] True if missing documentation should cause the initialisation to fail.
    */
-  constructor ({ enumTypes = [], schemaTypes = [], formatValidators = [], validateDocs = false } = {}) {
+  constructor ({ enumTypes = [], schemaTypes = [], formatValidators = [], fieldBlockDefinitions = [], validateDocs = false } = {}) {
     check.assert.array.of.object(enumTypes)
     check.assert.array.of.object(schemaTypes)
     check.assert.array.of.object(formatValidators)
+    check.assert.array.of.object(fieldBlockDefinitions)
     check.assert.boolean(validateDocs)
 
     // patched types
@@ -163,6 +164,13 @@ export class Jsonotron {
       }
     })
 
+    // validate and patch field block definitions
+    fieldBlockDefinitions.forEach(fieldBlockDefinition => {
+      if (validateFieldBlockDefinition(this.ajv, fieldBlockDefinition, recordErrorFunc)) {
+        this.patchedFieldBlockDefinitions.push(patchFieldBlockDefinition(fieldBlockDefinition))
+      }
+    })
+
     // compile the enum types
     this.patchedEnumTypes.forEach(enumType => {
       const jsonSchema = createJsonSchemaForEnumType(enumType)
@@ -186,6 +194,16 @@ export class Jsonotron {
       }
     })
 
+    // compile the field block definitions
+    this.patchedFieldBlockDefinitions.forEach(fieldBlockDefinition => {
+      const jsonSchema = generateJsonSchemaForFieldBlockDefinition(fieldBlockDefinition, this.patchedSchemaTypes, this.patchedEnumTypes, recordErrorFunc)
+
+      if (jsonSchema) {
+        const validator = this.ajv.compile(jsonSchema)
+        this.fieldBlockDefinitionValidators[fieldBlockDefinition.name] = validator
+      }
+    })
+
     // fail initialisation if any errors were encountered
     if (errors.length > 0) {
       throw new JsonotronInitialisationError(errors)
@@ -204,6 +222,13 @@ export class Jsonotron {
    */
   getPatchedSchemaTypes () {
     return deepClone(this.patchedSchemaTypes)
+  }
+
+  /**
+   * Returns the patched field block definitions.
+   */
+  getPatchedFieldBlockDefinitions () {
+    return deepClone(this.patchedFieldBlockDefinitions)
   }
 
   /**
