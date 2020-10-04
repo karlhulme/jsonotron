@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import Ajv from 'ajv'
-import { createFieldBlockDefinitionSchema } from './createFieldBlockDefinitionSchema'
+import { createFieldBlockDefinitionSchema } from './createFieldBlockDefinitionSchema.js'
 
 test('A field block type schema can be created and compiled.', () => {
   const ajv = new Ajv()

@@ -1,3 +1,3 @@
-export * from './createFieldBlockDefinitionSchema'
-export * from './patchFieldBlockDefinition'
-export * from './validateFieldBlockDefinition'
+export * from './createFieldBlockDefinitionSchema.js'
+export * from './patchFieldBlockDefinition.js'
+export * from './validateFieldBlockDefinition.js'

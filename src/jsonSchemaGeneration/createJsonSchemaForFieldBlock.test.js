@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { createJsonSchemaForFieldBlock } from './createJsonSchemaForFieldBlock'
+import { createJsonSchemaForFieldBlock } from './createJsonSchemaForFieldBlock.js'
 
 const testEnumTypes = [
   {

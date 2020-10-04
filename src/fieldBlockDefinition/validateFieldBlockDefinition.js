@@ -1,5 +1,5 @@
-import { createFieldBlockDefinitionSchema } from './createFieldBlockDefinitionSchema'
-import { createTypeProcError } from '../shared'
+import { createFieldBlockDefinitionSchema } from './createFieldBlockDefinitionSchema.js'
+import { createTypeProcError } from '../shared/index.js'
 
 /**
  * @typedef {import('ajv').Ajv} Ajv

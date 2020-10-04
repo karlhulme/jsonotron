@@ -1,6 +1,6 @@
 /* eslint-env jest */
-import { validateEnumType } from './validateEnumType'
-import { createCustomisedAjv } from '../jsonSchemaValidation'
+import { validateEnumType } from './validateEnumType.js'
+import { createCustomisedAjv } from '../jsonSchemaValidation/index.js'
 
 function createFullEnumType () {
   return {

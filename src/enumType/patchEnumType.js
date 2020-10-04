@@ -1,5 +1,5 @@
 import check from 'check-types'
-import { deepClone, pascalToTitleCase } from '../shared'
+import { deepClone, pascalToTitleCase } from '../shared/index.js'
 
 /**
  * Patches an enum type so that all the optional fields have values.

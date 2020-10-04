@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { customTypeOfGenerator } from './customTypeOfGenerator'
+import { customTypeOfGenerator } from './customTypeOfGenerator.js'
 
 test('The customTypeOfGenerator recognises functions.', () => {
   const fn = customTypeOfGenerator('function')

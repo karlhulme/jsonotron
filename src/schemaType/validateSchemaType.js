@@ -1,5 +1,5 @@
-import { createSchemaTypeSchema } from './createSchemaTypeSchema'
-import { createTypeProcError } from '../shared'
+import { createTypeProcError } from '../shared/index.js'
+import { createSchemaTypeSchema } from './createSchemaTypeSchema.js'
 
 /**
  * @typedef {import('ajv').Ajv} Ajv

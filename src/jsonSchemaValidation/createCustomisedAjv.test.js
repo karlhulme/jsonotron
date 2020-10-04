@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { createCustomisedAjv } from './createCustomisedAjv'
+import { createCustomisedAjv } from './createCustomisedAjv.js'
 
 test('Can create a customised Ajv with bespoke keywords.', () => {
   const ajv = createCustomisedAjv()

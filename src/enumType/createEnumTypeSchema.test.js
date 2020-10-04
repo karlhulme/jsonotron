@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import Ajv from 'ajv'
-import { createEnumTypeSchema } from './createEnumTypeSchema'
+import { createEnumTypeSchema } from './createEnumTypeSchema.js'
 
 test('An enumType schema can be created and compiled.', () => {
   const ajv = new Ajv()

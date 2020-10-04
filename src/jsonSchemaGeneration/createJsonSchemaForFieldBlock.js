@@ -1,6 +1,6 @@
 import check from 'check-types'
-import { JSON_SCHEMA_DECLARATION, JSON_SCHEMA_DEFINITIONS_PATH } from '../shared'
-import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection'
+import { JSON_SCHEMA_DECLARATION, JSON_SCHEMA_DEFINITIONS_PATH } from '../shared/index.js'
+import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection.js'
 
 /**
  * Build the properties object.

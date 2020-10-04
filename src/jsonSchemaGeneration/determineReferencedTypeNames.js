@@ -1,5 +1,5 @@
 import check from 'check-types'
-import { extractTypeNamesFromJsonSchema } from './extractTypeNamesFromJsonSchema'
+import { extractTypeNamesFromJsonSchema } from './extractTypeNamesFromJsonSchema.js'
 
 /**
  * Returns an object containing two arrays.

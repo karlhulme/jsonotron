@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import * as lib from './index'
+import * as lib from './index.js'
 
 test('The functions are exported.', () => {
   const testCases = [

@@ -1,1 +1,1 @@
-export * from './createCustomisedAjv'
+export * from './createCustomisedAjv.js'

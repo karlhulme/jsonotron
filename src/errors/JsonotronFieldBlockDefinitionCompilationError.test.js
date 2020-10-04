@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { JsonotronFieldBlockDefinitionCompilationError } from './JsonotronFieldBlockDefinitionCompilationError'
+import { JsonotronFieldBlockDefinitionCompilationError } from './JsonotronFieldBlockDefinitionCompilationError.js'
 
 test('The JsonotronFieldBlockDefinitionCompilationError is constructed correctly.', () => {
   const err = new JsonotronFieldBlockDefinitionCompilationError([{}, {}])

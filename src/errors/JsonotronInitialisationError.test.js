@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { JsonotronInitialisationError } from './JsonotronInitialisationError'
+import { JsonotronInitialisationError } from './JsonotronInitialisationError.js'
 
 test('The JsonotronInitialisationError is constructed correctly.', () => {
   const err = new JsonotronInitialisationError([{}, {}])

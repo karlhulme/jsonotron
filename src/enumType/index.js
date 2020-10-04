@@ -1,3 +1,3 @@
-export * from './createEnumTypeSchema'
-export * from './patchEnumType'
-export * from './validateEnumType'
+export * from './createEnumTypeSchema.js'
+export * from './patchEnumType.js'
+export * from './validateEnumType.js'

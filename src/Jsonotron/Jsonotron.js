@@ -1,12 +1,12 @@
 import check from 'check-types'
 import stringify from 'fast-json-stable-stringify'
-import { createCustomisedAjv } from '../jsonSchemaValidation'
-import { createJsonSchemaForEnumType, createJsonSchemaForSchemaType, createJsonSchemaForFieldBlock } from '../jsonSchemaGeneration'
-import { patchEnumType, validateEnumType } from '../enumType'
-import { validateSchemaType, patchSchemaType } from '../schemaType'
-import { createTypeProcError, createValidationResult, deepClone } from '../shared'
-import { validateFieldBlockDefinition, patchFieldBlockDefinition } from '../fieldBlockDefinition'
-import { JsonotronFieldBlockDefinitionCompilationError, JsonotronInitialisationError } from '../errors'
+import { createCustomisedAjv } from '../jsonSchemaValidation/index.js'
+import { createJsonSchemaForEnumType, createJsonSchemaForSchemaType, createJsonSchemaForFieldBlock } from '../jsonSchemaGeneration/index.js'
+import { patchEnumType, validateEnumType } from '../enumType/index.js'
+import { validateSchemaType, patchSchemaType } from '../schemaType/index.js'
+import { createTypeProcError, createValidationResult, deepClone } from '../shared/index.js'
+import { validateFieldBlockDefinition, patchFieldBlockDefinition } from '../fieldBlockDefinition/index.js'
+import { JsonotronFieldBlockDefinitionCompilationError, JsonotronInitialisationError } from '../errors/index.js'
 
 /**
  * Generate a json schema for the given schemaType using the other arrays

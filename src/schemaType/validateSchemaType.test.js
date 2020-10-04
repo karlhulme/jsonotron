@@ -1,6 +1,6 @@
 /* eslint-env jest */
-import { validateSchemaType } from './validateSchemaType'
-import { createCustomisedAjv } from '../jsonSchemaValidation'
+import { createCustomisedAjv } from '../jsonSchemaValidation/index.js'
+import { validateSchemaType } from './validateSchemaType.js'
 
 function createFullSchemaType () {
   return {

@@ -1,6 +1,6 @@
 import check from 'check-types'
-import { JSON_SCHEMA_DECLARATION } from '../shared'
-import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType'
+import { JSON_SCHEMA_DECLARATION } from '../shared/index.js'
+import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType.js'
 
 /**
  * Creates a JSON Schema for the given enum type.

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { patchFieldBlockDefinition } from './patchFieldBlockDefinition'
+import { patchFieldBlockDefinition } from './patchFieldBlockDefinition.js'
 
 function createMinimalFieldBlock () {
   return {

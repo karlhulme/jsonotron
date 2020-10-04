@@ -1,8 +1,8 @@
 import check from 'check-types'
-import { JSON_SCHEMA_DECLARATION } from '../shared'
-import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType'
-import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection'
-import { extractTypeNamesFromJsonSchema } from './extractTypeNamesFromJsonSchema'
+import { JSON_SCHEMA_DECLARATION } from '../shared/index.js'
+import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType.js'
+import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection.js'
+import { extractTypeNamesFromJsonSchema } from './extractTypeNamesFromJsonSchema.js'
 
 /**
  * Creates a JSON Schema for the given schema type.

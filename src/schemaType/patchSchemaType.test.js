@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { patchSchemaType } from './patchSchemaType'
+import { patchSchemaType } from './patchSchemaType.js'
 
 function createMinimalSchemaType () {
   return {

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { deepClone } from './deepClone'
+import { deepClone } from './deepClone.js'
 
 test('A clone should be equal in structure.', () => {
   const original = { foo: 'bar ' }

@@ -1,1 +1,1 @@
-export * from './Jsonotron'
+export * from './Jsonotron.js'

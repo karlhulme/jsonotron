@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { determineReferencedTypeNames } from './determineReferencedTypeNames'
+import { determineReferencedTypeNames } from './determineReferencedTypeNames.js'
 
 const enumTypes = [{
   name: 'ns.choice'

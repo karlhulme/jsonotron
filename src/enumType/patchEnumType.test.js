@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { patchEnumType } from './patchEnumType'
+import { patchEnumType } from './patchEnumType.js'
 
 function createMinimalEnumType () {
   return {

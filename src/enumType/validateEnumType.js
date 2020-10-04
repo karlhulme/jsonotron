@@ -1,5 +1,5 @@
-import { createEnumTypeSchema } from './createEnumTypeSchema'
-import { createTypeProcError } from '../shared'
+import { createEnumTypeSchema } from './createEnumTypeSchema.js'
+import { createTypeProcError } from '../shared/index.js'
 
 /**
  * @typedef {import('ajv').Ajv} Ajv

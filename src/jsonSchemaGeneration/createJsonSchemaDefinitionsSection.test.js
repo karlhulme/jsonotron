@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection'
+import { createJsonSchemaDefinitionsSection } from './createJsonSchemaDefinitionsSection.js'
 
 const enumTypes = [{
   name: 'choice',

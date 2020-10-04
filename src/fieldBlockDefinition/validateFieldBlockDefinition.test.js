@@ -1,6 +1,6 @@
 /* eslint-env jest */
-import { createCustomisedAjv } from '../jsonSchemaValidation'
-import { validateFieldBlockDefinition } from './validateFieldBlockDefinition'
+import { createCustomisedAjv } from '../jsonSchemaValidation/index.js'
+import { validateFieldBlockDefinition } from './validateFieldBlockDefinition.js'
 
 function createFullFieldBlockDefinition () {
   return {

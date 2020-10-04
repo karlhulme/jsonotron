@@ -1,5 +1,5 @@
 import check from 'check-types'
-import { deepClone } from '../shared'
+import { deepClone } from '../shared/index.js'
 
 /**
  * Returns the JSON schema fragment of the given schema type.

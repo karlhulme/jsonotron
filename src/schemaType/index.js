@@ -1,3 +1,3 @@
-export * from './createSchemaTypeSchema'
-export * from './patchSchemaType'
-export * from './validateSchemaType'
+export * from './createSchemaTypeSchema.js'
+export * from './patchSchemaType.js'
+export * from './validateSchemaType.js'

@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import Ajv from 'ajv'
-import { createSchemaTypeSchema } from './createSchemaTypeSchema'
+import { createSchemaTypeSchema } from './createSchemaTypeSchema.js'
 
 test('A schemaType schema can be created and compiled.', () => {
   const ajv = new Ajv()

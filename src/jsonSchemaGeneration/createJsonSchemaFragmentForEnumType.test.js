@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType'
+import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType.js'
 
 function createValidEnumType () {
   return {

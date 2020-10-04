@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType'
+import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType.js'
 
 const schemaType = {
   name: 'schemaType',

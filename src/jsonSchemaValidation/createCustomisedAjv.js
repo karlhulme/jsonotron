@@ -1,6 +1,6 @@
 import check from 'check-types'
 import Ajv from 'ajv'
-import { customTypeOfGenerator } from './customTypeOfGenerator'
+import { customTypeOfGenerator } from './customTypeOfGenerator.js'
 
 /**
  * Creates an instance of AJV with full format validation, support for the customTypeOf keywords

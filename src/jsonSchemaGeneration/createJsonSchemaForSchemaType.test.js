@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { createJsonSchemaForSchemaType } from './createJsonSchemaForSchemaType'
+import { createJsonSchemaForSchemaType } from './createJsonSchemaForSchemaType.js'
 
 const schemaTypes = [{
   name: 'example',

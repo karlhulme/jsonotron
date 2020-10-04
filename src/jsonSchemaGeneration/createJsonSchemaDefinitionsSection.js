@@ -1,7 +1,7 @@
 import check from 'check-types'
-import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType'
-import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType'
-import { determineReferencedTypeNames } from './determineReferencedTypeNames'
+import { createJsonSchemaFragmentForEnumType } from './createJsonSchemaFragmentForEnumType.js'
+import { createJsonSchemaFragmentForSchemaType } from './createJsonSchemaFragmentForSchemaType.js'
+import { determineReferencedTypeNames } from './determineReferencedTypeNames.js'
 
 /**
  * Creates the definitions portion of a JSON Schema that includes the

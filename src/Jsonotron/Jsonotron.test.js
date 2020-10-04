@@ -1,6 +1,6 @@
 /* eslint-env jest */
-import { JsonotronFieldBlockDefinitionCompilationError, JsonotronInitialisationError } from '../errors'
-import { Jsonotron } from './Jsonotron'
+import { JsonotronFieldBlockDefinitionCompilationError, JsonotronInitialisationError } from '../errors/index.js'
+import { Jsonotron } from './Jsonotron.js'
 
 function createFullEnumTypeMinusDocs () {
   return {

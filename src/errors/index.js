@@ -1,2 +1,2 @@
-export * from './JsonotronFieldBlockDefinitionCompilationError'
-export * from './JsonotronInitialisationError'
+export * from './JsonotronFieldBlockDefinitionCompilationError.js'
+export * from './JsonotronInitialisationError.js'
