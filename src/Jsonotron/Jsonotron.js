@@ -119,13 +119,12 @@ export class Jsonotron {
    * @param {Object} options An object.
    * @param {Array} [enumTypes] An array of enum types.
    * @param {Array} [schemaTypes] An array of schema types.
-   * @param {Array} [formatValidators] An array of format validators.
+   * @param {Array} [fieldBlockDefinitions] An array of field block definitions.
    * @param {Boolean} [validateDocs] True if missing documentation should cause the initialisation to fail.
    */
-  constructor ({ enumTypes = [], schemaTypes = [], formatValidators = [], fieldBlockDefinitions = [], validateDocs = false } = {}) {
+  constructor ({ enumTypes = [], schemaTypes = [], fieldBlockDefinitions = [], validateDocs = false } = {}) {
     check.assert.array.of.object(enumTypes)
     check.assert.array.of.object(schemaTypes)
-    check.assert.array.of.object(formatValidators)
     check.assert.array.of.object(fieldBlockDefinitions)
     check.assert.boolean(validateDocs)
 
@@ -138,6 +137,16 @@ export class Jsonotron {
     this.enumTypeValidators = {}
     this.schemaTypeValidators = {}
     this.fieldBlockDefinitionValidators = {}
+
+    // extract format validators
+    const formatValidators = []
+    schemaTypes.forEach(schemaType => {
+      if (schemaType.parsers) {
+        Object.keys(schemaType.parsers).forEach(parserName => {
+          formatValidators.push({ name: `${schemaType.name}.${parserName}`, validate: schemaType.parsers[parserName] })
+        })
+      }
+    })
 
     // initialise the ajv
     this.ajv = createCustomisedAjv(formatValidators)
@@ -180,17 +189,17 @@ export class Jsonotron {
     })
 
     // compile the schema types
-    this.patchedSchemaTypes.forEach(schemaType => {
-      const jsonSchema = generateJsonSchemaForSchemaType(schemaType, schemaTypes, enumTypes, recordErrorFunc)
+    this.patchedSchemaTypes.forEach(patchedSchemaType => {
+      const jsonSchema = generateJsonSchemaForSchemaType(patchedSchemaType, this.patchedSchemaTypes, this.patchedEnumTypes, recordErrorFunc)
 
       if (jsonSchema) {
-        const schemaTypeValidator = compileJsonSchemaForSchemaType(this.ajv, schemaType.name, jsonSchema, recordErrorFunc)
+        const schemaTypeValidator = compileJsonSchemaForSchemaType(this.ajv, patchedSchemaType.name, jsonSchema, recordErrorFunc)
 
         if (schemaTypeValidator) {
-          verifySchemaTypeExamples(schemaTypeValidator, schemaType, recordErrorFunc)
-          verifySchemaTypeValidTestCases(schemaTypeValidator, schemaType, recordErrorFunc)
-          verifySchemaTypeInvalidTestCases(schemaTypeValidator, schemaType, recordErrorFunc)
-          this.schemaTypeValidators[schemaType.name] = schemaTypeValidator
+          verifySchemaTypeExamples(schemaTypeValidator, patchedSchemaType, recordErrorFunc)
+          verifySchemaTypeValidTestCases(schemaTypeValidator, patchedSchemaType, recordErrorFunc)
+          verifySchemaTypeInvalidTestCases(schemaTypeValidator, patchedSchemaType, recordErrorFunc)
+          this.schemaTypeValidators[patchedSchemaType.name] = schemaTypeValidator
         }
       }
     })

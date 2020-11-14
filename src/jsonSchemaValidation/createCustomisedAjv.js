@@ -5,7 +5,7 @@ import { customTypeOfGenerator } from './customTypeOfGenerator.js'
 /**
  * Creates an instance of AJV with full format validation, support for the customTypeOf keywords
  * and support for the given formatValidators.
- * @param {Array} [formatValidators] An array of objects { name, validator }.
+ * @param {Array} [schemaTypes] An array of schema types from which the custom parsers will be extracted.
  * @param {String} formatValidators.name The name of the format validator.
  * @param {Function} formatValidators.validate A function (value) that returns true if the sole parameter is valid.
  */

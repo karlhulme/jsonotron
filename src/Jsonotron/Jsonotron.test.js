@@ -32,6 +32,21 @@ function createFullSchemaTypeMinusDocs () {
   }
 }
 
+function createFullSchemaTypeWithParser () {
+  return {
+    name: 'specialCode',
+    examples: [
+      { value: '1097' }
+    ],
+    validTestCases: ['1000', '1abc'],
+    invalidTestCases: ['a string', '', null, true, {}, [], -34.56, -1, 0, '999', '2000', '123'],
+    jsonSchema: { type: 'string', format: 'specialCode.code' },
+    parsers: {
+      code: v => v.length === 4 && v.startsWith('1')
+    }
+  }
+}
+
 function createFullFieldBlockDefinition () {
   return {
     name: 'popHistory',
@@ -87,13 +102,13 @@ test('Calling the constructor without types produces an empty Jsonotron.', () =>
 test('Calling the constructor with valid enum types, schema types and field block definitions produces a Jsonotron.', () => {
   const jsonotron = new Jsonotron({
     enumTypes: [createFullEnumTypeMinusDocs()],
-    schemaTypes: [createFullSchemaTypeMinusDocs()],
+    schemaTypes: [createFullSchemaTypeMinusDocs(), createFullSchemaTypeWithParser()],
     fieldBlockDefinitions: [createFullFieldBlockDefinition()]
   })
 
   expect(jsonotron).toBeDefined()
   expect(jsonotron.getPatchedEnumTypes()).toHaveLength(1)
-  expect(jsonotron.getPatchedSchemaTypes()).toHaveLength(1)
+  expect(jsonotron.getPatchedSchemaTypes()).toHaveLength(2)
   expect(jsonotron.getPatchedFieldBlockDefinitions()).toHaveLength(1)
 })
 
@@ -192,7 +207,7 @@ test('Creating a Jsonotron with an invalid "invalid test case" produces errors.'
   expectInitialisationFailure(ctorParams, 'Verification passed (but should have failed) for invalidTestCases[9]')
 })
 
-test('Creating a Jsootron with a field block definition with an unrecognised type produces errors.', () => {
+test('Creating a Jsonotron with a field block definition with an unrecognised type produces errors.', () => {
   const candidate = createFullFieldBlockDefinition()
   candidate.fields.year2000.type = 'invalid'
 
