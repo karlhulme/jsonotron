@@ -1,0 +1,46 @@
+---
+# The schema of an jsonotron enum type including documentation.
+title: Enum Type Schema
+type: object
+properties:
+  # The enum type name.
+  name:
+    type: string
+    pattern: "^([_a-zA-Z][_a-zA-Z0-9]*[.])?[_a-zA-Z][_a-zA-Z0-9]*$"
+  # The title (display name) of the type.
+  title:
+    type: string
+  # The commonmark documentation of the type.
+  documentation:
+    type: string
+  # An array of all the possible values for the enum type.
+  items:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      properties:
+        # A value that represents this enum item.  It will not change for a given item.
+        value:
+          type: string
+        # The display text.
+        text:
+          type: string
+        # A symbol that represents the enum value.
+        symbol:
+          type: string
+        # If populated, this enum item has been deprecated and this property
+        # provides additional information such as which enum item to use instead.
+        deprecated:
+          type: string
+        # The commonmark documentation that is specific to the use of this enum item.
+        documentation:
+          type: string
+      required:
+      - value
+      - text
+required:
+- name
+- items
+- title
+- documentation

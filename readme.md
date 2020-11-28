@@ -1,10 +1,129 @@
 # Jsonotron
 
-![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
-[![npm](https://img.shields.io/npm/v/jsonotron.svg)](https://www.npmjs.com/package/jsonotron)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+Jsonotron is a language-independent type system used for **documenting** and **validating** a set of fields - a structure.
 
-This is a library for validating a **field block**.
+For users trying to supply valid data, validation can become annoying if the requirements are not clear before hand.  Therefore Jsonotron demands that documentation is written at the same time as the types.
+
+It's based on [JSON schema](https://json-schema.org/), which is a super expressive way to control the shape of JSON snippets.
+
+We can validate YAML files too, because YAML is a superset of JSON.
+
+## Example
+
+This is an example **structure**:
+
+```json
+{
+  "name": "planet",
+  "fields": {
+    "planetName": { "type": "shortString", "isRequired": true, "documentation": "The name of a planet in our solar system." },
+    "discovered": { "type": "date", "isRequired": true, "documentation": "The date the planet was discovered." }
+  }
+}
+```
+
+And this is a value that would validate successfully against the above definition:
+
+```json
+{
+  "planetName": "saturn",
+  "discovered": "1610-03-21"
+}
+```
+
+## Motivation
+
+A language-independent type system is useful in the following circumstances:
+
+* It works great for messages being sent to and from web services.  The use of JSON schema means that it fits into Swagger/OpenAPI definitions.
+
+* It works great for document-based storage systems like MS Azure, AWS DynamoDB and Mongo.  You can use Jsonotron to ensure your documents have a valid shape before persisting them.
+
+* It works great for producing documentation because the documentation is tied directly to the types where they are used.
+
+## Types
+
+Each field in a structure has a designated type, either an **Enum** type or a **Schema** type.
+
+* An **Enum** type is a set of string values. Most languages have an enum construct of some kind.  For example, `dayOfWeek` defines `monday`, `tuesday`, `wednesday` etc.
+
+* A **Schema** type is a JSON schema definition.  The definition can utilise enum types and other schema types.  For example,  `money` references the `integer` schema type and the `currencyCode` enum type.
+
+Jsonotron defines a library of standard types.  The following rules apply to making changes to these core types to avoid breaking code:
+
+* Enum and schema type names cannot be changed.
+* Enum items can be deprecated but never removed or renamed.
+* New enum items can be added.
+* An optional field can be added to a schema type.
+* A required fields cannot be added to a schema type.  Evolve a new type, e.g. `address` becomes `address2`.
+
+### Enum Types
+
+* callingCode
+* countryCode
+* currencyCode
+* dayOfWeek
+* Language Code
+* monthOfYear
+* yesNo
+
+### Schema Types
+
+* address
+* boolean
+* date
+* dateTimeLocal
+* dateTimeUtc
+* emailAddress
+* float
+* geoJsonPoint
+* geoJsonPolygon
+* hugeString
+* integer
+* ipv4
+* ipv6
+* jsonPointer
+* longString
+* mediumString
+* money
+* negativeFloat
+* negativeFloatOrZero
+* negativeInteger
+* negativeIntegerOrZero
+* object
+* paymentCardNo
+* positiveFloat
+* positiveFloatOrZero
+* shortString
+* string
+* telephoneNo
+* time
+* timestamp
+* uuid
+* webAddress
+* what3words
+
+## Getting Started
+
+You will need a library that is capable of loading both the jsonotron standard types and your bespoke types and then using them to validate structures.
+
+* **NodeJS**: [jsonotron-js](https://github.com/karlhulme/jsonotron-js)
+
+## Folders
+
+This repo is organised as follows:
+
+Folder Name | Description
+--- | ---
+schemas | The JSON schemas that can be used to ensure validity of the enum and schema types.  There is also a json schema for validating a struct.
+types > enumTypes | One file for each enum type.
+types > schemaTypes | One file for each schema type.
+
+## Other
+
+You can use it to ensure that a structure, that is a bunch of fields, is valid.
+
+It defines a set of core types.  Simple types like `shortString` and `positiveIntegerOrZero`, as well as more complex types like `geoJsonPoint` and `money`.  This types include strict schemas, documentation and example values.
 
 ```javascript
 {
@@ -30,7 +149,7 @@ The library can be used to create a single type system that is used for validati
 
 When validation fails, you get clear errors about what went wrong, thanks to [Ajv](https://github.com/ajv-validator/ajv).  There are Ajv plugin libraries to improve that further if you wish.  Either way you can return the errors to a consumer and they'll know how to fix their code.
 
-## Motivation
+## Why not just JSON schema
 
 JSON Schema already allows us to validate arbitrary blocks of JSON.  It also allows re-use by referencing external JSON schemas.  However, a system built this way becomes hard to administer because the errors are described in terms of the resultant JSON, and those referenced files.
 
@@ -358,6 +477,11 @@ Field Block Definitions cannot contain other Field Block Definitions.  I don't k
 The executeXYZValidator functions do not raise Errors because validation is expected to regularly fail.  It's not an exception to the method contract.
 
 The Jsonotron library includes properties that are intended to document the types.  Without this documentation the primitives are not considered to be completely defined.  This only applies to enumTypes and schemaTypes.  It doesn't apply to fieldBlockDefinitions because these are expected to be created from some higher level concept (such as docType or apiResourceType).
+
+The definitions are stored as YAML (rather than JSON) for two reasons:
+
+  1. Comments are supported in YAML with a `#` prefix.
+  2. Strings can be spread over multiple lines using `|-` prefix.
 
 ## Development
 

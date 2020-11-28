@@ -1,12 +1,11 @@
 {
   "name": "jsonotron",
-  "version": "11.0.0",
-  "type": "module",
-  "description": "A library for managing a JSON schema based type system.",
-  "main": "./index.js",
-  "exports": "./index.js",
+  "version": "12.0.0",
+  "description": "The Jsonotron type system.",
   "scripts": {
-    "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js && standard",
+    "clean": "rm -rf dist",
+    "test": "jest && eslint '*/**/*.{js,ts}'",
+    "build": "rollup -c",
     "reinstall": "rm -rf node_modules && npm install"
   },
   "repository": {
@@ -20,29 +19,7 @@
   },
   "homepage": "https://github.com/karlhulme/jsonotron#readme",
   "devDependencies": {
-    "acorn": "^8.0.1",
-    "jest": "^26.4.2",
-    "standard": "^14.3.4"
   },
   "dependencies": {
-    "ajv": "^6.10.2",
-    "check-types": "^11.1.2",
-    "clone-deep": "^4.0.1",
-    "fast-json-stable-stringify": "^2.1.0",
-    "fast-luhn": "^2.0.0",
-    "luxon": "^1.25.0"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 0
-      }
-    },
-    "testEnvironment": "node",
-    "transform": {}
   }
 }
