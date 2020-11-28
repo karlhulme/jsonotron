@@ -3,10 +3,19 @@
 title: Struct Schema
 type: object
 properties:
-  # The name of the struct.
+  # The name of the structure.
   name:
     type: string
     minLength: 1
+    pattern: "^([_a-zA-Z][_a-zA-Z0-9]*[.])?[_a-zA-Z][_a-zA-Z0-9]*$"
+  # The display name of the structure.
+  title:
+    type: string
+    minLength: 1
+  # The commonmark documentation of the structure.
+  documentation:
+    type: string
+  # A map of fields that make up the structure.
   fields:
     type: object
     additionalProperties:
@@ -36,4 +45,6 @@ properties:
       - documentation
 required:
 - name
+- title
+- documentation
 - fields

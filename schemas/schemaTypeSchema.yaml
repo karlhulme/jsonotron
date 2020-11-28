@@ -44,3 +44,5 @@ required:
 - title
 - documentation
 - examples
+- validTestCases
+- invalidTestCases

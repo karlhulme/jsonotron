@@ -4,17 +4,18 @@ Jsonotron is a language-independent type system used for **documenting** and **v
 
 For users trying to supply valid data, validation can become annoying if the requirements are not clear before hand.  Therefore Jsonotron demands that documentation is written at the same time as the types.
 
-It's based on [JSON schema](https://json-schema.org/), which is a super expressive way to control the shape of JSON snippets
+It's based on [JSON schema](https://json-schema.org/), which is a super expressive way to control the shape of JSON snippets.
 
 We can validate YAML files too, because YAML is a superset of JSON.
 
 ## Example
 
-This is an example **structure**:
+This is an example **structure** for a database of celestial objects:
 
 ```json
 {
   "name": "planet",
+  "documentation": "An astronomical body orbiting a star or stellar remnant that is massive enough to be rounded by its own gravity.",
   "fields": {
     "planetName": { "type": "shortString", "isRequired": true, "documentation": "The name of a planet in our solar system." },
     "discovered": { "type": "date", "isRequired": true, "documentation": "The date the planet was discovered." }
@@ -81,12 +82,12 @@ This repo is organised as follows:
 Folder Name | Description
 --- | ---
 schemas | The JSON schemas that can be used to ensure validity of the enum and schema types.  There is also a json schema for validating a struct.
-types > enumTypes | One file for each enum type.
-types > schemaTypes | One file for each schema type.
+types/enumTypes | One file for each enum type.
+types/schemaTypes | One file for each schema type.
 
 Implementations of Jsonotron will typically need a pre-build step that pulls the types and schemas from the folder in this repo.
 
-## Why not just use JSON schema
+## Why not just use JSON schema?
 
 JSON Schema already allows us to validate arbitrary blocks of JSON.  It also allows re-use by referencing external JSON schemas.  However, a system built this way becomes hard to administer because the errors are described in terms of the resultant JSON, and those referenced files.
 
@@ -100,19 +101,24 @@ You define a Structure by giving it a name and a list of fields.
 
 Property Name | Description
 ---|---
-name | A name for the field block definition.
+name | A name for the structure.
+title | A display name for the stucture.
+documentation | A commonmark description of the structure.
 fields | An array of objects.
 fields.type | The name of an enum type or a schema type.
 fields.const | If present, this field will be a constant string and the type will not be used.
 fields.isRequired | An optional boolean that indicates if the field must be supplied.
 fields.isNullable | An optional boolean that determines if the field can be null.
 fields.isArray | An optional boolean that determines if the field is an array of values rather than a single value.
+fields.documentation | A commonmark description of the field.
 
 Here as an example Structure that describes an offer for a piece of real estate:
 
 ```json
 {
   "name": "examples.propertyOffer",
+  "title": "Property Offer",
+  "documentation": "An offer made for a property by a user.",
   "fields": {
     "location": { "type": "address", "isRequired": true, "documentation": "The address of a property." },
     "valuation": { "type": "money", "documentation": "The amount offered for the property." },
@@ -133,7 +139,7 @@ An Enum is really just a set of strings.
 Property Name | Description
 ---|---
 name | A name for the enum type.
-title | An optional display name for the enum type, typically prefixed with a capital letter.
+title | A display name for the enum type.
 documentation | A commonmark description of the enum.
 items | An array of objects.
 items.value | A string value that is unique within the array.
@@ -163,13 +169,13 @@ A schema type is primarily based on a JSON schema.
 Property Name | Description
 ---|---
 name | A name for the schema type.
-title | An optional display name for the schema type, typically prefixed with a capital letter.
+title | A display name for the schema type.
 documentation | A commonmark description of the schema type.
-examples | An optional array of example values that conform to the json schema and demonstrate how the schema type should typically be used.
+examples | An array of example values that conform to the json schema and demonstrate how the schema type should typically be used.  At least one example must be provided.
 examples.value | An example value
 examples.documentation | A commonmark description of the example.
-validTestCases | An optional array of values that should be accepted as valid.
-invalidTestCases | An optional array of values that should be rejected as invalid.
+validTestCases | An array of values that should be accepted as valid.
+invalidTestCases | An array of values that should be rejected as invalid.
 jsonSchema | A json schema object.
 
 ```json
