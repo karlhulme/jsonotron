@@ -1,0 +1,49 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - name: Clone repo
+      uses: actions/checkout@v1
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install deps and run tests
+      run: |
+        npm ci
+        npm test
+      env:
+        CI: true
+        
+  release:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Prepare Release
+        id: prepare
+        uses: karlhulme/github-action-prepare-release@master
+        with:
+          branchName: main
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Create GitHub Release
+        if: steps.prepare.outputs.canRelease == 'yes'
+        id: release
+        uses: karlhulme/github-action-create-release@master
+        with:
+          branchName: main
+          releaseVersion: ${{ steps.prepare.outputs.releaseVersion }}
+          releaseNotes: ${{ steps.prepare.outputs.releaseNotes }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
