@@ -16,12 +16,8 @@ examples:
   - uplifted
   documentation: This example is for an embassy in panama.
 validTestCases:
-- - trumpet
-  - teapot
-  - umbrella
-- - vase
-  - flowers
-  - road
+- ["trumpet", "teapot", "umbrella"]
+- ["vase", "flowers", "road"]
 invalidTestCases:
 - -1
 - 0
@@ -46,4 +42,4 @@ jsonSchema:
   minItems: 3
   maxItems: 3
   items:
-    "$ref": "#/definitions/shortString"
+    $ref: shortString
