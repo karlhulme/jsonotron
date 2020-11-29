@@ -1,0 +1,20 @@
+---
+name: integer
+title: Integer
+documentation: A whole number.
+examples:
+- value: 365
+  documentation: An example.
+validTestCases:
+- -25
+- 0
+- 25
+invalidTestCases:
+- a string
+- ''
+- 
+- true
+- {}
+- []
+jsonSchema:
+  type: integer

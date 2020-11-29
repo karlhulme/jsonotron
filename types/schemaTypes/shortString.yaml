@@ -7,7 +7,7 @@ examples:
   documentation: A short text string.
 validTestCases:
 - my short string
-- abcdefghijklmnopqrst
+- aaaaaaaaaabbbbbbbbbb
 - ''
 - " "
 - "!!"
@@ -17,7 +17,7 @@ invalidTestCases:
 - true
 - {}
 - []
-- abcdefghijklmnopqrstu
+- aaaaaaaaaabbbbbbbbbb1
 jsonSchema:
   type: string
   maxLength: 20

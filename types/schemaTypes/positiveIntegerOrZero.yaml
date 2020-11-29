@@ -1,0 +1,24 @@
+---
+name: positiveIntegerOrZero
+title: Positive Integer or Zero
+documentation: A whole number that is equal to zero or greater.
+examples:
+- value: 21
+  documentation: An example.
+- value: 0
+  documentation: An example.
+validTestCases:
+- 0
+- 1
+- 25
+invalidTestCases:
+- a string
+- ''
+- 
+- true
+- {}
+- []
+- -25
+jsonSchema:
+  type: integer
+  minimum: 0
