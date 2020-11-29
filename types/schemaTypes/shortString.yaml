@@ -13,7 +13,7 @@ validTestCases:
 - "!!"
 invalidTestCases:
 - 123
-- 
+-
 - true
 - {}
 - []

@@ -3,7 +3,8 @@
   "version": "12.0.0",
   "description": "The Jsonotron type system.",
   "scripts": {
-    "test": "jest && eslint '*/**/*.{js,ts}'",
+    "test": "jest",
+    "test2": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js",
     "reinstall": "rm -rf node_modules && npm install"
   },
   "repository": {
@@ -17,7 +18,8 @@
   },
   "homepage": "https://github.com/karlhulme/jsonotron#readme",
   "devDependencies": {
+    "jest": "^26.6.3",
+    "jsonotron-js": "^1.1.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
