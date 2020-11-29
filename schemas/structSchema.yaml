@@ -1,5 +1,6 @@
 ---
 # The schema of an jsonotron struct including documentation.
+$id: structSchema
 title: Struct Schema
 type: object
 properties:

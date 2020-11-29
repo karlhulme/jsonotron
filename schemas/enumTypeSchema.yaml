@@ -1,5 +1,6 @@
 ---
 # The schema of an jsonotron enum type including documentation.
+$id: enumTypeSchema
 title: Enum Type Schema
 type: object
 properties:

@@ -1,5 +1,6 @@
 ---
 # The schema of a jsonotron schema type including documentation and examples.
+$id: schemaTypeSchema
 title: Schema Type Schema
 type: object
 properties:
