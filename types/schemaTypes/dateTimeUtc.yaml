@@ -5,7 +5,7 @@ documentation: A string with the date and time components arranged using the YYY
   pattern. Leading zeroes must be used to ensure that all values are the same length.
 examples:
 - value: '2014-09-15T23:59:25Z'
-  documentation: 'An example.''
+  documentation: An example.
 validTestCases:
 - '2014-09-15T23:14:25Z'
 - '2025-10-30T02:59:10Z'
