@@ -33,7 +33,7 @@ jobs:
         id: prepare
         uses: karlhulme/github-action-prepare-release@master
         with:
-          branchName: main
+          branchName: master
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -42,7 +42,7 @@ jobs:
         id: release
         uses: karlhulme/github-action-create-release@master
         with:
-          branchName: main
+          branchName: master
           releaseVersion: ${{ steps.prepare.outputs.releaseVersion }}
           releaseNotes: ${{ steps.prepare.outputs.releaseNotes }}
         env:
