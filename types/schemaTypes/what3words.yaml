@@ -27,16 +27,10 @@ invalidTestCases:
 - a house
 - {}
 - []
-- - first
-- - first
-  - second
-- - first
-  - second
-  - 3
-- - first
-  - second
-  - third
-  - fourth
+- ["first"]
+- ["first", "second"]
+- ["first", "second", 3]
+- ["first", "second", "third", "fourth"]
 jsonSchema:
   type: array
   minItems: 3
