@@ -8,11 +8,9 @@ examples:
     coordinates:
     - 31.9
     - -4.8
-  documentation:
-  - A position on Earth recorded in GeoJSON format expressed as a longitude and latitude
-    pair.
-  - The properties should be supplied in the correct order, longitude first and latitude
-    second.
+  documentation: |-
+    A position on Earth recorded in GeoJSON format expressed as a longitude and latitude pair.
+    The properties should be supplied in the correct order, longitude first and latitude second.
 validTestCases:
 - type: Point
   coordinates:

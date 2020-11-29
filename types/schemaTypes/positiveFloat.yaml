@@ -4,8 +4,7 @@ title: Positive Floating Point Number
 documentation: A number with an integral and decimal part that is greater than zero.
 examples:
 - value: 12.34
-  documentation:
-  - An example.
+  documentation: An example.
 validTestCases:
 - 0.001
 - 1
