@@ -9,13 +9,13 @@ examples:
   - daring
   - lion
   - race
-  paragraphs:
+  documentation:
   - This example locates an address near Charing Cross Station.
 - value:
   - science
   - touted
   - uplifted
-  paragraphs:
+  documentation:
   - This example is for an embassy in panama.
 validTestCases:
 - - trumpet
