@@ -1,4 +1,7 @@
 ---
+kind: enum
+domain: https://jsonotron.org
+system: jsl
 name: dayOfWeek
 title: Day of Week
 documentation: A day of the week.

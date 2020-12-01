@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: money
 title: Money
 documentation: An amount of money designated in a specific currency.  The `amount`

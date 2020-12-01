@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: positiveIntegerOrZero
 title: Positive Integer or Zero
 documentation: A whole number that is equal to zero or greater.

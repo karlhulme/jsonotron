@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: object
 title: Object
 documentation: A JSON object.  The underlying data store may impose a limit of the

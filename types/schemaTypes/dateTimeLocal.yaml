@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: dateTimeLocal
 title: Date & Time Local
 documentation: An object that captures a date and time in a specific time zone.  The

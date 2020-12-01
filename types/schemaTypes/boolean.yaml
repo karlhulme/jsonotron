@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: boolean
 title: Boolean
 documentation: A value of either true or false.

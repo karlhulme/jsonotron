@@ -1,14 +1,50 @@
 # Jsonotron
 
-Jsonotron is a language-independent type system used for **documenting** and **validating** a set of fields - a structure.
+Jsonotron is a way of describing your own type system for JSON data.
 
-For users trying to supply valid data, validation can become annoying if the requirements are not clear before hand.  Therefore Jsonotron demands that documentation is written at the same time as the types.
+It takes [JSON schema](https://json-schema.org/) and adds documentation, test cases and enumerations.
 
-It's based on [JSON schema](https://json-schema.org/), which is a super expressive way to control the shape of JSON snippets.
+  * Documentation provides a mechanism to capture detailed information on a type's usage.  This includes examples which make it quick to see how a type should be used.  This can be built into a documentation website too.
+  * The test cases provide values of the type that should be considered valid and samples that should not.  A Jsonotron runtime can check that your type is enforcing the constraints as you expect.
+  * Enumerations are defined in a dedicated JSON format (rather than JSON schema) so that we can pair an underlying value with additional properties like display text.  This approach makes enumerations shorter, quicker to define and easier to maintain.
 
-We can validate YAML files too, because YAML is a superset of JSON.
+This repo includes a decent set of commonly needed types.  There are numbers and strings of various lengths.  There are dates and times in a fixed-length format.  There is a money type that incorporates currency and ensures any figures are stored as integers and not floats.  You can change them but it's a good starting point.
+
+## Motivation
+
+Non-trivial applications will need to process JSON data at some point.  Either on the wire in the form of REST API calls or perhaps in storage via a document-based database such as Mongo, Cosmos or DynamoDB.
+
+Jsonotron provides a language independent way to specify the types that you want to use in a specific microservice.
+
+We then have various components in the ecosystem:
+
+  * [Sengi](https://github.com/karlhulme/sengi) is the foundation of a document-based data service where the table/document definitions are entirely based within code.  Sengi uses the types to define table structures and update messages, to produce documentation and generate downstream formats like GraphQL schema for client library generation.
+  * [---] can be used define REST API messages.  --- uses the types to produce API documentation and validate inbound messages before processing.
+
+The underlying runtime for the NodeJS implementation is called [Jsonotron-JS](https://github.com/karlhulme/jsonotron-js).  Hopefully more language implementations will be added in future.
+
+## Proviso
+
+It may be tempting to think we need a type system for our whole organisation.  You probably don't want to do this!
+
+Today, two services may appear to use the same definitions.  If you directly share those definitions then you bind those services together and start to create a monolith rather than a service-based architecture.  Monoliths have some advantages but history suggests this approach is hard to scale.
+
+Perhaps there's a middle ground where a subset of unchanging types common to large parts of the system are packaged as a kind of standard.  An individual service can then opt in or opt out of one or more standards.  I suspect this will differ by problem domain, organisation and requirements.
+
+Generally, each service should have it's own set of types.
 
 ## Example
+
+We'll define a small type system consisting of two very simple types.  We'll then use a Jsonotron runtime to validate a JSON payload using these types.
+
+The files are defined as YAML because... tooling/language support/comments
+
+--schema type
+
+
+--enum type
+
+We could then use a Json
 
 This is an example **structure** for a database of celestial objects:
 
@@ -238,6 +274,9 @@ The definitions are stored as YAML (rather than JSON) for two reasons:
 
   1. Comments are supported in YAML with a `#` prefix.
   2. Strings can be spread over multiple lines using `|-` prefix.
+
+
+Jsonotron enforces seperate fields for `domain`, `system` and `name` on each type.  This allows documentation to be built with appropriate headers for the key components of the system.  A single URI could not unambiguously unpicked. 
 
 ## Development
 

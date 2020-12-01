@@ -4,10 +4,18 @@ $id: schemaTypeSchema
 title: Schema Type Schema
 type: object
 properties:
-  # The schema type name.
+  # The domain of the owning type system.
+  domain:
+    type: string
+    pattern: "^https?:\/\/[_a-zA-Z][_a-zA-Z0-9.]*$"
+  # The name of the type system.
+  system:
+    type: string
+    pattern: "^[_a-zA-Z][_a-zA-Z0-9]*$"
+  # The enum type name.
   name:
     type: string
-    pattern: "^([_a-zA-Z][_a-zA-Z0-9]*[.])?[_a-zA-Z][_a-zA-Z0-9]*$"
+    pattern: "^([_a-zA-Z][_a-zA-Z0-9]*$"
   # The title (display name) of the schema type.
   title:
     type: string
@@ -40,6 +48,8 @@ properties:
   jsonSchema:
     type: object
 required:
+- domain
+- system
 - name
 - jsonSchema
 - title

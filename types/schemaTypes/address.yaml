@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: address
 title: Address
 documentation: An object that captures an address.  The `addressLines` property records

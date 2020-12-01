@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: webAddress
 title: Web Address
 documentation: A url that is prefixed with either https or https.

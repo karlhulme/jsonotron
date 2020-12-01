@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: what3words
 title: What 3 Words
 documentation: A 3-element array that captures an address based on the https://what3words.com

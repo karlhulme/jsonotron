@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: emailAddress
 title: Email Address
 documentation: An email address.

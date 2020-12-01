@@ -1,4 +1,7 @@
 ---
+kind: enum
+domain: https://jsonotron.org
+system: jsl
 name: yesNo
 title: Yes or No
 documentation: |-

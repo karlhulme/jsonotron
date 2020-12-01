@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: geoJsonPoint
 title: GeoJSON Point
 documentation: A point on Earth.

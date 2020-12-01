@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: telephoneNo
 title: Telephone Number
 documentation: A telephone number that comprises of a dialling code and a number.  The

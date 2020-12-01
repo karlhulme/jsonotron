@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: float
 title: Floating Point Number
 documentation: A number with an integral and decimal part.

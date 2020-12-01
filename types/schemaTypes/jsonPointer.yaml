@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: jsonPointer
 title: JSON Pointer
 documentation: A JSON pointer.

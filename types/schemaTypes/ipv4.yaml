@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: ipv4
 title: IP Version 4
 documentation: A string of digits that identify a computer on a network in IP v4 format.

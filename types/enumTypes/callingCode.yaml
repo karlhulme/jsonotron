@@ -1,4 +1,7 @@
 ---
+kind: enum
+domain: https://jsonotron.org
+system: jsl
 name: callingCode
 title: Calling Code
 documentation: An international telephone calling code defined by the ITU-T in standards

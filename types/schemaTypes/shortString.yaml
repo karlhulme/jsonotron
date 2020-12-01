@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: shortString
 title: Short String
 documentation: A string of 20 characters or less.  An empty string is valid.

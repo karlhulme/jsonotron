@@ -1,4 +1,7 @@
 ---
+kind: enum
+domain: https://jsonotron.org
+system: jsl
 name: languageCode
 title: Language Code
 documentation: A language code conforming to the from ISO 639-1 standard.

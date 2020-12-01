@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: time
 title: Time
 documentation: A string with the time components arranged using the HH:mm:ss pattern.  If

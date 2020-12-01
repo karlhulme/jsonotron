@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: longString
 title: Long String
 documentation: A string of 250 characters or less.  An empty string is valid.

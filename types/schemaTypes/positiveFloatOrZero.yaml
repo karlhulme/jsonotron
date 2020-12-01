@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: positiveFloatOrZero
 title: Positive Floating Point Number or Zero
 documentation: A number with an integral and decimal part that is greater than or

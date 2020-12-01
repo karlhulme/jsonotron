@@ -1,4 +1,7 @@
 ---
+kind: schema
+domain: https://jsonotron.org
+system: jsl
 name: hugeString
 title: Huge String
 documentation: A string of 4000 characters or less.  An empty string is valid.
