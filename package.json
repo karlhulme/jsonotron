@@ -1,6 +1,6 @@
 {
   "name": "jsonotron",
-  "version": "13.0.0",
+  "version": "13.0.1",
   "description": "The Jsonotron type system.",
   "scripts": {
     "test": "jest",
