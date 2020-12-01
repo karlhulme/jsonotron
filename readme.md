@@ -8,7 +8,7 @@ It takes [JSON schema](https://json-schema.org/) and adds documentation, test ca
   * The test cases provide values of the type that should be considered valid and samples that should not.  A Jsonotron runtime can check that your type is enforcing the constraints as you expect.
   * Enumerations are defined in a dedicated JSON format (rather than JSON schema) so that we can pair an underlying value with additional properties like display text.  This approach makes enumerations shorter, quicker to define and easier to maintain.
 
-This repo includes a decent set of commonly needed types.  There are numbers and strings of various lengths.  There are dates and times in a fixed-length format.  There is a money type that incorporates currency and ensures any figures are stored as integers and not floats.  You can change them but it's a good starting point.
+This repo includes a set of commonly required types called the `Jsonotron Standard Library` or `JSL` for short.  There are numbers and strings of various lengths.  There are dates and times in a fixed-length format.  There is a money type that incorporates currency and ensures any figures are stored as integers and not floats.  You can change them but it's a good starting point.
 
 ## Motivation
 
@@ -130,6 +130,10 @@ JSON Schema already allows us to validate arbitrary blocks of JSON.  It also all
 This is where Jsonotron makes a trade-off.  **Jsonotron considers each top level property of an object to be a field.**  A field can be a primitive (boolean, string, etc) or it can be a complex deeply-nested object, but the validation is always targetted at field level.
 
 It's analogous to validating arguments passed to a method call.  You could define every method as accepting an object and then validate it using JSON Schema but you'd lose something by doing that.  Jsonotron brings this concept of individual arguments to JSON as it moves through a system.
+
+## Why not use GraphQL?
+
+Use this is as downstream format via tools, e.g. Apollo, converting from JSON schema to GQL.
 
 ## Defining a Structure
 
@@ -275,12 +279,11 @@ The definitions are stored as YAML (rather than JSON) for two reasons:
   1. Comments are supported in YAML with a `#` prefix.
   2. Strings can be spread over multiple lines using `|-` prefix.
 
-
 Jsonotron enforces seperate fields for `domain`, `system` and `name` on each type.  This allows documentation to be built with appropriate headers for the key components of the system.  A single URI could not unambiguously unpicked. 
 
 ## Development
 
-A NodeJS project exists to check that the types stored in the repo conform to the JSON schemas in the `schemas` folder.
+A NodeJS project exists to check that the types stored in the `./systems/jsl` folder can be processed by the [Jsonotron-JS](https://github.com/karlhulme/jsonotron-js) engine.
 
 To run the tests:
 
