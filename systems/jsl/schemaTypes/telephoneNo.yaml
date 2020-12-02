@@ -4,8 +4,12 @@ domain: https://jsonotron.org
 system: jsl
 name: telephoneNo
 title: Telephone Number
-documentation: A telephone number that comprises of a dialling code and a number.  The
-  `isd` property is a %%callingCode%%.  The `number` property is a %%shortString%%.
+documentation: |-
+  A telephone number that comprises of a dialling code and a number.
+  
+  The `isd` property is a callingCode.
+  
+  The `number` property is a shortString.
 examples:
 - value:
     isd: '44'

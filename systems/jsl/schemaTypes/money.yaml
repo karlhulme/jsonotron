@@ -4,16 +4,21 @@ domain: https://jsonotron.org
 system: jsl
 name: money
 title: Money
-documentation: An amount of money designated in a specific currency.  The `amount`
-  property stores an integral amount of money.  This should include the minor denomination.  For
+documentation: |-
+  An amount of money designated in a specific currency.
+  
+  The `amount` property stores an integral amount of money.  This should include the minor denomination.  For
   example, in American the currency is dollars and cents.  Typically monetary values
-  should be recorded in cents.  The `scaler` property indicates how many places we
+  should be recorded in cents.
+  
+  The `scaler` property indicates how many places we
   need to move the decimal place to convert from the minor to the major currency.  The
   use of a scaler ensures that monetary amounts are stored as integers rather than
   floats.  This makes it easier to work with monetary amounts; for example, equality
   checks on integers are reliable whereas equality checks on floating point numbers
-  are subject to many intracies depending on the platform used.  The `currency` property
-  is a %%currencyCode%% value.
+  are subject to many intracies depending on the platform used.
+  
+  The `currency` propertyis a currencyCode value.
 examples:
 - value:
     amount: 9999

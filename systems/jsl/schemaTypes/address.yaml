@@ -4,10 +4,14 @@ domain: https://jsonotron.org
 system: jsl
 name: address
 title: Address
-documentation: An object that captures an address.  The `addressLines` property records
-  the lines that make up the address.  The `postalCode` property records the post
-  code or zip code of the address.  The `countryCode` property records %%countryCode%%
-  value.
+documentation: |-
+  An object that captures an address.
+  
+  The `addressLines` property records the lines that make up the address.
+  
+  The `postalCode` property records the post code or zip code of the address.
+  
+  The `countryCode` property records countryCode value.
 examples:
 - value:
     addressLines: |-

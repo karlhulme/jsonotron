@@ -4,13 +4,18 @@ domain: https://jsonotron.org
 system: jsl
 name: dateTimeLocal
 title: Date & Time Local
-documentation: An object that captures a date and time in a specific time zone.  The
-  `dateTime` property records the date and time in the YYYY-MM-DDTHH:mm:ss+Z format.  Notice
+documentation: |-
+  An object that captures a date and time in a specific time zone.
+
+  The `dateTime` property records the date and time in the YYYY-MM-DDTHH:mm:ss+Z format.  Notice
   that the pattern always has a T between the date and time components and that the
-  time zone is always expressed with 2 digits for hours and 2 digits for minutes.  The
-  `timeZone` property records where in the world the time applies.  It is a %%timeZone%%
-  value.  The `timestamp` property records when the date and time was captured.  It
-  is a %%timestamp%% value.  This is useful for advanced scenarios where the behaviour
+  time zone is always expressed with 2 digits for hours and 2 digits for minutes.
+  
+  The `timeZone` property records where in the world the time applies.  It is a timeZone
+  value.
+  
+  The `timestamp` property records when the date and time was captured.  It
+  is a timestamp value.  This is useful for advanced scenarios where the behaviour
   of a time zone is changed at some point in the future.  Knowing when the capture
   was made allows you to pinpoint the rules at the point and then convert to the prevailing
   rules.  Leading zeroes must be used to ensure that all values are the same length.
