@@ -14,7 +14,7 @@ This repo includes a set of commonly required types called the `Jsonotron Standa
 
 There are numbers and strings of various lengths.  There are dates and times in a fixed-length format.  There is a money type that incorporates currency and ensures any figures are stored as integers and not floats.
 
-You can define your own but the JSL is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/systems/jsl/docs.autogen.md)
+You can define your own but the JSL is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/systems/jsl/docs.autogen.md)
 
 ## Motivation
 
