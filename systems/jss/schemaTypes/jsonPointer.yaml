@@ -1,0 +1,24 @@
+---
+kind: schema
+domain: https://jsonotron.org
+system: jss
+name: jsonPointer
+title: JSON Pointer
+documentation: A JSON pointer.
+examples:
+- value: "/root/tree/branch/leaf"
+  documentation: An example.
+validTestCases:
+- "/root/tree/leaf"
+- "/root/tree/1/leaf"
+invalidTestCases:
+- 123
+- 
+- true
+- {}
+- []
+- invalid.path
+- "#/path"
+jsonSchema:
+  type: string
+  format: json-pointer

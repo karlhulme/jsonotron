@@ -8,13 +8,13 @@ Jsonotron takes [JSON schema](https://json-schema.org/) and adds documentation, 
   * The test cases provide values of the type that should be considered valid and samples that should not.  A Jsonotron runtime will check that your type is enforcing the constraints as you expect.
   * Enumerations are defined in a dedicated JSON format (rather than JSON schema) so that we can pair an underlying value with additional properties like display text, symbol and deprecation information.
 
-## JSL
+## JSS
 
-This repo includes a set of commonly required types called the `Jsonotron Standard Library` or `JSL` for short.
+This repo includes a set of commonly required types called the `Jsonotron Standard System` or `JSS` for short.
 
 There are numbers and strings of various lengths.  There are dates and times in a fixed-length format.  There is a money type that incorporates currency and ensures any figures are stored as integers and not floats.
 
-You can define your own but the JSL is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/systems/jsl/docs.autogen.md)
+You can define your own but the JSS is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/systems/jss/docs.autogen.md)
 
 ## Motivation
 
@@ -170,13 +170,13 @@ In addition, a Jsonotron runtime should allow you to provide custom formatters o
 
 ## Sharing a Type System
 
-The `./scripts/jsl-download.sh` script downloads a release JSL from a github repo and extracts the enum and schema types into a folder.  You can take the same approach and then abuse this script to achieve the same thing with your own type systems.  Typically you'll want to set this up as a command line you can run when you want to bring in the types.  Those downloaded types should be committed to your repo.
+The `./scripts/jss-download.sh` script downloads a release JSS from this github repo and extracts the enum and schema types into a folder.  You can take the same approach and then abuse this script to achieve the same thing with your own type systems.  Typically you'll want to set this up as a command line you can run when you want to bring in the types.  Those downloaded types should be committed to your repo.  If using a private repo you'll need to create a personal access token as pass that in the header as well.
 
-By creating a type system, typically in a separate repo, it becomes easier to share those types across multiple services within your organisation.  This can lead to time saving when documenting those types and ensures consistency when those services communicate.  This approach works well for small granular types (like those found in the JSL) and small common types that are used repeatedly throughout your services.
+By creating a type system, typically in a separate repo, it becomes easier to share those types across multiple services within your organisation.  This can lead to time saving when documenting those types and ensures consistency when those services communicate.  This approach works well for small granular types (like those found in the JSS) and small common types that are used repeatedly throughout your services.
 
 Be wary of trying to share every type though.  This will typically lead to services being bound together by types where contextually they should be able to evolve independently.  Assume that you will probably end up with multiple type systems representing different bounded contexts.  Remember a single service can pull types from multiple services.
 
-## JSL Change Process
+## JSS Change Process
 
 To avoid breaking code, The following rules are applied to proposed changes to the core types:
 
@@ -213,7 +213,7 @@ Jsonotron enforces seperate fields for `domain`, `system` and `name` on each typ
 
 ## Development
 
-A NodeJS project exists to check that the types stored in the `./systems/jsl` folder can be processed by the [Jsonotron-JS](https://github.com/karlhulme/jsonotron-js) engine.
+A NodeJS project exists to check that the types stored in the `./systems/jss` folder can be processed by the [Jsonotron-JS](https://github.com/karlhulme/jsonotron-js) engine.
 
 To run the tests:
 
