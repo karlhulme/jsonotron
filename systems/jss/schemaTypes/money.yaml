@@ -18,7 +18,7 @@ documentation: |-
   checks on integers are reliable whereas equality checks on floating point numbers
   are subject to many intracies depending on the platform used.
   
-  The `currency` propertyis a currencyCode value.
+  The `currency` property is a currencyCode value.
 examples:
 - value:
     amount: 9999
