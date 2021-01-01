@@ -22,5 +22,5 @@ jobs:
       run: |
         npm ci
         npm test
-      env:
+        npm run generate-docs
         CI: true

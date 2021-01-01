@@ -4,7 +4,7 @@
   "description": "The Jsonotron type system.",
   "scripts": {
     "test": "jest",
-    "docs": "node ./scripts/generate-docs.js",
+    "generate-docs": "node ./scripts/generate-docs.js",
     "reinstall": "rm -rf node_modules && npm install"
   },
   "repository": {

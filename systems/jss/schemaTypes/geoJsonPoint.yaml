@@ -13,7 +13,8 @@ examples:
     - -4.8
   documentation: |-
     A position on Earth recorded in GeoJSON format expressed as a longitude and latitude pair.
-    The properties should be supplied in the correct order, longitude first and latitude second.
+    The `type` value should be 'Point'.
+    The `coordinates` property should be a 2-element array consisting of longitude first and latitude second.
 validTestCases:
 - type: Point
   coordinates:
@@ -47,7 +48,6 @@ jsonSchema:
     type:
       enum:
       - Point
-      documentation: The value 'Point'
     coordinates:
       type: array
       minItems: 2
@@ -59,7 +59,6 @@ jsonSchema:
       - type: number
         minimum: -90
         maximum: 90
-      documentation: A pair of co-ordinates, longitude first and latitude second
   required:
   - type
   - coordinates
