@@ -8,6 +8,7 @@ Jsonotron takes [JSON schema](https://json-schema.org/) and adds documentation, 
   * The test cases provide values of the type that should be considered valid and samples that should not.  A Jsonotron runtime will check that your type is enforcing the constraints as you expect.
   * Enumerations are defined in a dedicated JSON format (rather than JSON schema) so that we can pair an underlying value with additional properties like display text, symbol and deprecation information.
 
+
 ## JSS
 
 This repo includes a set of commonly required types called the `Jsonotron Standard System` or `JSS` for short.
@@ -15,6 +16,7 @@ This repo includes a set of commonly required types called the `Jsonotron Standa
 There are numbers and strings of various lengths.  There are dates and times in a fixed-length format.  There is a money type that incorporates currency and ensures any figures are stored as integers and not floats.
 
 You can define your own but the JSS is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/systems/jss/docs.autogen.md)
+
 
 ## Motivation
 
@@ -27,9 +29,11 @@ We then have various components in the ecosystem:
   * [Sengi](https://github.com/karlhulme/sengi) is the foundation of a document-based data service where the table/document definitions are entirely based within code.  Sengi uses the types to define table structures and update messages, to produce documentation and generate downstream formats like GraphQL schema for client library generation.
   * [---] can be used define REST API messages.  --- uses the types to produce API documentation and validate inbound messages before processing.
 
+
 ## Implementations
 
 * **NodeJS**: [Jsonotron-JS](https://github.com/karlhulme/jsonotron-js)
+
 
 ## Types
 
@@ -40,6 +44,7 @@ Each field in a structure has a designated kind, either an **Enum** type or a **
 * A **Schema** type is a JSON schema definition.  The definition can utilise enum types and other schema types.  For example,  `money` references the `integer` schema type and the `currencyCode` enum type.
 
 Typically you'll need to define your own types for your specific use cases.  However, there are some common types (like currency and date time) that many domains need.  For this, Jsonotron supplies a standard type library.
+
 
 ## Defining an Enum Type
 
@@ -80,6 +85,7 @@ items:
   symbol: "\\/"
   documentation: The down direction.
 ```
+
 
 ## Defining a Schema Type
 
@@ -155,6 +161,7 @@ jsonSchema:
 
 You can include additional documentation for object properties.  An example is shown on the last line of the code listing above.  These additional notes may be used for the conversion to other types systems (e.g. GraphQL) or dropped entirely.  In general, property level documentation is good, but documentation for the overall schema type should 
 
+
 ## Format Validators
 
 A format validator is a function that tests whether a given string adheres to a known format and returns either true of false, e.g. `(s: string) => boolean`.
@@ -171,6 +178,7 @@ jsonotron-luhn | Implementation of the luhn alrogithm.
 
 In addition, a Jsonotron runtime should allow you to provide custom formatters of your own which you can then reference in your own schema types.
 
+
 ## Sharing a Type System
 
 The `./scripts/jss-download.sh` script downloads a release JSS from this github repo and extracts the enum and schema types into a folder.  You can take the same approach and then abuse this script to achieve the same thing with your own type systems.  Typically you'll want to set this up as a command line you can run when you want to bring in the types.  Those downloaded types should be committed to your repo.  If using a private repo you'll need to create a personal access token as pass that in the header as well.
@@ -178,6 +186,7 @@ The `./scripts/jss-download.sh` script downloads a release JSS from this github 
 By creating a type system, typically in a separate repo, it becomes easier to share those types across multiple services within your organisation.  This can lead to time saving when documenting those types and ensures consistency when those services communicate.  This approach works well for small granular types (like those found in the JSS) and small common types that are used repeatedly throughout your services.
 
 Be wary of trying to share every type though.  This will typically lead to services being bound together by types where contextually they should be able to evolve independently.  Assume that you will probably end up with multiple type systems representing different bounded contexts.  Remember a single service can pull types from multiple services.
+
 
 ## JSS Change Process
 
@@ -191,6 +200,7 @@ To avoid breaking code, The following rules are applied to proposed changes to t
 
 Any change will always result in a new release.
 
+
 ## Why not just use JSON schema?
 
 JSON Schema already allows us to validate arbitrary blocks of JSON.  It also allows re-use by referencing external JSON schemas.  However, a system built this way becomes hard to administer because the errors are described in terms of the resultant JSON, and those referenced files.
@@ -199,6 +209,7 @@ This is where Jsonotron makes a trade-off.  **Jsonotron considers each top level
 
 It's analogous to validating arguments passed to a method call.  You could define every method as accepting an object and then validate it using JSON Schema but you'd lose something by doing that.  Jsonotron brings this concept of individual arguments to JSON as it moves through a system.
 
+
 ## Why not use GraphQL?
 
 GraphQL is aimed at the interface between the client and one or more services.  Whereas Jsonotron is aimed more at strict validation in the back-end.
@@ -206,6 +217,8 @@ GraphQL is aimed at the interface between the client and one or more services.  
 GraphQL defines the shape of objects using primitives but not the associated validation.  For example, you cannot define the constraints for `positiveInteger` or `geoJsonPolygon` using the GraphQL format.
 
 Use GraphQL in the front-end by converting Jsonotron schema types to Graph QL types.  The `jsonotron-js` implementation provides a function for doing this.
+
+To improve the GraphQL production, include a `documentation` property on your object property definitions.  This should be short.  If an elaborate description of a property is required, use the `documentation` property of the schema type.
 
 
 ## Design Decisions
@@ -219,6 +232,7 @@ The definitions are stored as YAML (rather than JSON) for two reasons:
 
 Jsonotron enforces seperate fields for `domain`, `system` and `name` on each type.  This allows documentation to be built with appropriate headers for the key components of the system.  A single URI could not unambiguously unpicked. 
 
+
 ## Development
 
 A NodeJS project exists to check that the types stored in the `./systems/jss` folder can be processed by the [Jsonotron-JS](https://github.com/karlhulme/jsonotron-js) engine.
@@ -229,6 +243,7 @@ To run the tests:
 npm install
 npm test
 ```
+
 
 ## Continuous Deployment
 
