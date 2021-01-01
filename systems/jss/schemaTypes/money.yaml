@@ -4,21 +4,7 @@ domain: https://jsonotron.org
 system: jss
 name: money
 title: Money
-documentation: |-
-  An amount of money designated in a specific currency.
-  
-  The `amount` property stores an integral amount of money.  This should include the minor denomination.  For
-  example, in American the currency is dollars and cents.  Typically monetary values
-  should be recorded in cents.
-  
-  The `scaler` property indicates how many places we
-  need to move the decimal place to convert from the minor to the major currency.  The
-  use of a scaler ensures that monetary amounts are stored as integers rather than
-  floats.  This makes it easier to work with monetary amounts; for example, equality
-  checks on integers are reliable whereas equality checks on floating point numbers
-  are subject to many intracies depending on the platform used.
-  
-  The `currency` property is a currencyCode value.
+documentation: An amount of money designated in a specific currency.
 examples:
 - value:
     amount: 9999
@@ -51,11 +37,22 @@ jsonSchema:
   additionalProperties: false
   properties:
     amount:
-      "$ref": integer
+      $ref: integer
+      documentation: |-
+        This property stores an integral amount of money in a currencies minor denomination.  For
+        example, in America they use dollars and cents, so figures should be stored in cents.
     scaler:
-      "$ref": integer
+      $ref: integer
+      documentation: |-
+        This property indicates how many places we
+        need to move the decimal place to convert from the minor to the major currency.  The
+        use of a scaler ensures that monetary amounts are stored as integers rather than
+        floats.  This makes it easier to work with monetary amounts; for example, equality
+        checks on integers are reliable whereas equality checks on floating point numbers
+        are subject to many intracies depending on the platform used.
     currency:
-      "$ref": currencyCode
+      $ref: currencyCode
+      documentation: A value from the currencyCode enumeration that indicates the currency in use.
   required:
   - amount
   - scaler

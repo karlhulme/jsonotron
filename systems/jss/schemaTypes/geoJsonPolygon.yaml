@@ -4,10 +4,7 @@ domain: https://jsonotron.org
 system: jss
 name: geoJsonPolygon
 title: GeoJSON Polygon
-documentation: A boundary of connected points that encompasses a region on Earth.  The
-  co-ordinates must be specified in a counter-clockwise direction.  The last co-ordinate
-  should be a duplicate of the first co-ordinate.  This means the minimum number of
-  elements in the co-ordinate array is 4.
+documentation: A boundary of connected points that encompasses a region on Earth.
 examples:
 - value:
     type: Polygon
@@ -63,6 +60,7 @@ jsonSchema:
     type:
       enum:
       - Polygon
+      documentation: The value 'Polygon'
     coordinates:
       type: array
       minItems: 4
@@ -77,6 +75,10 @@ jsonSchema:
         - type: number
           minimum: -90
           maximum: 90
+      documentation: |-
+        The co-ordinates must be specified in a counter-clockwise direction.  The last co-ordinate
+        should be a duplicate of the first co-ordinate.  This means the minimum number of
+        elements in the co-ordinate array is 4.
   required:
   - type
   - coordinates
