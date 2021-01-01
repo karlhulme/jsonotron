@@ -48,6 +48,7 @@ jsonSchema:
     type:
       enum:
       - Point
+      documentation: The value 'Point'.
     coordinates:
       type: array
       minItems: 2
@@ -59,6 +60,7 @@ jsonSchema:
       - type: number
         minimum: -90
         maximum: 90
+      documentation: A 2-element array containing the longitude value first and the latitude value second.
   required:
   - type
   - coordinates

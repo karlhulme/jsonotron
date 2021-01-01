@@ -49,10 +49,13 @@ jsonSchema:
   properties:
     amount:
       $ref: integer
+      documentation: The amount of money in a minor denomination.
     scaler:
       $ref: integer
+      documentation: The number of places to move the decimal point to convert the amount into the major denomination of the currency.
     currency:
       $ref: currencyCode
+      documentation: The currency represented by this monetary amount.
   required:
   - amount
   - scaler

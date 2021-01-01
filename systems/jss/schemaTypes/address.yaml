@@ -69,10 +69,13 @@ jsonSchema:
   properties:
     addressLines:
       $ref: hugeString
+      documentation: The lines that make up the address.
     postalCode:
       $ref: shortString
+      documentation: The postal code of the address.
     countryCode:
       $ref: countryCode
+      documentation: The country where the address is situated. 
   required:
   - addressLines
   - postalCode

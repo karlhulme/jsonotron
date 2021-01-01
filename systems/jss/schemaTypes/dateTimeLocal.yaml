@@ -61,10 +61,13 @@ jsonSchema:
       type: string
       pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[+][0-9]{2}:[0-9]{2}$"
       format: jsonotron-dateTimeLocal
+      documentation: A date and time in YYYY-MM-DDTHH:mm:ss+Z format.
     timeZone:
       $ref: timeZone
+      documentation: An international time zone.
     captured:
       $ref: timestamp
+      documentation: A unix-style timestamp.
   required:
   - dateTime
   - timeZone

@@ -102,7 +102,7 @@ jsonSchema | A JSON schema object following the JSON schema specification.
 
 ```yaml
 ---
-kind: enum
+kind: schema
 domain: https://yourdomain.com
 system: system
 name: coordinate
@@ -137,7 +137,7 @@ A schema type can reference external enum types and schema types using the `{ $r
 
 ```yaml
 ---
-kind: enum
+kind: schema
 domain: https://yourdomain.com
 system: system
 name: typeWithExternalRef
@@ -150,7 +150,10 @@ jsonSchema:
       "$ref": https://yourdomain/system/exteralSchemaType
     externalEnumTypeField:
       "$ref": externalEnumType
+      documentation: Additional documentation here.
 ```
+
+You can include additional documentation for object properties.  An example is shown on the last line of the code listing above.  These additional notes may be used for the conversion to other types systems (e.g. GraphQL) or dropped entirely.  In general, property level documentation is good, but documentation for the overall schema type should 
 
 ## Format Validators
 
@@ -198,7 +201,12 @@ It's analogous to validating arguments passed to a method call.  You could defin
 
 ## Why not use GraphQL?
 
-Use this is as downstream format via tools, converting from JSON schema to GQL.
+GraphQL is aimed at the interface between the client and one or more services.  Whereas Jsonotron is aimed more at strict validation in the back-end.
+
+GraphQL defines the shape of objects using primitives but not the associated validation.  For example, you cannot define the constraints for `positiveInteger` or `geoJsonPolygon` using the GraphQL format.
+
+Use GraphQL in the front-end by converting Jsonotron schema types to Graph QL types.  The `jsonotron-js` implementation provides a function for doing this.
+
 
 ## Design Decisions
 

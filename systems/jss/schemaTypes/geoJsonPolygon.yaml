@@ -67,6 +67,7 @@ jsonSchema:
     type:
       enum:
       - Polygon
+      documentation: The value 'Polygon'
     coordinates:
       type: array
       minItems: 4
@@ -81,6 +82,7 @@ jsonSchema:
         - type: number
           minimum: -90
           maximum: 90
+      documentation: An array of arrays.  The outer array must contain at least 4 elements, with the first one repeated last.  Each inner array should be 2 elements with longitude first and latitude second.
   required:
   - type
   - coordinates

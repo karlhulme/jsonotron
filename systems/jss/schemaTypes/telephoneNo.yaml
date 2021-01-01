@@ -43,10 +43,13 @@ jsonSchema:
   properties:
     isd:
       $ref: callingCode
+      documentation: An international dialling code.
     number:
       $ref: shortString
+      documentation: The main number.  It should NOT have a leading zero.
     ext:
       $ref: shortString
+      documentation: Optional extension information.
   required:
   - isd
   - number
