@@ -17,7 +17,7 @@ This repo includes a set of commonly required types called the `Jsonotron Standa
 
 There are numbers and strings of various lengths.  There are dates and times in a fixed-length format.  There is a money type that incorporates currency and ensures any figures are stored as integers and not floats.
 
-You can define your own but the JSS is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/systems/jss/docs.autogen.md)
+You can define your own but the JSS is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/workspaces/jss/docs.autogen.md)
 
 
 ## Jsonotron-js
@@ -38,7 +38,7 @@ For the data layer, we have [Sengi](https://github.com/karlhulme/sengi).  Sengi 
 
 ## Implementations
 
-* **NodeJS**: [Jsonotron-JS](https://github.com/karlhulme/jsonotron-js)
+* **NodeJS**: [Jsonotron-JS](https://github.com/karlhulme/jsonotron/workspaces/jsonotron-js)
 
 
 ## Types
