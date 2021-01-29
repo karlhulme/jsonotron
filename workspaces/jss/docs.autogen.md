@@ -70,6 +70,12 @@ This document describes the types of the `https://jsonotron.org/jss` system.
 
 An object that captures an address.
 
+The `addressLines` property records the lines that make up the address.
+
+The `postalCode` property records the post code or zip code of the address.
+
+The `countryCode` property records countryCode value.
+
 ### Example 1
 
 This example is an address in England so it uses a UK post code.
@@ -105,15 +111,15 @@ This example is an address in the United States so it uses a zip code.
   "properties": {
     "addressLines": {
       "$ref": "hugeString",
-      "documentation": "An array of address lines that make up the main body of the address."
+      "documentation": "The lines that make up the address."
     },
     "postalCode": {
       "$ref": "shortString",
-      "documentation": "A postal code."
+      "documentation": "The postal code of the address."
     },
     "countryCode": {
       "$ref": "countryCode",
-      "documentation": "A value from the countryCode enumeration that indicates the country."
+      "documentation": "The country where the address is situated."
     }
   },
   "required": [
@@ -134,13 +140,13 @@ additionalProperties: false
 properties:
   addressLines:
     $ref: hugeString
-    documentation: An array of address lines that make up the main body of the address.
+    documentation: The lines that make up the address.
   postalCode:
     $ref: shortString
-    documentation: A postal code.
+    documentation: The postal code of the address.
   countryCode:
     $ref: countryCode
-    documentation: A value from the countryCode enumeration that indicates the country.
+    documentation: The country where the address is situated.
 required:
   - addressLines
   - postalCode
@@ -936,6 +942,19 @@ format: date
 
 An object that captures a date and time in a specific time zone.
 
+The `dateTime` property records the date and time in the YYYY-MM-DDTHH:mm:ss+Z format.  Notice
+that the pattern always has a T between the date and time components and that the
+time zone is always expressed with 2 digits for hours and 2 digits for minutes.
+
+The `timeZone` property records where in the world the time applies.  It is a timeZone
+value.
+
+The `timestamp` property records when the date and time was captured.  It
+is a timestamp value.  This is useful for advanced scenarios where the behaviour
+of a time zone is changed at some point in the future.  Knowing when the capture
+was made allows you to pinpoint the rules at the point and then convert to the prevailing
+rules.  Leading zeroes must be used to ensure that all values are the same length.
+
 ### Example 1
 
 The europe/london time zone operates at +00:00 during the winter and +01:00 during the summer.  In this example we can see the value is in the summer because of the +01:00 suffix.
@@ -961,15 +980,15 @@ The europe/london time zone operates at +00:00 during the winter and +01:00 duri
       "type": "string",
       "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[+][0-9]{2}:[0-9]{2}$",
       "format": "jsonotron-dateTimeLocal",
-      "documentation": "This records the date and time in the YYYY-MM-DDTHH:mm:ss+Z format.  Notice\nthat the pattern always has a T between the date and time components and that the\ntime zone is always expressed with 2 digits for hours and 2 digits for minutes."
+      "documentation": "A date and time in YYYY-MM-DDTHH:mm:ss+Z format."
     },
     "timeZone": {
       "$ref": "timeZone",
-      "documentation": "This property records where in the world the time applies.  It is a timeZone value."
+      "documentation": "An international time zone."
     },
     "captured": {
       "$ref": "timestamp",
-      "documentation": "This property records when the date and time was captured.  It\nis a timestamp value.  This is useful for advanced scenarios where the behaviour\nof a time zone is changed at some point in the future.  Knowing when the capture\nwas made allows you to pinpoint the rules at that point and then convert to the prevailing\nrules.  Leading zeroes must be used to ensure that all values are the same length."
+      "documentation": "A unix-style timestamp."
     }
   },
   "required": [
@@ -993,36 +1012,13 @@ properties:
     pattern: >-
       ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[+][0-9]{2}:[0-9]{2}$
     format: jsonotron-dateTimeLocal
-    documentation: >-
-      This records the date and time in the YYYY-MM-DDTHH:mm:ss+Z format. 
-      Notice
-
-      that the pattern always has a T between the date and time components and
-      that the
-
-      time zone is always expressed with 2 digits for hours and 2 digits for
-      minutes.
+    documentation: 'A date and time in YYYY-MM-DDTHH:mm:ss+Z format.'
   timeZone:
     $ref: timeZone
-    documentation: >-
-      This property records where in the world the time applies.  It is a
-      timeZone value.
+    documentation: An international time zone.
   captured:
     $ref: timestamp
-    documentation: >-
-      This property records when the date and time was captured.  It
-
-      is a timestamp value.  This is useful for advanced scenarios where the
-      behaviour
-
-      of a time zone is changed at some point in the future.  Knowing when the
-      capture
-
-      was made allows you to pinpoint the rules at that point and then convert
-      to the prevailing
-
-      rules.  Leading zeroes must be used to ensure that all values are the same
-      length.
+    documentation: A unix-style timestamp.
 required:
   - dateTime
   - timeZone
@@ -1184,7 +1180,8 @@ A point on Earth.
 ### Example 1
 
 A position on Earth recorded in GeoJSON format expressed as a longitude and latitude pair.
-The properties should be supplied in the correct order, longitude first and latitude second.
+The `type` value should be 'Point'.
+The `coordinates` property should be a 2-element array consisting of longitude first and latitude second.
 
 ```json
 {
@@ -1209,7 +1206,7 @@ The properties should be supplied in the correct order, longitude first and lati
       "enum": [
         "Point"
       ],
-      "documentation": "The value 'Point'"
+      "documentation": "The value 'Point'."
     },
     "coordinates": {
       "type": "array",
@@ -1227,7 +1224,7 @@ The properties should be supplied in the correct order, longitude first and lati
           "maximum": 90
         }
       ],
-      "documentation": "A pair of co-ordinates, longitude first and latitude second"
+      "documentation": "A 2-element array containing the longitude value first and the latitude value second."
     }
   },
   "required": [
@@ -1248,7 +1245,7 @@ properties:
   type:
     enum:
       - Point
-    documentation: The value 'Point'
+    documentation: The value 'Point'.
   coordinates:
     type: array
     minItems: 2
@@ -1260,7 +1257,9 @@ properties:
       - type: number
         minimum: -90
         maximum: 90
-    documentation: 'A pair of co-ordinates, longitude first and latitude second'
+    documentation: >-
+      A 2-element array containing the longitude value first and the latitude
+      value second.
 required:
   - type
   - coordinates
@@ -1276,7 +1275,13 @@ required:
 **name**: geoJsonPolygon\
 **uri**: https://jsonotron.org/jss/geoJsonPolygon
 
-A boundary of connected points that encompasses a region on Earth.
+A boundary of connected points that encompasses a region on Earth.  
+The `type` property should be 'Polygon'.
+The `co-ordinates` property should be an array, where each element is a co-ordinate pair that
+makes up the polygon.  The co-ordinate pairs must be specified in a counter-clockwise direction.  The last co-ordinate
+should be a duplicate of the first co-ordinate.  This means the minimum number of
+elements in the co-ordinate array is 4.
+Each element in the co-ordinate array is 2-element array, longitude first and latitude second.
 
 ### Example 1
 
@@ -1345,7 +1350,7 @@ A region on Earth recorded in GeoJSON format expressed as a series of longitude 
           }
         ]
       },
-      "documentation": "The co-ordinates must be specified in a counter-clockwise direction.  The last co-ordinate\nshould be a duplicate of the first co-ordinate.  This means the minimum number of\nelements in the co-ordinate array is 4."
+      "documentation": "An array of arrays.  The outer array must contain at least 4 elements, with the first one repeated last.  Each inner array should be 2 elements with longitude first and latitude second."
     }
   },
   "required": [
@@ -1382,13 +1387,9 @@ properties:
           minimum: -90
           maximum: 90
     documentation: >-
-      The co-ordinates must be specified in a counter-clockwise direction.  The
-      last co-ordinate
-
-      should be a duplicate of the first co-ordinate.  This means the minimum
-      number of
-
-      elements in the co-ordinate array is 4.
+      An array of arrays.  The outer array must contain at least 4 elements,
+      with the first one repeated last.  Each inner array should be 2 elements
+      with longitude first and latitude second.
 required:
   - type
   - coordinates
@@ -1837,6 +1838,9 @@ maxLength: 50
 **uri**: https://jsonotron.org/jss/money
 
 An amount of money designated in a specific currency.
+The `amount` property stores an integral amount of money in a currencies minor denomination.
+The `scaler` property indicates how many places we need to move the decimal place to convert from the minor to the major currency.  The use of a scaler ensures that monetary amounts are stored as integers rather than floats.  This makes it easier to work with monetary amounts; for example, equality checks on integers are reliable whereas equality checks on floating point numbers are subject to many intracies depending on the platform used.
+The `currency` indicates which currency this monetary amount represents.
 
 ### Example 1
 
@@ -1861,15 +1865,15 @@ In this example the scaler of 2 means that we shift the decimal point 2 places t
   "properties": {
     "amount": {
       "$ref": "integer",
-      "documentation": "This property stores an integral amount of money in a currencies minor denomination.  For\nexample, in America they use dollars and cents, so figures should be stored in cents."
+      "documentation": "The amount of money in a minor denomination."
     },
     "scaler": {
       "$ref": "integer",
-      "documentation": "This property indicates how many places we\nneed to move the decimal place to convert from the minor to the major currency.  The\nuse of a scaler ensures that monetary amounts are stored as integers rather than\nfloats.  This makes it easier to work with monetary amounts; for example, equality\nchecks on integers are reliable whereas equality checks on floating point numbers\nare subject to many intracies depending on the platform used."
+      "documentation": "The number of places to move the decimal point to convert the amount into the major denomination of the currency."
     },
     "currency": {
       "$ref": "currencyCode",
-      "documentation": "A value from the currencyCode enumeration that indicates the currency in use."
+      "documentation": "The currency represented by this monetary amount."
     }
   },
   "required": [
@@ -1890,35 +1894,15 @@ additionalProperties: false
 properties:
   amount:
     $ref: integer
-    documentation: >-
-      This property stores an integral amount of money in a currencies minor
-      denomination.  For
-
-      example, in America they use dollars and cents, so figures should be
-      stored in cents.
+    documentation: The amount of money in a minor denomination.
   scaler:
     $ref: integer
     documentation: >-
-      This property indicates how many places we
-
-      need to move the decimal place to convert from the minor to the major
-      currency.  The
-
-      use of a scaler ensures that monetary amounts are stored as integers
-      rather than
-
-      floats.  This makes it easier to work with monetary amounts; for example,
-      equality
-
-      checks on integers are reliable whereas equality checks on floating point
-      numbers
-
-      are subject to many intracies depending on the platform used.
+      The number of places to move the decimal point to convert the amount into
+      the major denomination of the currency.
   currency:
     $ref: currencyCode
-    documentation: >-
-      A value from the currencyCode enumeration that indicates the currency in
-      use.
+    documentation: The currency represented by this monetary amount.
 required:
   - amount
   - scaler
@@ -2481,7 +2465,11 @@ type: string
 **name**: telephoneNo\
 **uri**: https://jsonotron.org/jss/telephoneNo
 
-A telephone number.
+A telephone number that comprises of a dialling code and a number.
+
+The `isd` property identifies the country that the telephone number resides in.
+
+The `number` property optionally describes extension information.
 
 ### Example 1
 
@@ -2517,15 +2505,15 @@ In this example we have a US landline number with an extension.
   "properties": {
     "isd": {
       "$ref": "callingCode",
-      "documentation": "The international calling code."
+      "documentation": "An international dialling code."
     },
     "number": {
       "$ref": "shortString",
-      "documentation": "The main telephone number, typically consisting of area code and main number.  This should not have a leading zero."
+      "documentation": "The main number.  It should NOT have a leading zero."
     },
     "ext": {
       "$ref": "shortString",
-      "documentation": "Optionally the number may include extension information.  This can be in any format."
+      "documentation": "Optional extension information."
     }
   },
   "required": [
@@ -2545,17 +2533,13 @@ additionalProperties: false
 properties:
   isd:
     $ref: callingCode
-    documentation: The international calling code.
+    documentation: An international dialling code.
   number:
     $ref: shortString
-    documentation: >-
-      The main telephone number, typically consisting of area code and main
-      number.  This should not have a leading zero.
+    documentation: The main number.  It should NOT have a leading zero.
   ext:
     $ref: shortString
-    documentation: >-
-      Optionally the number may include extension information.  This can be in
-      any format.
+    documentation: Optional extension information.
 required:
   - isd
   - number
