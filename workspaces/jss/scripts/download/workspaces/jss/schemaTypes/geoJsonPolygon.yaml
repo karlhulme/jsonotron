@@ -1,0 +1,88 @@
+---
+kind: schema
+domain: https://jsonotron.org
+system: jss
+name: geoJsonPolygon
+title: GeoJSON Polygon
+documentation: |-
+  A boundary of connected points that encompasses a region on Earth.  
+  The `type` property should be 'Polygon'.
+  The `co-ordinates` property should be an array, where each element is a co-ordinate pair that
+  makes up the polygon.  The co-ordinate pairs must be specified in a counter-clockwise direction.  The last co-ordinate
+  should be a duplicate of the first co-ordinate.  This means the minimum number of
+  elements in the co-ordinate array is 4.
+  Each element in the co-ordinate array is 2-element array, longitude first and latitude second.
+examples:
+- value:
+    type: Polygon
+    coordinates:
+    - [31.8, -5]
+    - [31.8, -4.7]
+    - [32, -4.7]
+    - [32, -5]
+    - [31.8, -5]
+  documentation: A region on Earth recorded in GeoJSON format expressed as a series of longitude
+    and latitude pairs.
+validTestCases:
+- type: Polygon
+  coordinates:
+  - [31.8, -5]
+  - [31.8, -4.7]
+  - [32, -4.7]
+  - [32, -5]
+  - [31.8, -5]
+invalidTestCases:
+- 123
+- 
+- true
+- {}
+- []
+- type: polygon
+  coordinates:
+  - [31.8, -4.7]
+  - [32, -4.7]
+  - [32, -5]
+  - [31.8, -5]
+- type: Polygon
+  coordinates:
+  - [32, -4.7]
+  - [32, -5]
+  - [31.8, -5]
+- type: Polygon # out of range longitude
+  coordinates:
+  - [183.8, -5]
+  - [32, -4.7]
+  - [32, -5]
+  - [31.8, -5]
+- type: Polygon # out of range lattitude
+  coordinates:
+  - [31.8, -95]
+  - [32, -4.7]
+  - [32, -5]
+  - [31.8, -5]
+jsonSchema:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      enum:
+      - Polygon
+      documentation: The value 'Polygon'
+    coordinates:
+      type: array
+      minItems: 4
+      items:
+        type: array
+        minItems: 2
+        maxItems: 2
+        items:
+        - type: number
+          minimum: -180
+          maximum: 180
+        - type: number
+          minimum: -90
+          maximum: 90
+      documentation: An array of arrays.  The outer array must contain at least 4 elements, with the first one repeated last.  Each inner array should be 2 elements with longitude first and latitude second.
+  required:
+  - type
+  - coordinates

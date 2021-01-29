@@ -1,0 +1,66 @@
+---
+kind: schema
+domain: https://jsonotron.org
+system: jss
+name: geoJsonPoint
+title: GeoJSON Point
+documentation: A point on Earth.
+examples:
+- value:
+    type: Point
+    coordinates:
+    - 31.9
+    - -4.8
+  documentation: |-
+    A position on Earth recorded in GeoJSON format expressed as a longitude and latitude pair.
+    The `type` value should be 'Point'.
+    The `coordinates` property should be a 2-element array consisting of longitude first and latitude second.
+validTestCases:
+- type: Point
+  coordinates:
+  - 31.9
+  - -4.8
+invalidTestCases:
+- 123
+- 
+- true
+- {}
+- []
+# incorrect case of type
+- type: point
+  coordinates:
+  - 31.9
+  - -4.8
+# out of range longitude...
+- type: Point
+  coordinates:
+  - 182
+  - 27.9
+# out of range latitude...
+- type: Point
+  coordinates:
+  - 10.2
+  - -98.2
+jsonSchema:
+  type: object
+  additionalProperties: false
+  properties:
+    type:
+      enum:
+      - Point
+      documentation: The value 'Point'.
+    coordinates:
+      type: array
+      minItems: 2
+      maxItems: 2
+      items:
+      - type: number
+        minimum: -180
+        maximum: 180
+      - type: number
+        minimum: -90
+        maximum: 90
+      documentation: A 2-element array containing the longitude value first and the latitude value second.
+  required:
+  - type
+  - coordinates
