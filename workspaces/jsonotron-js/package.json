@@ -14,14 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/karlhulme/jsonotron-js.git"
+    "url": "git+https://github.com/karlhulme/jsonotron.git",
+    "directory": "workspaces/jsonotron-js"
   },
   "author": "Karl Hulme <karlhulme@hotmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/karlhulme/jsonotron-js/issues"
+    "url": "https://github.com/karlhulme/jsonotron/issues"
   },
-  "homepage": "https://github.com/karlhulme/jsonotron-js#readme",
+  "homepage": "https://github.com/karlhulme/jsonotron#readme",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",

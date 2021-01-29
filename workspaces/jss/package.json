@@ -8,7 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/karlhulme/jsonotron.git"
+    "url": "git+https://github.com/karlhulme/jsonotron.git",
+    "directory": "workspaces/jss"
   },
   "author": "Karl Hulme <karlhulme@hotmail.com>",
   "license": "MIT",
