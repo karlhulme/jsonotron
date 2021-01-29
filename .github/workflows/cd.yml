@@ -8,43 +8,65 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - name: Clone repo
       uses: actions/checkout@v1
-    - name: Setup Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js 15.x
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: Install deps and run tests
+        node-version: 15.x
+    - name: Test jss
       run: |
+        cd workspaces/jss
         npm ci
         npm test
         npm run generate-docs
-      env:
-        CI: true
+    - name: Test jsonotron-js
+      run: |
+        cd workspaces/jsonotron-js
+        npm ci
+        npm test
+        npm run build
         
   release:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Prepare Release
-        id: prepare
-        uses: karlhulme/github-action-prepare-release@master
-        with:
-          branchName: master
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Create GitHub Release
-        if: steps.prepare.outputs.canRelease == 'yes'
-        id: release
-        uses: karlhulme/github-action-create-release@master
-        with:
-          branchName: master
-          releaseVersion: ${{ steps.prepare.outputs.releaseVersion }}
-          releaseNotes: ${{ steps.prepare.outputs.releaseNotes }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+    - name: Prepare Release
+      id: prepare
+      uses: karlhulme/github-action-prepare-release@master
+      with:
+        branchName: master
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: Create GitHub Release
+      if: steps.prepare.outputs.canRelease == 'yes'
+      id: release
+      uses: karlhulme/github-action-create-release@master
+      with:
+        branchName: master
+        releaseVersion: ${{ steps.prepare.outputs.releaseVersion }}
+        releaseNotes: ${{ steps.prepare.outputs.releaseNotes }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: Clone repo
+      if: steps.prepare.outputs.canRelease == 'yes'
+      uses: actions/checkout@v1
+      with:
+        ref: v${{ steps.prepare.outputs.releaseVersion }}
+    - name: Setup Node.js 15.x
+      if: steps.prepare.outputs.canRelease == 'yes'
+      uses: actions/setup-node@v1
+      with:
+        node-version: 15.x
+        registry-url: https://registry.npmjs.org/
+    - name: Publish to NPM
+      if: steps.prepare.outputs.canRelease == 'yes'
+      run: |
+        cd workspaces/jsonotron-js
+        npm version ${{ steps.prepare.outputs.releaseVersion }}
+        npm ci
+        npm run build
+        npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.npm_token}}

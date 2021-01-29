@@ -1,0 +1,68 @@
+---
+kind: schema
+domain: https://jsonotron.org
+system: test
+name: household
+title: Household
+documentation: Information about a family living at one address.
+examples:
+- value:
+    location: over the rainbow
+    familyMemberCount: 2
+    doorColor: red
+  documentation: An example.
+validTestCases:
+- location: over the rainbow
+  familyMemberCount: 2
+  doorColor: red
+invalidTestCases:
+- -1
+- 0
+- 999999
+- 
+- true
+- a house
+- {}
+- []
+- familyMemberCount: 123 # missing location
+  doorColor: red
+- location: over the rainbow # invalid door color
+  familyMemberCount: 2
+  doorColor: puse
+jsonSchema:
+  type: object
+  additionalProperties: false
+  properties:
+    location:
+      type: string
+      documentation: Additional field-level documentation that can optionally be supplied.
+    familyMemberCount:
+      $ref: positiveInteger # local reference
+    doorColor:
+      $ref: https://jsonotron.org/test/color # fully-qualified reference
+    neighbour:
+      $ref: household # self-reference
+    maritalStatus:
+      enum: # enum strings
+      - married
+      - single
+    favDecade:
+      enum: # enum floats
+      - 2000
+      - 2010
+    residentInVillage:
+      enum: # enum booleans
+      - true
+      - false
+    shoppingPrefs:
+      enum: # enum objects
+      - fruit: 1
+        veg: 2
+      - veg: 1
+        fruit: 2
+    surname: # test-system string type vs JSON schema string type (name clash)
+      $ref: https://jsonotron.org/test/string
+  required:
+  - location
+  - familyMemberCount
+  - doorColor

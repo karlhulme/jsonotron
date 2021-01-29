@@ -1,0 +1,20 @@
+---
+kind: enum
+domain: https://jsonotron.org
+system: test
+name: color
+title: Color
+documentation: A set of colors.
+items:
+- value: red
+  text: Red
+- value: blue
+  text: Blue
+- value: green
+  text: Green
+- value: yellow
+  text: Yellow
+  symbol: 'Y'
+- value: purple
+  text: Purple
+  deprecated: We don't use this anymore

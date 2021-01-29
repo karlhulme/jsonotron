@@ -1,0 +1,17 @@
+---
+kind: enum
+domain: https://jsonotron.org
+system: test
+name: direction
+title: Direction
+documentation: A set of directions.
+items:
+- value: up
+  text: Up
+- value: down
+  text: Down
+- value: left
+  text: Left
+- value: right
+  text: Right
+  documentation: This is the default direction.

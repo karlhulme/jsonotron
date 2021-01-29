@@ -1,0 +1,60 @@
+{
+  "name": "jsonotron-js",
+  "description": "A javascript implementation of the jsonotron type system.",
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "lib",
+    "types"
+  ],
+  "scripts": {
+    "test": "jest && eslint '*/**/*.{js,ts}'",
+    "build": "rm -rf types && rm -rf lib && tsc --target es5",
+    "reinstall": "rm -rf node_modules && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlhulme/jsonotron-js.git"
+  },
+  "author": "Karl Hulme <karlhulme@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karlhulme/jsonotron-js/issues"
+  },
+  "homepage": "https://github.com/karlhulme/jsonotron-js#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
+    "eslint": "^7.12.1",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "@types/clone-deep": "^4.0.1",
+    "@types/js-yaml": "^3.12.5",
+    "@types/luxon": "^1.25.0",
+    "ajv": "^6.10.2",
+    "clone-deep": "^4.0.1",
+    "fast-json-stable-stringify": "^2.1.0",
+    "fast-luhn": "^2.0.0",
+    "js-yaml": "^3.14.0",
+    "luxon": "^1.25.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 0
+      }
+    },
+    "testEnvironment": "node"
+  }
+}

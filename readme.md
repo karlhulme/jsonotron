@@ -9,7 +9,9 @@ Jsonotron takes [JSON schema](https://json-schema.org/) and adds documentation, 
   * Enumerations are defined in a dedicated JSON format (rather than JSON schema) so that we can pair an underlying value with additional properties like display text, symbol and deprecation information.
 
 
-## JSS
+## Repositories
+
+### JSS
 
 This repo includes a set of commonly required types called the `Jsonotron Standard System` or `JSS` for short.
 
@@ -18,16 +20,20 @@ There are numbers and strings of various lengths.  There are dates and times in 
 You can define your own but the JSS is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/systems/jss/docs.autogen.md)
 
 
+## Jsonotron-js
+
+This repo is a typescript implementation of the Jsonotron engine.
+
+
 ## Motivation
 
 Non-trivial applications will need to process JSON data at some point.  Either on the wire in the form of REST API calls or perhaps in storage via a document-based database such as Mongo, Cosmos or DynamoDB.
 
 Jsonotron provides a language independent way to specify the types that you want to use in a specific microservice.
 
-We then have various components in the ecosystem:
+You can then use Jsonotron-JS to validate against those type.
 
-  * [Sengi](https://github.com/karlhulme/sengi) is the foundation of a document-based data service where the table/document definitions are entirely based within code.  Sengi uses the types to define table structures and update messages, to produce documentation and generate downstream formats like GraphQL schema for client library generation.
-  * [---] can be used define REST API messages.  --- uses the types to produce API documentation and validate inbound messages before processing.
+For the data layer, we have [Sengi](https://github.com/karlhulme/sengi).  Sengi is the foundation of a document-based data service where the table/document definitions are entirely based within code.  Sengi uses the types to define table structures and update messages, to produce documentation and generate downstream formats like GraphQL schema for client library generation.
 
 
 ## Implementations
@@ -181,7 +187,7 @@ In addition, a Jsonotron runtime should allow you to provide custom formatters o
 
 ## Sharing a Type System
 
-The `./scripts/jss-download.sh` script downloads a release JSS from this github repo and extracts the enum and schema types into a folder.  You can take the same approach and then abuse this script to achieve the same thing with your own type systems.  Typically you'll want to set this up as a command line you can run when you want to bring in the types.  Those downloaded types should be committed to your repo.  If using a private repo you'll need to create a personal access token as pass that in the header as well.
+The `./workspaces/jss/scripts/jss-download.sh` script downloads a release JSS from this github repo and extracts the enum and schema types into a folder.  You can take the same approach and then abuse this script to achieve the same thing with your own type systems.  Typically you'll want to set this up as a command line you can run when you want to bring in the types.  Those downloaded types should be committed to your repo.  If using a private repo you'll need to create a personal access token as pass that in the header as well.
 
 By creating a type system, typically in a separate repo, it becomes easier to share those types across multiple services within your organisation.  This can lead to time saving when documenting those types and ensures consistency when those services communicate.  This approach works well for small granular types (like those found in the JSS) and small common types that are used repeatedly throughout your services.
 
@@ -231,18 +237,6 @@ The definitions are stored as YAML (rather than JSON) for two reasons:
   2. Strings can be spread over multiple lines making the documentation easier to read and write.
 
 Jsonotron enforces seperate fields for `domain`, `system` and `name` on each type.  This allows documentation to be built with appropriate headers for the key components of the system.  A single URI could not unambiguously unpicked. 
-
-
-## Development
-
-A NodeJS project exists to check that the types stored in the `./systems/jss` folder can be processed by the [Jsonotron-JS](https://github.com/karlhulme/jsonotron-js) engine.
-
-To run the tests:
-
-```bash
-npm install
-npm test
-```
 
 
 ## Continuous Deployment

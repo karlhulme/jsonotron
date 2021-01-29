@@ -8,19 +8,22 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - name: Clone repo
       uses: actions/checkout@v1
-    - name: Setup Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js 15.x
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: Install deps and run tests
+        node-version: 15.x
+    - name: Test jss
       run: |
+        cd workspaces/jss
         npm ci
         npm test
         npm run generate-docs
-        CI: true
+    - name: Test jsonotron-js
+      run: |
+        cd workspaces/jsonotron-js
+        npm ci
+        npm test
+        npm run build

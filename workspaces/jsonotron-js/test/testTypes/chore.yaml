@@ -1,0 +1,50 @@
+---
+kind: schema
+domain: https://jsonotron.org
+system: test
+name: chore
+title: Chore
+documentation: A duty to perform.
+examples:
+- value:
+    tools:
+    - bucket
+    - mop
+  documentation: An example.
+validTestCases:
+- tools:
+  - bucket
+  - mop
+- {}
+invalidTestCases:
+- -1
+- 0
+- 999999
+- 
+- true
+- a house
+- []
+jsonSchema:
+  type: object
+  additionalProperties: false
+  properties:
+    priority:
+      type: integer
+    tools:
+      type: array
+      items:
+        type: string
+    location:
+      type: object
+      additionalProperties: false
+      properties:
+        floor:
+          type: integer
+        x:
+          type: number
+        y:
+          type: number
+    associativeArray:
+      type: object
+      additionalProperties:
+        type: string
