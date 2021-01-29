@@ -15,15 +15,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 15.x
+    - name: Install deps
+      run: npm ci
     - name: Test jss
       run: |
         cd workspaces/jss
-        npm ci
         npm test
         npm run generate-docs
     - name: Test jsonotron-js
       run: |
         cd workspaces/jsonotron-js
-        npm ci
         npm test
         npm run build

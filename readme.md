@@ -236,7 +236,7 @@ The definitions are stored as YAML (rather than JSON) for two reasons:
   1. Comments are supported in YAML with a `#` prefix.
   2. Strings can be spread over multiple lines making the documentation easier to read and write.
 
-Jsonotron enforces seperate fields for `domain`, `system` and `name` on each type.  This allows documentation to be built with appropriate headers for the key components of the system.  A single URI could not unambiguously unpicked. 
+Jsonotron enforces seperate fields for `domain`, `system` and `name` on each type.  This allows documentation to be built with appropriate headers for the key components of the system.  A single URI could not be unambiguously unpicked. 
 
 
 ## Continuous Deployment
