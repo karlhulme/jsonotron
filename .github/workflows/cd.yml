@@ -27,6 +27,11 @@ jobs:
         cd workspaces/jsonotron-js
         npm test
         npm run build
+    - name: Test jsonoserve
+      run: |
+        cd workspaces/jsonoserve
+        npm test
+        npm run build
         
   release:
     runs-on: ubuntu-latest
@@ -62,10 +67,19 @@ jobs:
         registry-url: https://registry.npmjs.org/
     - name: Install deps
       run: npm ci
-    - name: Publish to NPM
+    - name: Publish jsonotron-js
       if: steps.prepare.outputs.canRelease == 'yes'
       run: |
         cd workspaces/jsonotron-js
+        npm version ${{ steps.prepare.outputs.releaseVersion }}
+        npm run build
+        npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+    - name: Publish jsonoserve
+      if: steps.prepare.outputs.canRelease == 'yes'
+      run: |
+        cd workspaces/jsonoserve
         npm version ${{ steps.prepare.outputs.releaseVersion }}
         npm run build
         npm publish

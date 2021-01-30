@@ -1,0 +1,34 @@
+---
+kind: schema
+domain: https://jsonotron.org
+system: test
+name: animal
+title: Animal
+documentation: An animal.
+examples:
+- name: dog
+  numberOfLegs: 4
+validTestCases:
+- name: dog
+  numberOfLegs: 4
+- name: duck
+  numberOfLegs: 2
+invalidTestCases:
+- -1
+- 0
+- 999999
+- 
+- true
+- a house
+- []
+jsonSchema:
+  type: object
+  additionalProperties: false
+  properties:
+    name:
+      type: string
+    numberOfLegs:
+      type: integer
+  required:
+  - name
+    numberOfLegs

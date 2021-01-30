@@ -1,0 +1,14 @@
+---
+kind: enum
+domain: https://jsonotron.org
+system: test2
+name: trouserStyle
+title: Trouser Style
+documentation: A set of directions.
+items:
+- value: bootLeg
+  text: Boot Leg
+- value: skinny
+  text: Skinny
+- value: flared
+  text: Flared

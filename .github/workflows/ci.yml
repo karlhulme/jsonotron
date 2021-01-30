@@ -27,3 +27,8 @@ jobs:
         cd workspaces/jsonotron-js
         npm test
         npm run build
+    - name: Test jsonoserve
+      run: |
+        cd workspaces/jsonoserve
+        npm test
+        npm run build
