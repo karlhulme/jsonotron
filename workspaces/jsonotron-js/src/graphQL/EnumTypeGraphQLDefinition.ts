@@ -3,7 +3,7 @@
 /**
  * The GraphQL type definitions for a Jsonotron enumeration.
  */
-export const EnumGraphQLTypes = `
+export const EnumTypeGraphQLDefinition = `
 """
 An enumeration of values.
 """

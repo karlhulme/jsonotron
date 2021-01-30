@@ -102,6 +102,15 @@ The `getSchemaTypes` function returns an array of `SchemaType` objects.
 The `getFullyQualifiedTypeName` function returns the fully qualified type name given a short name.
 
 
+## Type map
+
+Jsonotron can build a type map of all the schema and enum types.  This is used internally for generation of the types in different formats.
+
+```javascript
+jsonotron.getTypeMap()
+```
+
+
 ## Markdown Generation
 
 You can generate markdown documentation:
@@ -122,13 +131,16 @@ jsonotron.getMarkdownForTypeSystem({
 
 ## GraphQL Generation
 
-You can get the equivalent GraphQL primitive of a jsonotron type.
+You can get the equivalent GraphQL primitive of a jsonotron type.  You can also get a definition that is valid for all enum types.
 
 Schema types that are based on an object (rather than number, integer, string or boolean) will be given the `JSON` type.  This is necessary because GraphQL uses null to represent requested but unpopulated data, whereas within Jsonotron null is a valid value within a schema type value.  Experiments with converting a JSON schema to GraphQL exposed a problem where GraphQL will insert nulls for those optional fields, and this could be at any level within a schema type value.  This creates friction when trying to round-trip a schema type value, because these optional nulls need to be removed before the data can be validated again. Serialising object-based schema types as JSON avoids the population of nulls by a GraphQL server.
 
 If you are using the types somewhere else in the system (such as in a front-end client) use the typescript generation to create strongly typed wrappers.
 
 ```javascript
+jsonotron.getGraphQLEnumType()
+// result is a definition for EnumType and EnumTypeItem
+
 jsonotron.getGraphQLPrimitiveType({ typeName: 'color', isArray: true, isRequired: true })
 // assuming 'color' is an enum type, the result would be [String!]!
 ```

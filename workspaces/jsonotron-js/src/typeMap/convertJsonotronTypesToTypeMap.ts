@@ -1,13 +1,13 @@
-import { EnumType, GraphQLMap, SchemaType } from '../interfaces'
-import { addJsonSchemaToGraphQLMap } from './addJsonSchemaToGraphQLMap'
+import { EnumType, TypeMap, SchemaType } from '../interfaces'
+import { addJsonSchemaToTypeMap } from './addJsonSchemaToTypeMap'
 
 /**
  * Returns a GraphQLMap built from the given enum and schema types..
  * @param enumTypes An array of enum types.
  * @param schemaTypes An array of schema types.
  */
-export function convertJsonotronTypesToGraphQLMap (enumTypes: EnumType[], schemaTypes: SchemaType[]): GraphQLMap {
-  const map: GraphQLMap = {
+export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTypes: SchemaType[]): TypeMap {
+  const map: TypeMap = {
     objectTypes: [],
     refTypes: []
   }
@@ -20,7 +20,7 @@ export function convertJsonotronTypesToGraphQLMap (enumTypes: EnumType[], schema
 
   // to convert schemaTypes we look at the jsonSchema property.
   schemaTypes.forEach(schemaType => {
-    addJsonSchemaToGraphQLMap(
+    addJsonSchemaToTypeMap(
       schemaType.domain,
       schemaType.system,
       schemaType.name,

@@ -1,7 +1,7 @@
 /**
  * Represents an object type in the GraphQL system.
  */
-export interface GraphQLObjectType {
+export interface TypeMapObject {
   /**
    * The name of a type.
    */
@@ -15,13 +15,13 @@ export interface GraphQLObjectType {
   /**
    * The properties of the object.
    */
-  properties: GraphQLObjectTypeProperty[]
+  properties: TypeMapObjectProperty[]
 }
 
 /**
  * Represents the property of a GraphQL object type.
  */
-export interface GraphQLObjectTypeProperty {
+export interface TypeMapObjectProperty {
   /**
    * The name of the property.
    */

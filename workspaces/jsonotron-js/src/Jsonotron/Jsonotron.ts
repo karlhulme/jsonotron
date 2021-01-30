@@ -1,7 +1,7 @@
 import Ajv from 'ajv'
 import yaml from 'js-yaml'
 import cloneDeep from 'clone-deep'
-import { EnumType, GraphQLDefsGenerationProps, GraphQLMap, GraphQLPrimitiveLookupProps, JsonSchemaFormatValidatorFunc,
+import { EnumType, TypeMap, GraphQLPrimitiveLookupProps, JsonSchemaFormatValidatorFunc,
   MarkdownGenerationProps, SchemaType, Structure,
   StructureValidationResult, UnclassifiedType, ValueValidationResult } from '../interfaces'
 import {
@@ -24,11 +24,8 @@ import { InvalidEnumTypeError,
   UnrecognisedTypeNameError
 } from '../errors'
 import { enumTypeSchema, schemaTypeSchema } from '../schemas'
-import {
-  convertJsonotronTypesToGraphQLMap,
-  determineGraphQLPrimitiveForSchemaType,
-  generateGraphQLTypeDefs
-} from '../graphQL'
+import { determineGraphQLPrimitiveForSchemaType, EnumTypeGraphQLDefinition } from '../graphQL'
+import { convertJsonotronTypesToTypeMap } from '../typeMap'
 
 /**
  * Represents the properties that can be supplied to a Jsonotron constructur.
@@ -250,6 +247,13 @@ export class Jsonotron {
   }
 
   /**
+   * Returns a type map of all the enum and schema types.
+   */
+  getTypeMap (): TypeMap {
+    return convertJsonotronTypesToTypeMap(this.enumTypes, this.schemaTypes)
+  }
+
+  /**
    * Returns a markdown document for the type system identified by
    * the given properties.
    * @param props The properties that describe the markdown to be generated.
@@ -257,14 +261,6 @@ export class Jsonotron {
   getMarkdownForTypeSystem (props: MarkdownGenerationProps): string {
     return createMarkdownForTypeSystem(props, this.enumTypes, this.schemaTypes)
   } 
-
-  /**
-   * Returns a GraphQL map created using the enum types and schema
-   * types of the currently loaded Jsonotron type systems.
-   */
-  getGraphQLMap (): GraphQLMap {
-    return convertJsonotronTypesToGraphQLMap(this.enumTypes, this.schemaTypes)
-  }
 
   /**
    * Returns the GraphQL primitive that can be used to store a value
@@ -294,12 +290,10 @@ export class Jsonotron {
   }
 
   /**
-   * Returns a GraphQL definitions string.
-   * @param props The properties that control the GraphQL generation. 
+   * Returns the GraphQL definition for a Jsonotron enum type.
    */
-  getGraphQLDefsForTypeSystems (props: GraphQLDefsGenerationProps): string {
-    const map = convertJsonotronTypesToGraphQLMap(this.enumTypes, this.schemaTypes)
-    return generateGraphQLTypeDefs(map, props)
+  getGraphQLEnumType (): string {
+    return EnumTypeGraphQLDefinition
   }
 
   /**

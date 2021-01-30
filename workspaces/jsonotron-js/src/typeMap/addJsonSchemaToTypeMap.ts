@@ -1,7 +1,7 @@
-import { EnumType, GraphQLMap, GraphQLObjectType, GraphQLObjectTypeProperty } from '../interfaces'
+import { EnumType, TypeMap, TypeMapObject, TypeMapObjectProperty } from '../interfaces'
 
 /**
- * Adds the types found in the given JSON schema to the given GraphQL map.
+ * Adds the types found in the given JSON schema to the given type map.
  * @param domain The domain of the owning Jsonotron schemaType.
  * @param system The system of the owning Jsonotron schemaType.
  * @param proposedTypeName The proposed name of the type, which is either the
@@ -11,10 +11,10 @@ import { EnumType, GraphQLMap, GraphQLObjectType, GraphQLObjectTypeProperty } fr
  * @param arrayCount The number of array elements the current type has
  * been found to be inside.
  * @param jsonSchema A json schema snippet.
- * @param map A map of GraphQL types and references.
+ * @param map A map of types and references.
  * @param enumTypes An array of enum types.
  */
-export function addJsonSchemaToGraphQLMap (domain: string, system: string, proposedTypeName: string, arrayCount: number, jsonSchema: Record<string, unknown>, map: GraphQLMap, enumTypes: EnumType[]): void {
+export function addJsonSchemaToTypeMap (domain: string, system: string, proposedTypeName: string, arrayCount: number, jsonSchema: Record<string, unknown>, map: TypeMap, enumTypes: EnumType[]): void {
   const fqn = `${domain}/${system}/${proposedTypeName}`
 
   if (Array.isArray(jsonSchema.enum)) {
@@ -43,19 +43,19 @@ export function addJsonSchemaToGraphQLMap (domain: string, system: string, propo
     // an array type
     // increase the number of array brackets and resolve the 'items' property
     const innerType = Array.isArray(jsonSchema.items) ? jsonSchema.items[0] : jsonSchema.items
-    addJsonSchemaToGraphQLMap(domain, system, proposedTypeName, arrayCount + 1, innerType as Record<string, unknown>, map, enumTypes)
+    addJsonSchemaToTypeMap(domain, system, proposedTypeName, arrayCount + 1, innerType as Record<string, unknown>, map, enumTypes)
   } else if (jsonSchema.type === 'object' && jsonSchema.additionalProperties === false && typeof jsonSchema.properties === 'object' && jsonSchema.properties !== null) {
     // a child object, which will require it's own GraphQL type.
     // create types for each of the child properties, as we don't know which will require types vs scalars references.
     const objectProperties = jsonSchema.properties as Record<string, unknown>
     const objectRequireds = (jsonSchema.required || []) as string[]
-    const objectSubProperties: GraphQLObjectTypeProperty[] = []
+    const objectSubProperties: TypeMapObjectProperty[] = []
     
     Object.keys(jsonSchema.properties).map(subPropertyName => {
       const isRequired = objectRequireds.includes(subPropertyName)
       const subPropertyTypeName = proposedTypeName + '_' + subPropertyName
       const subProperty = objectProperties[subPropertyName] as Record<string, unknown>
-      addJsonSchemaToGraphQLMap(domain, system, subPropertyTypeName, 0, subProperty, map, enumTypes)
+      addJsonSchemaToTypeMap(domain, system, subPropertyTypeName, 0, subProperty, map, enumTypes)
 
       // pull out field-level documentation if its been provided.
       let documentation = subProperty.documentation as string || ''
@@ -76,7 +76,7 @@ export function addJsonSchemaToGraphQLMap (domain: string, system: string, propo
       name: `${domain}/${system}/${proposedTypeName}`,
       documentation: (jsonSchema.documentation || `The ${proposedTypeName} type.`) as string,
       properties: objectSubProperties
-    } as GraphQLObjectType)
+    } as TypeMapObject)
   } else {
     // type attribute is missing, contains an array or is generally not understood.
     // treat these as JSON.

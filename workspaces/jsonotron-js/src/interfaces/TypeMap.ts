@@ -1,18 +1,18 @@
-import { GraphQLObjectType } from './GraphQLObjectType'
-import { GraphQLRefType } from './GraphQLRefType'
+import { TypeMapObject } from './TypeMapObject'
+import { TypeMapRef } from './TypeMapRef'
 
 /**
  * Represents a map of a GraphQL system built from
  * one or more Jsonotron type systems.
  */
-export interface GraphQLMap {
+export interface TypeMap {
   /**
    * An array of the object types that consist of properties.
    */
-  objectTypes: GraphQLObjectType[]
+  objectTypes: TypeMapObject[]
 
   /**
    * An array of references to other types.
    */
-  refTypes: GraphQLRefType[]
+  refTypes: TypeMapRef[]
 }

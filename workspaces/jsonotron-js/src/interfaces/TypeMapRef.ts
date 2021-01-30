@@ -1,7 +1,7 @@
 /**
  * Represents a reference from one type to another type.
  */
-export interface GraphQLRefType {
+export interface TypeMapRef {
   /**
    * The name of a type.
    */

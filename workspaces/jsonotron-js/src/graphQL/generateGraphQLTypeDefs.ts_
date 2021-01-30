@@ -4,6 +4,25 @@ import { EnumGraphQLTypes } from './EnumGraphQLTypes';
 import { resolveJsonotronTypeToGraphQLType } from './resolveJsonotronTypeToGraphQLType';
 
 /**
+ * Encapsulates the options that can be applied when
+ * generating GraphQL type definitions.
+ */
+export interface GraphQLDefsGenerationProps {
+  /**
+   * True if the EnumType and EnumTypeItem type definitions
+   * should be included in the GraphQL output.
+   */
+  includeEnumTypes?: boolean
+
+  /**
+   * True if the `scalar JSON` declaration should be included
+   * in the GraphQL output.
+   */
+  includeJsonScalar?: boolean
+}
+
+
+/**
  * Generates a GraphQL type definitions string.
  * @param map A GraphQL map.
  * @param props The properties that govern the GraphQL generation.
