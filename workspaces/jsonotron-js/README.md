@@ -2,7 +2,7 @@
 
 A javascript implementation of the [Jsonotron](https://github.com/karlhulme/jsonotron) type system using the JSON schema validation engine [AJV](https://ajv.js.org/).
 
-![](https://github.com/karlhulme/jsonotron-js/workflows/CD/badge.svg)
+![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
 [![npm](https://img.shields.io/npm/v/jsonotron-js.svg)](https://www.npmjs.com/package/jsonotron-js)
 ![npm type definitions](https://img.shields.io/npm/types/typescript)
 

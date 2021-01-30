@@ -2,6 +2,9 @@
 
 An express handler for serving [Jsonotron](https://github.com/karlhulme/jsonotron) types.
 
+![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
+[![npm](https://img.shields.io/npm/v/jsonoserve.svg)](https://www.npmjs.com/package/jsonoserve)
+![npm type definitions](https://img.shields.io/npm/types/typescript)
 
 ## Installation
 

@@ -11,4 +11,4 @@ const jsonotron = new Jsonotron({ types: enumTypes.concat(schemaTypes) })
 
 const markdown = jsonotron.getMarkdownForTypeSystem({ title: 'Jsonotron Standard System', domain: 'https://jsonotron.org', system: 'jss', referencedTypeSystems: [] })
 
-writeFileSync('./docs.autogen.md', markdown)
+writeFileSync('./readme.md', markdown)

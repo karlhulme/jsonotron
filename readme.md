@@ -2,6 +2,9 @@
 
 Jsonotron is a way of describing your own type system for JSON data.
 
+![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
+![npm type definitions](https://img.shields.io/npm/types/typescript)
+
 Jsonotron takes [JSON schema](https://json-schema.org/) and adds documentation, test cases and enumerations.
 
   * Documentation provides a mechanism to capture detailed information on a type's usage.  This includes examples which make it quick to see how a type should be used.  This can be built into a documentation website too.
@@ -17,7 +20,7 @@ This repo includes a set of commonly required types called the `Jsonotron Standa
 
 There are numbers and strings of various lengths.  There are dates and times in a fixed-length format.  There is a money type that incorporates currency and ensures any figures are stored as integers and not floats.
 
-You can define your own but the JSS is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/workspaces/jss/docs.autogen.md)
+You can define your own but the JSS is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/workspaces/jss/readme.md)
 
 
 ### Jsonotron-js
