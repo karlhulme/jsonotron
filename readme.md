@@ -20,9 +20,14 @@ There are numbers and strings of various lengths.  There are dates and times in 
 You can define your own but the JSS is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/workspaces/jss/docs.autogen.md)
 
 
-## Jsonotron-js
+### Jsonotron-js
 
 This repo is a typescript implementation of the Jsonotron engine.
+
+
+### Jsonoserve
+
+This repo contains an express handler for sharing Jsonotron types.  This is typically used with the codegen and the command line to pull the latest type definitions from a central service into the individual services that need them.
 
 
 ## Motivation

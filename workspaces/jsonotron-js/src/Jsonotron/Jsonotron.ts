@@ -269,7 +269,7 @@ export class Jsonotron {
   /**
    * Returns the GraphQL primitive that can be used to store a value
    * of the given enum or schema type.
-   * @param props The properties that dscribe the lookup to perform.
+   * @param props The properties that describe the lookup to perform.
    */
   getGraphQLPrimitiveType (props: GraphQLPrimitiveLookupProps): string {
     const resolvedTypeName = this.resolveTypeName(props.typeName)
