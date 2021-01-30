@@ -150,6 +150,18 @@ If you specify isRequired, then the type will be appended with a required marker
 If you specify both you'll get `[MyType!]!`
 
 
+## Typescript Generation
+
+You can get typescript definitions of your Schema Types that are based on JSON objects.  It works for simple structures.  It doesn't support more advanced structures, such as unions, but these make a poor choice for transportability anyway.
+
+You will not get any output for Schema Types that are based on JSON number, boolean or string.
+
+```javascript
+jsonotron.getTypescriptInterfaces()
+// result is a string with `export interface MyInterface` blocks for each schema type that is an object.
+```
+
+
 ## Design Decisions
 
 Jsonotron creates a separate schema for the array version of each enum and schema type.  This means that a structure can be validated at the field level.  If a field is given the `isArray=true` property, and the supplied value has multiple invalid entries in said array, the field will appear only once in the `StructureValidationResult`.

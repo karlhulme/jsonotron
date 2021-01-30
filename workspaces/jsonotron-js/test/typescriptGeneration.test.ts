@@ -25,41 +25,13 @@ function createJsonotron (): Jsonotron {
   return jsonotron
 }
 
-test('Convert jsonotron types into a type map.', () => {
+test('Generate typescript interfaces.', () => {
   const jsonotron = createJsonotron()
 
-  const map = jsonotron.getTypeMap()
-
-  expect(map.refTypes).toEqual(expect.arrayContaining([
-    { name: 'https://jsonotron.org/test/color', refTypeName: 'String', refTypeArrayCount: 0, isScalarRef: true },
-    { name: 'https://jsonotron.org/test/chore_priority', refTypeName: 'Int', refTypeArrayCount: 0, isScalarRef: true },
-    { name: 'https://jsonotron.org/test/household_familyMemberCount', refTypeName: 'https://jsonotron.org/test/positiveInteger', refTypeArrayCount: 0, isScalarRef: false }
-  ]))
-
-  expect(map.objectTypes).toEqual(expect.arrayContaining([
-    {
-      name: 'https://jsonotron.org/test/chore_location',
-      documentation: 'The chore_location type.',
-      properties: [
-        {
-          propertyName: 'floor',
-          documentation: '',
-          refTypeName: 'https://jsonotron.org/test/chore_location_floor',
-          isRequired: false
-        },
-        {
-          propertyName: 'x',
-          documentation: '',
-          refTypeName: 'https://jsonotron.org/test/chore_location_x',
-          isRequired: false
-        },
-        {
-          propertyName: 'y',
-          documentation: '',
-          refTypeName: 'https://jsonotron.org/test/chore_location_y',
-          isRequired: false
-        }
-      ]
-    }
-  ]))
+  const typescriptInterfaces = jsonotron.getTypescriptInterfaces()
+  expect(typescriptInterfaces).toMatch(/export interface Chore_Location {/)
+  expect(typescriptInterfaces).toMatch(/export interface Chore {/)
+  expect(typescriptInterfaces).toMatch(/associativeArray\?: Record<string, unknown>/)
+  expect(typescriptInterfaces).toMatch(/coordinates\?: number\[]\[]/)
+  expect(typescriptInterfaces).toMatch(/neighbour\?: Household/)
 })
