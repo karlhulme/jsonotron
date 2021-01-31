@@ -1,0 +1,5 @@
+dist/**
+coverage/**
+lib/**
+node_modules/**
+types/**
