@@ -40,7 +40,6 @@
     "@types/node-fetch": "1.6.9",
     "@types/yargs": "11.0.0",
     "node-fetch": "2.6.1",
-    "jsonotron-js": "15.2.1",
     "yargs": "16.2.0"
   },
   "jest": {
