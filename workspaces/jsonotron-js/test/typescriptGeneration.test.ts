@@ -35,3 +35,11 @@ test('Generate typescript interfaces.', () => {
   expect(typescriptInterfaces).toMatch(/coordinates\?: number\[]\[]/)
   expect(typescriptInterfaces).toMatch(/neighbour\?: Household/)
 })
+
+test('Generate typescript enums', () => {
+  const jsonotron = createJsonotron()
+
+  const typescriptEnums = jsonotron.getTypescriptEnums()
+  expect(typescriptEnums).toMatch(/export interface EnumTypeItem/)
+  expect(typescriptEnums).toMatch(/const colorItems: EnumTypeItem\[\]/)
+})

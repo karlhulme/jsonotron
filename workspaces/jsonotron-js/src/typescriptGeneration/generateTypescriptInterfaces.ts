@@ -3,9 +3,8 @@ import { convertJsonotronTypeNameToTypescriptInterfaceName } from './convertJson
 import { resolveJsonotronTypeToTypescriptType } from './resolveJsonotronTypeToTypescriptType'
 
 /**
- * Generates a GraphQL type definitions string.
- * @param map A GraphQL map.
- * @param props The properties that govern the GraphQL generation.
+ * Generates a string containing schema type interfaces in typescript.
+ * @param map A type map.
  */
 export function generateTypescriptInterfaces (map: TypeMap): string {
   const typesString = map.objectTypes

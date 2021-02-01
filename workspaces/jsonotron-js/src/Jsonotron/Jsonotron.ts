@@ -26,7 +26,7 @@ import { InvalidEnumTypeError,
 import { enumTypeSchema, schemaTypeSchema } from '../schemas'
 import { determineGraphQLPrimitiveForSchemaType, EnumTypeGraphQLDefinition } from '../graphQL'
 import { convertJsonotronTypesToTypeMap } from '../typeMap'
-import { generateTypescriptInterfaces } from '../typescriptGeneration/generateTypescriptInterfaces'
+import { generateTypescriptEnums, generateTypescriptInterfaces } from '../typescriptGeneration/'
 
 /**
  * Represents the properties that can be supplied to a Jsonotron constructur.
@@ -298,7 +298,14 @@ export class Jsonotron {
   }
 
   /**
-   * Returns the typescript interfaces for the enum and schema types.
+   * Returns the typescript value structures for the enum types.
+   */
+  getTypescriptEnums (): string {
+    return generateTypescriptEnums(this.enumTypes)
+  }
+
+  /**
+   * Returns the typescript interfaces for the schema types.
    */
   getTypescriptInterfaces (): string {
     const map = convertJsonotronTypesToTypeMap(this.enumTypes, this.schemaTypes)
