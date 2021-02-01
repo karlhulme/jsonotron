@@ -9,7 +9,7 @@ import { Jsonotron } from 'jsonotron-js'
  */
 function generateCodeFromJsonotron (jsonotron: Jsonotron, path: string): string {
   if (path.endsWith('.ts')) {
-    return jsonotron.getTypescriptInterfaces()
+    return jsonotron.getTypescriptEnums() + '\n\n' + jsonotron.getTypescriptInterfaces()
   } else {
     throw new Error(`Extension of path not recognised.`)
   }
