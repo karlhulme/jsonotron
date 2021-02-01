@@ -19,7 +19,7 @@ export function generateTypescriptEnums (enumTypes: EnumType[]): string {
       const itemLines = e.items.map(item => {
         const documentation = item.documentation ? `  /**\n   * ${item.documentation}\n   */\n` : ''
         const deprecated = item.deprecated ? `, deprecated: '${escapeStr(item.deprecated)}'` : ''
-        const symbol = item.symbol ? `, symbol: ${escapeStr(item.symbol)}` : ''
+        const symbol = item.symbol ? `, symbol: '${escapeStr(item.symbol)}'` : ''
         return `${documentation}  { value: '${item.value}', text: '${escapeStr(item.text)}'${deprecated}${symbol} }`
       })
 
