@@ -13,5 +13,4 @@ test('The enum and schema types of the jsonotron standard library are valid.', (
   expect(() => jsonotron.getEnumTypes()).not.toThrow()
   expect(() => jsonotron.getSchemaTypes()).not.toThrow()
   expect(() => jsonotron.getMarkdownForTypeSystem({ domain: 'https://jsonotron.org', system: 'jss', title: 'Docs', referencedTypeSystems: [] })).not.toThrow()
-  expect(() => jsonotron.getGraphQLDefsForTypeSystems({})).not.toThrow()
 })
