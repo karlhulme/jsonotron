@@ -24,7 +24,7 @@ export function generateTypescriptEnums (enumTypes: EnumType[]): string {
       })
 
       const docBlock = `/**\n * ${e.documentation}\n */\n`
-      return `${docBlock}const ${e.name}Items: EnumTypeItem[] = [\n${itemLines.join(',\n\n')}\n]\n`
+      return `${docBlock}export const ${e.name}Items: EnumTypeItem[] = [\n${itemLines.join(',\n\n')}\n]\n`
     })
     .join('\n')
 
