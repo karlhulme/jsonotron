@@ -37,7 +37,7 @@ export function resolveJsonotronTypeToTypescriptType (fqnTypeName: string, array
   // we matched an object type, so we need to return it but apply formatting.
   /* istanbul ignore else */
   if (matchedObjectType) {
-    return appendArrayIndicators(arrayCount, convertJsonotronTypeNameToTypescriptInterfaceName(matchedObjectType.name))
+    return appendArrayIndicators(arrayCount + matchedObjectType.objectTypeArrayCount, convertJsonotronTypeNameToTypescriptInterfaceName(matchedObjectType.name))
   } else {
     // we failed to resolve the type name
     return 'Type_Not_Resolved'

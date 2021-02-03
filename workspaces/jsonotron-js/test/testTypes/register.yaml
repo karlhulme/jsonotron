@@ -1,0 +1,50 @@
+---
+kind: schema
+domain: https://jsonotron.org
+system: test
+name: register
+title: Register
+documentation: Represents a type of register.
+examples:
+- value:
+    registerName: test register
+    capacities:
+    - minAge: 3
+      maxAge: 6
+      places: 2
+    - minAge: 12
+      maxAge: 18
+      places: 5
+  documentation: An example of a test register.
+validTestCases: []
+invalidTestCases:
+- 999999
+- true
+- a house
+- {}
+- []
+jsonSchema:
+  type: object
+  additionalProperties: false
+  properties:
+    registerName:
+      "$ref": "https://jsonotron.org/test/string"
+    capacities:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        properties:
+          minAge:
+            "$ref": "positiveInteger"
+          maxAge:
+            "$ref": "https://jsonotron.org/test/positiveInteger"
+          places:
+            "$ref": "https://jsonotron.org/test/positiveInteger"
+        required:
+        - minAge
+        - maxAge
+        - places
+  required:
+  - registerName
+  - capacities

@@ -11,6 +11,7 @@ function createJsonotron (): Jsonotron {
   const householdType = fs.readFileSync('./test/testTypes/household.yaml', 'utf-8')
   const positiveFloatType = fs.readFileSync('./test/testTypes/positiveFloat.yaml', 'utf-8')
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
+  const registerType = fs.readFileSync('./test/testTypes/register.yaml', 'utf-8')
   const shortStringType = fs.readFileSync('./test/testTypes/shortString.yaml', 'utf-8')
   const stringType = fs.readFileSync('./test/testTypes/string.yaml', 'utf-8')
   const what3WordsType = fs.readFileSync('./test/testTypes/what3words.yaml', 'utf-8')
@@ -18,7 +19,7 @@ function createJsonotron (): Jsonotron {
   const jsonotron = new Jsonotron({
     types: [
       booleanType, choreType, colorType, directionType, geoJsonPolygonType, householdType,
-      positiveFloatType,  positiveIntegerType, shortStringType, stringType, what3WordsType
+      positiveFloatType,  positiveIntegerType, registerType, shortStringType, stringType, what3WordsType
     ]
   })
 
@@ -30,6 +31,9 @@ test('Convert jsonotron types into a type map.', () => {
 
   const map = jsonotron.getTypeMap()
 
+  // output the map - useful when debugging
+  console.log(JSON.stringify(map, null, 2))
+
   expect(map.refTypes).toEqual(expect.arrayContaining([
     { name: 'https://jsonotron.org/test/color', refTypeName: 'String', refTypeArrayCount: 0, isScalarRef: true },
     { name: 'https://jsonotron.org/test/chore_priority', refTypeName: 'Int', refTypeArrayCount: 0, isScalarRef: true },
@@ -40,6 +44,7 @@ test('Convert jsonotron types into a type map.', () => {
     {
       name: 'https://jsonotron.org/test/chore_location',
       documentation: 'The chore_location type.',
+      objectTypeArrayCount: 0,
       properties: [
         {
           propertyName: 'floor',
@@ -60,6 +65,15 @@ test('Convert jsonotron types into a type map.', () => {
           isRequired: false
         }
       ]
+    }
+  ]))
+
+  expect(map.objectTypes).toEqual(expect.arrayContaining([
+    {
+      name: "https://jsonotron.org/test/register_capacities",
+      documentation: "The register_capacities type.",
+      objectTypeArrayCount: 1,
+      properties: expect.any(Array)
     }
   ]))
 })

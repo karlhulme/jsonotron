@@ -45,7 +45,7 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
     const innerType = Array.isArray(jsonSchema.items) ? jsonSchema.items[0] : jsonSchema.items
     addJsonSchemaToTypeMap(domain, system, proposedTypeName, arrayCount + 1, innerType as Record<string, unknown>, map, enumTypes)
   } else if (jsonSchema.type === 'object' && jsonSchema.additionalProperties === false && typeof jsonSchema.properties === 'object' && jsonSchema.properties !== null) {
-    // a child object, which will require it's own GraphQL type.
+    // a child object, which will require it's own type.
     // create types for each of the child properties, as we don't know which will require types vs scalars references.
     const objectProperties = jsonSchema.properties as Record<string, unknown>
     const objectRequireds = (jsonSchema.required || []) as string[]
@@ -75,6 +75,7 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
     map.objectTypes.push({
       name: `${domain}/${system}/${proposedTypeName}`,
       documentation: (jsonSchema.documentation || `The ${proposedTypeName} type.`) as string,
+      objectTypeArrayCount: arrayCount,
       properties: objectSubProperties
     } as TypeMapObject)
   } else {

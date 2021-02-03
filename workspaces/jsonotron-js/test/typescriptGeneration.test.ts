@@ -11,6 +11,7 @@ function createJsonotron (): Jsonotron {
   const householdType = fs.readFileSync('./test/testTypes/household.yaml', 'utf-8')
   const positiveFloatType = fs.readFileSync('./test/testTypes/positiveFloat.yaml', 'utf-8')
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
+  const registerType = fs.readFileSync('./test/testTypes/register.yaml', 'utf-8')
   const shortStringType = fs.readFileSync('./test/testTypes/shortString.yaml', 'utf-8')
   const stringType = fs.readFileSync('./test/testTypes/string.yaml', 'utf-8')
   const what3WordsType = fs.readFileSync('./test/testTypes/what3words.yaml', 'utf-8')
@@ -18,7 +19,7 @@ function createJsonotron (): Jsonotron {
   const jsonotron = new Jsonotron({
     types: [
       booleanType, choreType, colorType, directionType, geoJsonPolygonType, householdType,
-      positiveFloatType,  positiveIntegerType, shortStringType, stringType, what3WordsType
+      positiveFloatType, positiveIntegerType, registerType, shortStringType, stringType, what3WordsType
     ]
   })
 
@@ -34,6 +35,8 @@ test('Generate typescript interfaces.', () => {
   expect(typescriptInterfaces).toMatch(/associativeArray\?: Record<string, unknown>/)
   expect(typescriptInterfaces).toMatch(/coordinates\?: number\[]\[]/)
   expect(typescriptInterfaces).toMatch(/neighbour\?: Household/)
+  expect(typescriptInterfaces).toMatch(/export interface Register {/)
+  expect(typescriptInterfaces).toMatch(/capacities\?: Register_Capacities\[]/)
 })
 
 test('Generate typescript enums', () => {

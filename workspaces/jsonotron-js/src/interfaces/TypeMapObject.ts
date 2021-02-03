@@ -16,6 +16,11 @@ export interface TypeMapObject {
    * The properties of the object.
    */
   properties: TypeMapObjectProperty[]
+
+  /**
+   * The number of array wrappers around the object type.
+   */
+  objectTypeArrayCount: number
 }
 
 /**
