@@ -161,6 +161,25 @@ jsonotron.getTypescriptInterfaces()
 // result is a string with `export interface MyInterface` blocks for each schema type that is an object.
 ```
 
+You can get all the enum definitions as a const array of EnumTypeItem objects.
+
+```javascript
+jsonotron.getTypescriptEnums()
+```
+
+You can all the type names a const declaration, with a parent node for each system.
+
+```javascript
+jsonotron.getTypescriptTypeNamesConst()
+// export const JsonotronTypeNames = {
+//   test: {
+//     color: 'https://jsonotron.org/test/color',
+//     direction: 'https://jsonotron.org/test/direction',
+//     geoJsonPolygon: 'https://jsonotron.org/test/geoJsonPolygon',
+//   }
+// }
+```
+
 
 ## Design Decisions
 
