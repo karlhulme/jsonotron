@@ -32,7 +32,7 @@ test('Convert jsonotron types into a type map.', () => {
   const map = jsonotron.getTypeMap()
 
   // output the map - useful when debugging
-  console.log(JSON.stringify(map, null, 2))
+  // console.log(JSON.stringify(map, null, 2))
 
   expect(map.refTypes).toEqual(expect.arrayContaining([
     { name: 'https://jsonotron.org/test/color', refTypeName: 'String', refTypeArrayCount: 0, isScalarRef: true },

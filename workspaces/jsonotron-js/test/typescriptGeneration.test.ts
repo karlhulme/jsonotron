@@ -46,3 +46,13 @@ test('Generate typescript enums', () => {
   expect(typescriptEnums).toMatch(/export interface EnumTypeItem/)
   expect(typescriptEnums).toMatch(/const colorItems: EnumTypeItem\[\]/)
 })
+
+test('Generate typescript const declaration of types', () => {
+  const jsonotron = createJsonotron()
+
+  const typescriptTypNamesConst = jsonotron.getTypescriptTypeNamesConst()
+  console.log(typescriptTypNamesConst)
+  expect(typescriptTypNamesConst).toMatch(/export const JsonotronTypeNames/)
+  expect(typescriptTypNamesConst).toMatch(/test: {/)
+  expect(typescriptTypNamesConst).toMatch(/color: 'https:\/\/jsonotron.org\/test\/color'/)
+})
