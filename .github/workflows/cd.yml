@@ -30,7 +30,6 @@ jobs:
       run: |
         cd workspaces/jss
         npm test
-        npm run generate-docs
     - name: Test jsonoserve
       run: |
         cd workspaces/jsonoserve
