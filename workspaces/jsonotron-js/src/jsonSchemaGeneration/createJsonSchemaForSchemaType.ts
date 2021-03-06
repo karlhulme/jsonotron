@@ -1,4 +1,4 @@
-import { SchemaType } from '../interfaces'
+import { SchemaType } from 'jsonotron-interfaces'
 import { JSON_SCHEMA_DECLARATION } from './consts'
 import clone from 'clone-deep'
 

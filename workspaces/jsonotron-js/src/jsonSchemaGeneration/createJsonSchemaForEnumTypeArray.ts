@@ -1,4 +1,4 @@
-import { EnumType } from '../interfaces'
+import { EnumType } from 'jsonotron-interfaces'
 import { JSON_SCHEMA_DECLARATION } from './consts'
 
 /**
