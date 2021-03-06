@@ -18,8 +18,8 @@ function generateCodeFromJsonotron (jsonotron: Jsonotron, path: string): string 
 }
 
 /**
- * Clone the systems at a remote jsonoserve server and store them
- * as local JSON files.
+ * Retrieve the enum and schema types from a remote
+ * Jsonotron server and use them to generate code.
  * @param serverUrl The url of a jsonoserve server.
  * @param path: The target path for the output file.
  */
