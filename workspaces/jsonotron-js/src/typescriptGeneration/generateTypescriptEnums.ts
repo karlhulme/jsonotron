@@ -2,6 +2,26 @@ import { EnumType } from '../interfaces'
 import { camelToSnakeCase, escapeStr } from '../utils'
 
 /**
+ * Prefixes an underscore to the given value if the first
+ * character is not a letter, otherwise returns the value unchanged.
+ * @param value The value to check.
+ */
+function ensureInitialCharacter (value: string) {
+  return (/^[a-zA-Z]/.test(value))
+    ? value
+    : '_' + value
+}
+
+/**
+ * Returns the given value but any characters that are not valid
+ * in a typescript property name converted to an underscore.
+ * @param value The value to check.
+ */
+function ensureValidTypescriptPropertyCharacters (value: string) {
+  return value.replace(/[^a-zA-Z0-9]/g, '_')
+}
+
+/**
  * Generates a string containing enum types in typescript.
  * @param enumTypes An array of enum types.
  */
@@ -32,7 +52,7 @@ export function generateTypescriptEnums (enumTypes: EnumType[]): string {
     .map(e => {
       const valueLines = e.items.map(item => {
         const documentation = item.documentation ? `  /**\n   * ${item.documentation}\n   */\n` : ''
-        return `${documentation}  ${item.value}: '${item.value}'`
+        return `${documentation}  ${ensureInitialCharacter(ensureValidTypescriptPropertyCharacters(item.value))}: '${item.value}'`
       })
 
       const docBlock = `/**\n * ${e.documentation}\n */\n`
