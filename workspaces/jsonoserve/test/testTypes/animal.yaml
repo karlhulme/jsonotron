@@ -6,8 +6,10 @@ name: animal
 title: Animal
 documentation: An animal.
 examples:
-- name: dog
-  numberOfLegs: 4
+- value:
+    name: dog
+    numberOfLegs: 4
+  documentation: An example
 validTestCases:
 - name: dog
   numberOfLegs: 4
@@ -31,4 +33,4 @@ jsonSchema:
       type: integer
   required:
   - name
-    numberOfLegs
+  - numberOfLegs
