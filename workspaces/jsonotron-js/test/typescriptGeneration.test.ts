@@ -43,16 +43,17 @@ test('Generate typescript enums', () => {
   const jsonotron = createJsonotron()
 
   const typescriptEnums = jsonotron.getTypescriptEnums()
+
   expect(typescriptEnums).toMatch(/export interface EnumTypeItem/)
   expect(typescriptEnums).toMatch(/const colorItems: EnumTypeItem\[\]/)
+  expect(typescriptEnums).toMatch(/export const DIRECTION_VALUES/)
+  expect(typescriptEnums).toMatch(/up: 'up'/)
 })
 
 test('Generate typescript const declaration of types', () => {
   const jsonotron = createJsonotron()
 
   const typescriptTypNamesConst = jsonotron.getTypescriptTypeNamesConst()
-  console.log(typescriptTypNamesConst)
-  expect(typescriptTypNamesConst).toMatch(/export const JsonotronTypeNames/)
-  expect(typescriptTypNamesConst).toMatch(/test: {/)
+  expect(typescriptTypNamesConst).toMatch(/export const JTYPES/)
   expect(typescriptTypNamesConst).toMatch(/color: 'https:\/\/jsonotron.org\/test\/color'/)
 })

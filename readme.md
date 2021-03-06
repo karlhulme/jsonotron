@@ -246,6 +246,9 @@ The definitions are stored as YAML (rather than JSON) for two reasons:
 
 Jsonotron enforces seperate fields for `domain`, `system` and `name` on each type.  This allows documentation to be built with appropriate headers for the key components of the system.  A single URI could not be unambiguously unpicked. 
 
+The use of namespaces allows different systems to exist.  This is useful because the standard system (JSS) that defines lots of types that you wouldn't want to define manually on every project.  However, the namespacing should not be used within a client project, so the codegen tools discard the namespace as much as possible.  When a name collision exists, the codegen tools should be configured to alias one of the offending types to a new name.
+
+The ability to share the types among multiple services is particularly useful when it comes to enum values.  These are often used in multiple services and not having to define them multiple places is a win.
 
 ## Continuous Deployment
 

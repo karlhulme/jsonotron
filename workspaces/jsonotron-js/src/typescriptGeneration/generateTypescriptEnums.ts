@@ -1,5 +1,5 @@
 import { EnumType } from '../interfaces'
-import { escapeStr } from '../utils'
+import { camelToSnakeCase, escapeStr } from '../utils'
 
 /**
  * Generates a string containing enum types in typescript.
@@ -14,7 +14,7 @@ export function generateTypescriptEnums (enumTypes: EnumType[]): string {
     `  /**\n   * A symbol associated with the item.\n   */\n  symbol?: string\n` +
     `}\n\n`
 
-  const enumsString = enumTypes
+  const enumItemsString = enumTypes
     .map(e => {
       const itemLines = e.items.map(item => {
         const documentation = item.documentation ? `  /**\n   * ${item.documentation}\n   */\n` : ''
@@ -28,5 +28,17 @@ export function generateTypescriptEnums (enumTypes: EnumType[]): string {
     })
     .join('\n')
 
-  return enumTypeItemString + enumsString
+  const enumConstsString = enumTypes
+    .map(e => {
+      const valueLines = e.items.map(item => {
+        const documentation = item.documentation ? `  /**\n   * ${item.documentation}\n   */\n` : ''
+        return `${documentation}  ${item.value}: '${item.value}'`
+      })
+
+      const docBlock = `/**\n * ${e.documentation}\n */\n`
+      return `${docBlock}export const ${camelToSnakeCase(e.name).toUpperCase()}_VALUES = {\n${valueLines.join(',\n\n')}\n}\n`
+    })
+    .join('\n')
+
+  return enumTypeItemString + enumItemsString + enumConstsString
 }
