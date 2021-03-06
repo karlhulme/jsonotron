@@ -2,12 +2,12 @@ import { Request, Response } from 'express'
 import { Jsonotron } from 'jsonotron-js'
 
 /**
- * Handles a request for enum and schema types.
+ * Handles a request for a type map.
  * @param req An express request.
  * @param res An express response.
  * @param jsonotron A jsonotron.
  */
-export function getTypesHandler (req: Request, res: Response, jsonotron: Jsonotron): void {
+export function getMapHandler (req: Request, res: Response, jsonotron: Jsonotron): void {
   if (typeof req.query.n !== 'string') {
     res.status(400).send('Must supply query parameter \'n\' that lists the requested type systems.')
     return
@@ -15,11 +15,9 @@ export function getTypesHandler (req: Request, res: Response, jsonotron: Jsonotr
 
   const systems = (req.query.n as string).split(',').filter(s => s)
 
-  const enumTypes = jsonotron.getEnumTypes(systems)
-  const schemaTypes = jsonotron.getSchemaTypes(systems)
+  const typeMap = jsonotron.getTypeMap(systems)
 
   res.json({
-    enumTypes,
-    schemaTypes
+    typeMap
   })
 }
