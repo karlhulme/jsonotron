@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from 'fs/promises'
+import { EnumType, SchemaType } from 'jsonotron-interfaces'
 import fetch from 'node-fetch'
 
 /**
@@ -37,39 +38,26 @@ export async function clone (serverUrl: string, dir: string, systems: string[]):
   const types = await typesResponse.json()
 
   // loop over the enums
-  for (const enumType of types.enumTypes) {
+  for (const enumType of types.enumTypes as EnumType[]) {
+    // convert the full type to a shorter name by dropping protocol
+    const shortDomain = enumType.domain.replace('http://', '').replace('https://', '')
 
+    // choose a target path for the json file
+    const targetPath = `${normalisedDir}${shortDomain}_${enumType.system}_${enumType.name}.json`
+ 
+    // write out the json file
+    await writeFile(targetPath, JSON.stringify(enumType, null, 2), 'utf8')
   }
 
-  // loop over the systems
-  for (const system of systemsJson.systems) {
-    // build the url for a system
-    const systemUrl = `${systemsUrl}/${encodeURIComponent(system.domain + '/' + system.system)}`
+  // loop over the schemas
+  for (const schemaType of types.schemaTypes as SchemaType[]) {
+    // convert the full type to a shorter name by dropping protocol
+    const shortDomain = schemaType.domain.replace('http://', '').replace('https://', '')
 
-    // fetch the types for the system
-    const systemResult = await fetch(systemUrl)
-
-    // check the result of the fetch
-    if (systemResult.status !== 200) {
-      throw new Error('Unable to retrieve system from server:\n' +
-        `Response code ${systemsResult.status}\n` +
-        `${await systemsResult.text()}`
-      )
-    }
-
-    // convert the result to json
-    const systemJson = await systemResult.json()
-
-    // loop over the types
-    for (const typeElement of systemJson.types) {
-      // convert the full type to a shorter name by dropping domain
-      const shortDomain = typeElement.domain.replace('http://', '').replace('https://', '')
-
-      // choose a target path for the json file
-      const targetPath = `${normalisedDir}${shortDomain}_${typeElement.system}_${typeElement.name}.json`
-
-      // write out the json file
-      await writeFile(targetPath, typeElement.definition, 'utf8')
-    }
+    // choose a target path for the json file
+    const targetPath = `${normalisedDir}${shortDomain}_${schemaType.system}_${schemaType.name}.json`
+ 
+    // write out the json file
+    await writeFile(targetPath, JSON.stringify(schemaType, null, 2), 'utf8')
   }
 }

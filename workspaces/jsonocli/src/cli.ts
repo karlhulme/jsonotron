@@ -8,7 +8,7 @@ function run () {
   // calling `.parse` is the trigger for validating the inputs and executing the commands.
   yargs
     .command(
-      'clone <server> <dir> <systems>',
+      'clone <server> <dir> <systems..>',
       'Clone remote systems to local directory',
       args => {
         yargs.positional('server', { describe: 'Url of server', type: 'string' })
