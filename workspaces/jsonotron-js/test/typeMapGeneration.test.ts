@@ -29,7 +29,7 @@ function createJsonotron (): Jsonotron {
 test('Convert jsonotron types into a type map.', () => {
   const jsonotron = createJsonotron()
 
-  const map = jsonotron.getTypeMap()
+  const map = jsonotron.getTypeMap(['https://jsonotron.org/test'])
 
   // output the map - useful when debugging
   // console.log(JSON.stringify(map, null, 2))
@@ -76,4 +76,16 @@ test('Convert jsonotron types into a type map.', () => {
       properties: expect.any(Array)
     }
   ]))
+})
+
+test('Return empty type map if systems not found.', () => {
+  const jsonotron = createJsonotron()
+
+  const emptyMap = jsonotron.getTypeMap()
+  expect(emptyMap.objectTypes).toHaveLength(0)
+  expect(emptyMap.refTypes).toHaveLength(0)
+
+  const emptyMap2 = jsonotron.getTypeMap([])
+  expect(emptyMap2.objectTypes).toHaveLength(0)
+  expect(emptyMap2.refTypes).toHaveLength(0)
 })

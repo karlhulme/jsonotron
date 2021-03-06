@@ -185,33 +185,41 @@ export class Jsonotron {
   }
 
   /**
-   * Returns an array of Enum types.
+   * Returns an array of the enum types that are
+   * part of any of the given systems.
    */
-  getEnumTypes (): EnumType[] {
-    return this.enumTypes.map(e => cloneDeep<EnumType>(e))
+  getEnumTypes (systems?: string[]): EnumType[] {
+    return this.enumTypes
+      .filter(e => (systems || []).includes(`${e.domain}/${e.system}`))
+      .map(e => cloneDeep<EnumType>(e))
   }
 
   /**
    * Returns an array of Schema types.
    */
-  getSchemaTypes (): SchemaType[] {
-    return this.schemaTypes.map(e => cloneDeep<SchemaType>(e))
+  getSchemaTypes (systems?: string[]): SchemaType[] {
+    return this.schemaTypes
+      .filter(s => (systems ||[]).includes(`${s.domain}/${s.system}`))
+      .map(s => cloneDeep<SchemaType>(s))
   }
 
   /**
    * Returns a type map of all the enum and schema types.
    */
-  getTypeMap (): TypeMap {
-    return convertJsonotronTypesToTypeMap(this.enumTypes, this.schemaTypes)
+  getTypeMap (systems?: string[]): TypeMap {
+    return convertJsonotronTypesToTypeMap(
+      this.enumTypes.filter(e => (systems || []).includes(`${e.domain}/${e.system}`)),
+      this.schemaTypes.filter(s => (systems ||[]).includes(`${s.domain}/${s.system}`))
+    )
   }
 
   /**
    * Validates the given value against the given enum or schema type.
-   * @param type The name of an enum or schema type.
+   * @param fullyQualifiedTypeName The name of an enum or schema type.
    * @param value Any value.
    */
-  validateValue (typeName: string, value: unknown): ValueValidationResult {
-    const validator = this.ajv.getSchema(typeName)
+  validateValue (fullyQualifiedTypeName: string, value: unknown): ValueValidationResult {
+    const validator = this.ajv.getSchema(fullyQualifiedTypeName)
 
     if (!validator) {
       return { resolved: false, validated: false, message: 'Unrecognised type.' }
@@ -226,11 +234,11 @@ export class Jsonotron {
 
   /**
    * Validates the given array against the given enum or schema type.
-   * @param typeName The name of an enum or schema type.
+   * @param fullyQualifiedTypeName The name of an enum or schema type.
    * @param value Any array value.
    */
-  validateValueArray (typeName: string, value: Array<unknown>): ValueValidationResult {
-    return this.validateValue((typeName) + '/array', value)
+  validateValueArray (fullyQualifiedTypeName: string, value: Array<unknown>): ValueValidationResult {
+    return this.validateValue((fullyQualifiedTypeName) + '/array', value)
   }
 
   /**
