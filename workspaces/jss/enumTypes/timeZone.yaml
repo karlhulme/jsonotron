@@ -518,57 +518,57 @@ items:
   text: Australia/Sydney (+10:00, DST +11:00)
 - value: etc/gmt
   text: Etc/GMT (+00:00, DST +00:00)
-- value: etc/gmt+1
+- value: etc/gmt-plus-1
   text: Etc/GMT+1 (−01:00, DST −01:00)
-- value: etc/gmt+10
+- value: etc/gmt-plus-10
   text: Etc/GMT+10 (−10:00, DST −10:00)
-- value: etc/gmt+11
+- value: etc/gmt-plus-11
   text: Etc/GMT+11 (−11:00, DST −11:00)
-- value: etc/gmt+12
+- value: etc/gmt-plus-12
   text: Etc/GMT+12 (−12:00, DST −12:00)
-- value: etc/gmt+2
+- value: etc/gmt-plus-2
   text: Etc/GMT+2 (−02:00, DST −02:00)
-- value: etc/gmt+3
+- value: etc/gmt-plus-3
   text: Etc/GMT+3 (−03:00, DST −03:00)
-- value: etc/gmt+4
+- value: etc/gmt-plus-4
   text: Etc/GMT+4 (−04:00, DST −04:00)
-- value: etc/gmt+5
+- value: etc/gmt-plus-5
   text: Etc/GMT+5 (−05:00, DST −05:00)
-- value: etc/gmt+6
+- value: etc/gmt-plus-6
   text: Etc/GMT+6 (−06:00, DST −06:00)
-- value: etc/gmt+7
+- value: etc/gmt-plus-7
   text: Etc/GMT+7 (−07:00, DST −07:00)
-- value: etc/gmt+8
+- value: etc/gmt-plus-8
   text: Etc/GMT+8 (−08:00, DST −08:00)
-- value: etc/gmt+9
+- value: etc/gmt-plus-9
   text: Etc/GMT+9 (−09:00, DST −09:00)
-- value: etc/gmt-1
+- value: etc/gmt-minus-1
   text: Etc/GMT-1 (+01:00, DST +01:00)
-- value: etc/gmt-10
+- value: etc/gmt-minus-10
   text: Etc/GMT-10 (+10:00, DST +10:00)
-- value: etc/gmt-11
+- value: etc/gmt-minus-11
   text: Etc/GMT-11 (+11:00, DST +11:00)
-- value: etc/gmt-12
+- value: etc/gmt-minus-12
   text: Etc/GMT-12 (+12:00, DST +12:00)
-- value: etc/gmt-13
+- value: etc/gmt-minus-13
   text: Etc/GMT-13 (+13:00, DST +13:00)
-- value: etc/gmt-14
+- value: etc/gmt-minus-14
   text: Etc/GMT-14 (+14:00, DST +14:00)
-- value: etc/gmt-2
+- value: etc/gmt-minus-2
   text: Etc/GMT-2 (+02:00, DST +02:00)
-- value: etc/gmt-3
+- value: etc/gmt-minus-3
   text: Etc/GMT-3 (+03:00, DST +03:00)
-- value: etc/gmt-4
+- value: etc/gmt-minus-4
   text: Etc/GMT-4 (+04:00, DST +04:00)
-- value: etc/gmt-5
+- value: etc/gmt-minus-5
   text: Etc/GMT-5 (+05:00, DST +05:00)
-- value: etc/gmt-6
+- value: etc/gmt-minus-6
   text: Etc/GMT-6 (+06:00, DST +06:00)
-- value: etc/gmt-7
+- value: etc/gmt-minus-7
   text: Etc/GMT-7 (+07:00, DST +07:00)
-- value: etc/gmt-8
+- value: etc/gmt-minus-8
   text: Etc/GMT-8 (+08:00, DST +08:00)
-- value: etc/gmt-9
+- value: etc/gmt-minus-9
   text: Etc/GMT-9 (+09:00, DST +09:00)
 - value: etc/utc
   text: Etc/UTC (+00:00, DST +00:00)
