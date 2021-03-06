@@ -1,6 +1,5 @@
 import { mkdir, writeFile } from 'fs/promises'
-import { EnumType, SchemaType } from 'jsonotron-interfaces'
-import fetch from 'node-fetch'
+import { fetchTypes } from './fetchTypes'
 
 /**
  * Clone the systems at a remote jsonoserve server and store them
@@ -10,10 +9,6 @@ import fetch from 'node-fetch'
  * @param systems An array of systems names.
  */
 export async function clone (serverUrl: string, dir: string, systems: string[]): Promise<void> {
-  // normalise the server url
-  const normalisedUrl = serverUrl.endsWith('/') ? serverUrl : serverUrl + '/'
-  const typesUrl = normalisedUrl + 'types'
-
   // normalise the path
   const normalisedDir = dir.endsWith('/') ? dir : dir + '/'
   if (!normalisedDir.startsWith('.')) {
@@ -24,21 +19,10 @@ export async function clone (serverUrl: string, dir: string, systems: string[]):
   await mkdir(normalisedDir, { recursive: true })
   
   // fetch the list of systems
-  const typesResponse = await fetch(`${typesUrl}?n=${systems.map(s => encodeURIComponent(s)).join(',')}`)
-
-  // check the result of the fetch
-  if (typesResponse.status !== 200) {
-    throw new Error('Unable to retrieve systems from server:\n' +
-      `Response code ${typesResponse.status}\n` +
-      `${await typesResponse.text()}`
-    )
-  }
-
-  // convert the response to json
-  const types = await typesResponse.json()
+  const types = await fetchTypes(serverUrl, systems)
 
   // loop over the enums
-  for (const enumType of types.enumTypes as EnumType[]) {
+  for (const enumType of types.enumTypes) {
     // convert the full type to a shorter name by dropping protocol
     const shortDomain = enumType.domain.replace('http://', '').replace('https://', '')
 
@@ -50,7 +34,7 @@ export async function clone (serverUrl: string, dir: string, systems: string[]):
   }
 
   // loop over the schemas
-  for (const schemaType of types.schemaTypes as SchemaType[]) {
+  for (const schemaType of types.schemaTypes) {
     // convert the full type to a shorter name by dropping protocol
     const shortDomain = schemaType.domain.replace('http://', '').replace('https://', '')
 

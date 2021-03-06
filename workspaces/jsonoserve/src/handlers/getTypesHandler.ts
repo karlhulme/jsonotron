@@ -2,7 +2,8 @@ import { Request, Response } from 'express'
 import { Jsonotron } from 'jsonotron-js'
 
 /**
- * Handles a request for enum and schema types.
+ * Handles a request for a set of types covering enum types,
+ * schema types and a corresponding type map.
  * @param req An express request.
  * @param res An express response.
  * @param jsonotron A jsonotron.
@@ -17,9 +18,11 @@ export function getTypesHandler (req: Request, res: Response, jsonotron: Jsonotr
 
   const enumTypes = jsonotron.getEnumTypes(systems)
   const schemaTypes = jsonotron.getSchemaTypes(systems)
+  const typeMap = jsonotron.getTypeMap(systems)
 
   res.json({
     enumTypes,
-    schemaTypes
+    schemaTypes,
+    typeMap
   })
 }

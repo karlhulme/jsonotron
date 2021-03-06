@@ -1,6 +1,6 @@
 import { Request, RequestHandler, Response } from 'express'
 import { Jsonotron } from 'jsonotron-js'
-import { getMapHandler, getTypesHandler } from '../handlers'
+import { getTypesHandler } from '../handlers'
 
 /**
  * Represents the properties of a sengi express constructor.
@@ -19,8 +19,6 @@ export function createJsonoserveExpress (props: JsonoserveConstructorProps): Req
   return async (req: Request, res: Response): Promise<void> => {
     if (req.method === 'GET' && req.path === '/types') {
       getTypesHandler(req, res, jsonotron)
-    } else if (req.method === 'GET' && req.path === '/map') {
-      getMapHandler(req, res, jsonotron)
     } else {
       res.status(404).end()
     }
