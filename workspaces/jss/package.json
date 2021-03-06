@@ -2,7 +2,7 @@
   "name": "jss",
   "description": "Jsonotron Standard (Types) System.",
   "scripts": {
-    "test": "jest && npm run generate-docs",
+    "test": "jest",
     "generate-docs": "node ./scripts/generate-docs.js",
     "reinstall": "rm -rf node_modules && npm install"
   },
