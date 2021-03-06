@@ -6,11 +6,12 @@ import fetch from 'node-fetch'
  * as local JSON files.
  * @param serverUrl The url of a jsonoserve server.
  * @param dir The folder to write the files too.
+ * @param systems An array of systems names.
  */
-export async function clone (serverUrl: string, dir: string): Promise<void> {
+export async function clone (serverUrl: string, dir: string, systems: string[]): Promise<void> {
   // normalise the server url
   const normalisedUrl = serverUrl.endsWith('/') ? serverUrl : serverUrl + '/'
-  const systemsUrl = normalisedUrl + 'systems'
+  const typesUrl = normalisedUrl + 'types'
 
   // normalise the path
   const normalisedDir = dir.endsWith('/') ? dir : dir + '/'
@@ -20,20 +21,25 @@ export async function clone (serverUrl: string, dir: string): Promise<void> {
 
   // ensure all the directories are created
   await mkdir(normalisedDir, { recursive: true })
-
+  
   // fetch the list of systems
-  const systemsResult = await fetch(systemsUrl)
+  const typesResponse = await fetch(`${typesUrl}?n=${systems.map(s => encodeURIComponent(s)).join(',')}`)
 
   // check the result of the fetch
-  if (systemsResult.status !== 200) {
+  if (typesResponse.status !== 200) {
     throw new Error('Unable to retrieve systems from server:\n' +
-      `Response code ${systemsResult.status}\n` +
-      `${await systemsResult.text()}`
+      `Response code ${typesResponse.status}\n` +
+      `${await typesResponse.text()}`
     )
   }
 
-  // convert the systems to json
-  const systemsJson = await systemsResult.json()
+  // convert the response to json
+  const types = await typesResponse.json()
+
+  // loop over the enums
+  for (const enumType of types.enumTypes) {
+
+  }
 
   // loop over the systems
   for (const system of systemsJson.systems) {

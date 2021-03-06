@@ -17,6 +17,10 @@ jobs:
         node-version: 15.x
     - name: Install deps
       run: npm ci
+    - name: Build jsonotron-interfaces
+      run: |
+        cd workspaces/jsonotron-interfaces
+        npm run build
     - name: Test jsonotron-js
       run: |
         cd workspaces/jsonotron-js
@@ -71,6 +75,15 @@ jobs:
         registry-url: https://registry.npmjs.org/
     - name: Install deps
       run: npm ci
+    - name: Publish jsonotron-interfaces
+      if: steps.prepare.outputs.canRelease == 'yes'
+      run: |
+        cd workspaces/jsonotron-interfaces
+        npm version ${{ steps.prepare.outputs.releaseVersion }}
+        npm run build
+        npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.npm_token}}
     - name: Publish jsonotron-js
       if: steps.prepare.outputs.canRelease == 'yes'
       run: |

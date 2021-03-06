@@ -1,4 +1,4 @@
-import { EnumType, TypeMap, SchemaType } from '../interfaces'
+import { EnumType, TypeMap, SchemaType } from 'jsonotron-interfaces'
 import { addJsonSchemaToTypeMap } from './addJsonSchemaToTypeMap'
 
 /**

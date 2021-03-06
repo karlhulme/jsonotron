@@ -3,7 +3,7 @@ import yaml from 'js-yaml'
 import cloneDeep from 'clone-deep'
 import { EnumType, TypeMap, JsonSchemaFormatValidatorFunc,
   SchemaType, Structure,
-  StructureValidationResult, UnclassifiedType, ValueValidationResult } from '../interfaces'
+  StructureValidationResult, UnclassifiedType, ValueValidationResult } from 'jsonotron-interfaces'
 import {
   dateTimeLocalFormatValidatorFunc,
   dateTimeUtcFormatValidatorFunc,

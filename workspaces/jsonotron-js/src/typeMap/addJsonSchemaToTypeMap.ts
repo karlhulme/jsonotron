@@ -1,4 +1,4 @@
-import { EnumType, TypeMap, TypeMapObject, TypeMapObjectProperty } from '../interfaces'
+import { EnumType, TypeMap, TypeMapObject, TypeMapObjectProperty } from 'jsonotron-interfaces'
 
 /**
  * Adds the types found in the given JSON schema to the given type map.
