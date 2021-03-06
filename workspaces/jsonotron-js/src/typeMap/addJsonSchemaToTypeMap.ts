@@ -17,36 +17,31 @@ import { EnumType, TypeMap, TypeMapObject, TypeMapObjectProperty } from '../inte
 export function addJsonSchemaToTypeMap (domain: string, system: string, proposedTypeName: string, arrayCount: number, jsonSchema: Record<string, unknown>, map: TypeMap, enumTypes: EnumType[]): void {
   const fqn = `${domain}/${system}/${proposedTypeName}`
 
-  if (Array.isArray(jsonSchema.enum)) {
+  if (Array.isArray(jsonSchema.enum) && jsonSchema.enum.length > 0) {
     const exampleEnumItem = jsonSchema.enum[0]
     const exampleEnumItemScalarType = typeof exampleEnumItem === 'string'
-      ? 'String'
+      ? 'string'
       : typeof exampleEnumItem === 'number'
-        ? 'Float'
+        ? 'number'
         : typeof exampleEnumItem === 'boolean'
-          ? 'Boolean'
-          : 'JSON'
+          ? 'boolean'
+          : 'object'
     map.refTypes.push({ name: fqn, refTypeName: exampleEnumItemScalarType, refTypeArrayCount: arrayCount, isScalarRef: true })
   } else if (typeof jsonSchema.$ref === 'string') {
-    // a reference to another type, we'll need the fully qualified name
+    // A reference to another type, we'll need the fully qualified name.
     const refFqn = jsonSchema.$ref.includes('/') ? jsonSchema.$ref : `${domain}/${system}/${jsonSchema.$ref}`
     map.refTypes.push({ name: fqn, refTypeName: refFqn, refTypeArrayCount: arrayCount, isScalarRef: false})
-  } else if (jsonSchema.type === 'string') {
-    map.refTypes.push({ name: fqn, refTypeName: 'String', refTypeArrayCount: arrayCount, isScalarRef: true})
-  } else if (jsonSchema.type === 'number') {
-    map.refTypes.push({ name: fqn, refTypeName: 'Float', refTypeArrayCount: arrayCount, isScalarRef: true})
-  } else if (jsonSchema.type === 'integer') {
-    map.refTypes.push({ name: fqn, refTypeName: 'Int', refTypeArrayCount: arrayCount, isScalarRef: true})
-  } else if (jsonSchema.type === 'boolean') {
-    map.refTypes.push({ name: fqn, refTypeName: 'Boolean', refTypeArrayCount: arrayCount, isScalarRef: true})
+  } else if (['string', 'number', 'integer', 'boolean'].includes(jsonSchema.type as string)) {
+    // A primitive type.
+    map.refTypes.push({ name: fqn, refTypeName: jsonSchema.type as string, refTypeArrayCount: arrayCount, isScalarRef: true})
   } else if (jsonSchema.type === 'array' && typeof jsonSchema.items === 'object') {
-    // an array type
-    // increase the number of array brackets and resolve the 'items' property
-    const innerType = Array.isArray(jsonSchema.items) ? jsonSchema.items[0] : jsonSchema.items
+    // An array type.
+    // Increase the number of array brackets and resolve the 'items' property
+    const innerType = Array.isArray(jsonSchema.items) && jsonSchema.items.length > 0 ? jsonSchema.items[0] : jsonSchema.items
     addJsonSchemaToTypeMap(domain, system, proposedTypeName, arrayCount + 1, innerType as Record<string, unknown>, map, enumTypes)
   } else if (jsonSchema.type === 'object' && jsonSchema.additionalProperties === false && typeof jsonSchema.properties === 'object' && jsonSchema.properties !== null) {
-    // a child object, which will require it's own type.
-    // create types for each of the child properties, as we don't know which will require types vs scalars references.
+    // A child object, which will require it's own type.
+    // Create types for each of the child properties, as we don't know which will require types vs scalars references.
     const objectProperties = jsonSchema.properties as Record<string, unknown>
     const objectRequireds = (jsonSchema.required || []) as string[]
     const objectSubProperties: TypeMapObjectProperty[] = []
@@ -57,10 +52,10 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
       const subProperty = objectProperties[subPropertyName] as Record<string, unknown>
       addJsonSchemaToTypeMap(domain, system, subPropertyTypeName, 0, subProperty, map, enumTypes)
 
-      // pull out field-level documentation if its been provided.
+      // Pull out field-level documentation if its been provided.
       let documentation = subProperty.documentation as string || ''
 
-      // spot references to enums, and include in the documentation of the field.
+      // Spot references to enums, and include in the documentation of the field.
       const subPropertyRefName = typeof subProperty.$ref === 'string'
         ? subProperty.$ref.includes('/') ? subProperty.$ref : `${domain}/${system}/${subProperty.$ref}`
         : null
@@ -79,8 +74,8 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
       properties: objectSubProperties
     } as TypeMapObject)
   } else {
-    // type attribute is missing, contains an array or is generally not understood.
-    // treat these as JSON.
-    map.refTypes.push({ name: fqn, refTypeName: 'JSON', refTypeArrayCount: arrayCount, isScalarRef: true})
+    // Type attribute is missing, contains an array or is generally not understood,
+    // so we have to use the object type.
+    map.refTypes.push({ name: fqn, refTypeName: 'object', refTypeArrayCount: arrayCount, isScalarRef: true})
   }
 }

@@ -1,8 +1,8 @@
 import Ajv from 'ajv'
 import yaml from 'js-yaml'
 import cloneDeep from 'clone-deep'
-import { EnumType, TypeMap, GraphQLPrimitiveLookupProps, JsonSchemaFormatValidatorFunc,
-  MarkdownGenerationProps, SchemaType, Structure,
+import { EnumType, TypeMap, JsonSchemaFormatValidatorFunc,
+  SchemaType, Structure,
   StructureValidationResult, UnclassifiedType, ValueValidationResult } from '../interfaces'
 import {
   dateTimeLocalFormatValidatorFunc,
@@ -13,24 +13,16 @@ import {
   createJsonSchemaForEnumType, createJsonSchemaForEnumTypeArray,
   createJsonSchemaForSchemaType, createJsonSchemaForSchemaTypeArray
 } from '../jsonSchemaGeneration'
-import { createMarkdownForTypeSystem } from '../markdownGeneration'
 import { InvalidEnumTypeError,
   InvalidSchemaTypeError,
   ParseYamlError,
   SchemaTypeExampleValidationError,
   SchemaTypeTestCaseInvalidationError,
   SchemaTypeTestCaseValidationError,
-  UnrecognisedTypeKindError,
-  UnrecognisedTypeNameError
+  UnrecognisedTypeKindError
 } from '../errors'
 import { enumTypeSchema, schemaTypeSchema } from '../schemas'
-import { determineGraphQLPrimitiveForSchemaType, EnumTypeGraphQLDefinition } from '../graphQL'
 import { convertJsonotronTypesToTypeMap } from '../typeMap'
-import {
-  generateTypescriptEnums,
-  generateTypescriptInterfaces,
-  generateTypescriptTypeNamesConst
-} from '../typescriptGeneration/'
 
 /**
  * Represents the properties that can be supplied to a Jsonotron constructur.
@@ -144,33 +136,6 @@ export class Jsonotron {
   }
 
   /**
-   * Resolves the given type name into a fully qualified type name.
-   * If a qualified name is supplied (i.e. one that includes a forward slash)
-   * then the type is returned without further processsing.
-   * If a qualified name cannot be found, then null is returned.
-   * If multiple qualified names are found for a given short name, then null is returned.
-   * @param type A short or fully qualified type.
-   */
-  private resolveTypeName (type: string): string|null {
-    if (type.includes('/')) {
-      return type // no processing
-    } else {
-      const possibleEnums = this.enumTypes.filter(e => e.name === type)
-      const possibleSchemas = this.schemaTypes.filter(s => s.name === type)
-
-      if (possibleEnums.length === 1 && possibleSchemas.length === 0) {
-        return `${possibleEnums[0].domain}/${possibleEnums[0].system}/${possibleEnums[0].name}`
-      } else if (possibleEnums.length === 0 && possibleSchemas.length === 1) {
-        return `${possibleSchemas[0].domain}/${possibleSchemas[0].system}/${possibleSchemas[0].name}`
-      } else if (possibleEnums.length === 0 && possibleSchemas.length === 0) {
-        return null // no matches
-      } else {
-        return null // multiple matches
-      } 
-    }
-  }
-
-  /**
    * Constructs a new instance of the Jsonotron class.
    * @param props A property bag that configures the new instance.
    */
@@ -234,93 +199,10 @@ export class Jsonotron {
   }
 
   /**
-   * Returns the fully qualified name of the given type.
-   * This funcion will raise an exception if the given type
-   * is in short form but cannot be resolved to a single type
-   * either because it was not recognised or it matched the short
-   * name in multiple type systems.
-   * @param typeName The name of a type either in short or fully qualified form.
-   */
-  getFullyQualifiedTypeName (typeName: string): string {
-    const resolvedTypeName = this.resolveTypeName(typeName)
-
-    if (!resolvedTypeName) {
-      throw new UnrecognisedTypeNameError(typeName)
-    }
-
-    return resolvedTypeName
-  }
-
-  /**
    * Returns a type map of all the enum and schema types.
    */
   getTypeMap (): TypeMap {
     return convertJsonotronTypesToTypeMap(this.enumTypes, this.schemaTypes)
-  }
-
-  /**
-   * Returns a markdown document for the type system identified by
-   * the given properties.
-   * @param props The properties that describe the markdown to be generated.
-   */
-  getMarkdownForTypeSystem (props: MarkdownGenerationProps): string {
-    return createMarkdownForTypeSystem(props, this.enumTypes, this.schemaTypes)
-  } 
-
-  /**
-   * Returns the GraphQL primitive that can be used to store a value
-   * of the given enum or schema type.
-   * @param props The properties that describe the lookup to perform.
-   */
-  getGraphQLPrimitiveType (props: GraphQLPrimitiveLookupProps): string {
-    const resolvedTypeName = this.resolveTypeName(props.typeName)
-
-    const wrapArray = (s: string, add?: boolean) => add ? `[${s}!]` : s
-    const wrapRequired = (s: string, add?: boolean) => add ? `${s}!` : s
-
-    const matchedEnum = this.enumTypes.find(e => `${e.domain}/${e.system}/${e.name}` === resolvedTypeName)
-
-    if (matchedEnum) {
-      return wrapRequired(wrapArray('String', props.isArray), props.isRequired)
-    }
-
-    const matchedSchema = this.schemaTypes.find(s => `${s.domain}/${s.system}/${s.name}` === resolvedTypeName)
-
-    if (matchedSchema) {
-      const graphQLType = determineGraphQLPrimitiveForSchemaType(matchedSchema)
-      return wrapRequired(wrapArray(graphQLType, props.isArray), props.isRequired)
-    }
-
-    throw new UnrecognisedTypeNameError(props.typeName)
-  }
-
-  /**
-   * Returns the GraphQL definition for a Jsonotron enum type.
-   */
-  getGraphQLEnumType (): string {
-    return EnumTypeGraphQLDefinition
-  }
-
-  /**
-   * Returns the typescript value structures for the enum types.
-   */
-  getTypescriptEnums (): string {
-    return generateTypescriptEnums(this.enumTypes)
-  }
-
-  /**
-   * Returns the typescript interfaces for the schema types.
-   */
-  getTypescriptInterfaces (): string {
-    const map = convertJsonotronTypesToTypeMap(this.enumTypes, this.schemaTypes)
-    return generateTypescriptInterfaces(map)
-  }
-
-  /**
-   * Returns a typescript system const declaration for the enum and schema types.
-   */
-  getTypescriptTypeNamesConst (): string {
-    return generateTypescriptTypeNamesConst(this.enumTypes, this.schemaTypes)
   }
 
   /**
@@ -329,21 +211,15 @@ export class Jsonotron {
    * @param value Any value.
    */
   validateValue (typeName: string, value: unknown): ValueValidationResult {
-    const resolvedTypeName = this.resolveTypeName(typeName)
+    const validator = this.ajv.getSchema(typeName)
 
-    if (!resolvedTypeName) {
-      return { resolved: false, validated: false, message: 'Ambiguous or unrecognised type, use fully qualified name.' }
+    if (!validator) {
+      return { resolved: false, validated: false, message: 'Unrecognised type.' }
     } else {
-      const validator = this.ajv.getSchema(resolvedTypeName)
-
-      if (!validator) {
-        return { resolved: false, validated: false, message: 'Unrecognised type.' }
+      if (validator(value)) {
+        return { resolved: true, validated: true }
       } else {
-        if (validator(value)) {
-          return { resolved: true, validated: true }
-        } else {
-          return { resolved: true, validated: false, message: this.ajvErrorsToString(validator.errors) }
-        }
+        return { resolved: true, validated: false, message: this.ajvErrorsToString(validator.errors) }
       }
     }
   }
@@ -354,7 +230,7 @@ export class Jsonotron {
    * @param value Any array value.
    */
   validateValueArray (typeName: string, value: Array<unknown>): ValueValidationResult {
-    return this.validateValue((this.resolveTypeName(typeName)) + '/array', value)
+    return this.validateValue((typeName) + '/array', value)
   }
 
   /**

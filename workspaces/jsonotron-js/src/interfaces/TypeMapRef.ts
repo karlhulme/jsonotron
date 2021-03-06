@@ -13,7 +13,7 @@ export interface TypeMapRef {
   refTypeName: string
 
   /**
-   * True if the refTypeName refers to a GraphQL scalar.
+   * True if the refTypeName refers to a json-schema scalar.
    */
   isScalarRef: boolean
 

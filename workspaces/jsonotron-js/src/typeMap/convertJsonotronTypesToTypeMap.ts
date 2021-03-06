@@ -2,7 +2,7 @@ import { EnumType, TypeMap, SchemaType } from '../interfaces'
 import { addJsonSchemaToTypeMap } from './addJsonSchemaToTypeMap'
 
 /**
- * Returns a GraphQLMap built from the given enum and schema types..
+ * Returns a TypeMap built from the given enum and schema types.
  * @param enumTypes An array of enum types.
  * @param schemaTypes An array of schema types.
  */
@@ -12,10 +12,10 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
     refTypes: []
   }
 
-  // all enums are mapped to the GraphGL string type. 
+  // all enums are based on the json schema string type. 
   enumTypes.forEach(enumType => {
     const fqn = `${enumType.domain}/${enumType.system}/${enumType.name}`
-    map.refTypes.push({ name: fqn, refTypeName: 'String', refTypeArrayCount: 0, isScalarRef: true })
+    map.refTypes.push({ name: fqn, refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: true })
   })
 
   // to convert schemaTypes we look at the jsonSchema property.

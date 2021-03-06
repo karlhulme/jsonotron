@@ -1,5 +1,5 @@
 /**
- * Represents an object type in the GraphQL system.
+ * Represents an object, that contains properties of its own, in a type map.
  */
 export interface TypeMapObject {
   /**
@@ -24,7 +24,7 @@ export interface TypeMapObject {
 }
 
 /**
- * Represents the property of a GraphQL object type.
+ * Represents a property of an object in a type map.
  */
 export interface TypeMapObjectProperty {
   /**

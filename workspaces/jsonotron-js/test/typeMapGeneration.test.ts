@@ -35,8 +35,8 @@ test('Convert jsonotron types into a type map.', () => {
   // console.log(JSON.stringify(map, null, 2))
 
   expect(map.refTypes).toEqual(expect.arrayContaining([
-    { name: 'https://jsonotron.org/test/color', refTypeName: 'String', refTypeArrayCount: 0, isScalarRef: true },
-    { name: 'https://jsonotron.org/test/chore_priority', refTypeName: 'Int', refTypeArrayCount: 0, isScalarRef: true },
+    { name: 'https://jsonotron.org/test/color', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: true },
+    { name: 'https://jsonotron.org/test/chore_priority', refTypeName: 'integer', refTypeArrayCount: 0, isScalarRef: true },
     { name: 'https://jsonotron.org/test/household_familyMemberCount', refTypeName: 'https://jsonotron.org/test/positiveInteger', refTypeArrayCount: 0, isScalarRef: false }
   ]))
 
