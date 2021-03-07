@@ -1,9 +1,12 @@
 import Ajv from 'ajv'
 import yaml from 'js-yaml'
 import cloneDeep from 'clone-deep'
-import { EnumType, TypeMap, JsonSchemaFormatValidatorFunc,
+import {
+  EnumType, JsonSchemaFormatValidatorFunc,
   SchemaType, Structure,
-  StructureValidationResult, UnclassifiedType, ValueValidationResult } from 'jsonotron-interfaces'
+  StructureValidationResult, UnclassifiedType,
+  ValueValidationResult
+} from 'jsonotron-interfaces'
 import {
   dateTimeLocalFormatValidatorFunc,
   dateTimeUtcFormatValidatorFunc,
@@ -22,7 +25,6 @@ import { InvalidEnumTypeError,
   UnrecognisedTypeKindError
 } from '../errors'
 import { enumTypeSchema, schemaTypeSchema } from '../schemas'
-import { convertJsonotronTypesToTypeMap } from '../typeMap'
 
 /**
  * Represents the properties that can be supplied to a Jsonotron constructur.
@@ -201,16 +203,6 @@ export class Jsonotron {
     return this.schemaTypes
       .filter(s => (systems ||[]).includes(`${s.domain}/${s.system}`))
       .map(s => cloneDeep<SchemaType>(s))
-  }
-
-  /**
-   * Returns a type map of all the enum and schema types.
-   */
-  getTypeMap (systems?: string[]): TypeMap {
-    return convertJsonotronTypesToTypeMap(
-      this.enumTypes.filter(e => (systems || []).includes(`${e.domain}/${e.system}`)),
-      this.schemaTypes.filter(s => (systems ||[]).includes(`${s.domain}/${s.system}`))
-    )
   }
 
   /**

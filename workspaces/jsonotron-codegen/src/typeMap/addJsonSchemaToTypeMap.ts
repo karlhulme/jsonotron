@@ -18,6 +18,7 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
   const fqn = `${domain}/${system}/${proposedTypeName}`
 
   if (Array.isArray(jsonSchema.enum) && jsonSchema.enum.length > 0) {
+    // An json-schema enum
     const exampleEnumItem = jsonSchema.enum[0]
     const exampleEnumItemScalarType = typeof exampleEnumItem === 'string'
       ? 'string'
@@ -28,9 +29,8 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
           : 'object'
     map.refTypes.push({ name: fqn, refTypeName: exampleEnumItemScalarType, refTypeArrayCount: arrayCount, isScalarRef: true })
   } else if (typeof jsonSchema.$ref === 'string') {
-    // A reference to another type, we'll need the fully qualified name.
-    const refFqn = jsonSchema.$ref.includes('/') ? jsonSchema.$ref : `${domain}/${system}/${jsonSchema.$ref}`
-    map.refTypes.push({ name: fqn, refTypeName: refFqn, refTypeArrayCount: arrayCount, isScalarRef: false})
+    // A json-schema reference to another type
+    map.refTypes.push({ name: fqn, refTypeName: jsonSchema.$ref, refTypeArrayCount: arrayCount, isScalarRef: false})
   } else if (['string', 'number', 'integer', 'boolean'].includes(jsonSchema.type as string)) {
     // A primitive type.
     map.refTypes.push({ name: fqn, refTypeName: jsonSchema.type as string, refTypeArrayCount: arrayCount, isScalarRef: true})
@@ -56,9 +56,7 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
       let documentation = subProperty.documentation as string || ''
 
       // Spot references to enums, and include in the documentation of the field.
-      const subPropertyRefName = typeof subProperty.$ref === 'string'
-        ? subProperty.$ref.includes('/') ? subProperty.$ref : `${domain}/${system}/${subProperty.$ref}`
-        : null
+      const subPropertyRefName = typeof subProperty.$ref === 'string' && subProperty.$ref.includes('/') ? subProperty.$ref : null
       const matchedEnumType = enumTypes.find(e => `${e.domain}/${e.system}/${e.name}` === subPropertyRefName)
       documentation += matchedEnumType
         ? `A value from the **${matchedEnumType.name}** enum of the **${matchedEnumType.system}** type system defined by **${matchedEnumType.domain}**.`

@@ -3,6 +3,6 @@
  * with a preceding backslash.
  * @param s A string to escape.
  */
-export function escapeStr (s: string): string {
+export function escapeQuotes (s: string): string {
   return s.replace(/[']/g, '\\\'')
 }

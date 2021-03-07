@@ -26,6 +26,11 @@ jobs:
         cd workspaces/jsonotron-js
         npm test
         npm run build
+    - name: Test jsonotron-codegen
+      run: |
+        cd workspaces/jsonotron-codegen
+        npm test
+        npm run build
     - name: Test jss
       run: |
         cd workspaces/jss
@@ -87,6 +92,15 @@ jobs:
       if: steps.prepare.outputs.canRelease == 'yes'
       run: |
         cd workspaces/jsonotron-js
+        npm version ${{ steps.prepare.outputs.releaseVersion }}
+        npm run build
+        npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+    - name: Publish jsonotron-codegen
+      if: steps.prepare.outputs.canRelease == 'yes'
+      run: |
+        cd workspaces/jsonotron-codegen
         npm version ${{ steps.prepare.outputs.releaseVersion }}
         npm run build
         npm publish
