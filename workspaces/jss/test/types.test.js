@@ -9,6 +9,5 @@ test('The enum and schema types of the jsonotron standard library are valid.', (
   const schemaTypeFileNames = readdirSync('./schemaTypes')
   const schemaTypes = schemaTypeFileNames.map(f => readFileSync('./schemaTypes/' + f, 'utf8'))
 
-  const jsonotron = new Jsonotron({ types: enumTypes.concat(schemaTypes) })
-  expect(() => jsonotron.getTypeMap(['https://jsonotron.org/jss'])).not.toThrow()
+  expect(() => { new Jsonotron({ types: enumTypes.concat(schemaTypes) }) }).not.toThrow()
 })
