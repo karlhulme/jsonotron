@@ -1,23 +1,25 @@
+const fg = require('fast-glob')
 const { Jsonotron } = require('jsonotron-js')
 const { MarkdownGenerator } = require('jsonotron-codegen')
-const { readdirSync, readFileSync, writeFileSync } = require('fs')
+const { readFile, writeFile } = require('fs/promises')
 
-const enumTypeFileNames = readdirSync('./enumTypes')
-const enumTypes = enumTypeFileNames.map(f => readFileSync('./enumTypes/' + f, 'utf8'))
+async function run () {
+  const typeFileNames = await fg('../**/*.yaml')
+  const types = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
 
-const schemaTypeFileNames = readdirSync('./schemaTypes')
-const schemaTypes = schemaTypeFileNames.map(f => readFileSync('./schemaTypes/' + f, 'utf8'))
+  const jsonotron = new Jsonotron({ types })
 
-const jsonotron = new Jsonotron({ types: enumTypes.concat(schemaTypes) })
+  const systems = [
+    'https://jsonotron.org/jss'
+  ]
 
-const systems = [
-  'https://jsonotron.org/jss'
-]
+  const markdownGenerator = new MarkdownGenerator()
+  const markdown = markdownGenerator.generate({
+    enumTypes: jsonotron.getEnumTypes(systems),
+    schemaTypes: jsonotron.getSchemaTypes(systems)
+  })
 
-const markdownGenerator = new MarkdownGenerator()
-const markdown = markdownGenerator.generate({
-  enumTypes: jsonotron.getEnumTypes(systems),
-  schemaTypes: jsonotron.getSchemaTypes(systems)
-})
+  await writeFile('./typedocs.autogen.md', markdown)
+}
 
-writeFileSync('./readme.md', markdown)
+run()

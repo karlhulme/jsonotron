@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/karlhulme/jsonotron#readme",
   "devDependencies": {
+    "fast-glob": "3.2.4",
     "jest": "^26.6.3"
   },
   "dependencies": {}
