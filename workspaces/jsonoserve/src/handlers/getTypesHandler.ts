@@ -18,11 +18,9 @@ export function getTypesHandler (req: Request, res: Response, jsonotron: Jsonotr
 
   const enumTypes = jsonotron.getEnumTypes(systems)
   const schemaTypes = jsonotron.getSchemaTypes(systems)
-  const typeMap = jsonotron.getTypeMap(systems)
 
   res.json({
     enumTypes,
-    schemaTypes,
-    typeMap
+    schemaTypes
   })
 }

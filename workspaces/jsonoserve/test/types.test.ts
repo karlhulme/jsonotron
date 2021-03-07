@@ -11,11 +11,7 @@ test('The jsonoserve returns a set of enum and schema types.', async () => {
 
   expect(response.body).toEqual({
     enumTypes: expect.any(Array),
-    schemaTypes: expect.any(Array),
-    typeMap: {
-      objectTypes: expect.any(Array),
-      refTypes: expect.any(Array)
-    }
+    schemaTypes: expect.any(Array)
   })
 })
 
@@ -28,11 +24,7 @@ test('The jsonoserve returns an empty set of enum and schema types for an unreco
 
   expect(response.body).toEqual({
     enumTypes: [],
-    schemaTypes: [],
-    typeMap: {
-      objectTypes: [],
-      refTypes: []
-    }
+    schemaTypes: []
   })
 })
 
