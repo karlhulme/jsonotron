@@ -51,7 +51,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         properties: {
           make: { type: 'string' },
           thickness: { type: 'number' },
-          pillow: { $ref: 'https://jsonotron.org/test/pillow' },
+          pillow: { $ref: 'pillow' },
           direction: { $ref : 'https://jsonotron.org/alt/direction' }
         },
         required: ['make']

@@ -30,7 +30,8 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
     map.refTypes.push({ name: fqn, refTypeName: exampleEnumItemScalarType, refTypeArrayCount: arrayCount, isScalarRef: true })
   } else if (typeof jsonSchema.$ref === 'string') {
     // A json-schema reference to another type
-    map.refTypes.push({ name: fqn, refTypeName: jsonSchema.$ref, refTypeArrayCount: arrayCount, isScalarRef: false})
+    const qualifiedRef = jsonSchema.$ref.includes('/') ? jsonSchema.$ref : `${domain}/${system}/${jsonSchema.$ref}`
+    map.refTypes.push({ name: fqn, refTypeName: qualifiedRef, refTypeArrayCount: arrayCount, isScalarRef: false})
   } else if (['string', 'number', 'integer', 'boolean'].includes(jsonSchema.type as string)) {
     // A primitive type.
     map.refTypes.push({ name: fqn, refTypeName: jsonSchema.type as string, refTypeArrayCount: arrayCount, isScalarRef: true})
