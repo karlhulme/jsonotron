@@ -1,11 +1,5 @@
-import { EnumType, SchemaType, TypeMap } from 'jsonotron-interfaces'
+import { JsonoserveTypes }  from './JsonoserveTypes'
 import fetch from 'node-fetch'
-
-export interface JsonoserveTypes {
-  enumTypes: EnumType[]
-  schemaTypes: SchemaType[]
-  typeMap: TypeMap
-}
 
 /**
  * Returns the types that make up the given systems.

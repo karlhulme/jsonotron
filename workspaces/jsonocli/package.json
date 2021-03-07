@@ -13,7 +13,6 @@
   "scripts": {
     "autogen": "jsonocli",
     "start": "npm run build && node ./lib/cli.js",
-    "test": "jest && eslint '*/**/*.{js,ts}'",
     "build": "rm -rf types && rm -rf lib && tsc",
     "reinstall": "rm -rf node_modules && npm install"
   },

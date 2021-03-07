@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from 'fs/promises'
-import { fetchTypes } from './fetchTypes'
+import { fetchTypes } from '../requests'
 
 /**
  * Clone the systems at a remote jsonoserve server and store them

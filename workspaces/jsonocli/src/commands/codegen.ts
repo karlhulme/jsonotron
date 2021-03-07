@@ -1,7 +1,6 @@
 import { mkdir, writeFile } from 'fs/promises'
-import { CodeGenerator } from './CodeGenerator'
-import { TypescriptCodeGenerator } from './codegen_typescript'
-import { fetchTypes } from './fetchTypes'
+import { CodeGenerator, TypescriptCodeGenerator } from 'jsonotron-codegen'
+import { fetchTypes } from '../requests'
 
 /**
  * Returns an object that can generate code in the language
@@ -40,7 +39,10 @@ export async function codegen (serverUrl: string, path: string, systems: string[
   const generator = chooseGenerator(path)
 
   // generate code content
-  const content = generator.generate({ types })
+  const content = generator.generate({
+    enumTypes: types.enumTypes,
+    schemaTypes: types.schemaTypes
+  })
 
   // write out the code file
   await writeFile(path, content, 'utf8')
