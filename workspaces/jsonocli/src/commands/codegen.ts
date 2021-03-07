@@ -1,5 +1,20 @@
 import { mkdir, writeFile } from 'fs/promises'
+import { CodeGenerator } from './CodeGenerator'
+import { TypescriptCodeGenerator } from './codegen_typescript'
 import { fetchTypes } from './fetchTypes'
+
+/**
+ * Returns an object that can generate code in the language
+ * associated with the given path.
+ * @param path The path of the file to be populated by the code generator.
+ */
+function chooseGenerator (path: string): CodeGenerator {
+  if (path.endsWith('.ts')) {
+    return new TypescriptCodeGenerator()
+  } else {
+    throw new Error('Unrecognised extension on code file.')
+  }
+}
 
 /**
  * Retrieve the enum and schema types from a remote
@@ -21,8 +36,12 @@ export async function codegen (serverUrl: string, path: string, systems: string[
   // fetch the list of systems
   const types = await fetchTypes(serverUrl, systems)
 
-  const codeContent = types.typeMap.refTypes.map(r => r.name).join(',')
+  // get the code generator
+  const generator = chooseGenerator(path)
+
+  // generate code content
+  const content = generator.generate({ types })
 
   // write out the code file
-  await writeFile(path, codeContent, 'utf8')
+  await writeFile(path, content, 'utf8')
 }

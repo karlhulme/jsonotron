@@ -1,7 +1,7 @@
 import { EnumType, SchemaType, TypeMap } from 'jsonotron-interfaces'
 import fetch from 'node-fetch'
 
-interface FetchTypesResponse {
+export interface JsonoserveTypes {
   enumTypes: EnumType[]
   schemaTypes: SchemaType[]
   typeMap: TypeMap
@@ -12,7 +12,7 @@ interface FetchTypesResponse {
  * @param serverUrl The url for a types server.
  * @param systems An array of system names to retrieve.
  */
-export async function fetchTypes (serverUrl: string, systems: string[]): Promise<FetchTypesResponse> {
+export async function fetchTypes (serverUrl: string, systems: string[]): Promise<JsonoserveTypes> {
   // fetch the list of systems
   const normalisedUrl = serverUrl.endsWith('/') ? serverUrl : serverUrl + '/'
   const typesUrl = normalisedUrl + 'types'

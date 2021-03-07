@@ -20,6 +20,9 @@ import { clone, codegen } from './commands'
 //   needs enum consts for directing the logic
 //   needs enum items for populating drop-downs
 
+// use clone - to get a copy of the raw resources which can be loaded into jsonotron engine
+// use codegen - to create code for working with the type system (based on extension)
+// use graphgen - to build a set of graphql types
 
 /**
  * Runs the command line tool with the given command line arguments.
@@ -39,7 +42,7 @@ function run () {
       async (args: Record<string, unknown>) => { clone(args.server as string, args.dir as string, args.systems as string[]) }
     )
     .command(
-      'codegen <server> <path> <systems..> [typeNames]',
+      'codegen <server> <path> <systems..>',
       'Generate code, language picked from extension',
       args => {
         yargs.positional('server', { describe: 'Url of server', type: 'string' })
