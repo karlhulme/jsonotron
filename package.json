@@ -1,6 +1,6 @@
 {
   "name": "jsonotron",
-  "version": "16.2.0",
+  "version": "16.2.1",
   "description": "The Jsonotron repo contains components, libraries and servers for working with a Jsonotron type system.",
   "scripts": {
     "reinstall": "rm -rf node_modules && npm install"
