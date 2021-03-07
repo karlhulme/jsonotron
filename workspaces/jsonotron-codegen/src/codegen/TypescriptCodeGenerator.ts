@@ -20,6 +20,7 @@ export class TypescriptCodeGenerator implements CodeGenerator {
       `export interface EnumTypeItem {\n` +
       `  /**\n   * The underlying value of the item.\n   */\n  value: string\n\n` +
       `  /**\n   * The display text of the value in English.\n   */\n  text: string\n\n` +
+      `  /**\n   * The documentation associated with this item.\n   */\n  documentation?: string\n\n` +
       `  /**\n   * If populated, this value explains why the value was deprecated and/or which item to use instead.\n   */\n  deprecated?: string\n\n` +
       `  /**\n   * A symbol associated with the item.\n   */\n  symbol?: string\n` +
       `}`
