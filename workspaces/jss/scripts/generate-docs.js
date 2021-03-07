@@ -1,4 +1,5 @@
 const { Jsonotron } = require('jsonotron-js')
+const { MarkdownGenerator } = require('jsonotron-codegen')
 const { readdirSync, readFileSync, writeFileSync } = require('fs')
 
 const enumTypeFileNames = readdirSync('./enumTypes')
@@ -9,6 +10,14 @@ const schemaTypes = schemaTypeFileNames.map(f => readFileSync('./schemaTypes/' +
 
 const jsonotron = new Jsonotron({ types: enumTypes.concat(schemaTypes) })
 
-const markdown = jsonotron.getMarkdownForTypeSystem({ title: 'Jsonotron Standard System', domain: 'https://jsonotron.org', system: 'jss', referencedTypeSystems: [] })
+const systems = [
+  'https://jsonotron.org/jss'
+]
+
+const markdownGenerator = new MarkdownGenerator()
+const markdown = markdownGenerator.generate({
+  enumTypes: jsonotron.getEnumTypes(systems),
+  schemaTypes: jsonotron.getSchemaTypes(systems)
+})
 
 writeFileSync('./readme.md', markdown)

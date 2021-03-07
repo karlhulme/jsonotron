@@ -81,7 +81,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       ],
       validTestCases: [],
       invalidTestCases: []
-    } , {
+    }, {
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'drawer',
@@ -120,6 +120,24 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
           },
           documentation: 'An example.'
         }
+      ],
+      validTestCases: [],
+      invalidTestCases: []
+    }, {
+      domain: 'https://jsonotron.org',
+      system: 'extra',
+      name: 'table',
+      documentation: 'A table',
+      title: 'Table',
+      jsonSchema: {
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          height: { type: 'number' }
+        }
+      },
+      examples: [
+        { value: { height: 123 }, documentation: 'An example.' }
       ],
       validTestCases: [],
       invalidTestCases: []

@@ -3,6 +3,7 @@ import { convertJsonotronTypesToTypeMap } from '../typeMap'
 import { appendArrayIndicators, capitaliseInitialLetters, ensureInitialCharacter, ensureValidCodePropertyCharacters, escapeQuotes } from '../utils'
 import { CodeGenerationParameters } from './CodeGenerationParameters'
 import { CodeGenerator } from './CodeGenerator'
+import { getUniqueSystemRefs } from './getUniqueSystemRefs'
 
 export class TypescriptCodeGenerator implements CodeGenerator {
   generate (params: CodeGenerationParameters): string {
@@ -29,14 +30,14 @@ export class TypescriptCodeGenerator implements CodeGenerator {
   private generateSystemCentricCode (enumTypes: EnumType[], schemaTypes: SchemaType[]): string {
     const lines: string[] = []
 
-    const uniqueSystemRefs = this.getUniqueSystemRefs(enumTypes, schemaTypes)
+    const uniqueSystemRefs = getUniqueSystemRefs(enumTypes, schemaTypes)
 
-    for (const uniqueSystem of uniqueSystemRefs) {
+    for (const uniqueSystemRef of uniqueSystemRefs) {
       const systemEnumTypes = enumTypes
-        .filter(e => `${e.domain}/${e.system}` === uniqueSystem.domainSystem)
+        .filter(e => `${e.domain}/${e.system}` === uniqueSystemRef.domainSystem)
 
       const systemSchemaTypes = schemaTypes
-        .filter(s => `${s.domain}/${s.system}` === uniqueSystem.domainSystem)
+        .filter(s => `${s.domain}/${s.system}` === uniqueSystemRef.domainSystem)
 
       const systemLines = [
         ...this.generateSystemCentricTypeNames(systemEnumTypes, systemSchemaTypes),
@@ -44,30 +45,13 @@ export class TypescriptCodeGenerator implements CodeGenerator {
         ...this.generateSystemCentricEnumItems(systemEnumTypes)
       ]
 
-      const docBlock = `/**\n * The types of the ${uniqueSystem.domainSystem} system.\n */`
-      const code = `${docBlock}\nexport const ${uniqueSystem.system} = {\n${systemLines.join(',\n\n')}\n}`
+      const docBlock = `/**\n * The types of the ${uniqueSystemRef.domainSystem} system.\n */`
+      const code = `${docBlock}\nexport const ${uniqueSystemRef.system} = {\n${systemLines.join(',\n\n')}\n}`
 
       lines.push(code)
     }
 
     return lines.join('\n\n')
-  }
-
-  private getUniqueSystemRefs (enumTypes: EnumType[], schemaTypes: SchemaType[]) {
-    const systemRefs = [
-      ...enumTypes.map(e => ({ domain: e.domain, system: e.system, domainSystem: `${e.domain}/${e.system}` })),
-      ...schemaTypes.map(s => ({ domain: s.domain, system: s.system, domainSystem: `${s.domain}/${s.system}` }))
-    ]
-
-    const uniqueSystemRefs: { domain: string, system: string, domainSystem: string }[] = []
-
-    for (const systemRef of systemRefs) {
-      if (uniqueSystemRefs.findIndex(u => u.domainSystem === systemRef.domainSystem) === -1) {
-        uniqueSystemRefs.push(systemRef)
-      }
-    }
-
-    return uniqueSystemRefs
   }
 
   private generateSystemCentricTypeNames (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {

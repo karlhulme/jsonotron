@@ -1,10 +1,12 @@
+# Type Systems
 
-# Jsonotron Standard System
-
-This document describes the types of the `https://jsonotron.org/jss` system.
+[jss https://jsonotron.org/jss](#jss)
 
 
-## Contents
+## "jss" System
+
+The types of the `https://jsonotron.org/jss` system.
+
 
 ### Enum Types
 
@@ -55,14 +57,9 @@ This document describes the types of the `https://jsonotron.org/jss` system.
 * [Web Address](#web-address)
 * [What 3 Words](#what-3-words)
 
-### Referenced Type Systems
 
 
-
-  
-
-
-## Address
+### Address
 
 **kind**: schema\
 **name**: address\
@@ -101,7 +98,7 @@ This example is an address in the United States so it uses a zip code.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -131,33 +128,8 @@ This example is an address in the United States so it uses a zip code.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: object
-additionalProperties: false
-properties:
-  addressLines:
-    $ref: hugeString
-    documentation: The lines that make up the address.
-  postalCode:
-    $ref: shortString
-    documentation: The postal code of the address.
-  countryCode:
-    $ref: countryCode
-    documentation: The country where the address is situated.
-required:
-  - addressLines
-  - postalCode
-  - countryCode
-
-```
-
-
-  
-
-## Boolean
+### Boolean
 
 **kind**: schema\
 **name**: boolean\
@@ -182,7 +154,7 @@ false
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -192,18 +164,8 @@ false
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: boolean
-
-```
-
-
-  
-
-## Calling Code
+### Calling Code
 
 **kind**: enum\
 **name**: callingCode\
@@ -438,7 +400,7 @@ Value | Symbol | Text | Documentation
 
   
 
-## Country Code
+### Country Code
 
 **kind**: enum\
 **name**: countryCode\
@@ -697,7 +659,7 @@ zw |  | Zimbabwe |
 
   
 
-## Currency Code
+### Currency Code
 
 **kind**: enum\
 **name**: currencyCode\
@@ -894,7 +856,7 @@ zwl | ZWL | Zimbabwean Dollar |
 
   
 
-## Date
+### Date
 
 **kind**: schema\
 **name**: date\
@@ -911,7 +873,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -922,19 +884,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-format: date
-
-```
-
-
-  
-
-## Date & Time Local
+### Date & Time Local
 
 **kind**: schema\
 **name**: dateTimeLocal\
@@ -968,7 +919,7 @@ The europe/london time zone operates at +00:00 during the winter and +01:00 duri
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1000,36 +951,8 @@ The europe/london time zone operates at +00:00 during the winter and +01:00 duri
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: object
-additionalProperties: false
-properties:
-  dateTime:
-    type: string
-    pattern: >-
-      ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[+][0-9]{2}:[0-9]{2}$
-    format: jsonotron-dateTimeLocal
-    documentation: 'A date and time in YYYY-MM-DDTHH:mm:ss+Z format.'
-  timeZone:
-    $ref: timeZone
-    documentation: An international time zone.
-  captured:
-    $ref: timestamp
-    documentation: A unix-style timestamp.
-required:
-  - dateTime
-  - timeZone
-  - captured
-
-```
-
-
-  
-
-## Date & Time UTC
+### Date & Time UTC
 
 **kind**: schema\
 **name**: dateTimeUtc\
@@ -1046,7 +969,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1058,20 +981,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$'
-format: jsonotron-dateTimeUtc
-
-```
-
-
-  
-
-## Day of Week
+### Day of Week
 
 **kind**: enum\
 **name**: dayOfWeek\
@@ -1091,7 +1002,7 @@ sa |  | Saturday |
 
   
 
-## Email Address
+### Email Address
 
 **kind**: schema\
 **name**: emailAddress\
@@ -1108,7 +1019,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1119,19 +1030,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-format: email
-
-```
-
-
-  
-
-## Floating Point Number
+### Floating Point Number
 
 **kind**: schema\
 **name**: float\
@@ -1148,7 +1048,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1158,18 +1058,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: number
-
-```
-
-
-  
-
-## GeoJSON Point
+### GeoJSON Point
 
 **kind**: schema\
 **name**: geoJsonPoint\
@@ -1194,7 +1084,7 @@ The `coordinates` property should be a 2-element array consisting of longitude f
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1235,41 +1125,8 @@ The `coordinates` property should be a 2-element array consisting of longitude f
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: object
-additionalProperties: false
-properties:
-  type:
-    enum:
-      - Point
-    documentation: The value 'Point'.
-  coordinates:
-    type: array
-    minItems: 2
-    maxItems: 2
-    items:
-      - type: number
-        minimum: -180
-        maximum: 180
-      - type: number
-        minimum: -90
-        maximum: 90
-    documentation: >-
-      A 2-element array containing the longitude value first and the latitude
-      value second.
-required:
-  - type
-  - coordinates
-
-```
-
-
-  
-
-## GeoJSON Polygon
+### GeoJSON Polygon
 
 **kind**: schema\
 **name**: geoJsonPolygon\
@@ -1316,7 +1173,7 @@ A region on Earth recorded in GeoJSON format expressed as a series of longitude 
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1361,45 +1218,8 @@ A region on Earth recorded in GeoJSON format expressed as a series of longitude 
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: object
-additionalProperties: false
-properties:
-  type:
-    enum:
-      - Polygon
-    documentation: The value 'Polygon'
-  coordinates:
-    type: array
-    minItems: 4
-    items:
-      type: array
-      minItems: 2
-      maxItems: 2
-      items:
-        - type: number
-          minimum: -180
-          maximum: 180
-        - type: number
-          minimum: -90
-          maximum: 90
-    documentation: >-
-      An array of arrays.  The outer array must contain at least 4 elements,
-      with the first one repeated last.  Each inner array should be 2 elements
-      with longitude first and latitude second.
-required:
-  - type
-  - coordinates
-
-```
-
-
-  
-
-## Huge String
+### Huge String
 
 **kind**: schema\
 **name**: hugeString\
@@ -1416,7 +1236,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1427,19 +1247,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-maxLength: 4000
-
-```
-
-
-  
-
-## Integer
+### Integer
 
 **kind**: schema\
 **name**: integer\
@@ -1456,7 +1265,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1466,18 +1275,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: integer
-
-```
-
-
-  
-
-## IP Version 4
+### IP Version 4
 
 **kind**: schema\
 **name**: ipv4\
@@ -1494,7 +1293,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1505,19 +1304,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-format: ipv4
-
-```
-
-
-  
-
-## IP Version 6
+### IP Version 6
 
 **kind**: schema\
 **name**: ipv6\
@@ -1542,7 +1330,7 @@ The shorthand loopback address is also supported.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1553,19 +1341,8 @@ The shorthand loopback address is also supported.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-format: ipv6
-
-```
-
-
-  
-
-## JSON Pointer
+### JSON Pointer
 
 **kind**: schema\
 **name**: jsonPointer\
@@ -1582,7 +1359,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1593,19 +1370,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-format: json-pointer
-
-```
-
-
-  
-
-## Language Code
+### Language Code
 
 **kind**: enum\
 **name**: languageCode\
@@ -1751,7 +1517,7 @@ zu |  | Zulu |
 
   
 
-## Long String
+### Long String
 
 **kind**: schema\
 **name**: longString\
@@ -1768,7 +1534,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1779,19 +1545,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-maxLength: 250
-
-```
-
-
-  
-
-## Medium String
+### Medium String
 
 **kind**: schema\
 **name**: mediumString\
@@ -1808,7 +1563,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1819,19 +1574,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-maxLength: 50
-
-```
-
-
-  
-
-## Money
+### Money
 
 **kind**: schema\
 **name**: money\
@@ -1855,7 +1599,7 @@ In this example the scaler of 2 means that we shift the decimal point 2 places t
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1885,35 +1629,8 @@ In this example the scaler of 2 means that we shift the decimal point 2 places t
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: object
-additionalProperties: false
-properties:
-  amount:
-    $ref: integer
-    documentation: The amount of money in a minor denomination.
-  scaler:
-    $ref: integer
-    documentation: >-
-      The number of places to move the decimal point to convert the amount into
-      the major denomination of the currency.
-  currency:
-    $ref: currencyCode
-    documentation: The currency represented by this monetary amount.
-required:
-  - amount
-  - scaler
-  - currency
-
-```
-
-
-  
-
-## Month of Year
+### Month of Year
 
 **kind**: enum\
 **name**: monthOfYear\
@@ -1938,7 +1655,7 @@ dec |  | December |
 
   
 
-## Negative Floating Point Number
+### Negative Floating Point Number
 
 **kind**: schema\
 **name**: negativeFloat\
@@ -1955,7 +1672,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -1966,19 +1683,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: number
-exclusiveMaximum: 0
-
-```
-
-
-  
-
-## Negative Floating Point Number or Zero
+### Negative Floating Point Number or Zero
 
 **kind**: schema\
 **name**: negativeFloatOrZero\
@@ -2003,7 +1709,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2014,19 +1720,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: number
-maximum: 0
-
-```
-
-
-  
-
-## Negative Integer
+### Negative Integer
 
 **kind**: schema\
 **name**: negativeInteger\
@@ -2043,7 +1738,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2054,19 +1749,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: integer
-maximum: -1
-
-```
-
-
-  
-
-## Negative Integer or Zero
+### Negative Integer or Zero
 
 **kind**: schema\
 **name**: negativeIntegerOrZero\
@@ -2091,7 +1775,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2102,19 +1786,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: integer
-maximum: 0
-
-```
-
-
-  
-
-## Object
+### Object
 
 **kind**: schema\
 **name**: object\
@@ -2144,7 +1817,7 @@ Here we store an empty object.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2154,18 +1827,8 @@ Here we store an empty object.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: object
-
-```
-
-
-  
-
-## Payment Card Number
+### Payment Card Number
 
 **kind**: schema\
 **name**: paymentCardNo\
@@ -2182,7 +1845,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2193,19 +1856,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-format: jsonotron-luhn
-
-```
-
-
-  
-
-## Positive Floating Point Number
+### Positive Floating Point Number
 
 **kind**: schema\
 **name**: positiveFloat\
@@ -2222,7 +1874,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2233,19 +1885,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: number
-exclusiveMinimum: 0
-
-```
-
-
-  
-
-## Positive Floating Point Number or Zero
+### Positive Floating Point Number or Zero
 
 **kind**: schema\
 **name**: positiveFloatOrZero\
@@ -2270,7 +1911,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2281,19 +1922,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: number
-minimum: 0
-
-```
-
-
-  
-
-## Positive Integer
+### Positive Integer
 
 **kind**: schema\
 **name**: positiveInteger\
@@ -2310,7 +1940,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2321,19 +1951,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: integer
-minimum: 1
-
-```
-
-
-  
-
-## Positive Integer or Zero
+### Positive Integer or Zero
 
 **kind**: schema\
 **name**: positiveIntegerOrZero\
@@ -2358,7 +1977,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2369,19 +1988,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: integer
-minimum: 0
-
-```
-
-
-  
-
-## Short String
+### Short String
 
 **kind**: schema\
 **name**: shortString\
@@ -2398,7 +2006,7 @@ A short text string.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2409,19 +2017,8 @@ A short text string.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-maxLength: 20
-
-```
-
-
-  
-
-## String
+### String
 
 **kind**: schema\
 **name**: string\
@@ -2438,7 +2035,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2448,18 +2045,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-
-```
-
-
-  
-
-## Telephone Number
+### Telephone Number
 
 **kind**: schema\
 **name**: telephoneNo\
@@ -2495,7 +2082,7 @@ In this example we have a US landline number with an extension.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2524,32 +2111,8 @@ In this example we have a US landline number with an extension.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: object
-additionalProperties: false
-properties:
-  isd:
-    $ref: callingCode
-    documentation: An international dialling code.
-  number:
-    $ref: shortString
-    documentation: The main number.  It should NOT have a leading zero.
-  ext:
-    $ref: shortString
-    documentation: Optional extension information.
-required:
-  - isd
-  - number
-
-```
-
-
-  
-
-## Time
+### Time
 
 **kind**: schema\
 **name**: time\
@@ -2566,7 +2129,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2577,19 +2140,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-format: time
-
-```
-
-
-  
-
-## Timestamp
+### Timestamp
 
 **kind**: schema\
 **name**: timestamp\
@@ -2606,7 +2158,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -2617,19 +2169,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: integer
-minimum: 0
-
-```
-
-
-  
-
-## Time Zone
+### Time Zone
 
 **kind**: enum\
 **name**: timeZone\
@@ -2895,32 +2436,32 @@ australia/melbourne |  | Australia/Melbourne (+10:00, DST +11:00) |
 australia/perth |  | Australia/Perth (+08:00, DST +08:00) |  
 australia/sydney |  | Australia/Sydney (+10:00, DST +11:00) |  
 etc/gmt |  | Etc/GMT (+00:00, DST +00:00) |  
-etc/gmt+1 |  | Etc/GMT+1 (−01:00, DST −01:00) |  
-etc/gmt+10 |  | Etc/GMT+10 (−10:00, DST −10:00) |  
-etc/gmt+11 |  | Etc/GMT+11 (−11:00, DST −11:00) |  
-etc/gmt+12 |  | Etc/GMT+12 (−12:00, DST −12:00) |  
-etc/gmt+2 |  | Etc/GMT+2 (−02:00, DST −02:00) |  
-etc/gmt+3 |  | Etc/GMT+3 (−03:00, DST −03:00) |  
-etc/gmt+4 |  | Etc/GMT+4 (−04:00, DST −04:00) |  
-etc/gmt+5 |  | Etc/GMT+5 (−05:00, DST −05:00) |  
-etc/gmt+6 |  | Etc/GMT+6 (−06:00, DST −06:00) |  
-etc/gmt+7 |  | Etc/GMT+7 (−07:00, DST −07:00) |  
-etc/gmt+8 |  | Etc/GMT+8 (−08:00, DST −08:00) |  
-etc/gmt+9 |  | Etc/GMT+9 (−09:00, DST −09:00) |  
-etc/gmt-1 |  | Etc/GMT-1 (+01:00, DST +01:00) |  
-etc/gmt-10 |  | Etc/GMT-10 (+10:00, DST +10:00) |  
-etc/gmt-11 |  | Etc/GMT-11 (+11:00, DST +11:00) |  
-etc/gmt-12 |  | Etc/GMT-12 (+12:00, DST +12:00) |  
-etc/gmt-13 |  | Etc/GMT-13 (+13:00, DST +13:00) |  
-etc/gmt-14 |  | Etc/GMT-14 (+14:00, DST +14:00) |  
-etc/gmt-2 |  | Etc/GMT-2 (+02:00, DST +02:00) |  
-etc/gmt-3 |  | Etc/GMT-3 (+03:00, DST +03:00) |  
-etc/gmt-4 |  | Etc/GMT-4 (+04:00, DST +04:00) |  
-etc/gmt-5 |  | Etc/GMT-5 (+05:00, DST +05:00) |  
-etc/gmt-6 |  | Etc/GMT-6 (+06:00, DST +06:00) |  
-etc/gmt-7 |  | Etc/GMT-7 (+07:00, DST +07:00) |  
-etc/gmt-8 |  | Etc/GMT-8 (+08:00, DST +08:00) |  
-etc/gmt-9 |  | Etc/GMT-9 (+09:00, DST +09:00) |  
+etc/gmt-plus-1 |  | Etc/GMT+1 (−01:00, DST −01:00) |  
+etc/gmt-plus-10 |  | Etc/GMT+10 (−10:00, DST −10:00) |  
+etc/gmt-plus-11 |  | Etc/GMT+11 (−11:00, DST −11:00) |  
+etc/gmt-plus-12 |  | Etc/GMT+12 (−12:00, DST −12:00) |  
+etc/gmt-plus-2 |  | Etc/GMT+2 (−02:00, DST −02:00) |  
+etc/gmt-plus-3 |  | Etc/GMT+3 (−03:00, DST −03:00) |  
+etc/gmt-plus-4 |  | Etc/GMT+4 (−04:00, DST −04:00) |  
+etc/gmt-plus-5 |  | Etc/GMT+5 (−05:00, DST −05:00) |  
+etc/gmt-plus-6 |  | Etc/GMT+6 (−06:00, DST −06:00) |  
+etc/gmt-plus-7 |  | Etc/GMT+7 (−07:00, DST −07:00) |  
+etc/gmt-plus-8 |  | Etc/GMT+8 (−08:00, DST −08:00) |  
+etc/gmt-plus-9 |  | Etc/GMT+9 (−09:00, DST −09:00) |  
+etc/gmt-minus-1 |  | Etc/GMT-1 (+01:00, DST +01:00) |  
+etc/gmt-minus-10 |  | Etc/GMT-10 (+10:00, DST +10:00) |  
+etc/gmt-minus-11 |  | Etc/GMT-11 (+11:00, DST +11:00) |  
+etc/gmt-minus-12 |  | Etc/GMT-12 (+12:00, DST +12:00) |  
+etc/gmt-minus-13 |  | Etc/GMT-13 (+13:00, DST +13:00) |  
+etc/gmt-minus-14 |  | Etc/GMT-14 (+14:00, DST +14:00) |  
+etc/gmt-minus-2 |  | Etc/GMT-2 (+02:00, DST +02:00) |  
+etc/gmt-minus-3 |  | Etc/GMT-3 (+03:00, DST +03:00) |  
+etc/gmt-minus-4 |  | Etc/GMT-4 (+04:00, DST +04:00) |  
+etc/gmt-minus-5 |  | Etc/GMT-5 (+05:00, DST +05:00) |  
+etc/gmt-minus-6 |  | Etc/GMT-6 (+06:00, DST +06:00) |  
+etc/gmt-minus-7 |  | Etc/GMT-7 (+07:00, DST +07:00) |  
+etc/gmt-minus-8 |  | Etc/GMT-8 (+08:00, DST +08:00) |  
+etc/gmt-minus-9 |  | Etc/GMT-9 (+09:00, DST +09:00) |  
 etc/utc |  | Etc/UTC (+00:00, DST +00:00) |  
 europe/amsterdam |  | Europe/Amsterdam (+01:00, DST +02:00) |  
 europe/andorra |  | Europe/Andorra (+01:00, DST +02:00) |  
@@ -3016,7 +2557,7 @@ pacific/wallis |  | Pacific/Wallis (+12:00, DST +12:00) |
 
   
 
-## UUID
+### UUID
 
 **kind**: schema\
 **name**: uuid\
@@ -3033,7 +2574,7 @@ An example.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -3044,19 +2585,8 @@ An example.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
-
-```
-
-
-  
-
-## Web Address
+### Web Address
 
 **kind**: schema\
 **name**: webAddress\
@@ -3081,7 +2611,7 @@ A link to an secured site using HTTP.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -3092,20 +2622,8 @@ A link to an secured site using HTTP.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: string
-pattern: >-
-  ^http[s]?://[a-zA-Z0-9@:%._+~#=]{2,256}.[a-z]{2,6}([-a-zA-Z0-9@:%_+.~#?&//=]*)$
-
-```
-
-
-  
-
-## What 3 Words
+### What 3 Words
 
 **kind**: schema\
 **name**: what3words\
@@ -3138,7 +2656,7 @@ This example is for an embassy in panama.
 ```
 
 
-### Schema as JSON
+### Schema
 
 
 ```json
@@ -3153,22 +2671,8 @@ This example is for an embassy in panama.
 ```
 
 
-### Schema as YAML
 
-
-```yaml
-type: array
-minItems: 3
-maxItems: 3
-items:
-  $ref: shortString
-
-```
-
-
-  
-
-## Yes or No
+### Yes or No
 
 **kind**: enum\
 **name**: yesNo\
@@ -3183,4 +2687,4 @@ yes |  | Yes |
 no |  | No |  
 
   
-  
+      
