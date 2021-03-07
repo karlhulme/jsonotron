@@ -11,7 +11,7 @@ export class MarkdownGenerator implements CodeGenerator {
 
     const uniqueSystemRefs = getUniqueSystemRefs(params.enumTypes, params.schemaTypes)
 
-    lines.push(uniqueSystemRefs.map(usr => `[${usr.system} ${usr.domainSystem}](#"${usr.system}"-System)`).join('\n'))
+    lines.push(uniqueSystemRefs.map(usr => `* ["${usr.system}" System of ${usr.domainSystem}](#"${usr.system}"-System)`).join('\n'))
 
     for (const uniqueSystemRef of uniqueSystemRefs) {
       const systemEnumTypes = params.enumTypes
