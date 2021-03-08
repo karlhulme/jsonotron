@@ -24,6 +24,15 @@ npm publish
 ```
 
 
+## Design Decisions
+
+The code generates required marks that match the original schema.  This means:
+
+* In **Typescript**, only optional properties are marked with a ?
+* In **GraphQL**, required properties are marked with a !
+
+A GraphQL client may present a user with a UI that allows them to build up a valid value over time.  In this editing mode, the value will sometimes be valid and sometimes not.  To assist with this, the GraphQL code generator outputs ___Editing types.
+
 ## Continuous Deployment
 
 Any pushes or pull-requests on non-main branches will trigger the test runner.

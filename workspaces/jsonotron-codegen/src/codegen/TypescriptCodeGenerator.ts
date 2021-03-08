@@ -97,13 +97,13 @@ export class TypescriptCodeGenerator implements CodeGenerator {
 
   private generateUnnamespacedCode (enumTypes: EnumType[], schemaTypes: SchemaType[]): string {
     const lines: string[] = [
-      ...this.generateSchemaTypeObjectInterfaces(enumTypes, schemaTypes)
+      ...this.generateInterfacesForSchemaTypeObjects(enumTypes, schemaTypes)
     ]
 
     return lines.join('\n\n')
   }
 
-  private generateSchemaTypeObjectInterfaces (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {
+  private generateInterfacesForSchemaTypeObjects (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {
     const typeMap = convertJsonotronTypesToTypeMap(enumTypes, schemaTypes)
 
     return typeMap.objectTypes
@@ -111,7 +111,8 @@ export class TypescriptCodeGenerator implements CodeGenerator {
         const propLines = t.properties.map(p => {
           const docBlock = p.documentation ? `  /**\n   * ${p.documentation}\n   */\n` : ''
           const resolvedType = this.resolveJsonotronTypeToTypescriptType(p.refTypeName, 0, typeMap)
-          return `${docBlock}  ${p.propertyName}?: ${resolvedType}`
+          const nullableMark = p.isRequired ? '' : '?'
+          return `${docBlock}  ${p.propertyName}${nullableMark}: ${resolvedType}`
         })
 
         const docBlock = `/**\n * ${t.documentation}\n */\n`

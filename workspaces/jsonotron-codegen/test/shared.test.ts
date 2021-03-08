@@ -110,7 +110,8 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
             }, {
               type: 'number'
             }]
-          }
+          },
+          age: { type: 'integer', documentation: 'The age in years.' }
         }
       },
       examples: [

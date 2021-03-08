@@ -11,12 +11,16 @@ test('Generate typescript code.', async () => {
   })
 
   // useful for debug
-  console.log(result)
+  // console.log(result)
 
   expect(result).toContain('# Type Systems')
-  // expect(result).toContain('## Color')
-  // expect(result).toContain('## Direction')
-  // expect(result).toContain('## Household')
-  // expect(result).toContain('## Positive Integer')
+  expect(result).toContain('## "test" System')
+  expect(result).toContain('## "extra" System')
+  expect(result).toContain('### Color')
+  expect(result).toContain('### Direction')
+  expect(result).toContain('### Bed')
+  expect(result).toContain('### Pillow')
+  expect(result).toContain('#### Example 1')
+  expect(result).toContain('#### Schema')
 })
 
