@@ -18,6 +18,3 @@ items:
 - value: purple
   text: Purple
   deprecated: We don't use this anymore
-- value: 000-black
-  text: Jet black
-  documentation: A value that exercises the codegen
