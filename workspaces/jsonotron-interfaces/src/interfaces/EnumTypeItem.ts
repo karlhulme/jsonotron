@@ -24,6 +24,11 @@ export interface EnumTypeItem {
   symbol?: string
 
   /**
+   * Additional data associated with the enum type item.
+   */
+  data?: Record<string, unknown>
+
+  /**
    * The documentation for the enum type item.
    */
   documentation?: string

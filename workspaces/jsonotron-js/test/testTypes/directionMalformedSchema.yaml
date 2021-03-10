@@ -4,12 +4,7 @@ domain: https://jsonotron.org
 system: test
 name: direction
 title: Direction
-dataJsonSchema:
-  type: 'object'
-  additionalProperties: false
-  properties:
-    unicodeChar:
-      type: string
+dataJsonSchema: should be object not a string
 documentation: A set of directions.
 items:
 - value: up

@@ -24,6 +24,9 @@ export const enumTypeSchema = {
     "documentation": {
       "type": "string"
     },
+    "dataJsonSchema": {
+      "type": "object"
+    },
     "items": {
       "type": "array",
       "minItems": 1,
@@ -44,6 +47,9 @@ export const enumTypeSchema = {
           },
           "documentation": {
             "type": "string"
+          },
+          "data": {
+            "type": "object"
           }
         },
         "required": [

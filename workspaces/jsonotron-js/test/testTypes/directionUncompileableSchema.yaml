@@ -5,11 +5,7 @@ system: test
 name: direction
 title: Direction
 dataJsonSchema:
-  type: 'object'
-  additionalProperties: false
-  properties:
-    unicodeChar:
-      type: string
+  type: not-a-valid-json-schema-type
 documentation: A set of directions.
 items:
 - value: up

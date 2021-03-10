@@ -16,7 +16,7 @@ import {
   createJsonSchemaForEnumType, createJsonSchemaForEnumTypeArray,
   createJsonSchemaForSchemaType, createJsonSchemaForSchemaTypeArray
 } from '../jsonSchemaGeneration'
-import { InvalidEnumTypeError,
+import { EnumTypeItemDataValidationError, InvalidEnumTypeDataSchemaError, InvalidEnumTypeError,
   InvalidSchemaTypeError,
   ParseYamlError,
   SchemaTypeExampleValidationError,
@@ -52,9 +52,56 @@ export class Jsonotron {
   enumTypeValidator?: Ajv.ValidateFunction
   schemaTypeValidator?: Ajv.ValidateFunction
 
-  private ajvErrorsToString (errors?: Ajv.ErrorObject[]|null) {
-    /* istanbul ignore next - errors will never be null/undefined */
-    return JSON.stringify(errors || [], null, 2)
+  /**
+   * Constructs a new instance of the Jsonotron class.
+   * @param props A property bag that configures the new instance.
+   */
+   constructor (props?: JsonotronConstructorProps) {
+    if (!props) { props = {} }
+    if (!props.types) { props.types = [] }
+    if (!props.jsonSchemaFormatValidators) { props.jsonSchemaFormatValidators = {} }
+
+    // create a validator
+    this.ajv = new Ajv({
+      format: 'full', // 'full' mode supports format validators
+      ownProperties: true, // only iterate over objects found directly on the object
+      schemas: [
+        enumTypeSchema,
+        schemaTypeSchema
+      ],
+      formats: {
+        'jsonotron-dateTimeLocal': dateTimeLocalFormatValidatorFunc,
+        'jsonotron-dateTimeUtc': dateTimeUtcFormatValidatorFunc,
+        'jsonotron-luhn': luhnFormatValidatorFunc,
+        ...props.jsonSchemaFormatValidators
+      }
+    })
+
+    // create the enum and schema validators for checking the types provided
+    this.enumTypeValidator = this.ajv.getSchema('enumTypeSchema')
+    this.schemaTypeValidator = this.ajv.getSchema('schemaTypeSchema')
+
+    // check all types can be parsed
+    const parsedTypes = props.types.map(t => this.parseYaml(t))
+
+    // add the types to the ajv
+    parsedTypes.forEach(t => {
+      if (t.kind === 'enum') {
+        // process enum type
+        this.addEnumTypeToAjv(t as unknown as EnumType)
+      } else if (t.kind === 'schema') {
+        // process schema type
+        this.addSchemaTypeToAjv(t as unknown as SchemaType)
+      } else {
+        throw new UnrecognisedTypeKindError(t.kind)
+      }
+    })
+
+    // validate the data properties of enum type items
+    this.validateEnumTypeItemDataProperties()
+
+    // validate the schema type examples and test cases
+    this.validateSchemaTypeExamplesAndTestCases()
   }
 
   /**
@@ -105,6 +152,45 @@ export class Jsonotron {
     this.ajv.addSchema(createJsonSchemaForSchemaTypeArray(schemaType))
   }
 
+  private ajvErrorsToString (errors?: Ajv.ErrorObject[]|null) {
+    /* istanbul ignore next - errors will never be null/undefined */
+    return JSON.stringify(errors || [], null, 2)
+  }
+
+  /**
+   * Validate the data properties of the enum type items.
+   */
+  private validateEnumTypeItemDataProperties (): void {
+    // check all the enum types
+    this.enumTypes.forEach(enumType => {
+      // only check data if a schema is provided
+      if (enumType.dataJsonSchema) {
+        // create a validator
+        const validator = this.compileEnumTypeDataSchema(enumType.name, enumType.dataJsonSchema)
+
+        // check the items
+        enumType.items.forEach(enumTypeItem => {
+          if (!validator(enumTypeItem.data)) {
+            throw new EnumTypeItemDataValidationError(enumType.name, enumTypeItem.value, this.ajvErrorsToString(validator.errors))
+          }
+        })
+      }
+    })
+  }
+
+  /**
+   * Compiles the given schema, raising an error if the schema cannot be compiled.
+   * @param enumTypeName The name of an enum type.
+   * @param enumTypeDataJsonSchema A json schema.
+   */
+  private compileEnumTypeDataSchema (enumTypeName: string, enumTypeDataJsonSchema: Record<string, unknown>) {
+    try {
+      return this.ajv.compile(enumTypeDataJsonSchema)
+    } catch (err) {
+      throw new InvalidEnumTypeDataSchemaError(enumTypeName, err.message)
+    }
+  }
+
   /**
    * Validate the schema type examples, test cases and invalid test cases.
    */
@@ -137,54 +223,11 @@ export class Jsonotron {
     })
   }
 
-  /**
-   * Constructs a new instance of the Jsonotron class.
-   * @param props A property bag that configures the new instance.
+  /*
+   *
+   * Public interface
+   * 
    */
-  constructor (props?: JsonotronConstructorProps) {
-    if (!props) { props = {} }
-    if (!props.types) { props.types = [] }
-    if (!props.jsonSchemaFormatValidators) { props.jsonSchemaFormatValidators = {} }
-
-    // create a validator
-    this.ajv = new Ajv({
-      format: 'full', // 'full' mode supports format validators
-      ownProperties: true, // only iterate over objects found directly on the object
-      schemas: [
-        enumTypeSchema,
-        schemaTypeSchema
-      ],
-      formats: {
-        'jsonotron-dateTimeLocal': dateTimeLocalFormatValidatorFunc,
-        'jsonotron-dateTimeUtc': dateTimeUtcFormatValidatorFunc,
-        'jsonotron-luhn': luhnFormatValidatorFunc,
-        ...props.jsonSchemaFormatValidators
-      }
-    })
-
-    // create the enum and schema validators for checking the types provided
-    this.enumTypeValidator = this.ajv.getSchema('enumTypeSchema')
-    this.schemaTypeValidator = this.ajv.getSchema('schemaTypeSchema')
-
-    // check all types can be parsed
-    const parsedTypes = props.types.map(t => this.parseYaml(t))
-
-    // add the types to the ajv
-    parsedTypes.forEach(t => {
-      if (t.kind === 'enum') {
-        // process enum type
-        this.addEnumTypeToAjv(t as unknown as EnumType)
-      } else if (t.kind === 'schema') {
-        // process schema type
-        this.addSchemaTypeToAjv(t as unknown as SchemaType)
-      } else {
-        throw new UnrecognisedTypeKindError(t.kind)
-      }
-    })
-
-    // validate the schema type examples and test cases
-    this.validateSchemaTypeExamplesAndTestCases()
-  }
 
   /**
    * Returns an array of the enum types that are

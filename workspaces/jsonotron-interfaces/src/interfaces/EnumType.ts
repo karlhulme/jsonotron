@@ -30,6 +30,11 @@ export interface EnumType {
   documentation: string
 
   /**
+   * A JSON schema for data attached to each item.
+   */
+  dataJsonSchema: Record<string, unknown>
+
+  /**
    * An array of items.
    */
   items: EnumTypeItem[]
