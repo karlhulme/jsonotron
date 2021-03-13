@@ -72,12 +72,14 @@ system | The name of the type system that this type belongs to.
 name | A name for the enum type.
 title | A display name for the enum type.
 documentation | A commonmark description of the enum.
+dataJsonSchema | A JSON schema that defines the shape of the data property of each item.  If this property is defined, then each item must declare a data property that conforms to it.
 items | An array of objects.
 items.value | A string value that is unique within the array.
 items.text | A string to be used as the display text.
 items.symbol | An optional string that represents the value.
 items.deprecated | If populated, this enum item has been deprecated and this property provides additional information such as which enum item to use instead.
 items.documentation | An optional commonmark description of the enum value.
+items.data | Additional data attached the enum item.  This is required if a dataJsonSchema has been declared.
 
 Here's an example:
 
@@ -186,7 +188,7 @@ Jsonotron assumes the presence of the following bespoke formatters and a complia
 
 Formatter Name | Implementation
 --- | ---
-jsonotron-dateTimeUtc | Expect valid date time in this format `2010-01-01T12:00:00Z`.  The value should always end in a Z and should not include a time zone offset. Leading zeroes are required if any values are less than 10.
+jsonotron-dateTimeUtc | Expect valid date time in this format `2010-01-01T12:00:00Z`.  The value should always end in a Z and should not include a time zone offset. Leading zeroes are required if any values are less than 10.  This ensures the value is fixed length and thus can be sorted alphanumerically to produce a chronological ordering.
 jsonotron-dateTimeLocal | Expect valid date time in this format `2010-01-01T12:00:00+01:00`  The value should always end in a timezone offset which is +HH:mm. Leading zeroes are required if any values are less than 10.
 jsonotron-luhn | Implementation of the luhn alrogithm.
 
@@ -200,6 +202,8 @@ The `./workspaces/jss/scripts/jss-download.sh` script downloads a release JSS fr
 By creating a type system, typically in a separate repo, it becomes easier to share those types across multiple services within your organisation.  This can lead to time saving when documenting those types and ensures consistency when those services communicate.  This approach works well for small granular types (like those found in the JSS) and small common types that are used repeatedly throughout your services.
 
 Be wary of trying to share every type though.  This will typically lead to services being bound together by types where contextually they should be able to evolve independently.  Assume that you will probably end up with multiple type systems representing different bounded contexts.  Remember a single service can pull types from multiple services.
+
+It is reasonable (possibly optimal) to offer a single unified type system to frontend clients.  The codegen tool includes a GraphQL code generator which will largely ignore `domain` and `system` when writing out the types.  At some point, it would be good if a config object would allow prefixes to be added based on the system.  This would provide an escape hatch in case of name clashes.
 
 
 ## JSS Change Process
@@ -248,7 +252,8 @@ Jsonotron enforces seperate fields for `domain`, `system` and `name` on each typ
 
 The use of namespaces allows different systems to exist.  This is useful because the standard system (JSS) that defines lots of types that you wouldn't want to define manually on every project.  However, the namespacing should not be used within a client project, so the codegen tools discard the namespace as much as possible.  When a name collision exists, the codegen tools should be configured to alias one of the offending types to a new name.
 
-The ability to share the types among multiple services is particularly useful when it comes to enum values.  These are often used in multiple services and not having to define them multiple places is a win.
+The ability to share the types among multiple services is particularly useful when it comes to enum values.  These are often used in multiple services and not having to define them multiple places is a win.  Since enums can be extended with arbitary (but schema-backed) data, much of a solutions static reference data can be defined as enum values.  By serving this data up from a `type server` such as `jsonoserve`, multiple microservices can access the same definitions without having to share a common library which pins you to a particular technology.  (To make this work in practice, more jsonotron implementations will be needed.)
+
 
 ## Continuous Deployment
 
