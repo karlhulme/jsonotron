@@ -1,4 +1,4 @@
-import { EnumType, SchemaType, TypeMap } from 'jsonotron-interfaces'
+import { EnumType, SchemaType, TypeMap, TypeMapObject } from 'jsonotron-interfaces'
 import { convertJsonotronTypesToTypeMap } from '../typeMap'
 import { wrapArrayIndicators, capitaliseInitialLetters } from '../utils'
 import { CodeGenerationParameters } from './CodeGenerationParameters'
@@ -7,7 +7,8 @@ import { CodeGenerator } from './CodeGenerator'
 export class GraphQLCodeGenerator implements CodeGenerator {
   generate (params: CodeGenerationParameters): string {
     const code = [
-      ...this.generateStandardCode(),
+      ...this.generateEnumTypeItem(),
+      ...this.generateExtendedEnumTypeItems(params.enumTypes),
       ...this.generateEnumDeclarations(params.enumTypes),
       ...this.generateTypesForSchemaTypeObjects(params.enumTypes, params.schemaTypes)
     ]
@@ -15,37 +16,17 @@ export class GraphQLCodeGenerator implements CodeGenerator {
     return code.join('\n\n')
   }
 
-  private generateStandardCode (): string[] {
-    return [`
-"""
-Represents an enum type item
-"""
-type EnumTypeItem {
-  """
-  The underlying value of the item.
-  """
-  value: String!
+  private generateEnumTypeItem (): string[] {
+    return [this.generateEnumTypeItemTemplate('EnumTypeItem')]
+  }
 
-  """
-  The display text of the value in English.
-  """
-  value: String!
-
-  """
-  The documentation associated with this item.
-  """
-  documentation: String
-
-  """
-  If populated, this value explains why the value was deprecated and/or which item to use instead.
-  """
-  deprecated: String
-
-  """
-  A symbol associated with the item.
-  """
-  symbol: String
-}`]
+  private generateExtendedEnumTypeItems (enumTypes: EnumType[]): string[] {
+    return enumTypes
+      .filter(enumType => enumType.dataJsonSchema)
+      .map(enumType => this.generateEnumTypeItemTemplate(
+        `${capitaliseInitialLetters(enumType.name)}EnumTypeItem`,
+        `${capitaliseInitialLetters(enumType.name)}_Data`
+      ))
   }
 
   private generateEnumDeclarations (enumTypes: EnumType[]): string[] {
@@ -69,7 +50,7 @@ type EnumTypeItem {
         })
 
         const docBlock = `"""\n${t.documentation}\n"""\n`
-        return `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t.fullyQualifiedName)} {\n${propLines.join('\n\n')}\n}\n\n`
+        return `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t)} {\n${propLines.join('\n\n')}\n}\n\n`
       })
   }
 
@@ -93,7 +74,7 @@ type EnumTypeItem {
     // we matched an object type, so we need to return it but apply formatting.
     /* istanbul ignore else */
     if (matchedObjectType) {
-      return wrapArrayIndicators(arrayCount + matchedObjectType.objectTypeArrayCount, this.convertJsonotronTypeNameToGraphQLTypeName(matchedObjectType.fullyQualifiedName))
+      return wrapArrayIndicators(arrayCount + matchedObjectType.objectTypeArrayCount, this.convertJsonotronTypeNameToGraphQLTypeName(matchedObjectType))
     } else {
       // we failed to resolve the type name
       return 'JSON'
@@ -114,8 +95,46 @@ type EnumTypeItem {
     }
   }
 
-  private convertJsonotronTypeNameToGraphQLTypeName (fqn: string): string {
-    const slashIndex = fqn.lastIndexOf('/')
-    return capitaliseInitialLetters(fqn.slice(slashIndex + 1))
+  private convertJsonotronTypeNameToGraphQLTypeName (obj: TypeMapObject): string {
+    return capitaliseInitialLetters(obj.name)
+  }
+
+  private generateEnumTypeItemTemplate (typeName: string, dataTypeName?: string): string {
+    const dataPropertyDeclaration = dataTypeName
+      ? `  """\n  The custom data associated with the enum item.\n  """\n  data: ${dataTypeName}!`
+      : ''
+
+    return `
+"""
+Represents an enum type item
+"""
+type ${typeName} {
+  """
+  The underlying value of the item.
+  """
+  value: String!
+
+  """
+  The display text of the value in English.
+  """
+  text: String!
+
+  """
+  The documentation associated with this item.
+  """
+  documentation: String
+
+  """
+  If populated, this value explains why the value was deprecated and/or which item to use instead.
+  """
+  deprecated: String
+
+  """
+  A symbol associated with the item.
+  """
+  symbol: String
+
+${dataPropertyDeclaration}
+}`
   }
 }
