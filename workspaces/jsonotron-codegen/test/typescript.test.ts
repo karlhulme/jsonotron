@@ -11,7 +11,7 @@ test('Generate typescript code.', async () => {
   })
 
   // useful for debug
-  console.log(result)
+  // console.log(result)
 
   // the standard outputs
   expect(result).toContain('export interface EnumTypeItem {')

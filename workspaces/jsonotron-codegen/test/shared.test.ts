@@ -107,19 +107,22 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
           enumNumbers: { enum: [1, 2, 3] },
           enumBoolean: { enum: [true, false, true] },
           enumObjects: { enum: [{ obj: 'obj' }, { obj: 'obj2' }]},
-          contents: {
+          arrayOfStrings: {
             type: 'array',
             items: {
               type: 'string'
             }
           },
-          complexContents: {
+          arrayOfObjects: {
             type: 'array',
-            items: [{
-              type: 'string'
-            }, {
-              type: 'number'
-            }]
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                a: { type: 'string' },
+                b: { type: 'string' }
+              }
+            }
           },
           age: { type: 'integer', documentation: 'The age in years.' }
         }

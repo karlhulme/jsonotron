@@ -63,11 +63,10 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
       isScalarRef: true,
       isEnumRef: false
     })
-  } else if (jsonSchema.type === 'array' && typeof jsonSchema.items === 'object') {
+  } else if (jsonSchema.type === 'array' && typeof jsonSchema.items === 'object' && !Array.isArray(jsonSchema.items)) {
     // An array type.
     // Increase the number of array brackets and resolve the 'items' property
-    const innerType = Array.isArray(jsonSchema.items) && jsonSchema.items.length > 0 ? jsonSchema.items[0] : jsonSchema.items
-    addJsonSchemaToTypeMap(domain, system, proposedTypeName, arrayCount + 1, innerType as Record<string, unknown>, map, enumTypes)
+    addJsonSchemaToTypeMap(domain, system, proposedTypeName, arrayCount + 1, jsonSchema.items as Record<string, unknown>, map, enumTypes)
   } else if (jsonSchema.type === 'object' && jsonSchema.additionalProperties === false && typeof jsonSchema.properties === 'object' && jsonSchema.properties !== null) {
     // A child object, which will require it's own type.
     // Create types for each of the child properties, as we don't know which will require types vs scalars references.

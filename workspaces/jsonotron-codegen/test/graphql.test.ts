@@ -11,7 +11,11 @@ test('Generate graph ql code.', async () => {
   })
 
   // useful for debug
-  // console.log(result)
+  console.log(result)
+
+  // the enum declarations
+  expect(result).toContain('enum Size')
+  expect(result).toContain('enum Direction')
 
   // the object-type interfaces
   expect(result).toContain('type Bed {')

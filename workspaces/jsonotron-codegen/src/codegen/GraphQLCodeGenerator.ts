@@ -7,30 +7,53 @@ import { CodeGenerator } from './CodeGenerator'
 export class GraphQLCodeGenerator implements CodeGenerator {
   generate (params: CodeGenerationParameters): string {
     const code = [
-      this.generateStandardCode(),
-      this.generateUnnamespacedCode(params.enumTypes, params.schemaTypes)
+      ...this.generateStandardCode(),
+      ...this.generateEnumDeclarations(params.enumTypes),
+      ...this.generateTypesForSchemaTypeObjects(params.enumTypes, params.schemaTypes)
     ]
 
     return code.join('\n\n')
   }
 
-  private generateStandardCode (): string {
-    return `"""\nRepresents an enum type item \n"""\n` +
-    `type EnumTypeItem {\n` +
-    `  """\n  The underlying value of the item.\n  """\n  value: String!\n\n` +
-    `  """\n  The display text of the value in English.\n  """\n  value: String!\n\n` +
-    `  """\n  The documentation associated with this item.\n  """\n  documentation: String\n\n` +
-    `  """\n  If populated, this value explains why the value was deprecated and/or which item to use instead.\n  """\n  deprecated: String\n\n` +
-    `  """\n  A symbol associated with the item.\n  """\n  symbol: String\n\n` +
-    `}`
+  private generateStandardCode (): string[] {
+    return [`
+"""
+Represents an enum type item
+"""
+type EnumTypeItem {
+  """
+  The underlying value of the item.
+  """
+  value: String!
+
+  """
+  The display text of the value in English.
+  """
+  value: String!
+
+  """
+  The documentation associated with this item.
+  """
+  documentation: String
+
+  """
+  If populated, this value explains why the value was deprecated and/or which item to use instead.
+  """
+  deprecated: String
+
+  """
+  A symbol associated with the item.
+  """
+  symbol: String
+}`]
   }
 
-  private generateUnnamespacedCode (enumTypes: EnumType[], schemaTypes: SchemaType[]): string {
-    const lines: string[] = [
-      ...this.generateTypesForSchemaTypeObjects(enumTypes, schemaTypes)
-    ]
+  private generateEnumDeclarations (enumTypes: EnumType[]): string[] {
+    return enumTypes.map(enumType => {
+      const itemLines = enumType.items.map(item => `  ${item.value}`)
 
-    return lines.join('\n\n')
+      return `enum ${capitaliseInitialLetters(enumType.name)} {\n${itemLines.join('\n')}\n}`
+    })
   }
 
   private generateTypesForSchemaTypeObjects (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {
@@ -38,18 +61,15 @@ export class GraphQLCodeGenerator implements CodeGenerator {
 
     return typeMap.objectTypes
       .map(t => {
-        const propLinesFunc = (honourIsRequiredFlag: boolean) => {
-          return t.properties.map(p => {
-            const docBlock = p.documentation ? `  """\n  ${p.documentation}\n  """\n` : ''
-            const resolvedType = this.resolveJsonotronTypeToGraphQLType(p.refTypeName, 0, typeMap)
-            const reqMark = p.isRequired && honourIsRequiredFlag ? '!' : ''
-            return `${docBlock}  ${p.propertyName}: ${resolvedType}${reqMark}`
-          })
-        }
+        const propLines = t.properties.map(p => {
+          const docBlock = p.documentation ? `  """\n  ${p.documentation}\n  """\n` : ''
+          const resolvedType = this.resolveJsonotronTypeToGraphQLType(p.refTypeName, 0, typeMap)
+          const reqMark = p.isRequired ? '!' : ''
+          return `${docBlock}  ${p.propertyName}: ${resolvedType}${reqMark}`
+        })
 
         const docBlock = `"""\n${t.documentation}\n"""\n`
-        return `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t.fullyQualifiedName)} {\n${propLinesFunc(true).join('\n\n')}\n}\n\n` +
-          `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t.fullyQualifiedName)}Editing {\n${propLinesFunc(false).join('\n\n')}\n}\n\n`
+        return `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t.fullyQualifiedName)} {\n${propLines.join('\n\n')}\n}\n\n`
       })
   }
 
@@ -59,7 +79,9 @@ export class GraphQLCodeGenerator implements CodeGenerator {
     // we matched a ref type, if it's a scalar we can return that type
     // otherwise we need to repeat the search using the new (resolved) type name.
     if (matchedRefType) {
-      if (matchedRefType.isScalarRef) {
+      if (matchedRefType.isEnumRef) {
+        return wrapArrayIndicators(arrayCount + matchedRefType.refTypeArrayCount, capitaliseInitialLetters(matchedRefType.name))
+      } else if (matchedRefType.isScalarRef) {
         return wrapArrayIndicators(arrayCount + matchedRefType.refTypeArrayCount, this.convertJsonotronScalarNameToGraphQLScalarName(matchedRefType.refTypeName))
       } else {
         return this.resolveJsonotronTypeToGraphQLType(matchedRefType.refTypeName, arrayCount + matchedRefType.refTypeArrayCount, map)
