@@ -9,12 +9,12 @@ examples:
 - value:
     location: over the rainbow
     familyMemberCount: 2
-    doorColor: red
+    doorColor: RED
   documentation: An example.
 validTestCases:
 - location: over the rainbow
   familyMemberCount: 2
-  doorColor: red
+  doorColor: RED
 invalidTestCases:
 - -1
 - 0
@@ -25,10 +25,10 @@ invalidTestCases:
 - {}
 - []
 - familyMemberCount: 123 # missing location
-  doorColor: red
+  doorColor: RED
 - location: over the rainbow # invalid door color
   familyMemberCount: 2
-  doorColor: puse
+  doorColor: PUSE
 jsonSchema:
   type: object
   additionalProperties: false

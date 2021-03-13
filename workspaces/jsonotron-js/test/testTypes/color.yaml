@@ -6,15 +6,15 @@ name: color
 title: Color
 documentation: A set of colors.
 items:
-- value: red
+- value: RED
   text: Red
-- value: blue
+- value: BLUE
   text: Blue
-- value: green
+- value: GREEN
   text: Green
-- value: yellow
+- value: YELLOW
   text: Yellow
   symbol: 'Y'
-- value: purple
+- value: PURPLE
   text: Purple
   deprecated: We don't use this anymore

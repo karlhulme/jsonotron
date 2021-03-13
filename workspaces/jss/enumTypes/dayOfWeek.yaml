@@ -6,17 +6,17 @@ name: dayOfWeek
 title: Day of Week
 documentation: A day of the week.
 items:
-- value: su
+- value: SU
   text: Sunday
-- value: mo
+- value: MO
   text: Monday
-- value: tu
+- value: TU
   text: Tuesday
-- value: we
+- value: WE
   text: Wednesday
-- value: th
+- value: TH
   text: Thursday
-- value: fr
+- value: FR
   text: Friday
-- value: sa
+- value: SA
   text: Saturday

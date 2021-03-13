@@ -7,19 +7,19 @@ title: Direction
 dataJsonSchema: should be object not a string
 documentation: A set of directions.
 items:
-- value: up
+- value: UP
   text: Up
   data:
     unicodeChar: ↑
-- value: down
+- value: DOWN
   text: Down
   data:
     unicodeChar: ↓
-- value: left
+- value: LEFT
   text: Left
   data:
     unicodeChar: ←
-- value: right
+- value: RIGHT
   text: Right
   data:
     unicodeChar: →

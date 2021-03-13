@@ -77,7 +77,7 @@ test('The jsonotron constructor does not accept enum types with items that fail 
   } catch (err) {
     expect(err).toBeInstanceOf(EnumTypeItemDataValidationError)
     expect(err.enumTypeName).toEqual('direction')
-    expect(err.itemValue).toEqual('up')
+    expect(err.itemValue).toEqual('UP')
   }
 })
 

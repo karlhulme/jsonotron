@@ -15,8 +15,8 @@ test('Valid structure containing values and value arrays can be validated.', () 
     familyUnit: { type: 'https://jsonotron.org/test/household', isNullable: true },
     steps: { type: 'https://jsonotron.org/test/positiveInteger', isArray: true }
   }, {
-    favourite: 'blue',
-    familyUnit: { location: 'here', familyMemberCount: 3, doorColor: 'green' },
+    favourite: 'BLUE',
+    familyUnit: { location: 'here', familyMemberCount: 3, doorColor: 'GREEN' },
     steps: [39, 40]
   })).toEqual({ validated: true, fields: [] })
 })
@@ -66,5 +66,5 @@ test('Structure with unknown field type cannot be validated.', () => {
   const jsonotron = new Jsonotron({ types: [colorType] })
   expect(jsonotron.validateStructure({
     favourite: { type: 'https://jsonotron.org/test/invalid' }
-  }, { favourite: 'red' })).toEqual({ validated: false, fields: [{ name: 'favourite', message: expect.stringContaining('Unrecognised type') }] })
+  }, { favourite: 'RED' })).toEqual({ validated: false, fields: [{ name: 'favourite', message: expect.stringContaining('Unrecognised type') }] })
 })

@@ -10,21 +10,21 @@ test('Unknown enum/schema type is not resolved using fully qualified name.', () 
 test('Valid enum value can be validated.', () => {
   const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
   const jsonotron = new Jsonotron({ types: [colorType] })
-  expect(jsonotron.validateValue('https://jsonotron.org/test/color', 'red')).toEqual({ resolved: true, validated: true })
+  expect(jsonotron.validateValue('https://jsonotron.org/test/color', 'RED')).toEqual({ resolved: true, validated: true })
 })
 
 test('Valid enum value array can be validated.', () => {
   const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
   const jsonotron = new Jsonotron({ types: [colorType] })
   expect(jsonotron.validateValueArray('https://jsonotron.org/test/color', [])).toEqual({ resolved: true, validated: true })
-  expect(jsonotron.validateValueArray('https://jsonotron.org/test/color', ['red'])).toEqual({ resolved: true, validated: true })
-  expect(jsonotron.validateValueArray('https://jsonotron.org/test/color', ['blue', 'yellow'])).toEqual({ resolved: true, validated: true })
+  expect(jsonotron.validateValueArray('https://jsonotron.org/test/color', ['RED'])).toEqual({ resolved: true, validated: true })
+  expect(jsonotron.validateValueArray('https://jsonotron.org/test/color', ['BLUE', 'YELLOW'])).toEqual({ resolved: true, validated: true })
 })
 
 test('Invalid enum value cannot be validated.', () => {
   const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
   const jsonotron = new Jsonotron({ types: [colorType] })
-  expect(jsonotron.validateValue('https://jsonotron.org/test/color', 'puse')).toEqual({ resolved: true, validated: false, message: expect.any(String) })
+  expect(jsonotron.validateValue('https://jsonotron.org/test/color', 'PUSE')).toEqual({ resolved: true, validated: false, message: expect.any(String) })
 })
 
 test('Valid schema value can be validated using short or qualified name.', () => {
@@ -39,7 +39,7 @@ test('Valid schema value that references other schemas can be validated.', () =>
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
   const stringType = fs.readFileSync('./test/testTypes/string.yaml', 'utf-8')
   const jsonotron = new Jsonotron({ types: [colorType, householdType, positiveIntegerType, stringType] })
-  expect(jsonotron.validateValue('https://jsonotron.org/test/household', { location: 'here', familyMemberCount: 2, doorColor: 'green' })).toEqual({ resolved: true, validated: true })
+  expect(jsonotron.validateValue('https://jsonotron.org/test/household', { location: 'here', familyMemberCount: 2, doorColor: 'GREEN' })).toEqual({ resolved: true, validated: true })
 })
 
 test('Valid schema value array can be validated.', () => {

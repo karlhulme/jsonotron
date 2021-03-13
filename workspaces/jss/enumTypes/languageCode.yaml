@@ -6,269 +6,269 @@ name: languageCode
 title: Language Code
 documentation: A language code conforming to the from ISO 639-1 standard.
 items:
-- value: af
+- value: AF
   text: Afrikaans
-- value: ar
+- value: AR
   text: Arabic
-- value: ar-dz
+- value: AR_DZ
   text: Arabic (Algeria)
-- value: ar-bh
+- value: AR_BH
   text: Arabic (Bahrain)
-- value: ar-eg
+- value: AR_EG
   text: Arabic (Egypt)
-- value: ar-iq
+- value: AR_IQ
   text: Arabic (Iraq)
-- value: ar-jo
+- value: AR_JO
   text: Arabic (Jordan)
-- value: ar-kw
+- value: AR_KW
   text: Arabic (Kuwait)
-- value: ar-lb
+- value: AR_LB
   text: Arabic (Lebanon)
-- value: ar-ly
+- value: AR_LY
   text: Arabic (Libya)
-- value: ar-ma
+- value: AR_MA
   text: Arabic (Morocco)
-- value: ar-om
+- value: AR_OM
   text: Arabic (Oman)
-- value: ar-qa
+- value: AR_QA
   text: Arabic (Qatar)
-- value: ar-sa
+- value: AR_SA
   text: Arabic (Saudi Arabia)
-- value: ar-sy
+- value: AR_SY
   text: Arabic (Syria)
-- value: ar-tn
+- value: AR_TN
   text: Arabic (Tunisia)
-- value: ar-ae
+- value: AR_AE
   text: Arabic (U.A.E.)
-- value: ar-ye
+- value: AR_YE
   text: Arabic (Yemen)
-- value: be
+- value: BE
   text: Belarusian
-- value: bg
+- value: BG
   text: Bulgarian
-- value: ca
+- value: CA
   text: Catalan
-- value: cy
+- value: CY
   text: Welsh
-- value: cs
+- value: CS
   text: Czech
-- value: da
+- value: DA
   text: Danish
-- value: de
+- value: DE
   text: German
-- value: de-at
+- value: DE_AT
   text: German (Austria)
-- value: de-ch
+- value: DE_CH
   text: German (Switzerland)
-- value: de-de
+- value: DE_DE
   text: German (Germany)
-- value: de-li
+- value: DE_LI
   text: German (Liechtenstein)
-- value: de-lu
+- value: DE_LU
   text: German (Luxembourg)
-- value: el
+- value: EL
   text: Greek
-- value: en
+- value: EN
   text: English
-- value: en-au
+- value: EN_AU
   text: English (Australia)
-- value: en-bz
+- value: EN_BZ
   text: English (Belize)
-- value: en-ca
+- value: EN_CA
   text: English (Canada)
-- value: en-gb
+- value: EN_GB
   text: English (United Kingdom)
-- value: en-ie
+- value: EN_IE
   text: English (Ireland)
-- value: en-jm
+- value: EN_JM
   text: English (Jamaica)
-- value: en-nz
+- value: EN_NZ
   text: English (New Zealand)
-- value: en-za
+- value: EN_ZA
   text: English (South Africa)
-- value: en-tt
+- value: EN_TT
   text: English (Trinidad)
-- value: en-us
+- value: EN_US
   text: English (United States)
-- value: es
+- value: ES
   text: Spanish
-- value: es-ar
+- value: ES_AR
   text: Spanish (Argentina)
-- value: es-bo
+- value: ES_BO
   text: Spanish (Bolivia)
-- value: es-cl
+- value: ES_CL
   text: Spanish (Chile)
-- value: es-co
+- value: ES_CO
   text: Spanish (Colombia)
-- value: es-cr
+- value: ES_CR
   text: Spanish (Costa Rica)
-- value: es-do
+- value: ES_DO
   text: Spanish (Dominican Republic)
-- value: es-ec
+- value: ES_EC
   text: Spanish (Ecuador)
-- value: es-es
+- value: ES_ES
   text: Spanish (Spain)
-- value: es-gt
+- value: ES_GT
   text: Spanish (Guatemala)
-- value: es-hn
+- value: ES_HN
   text: Spanish (Honduras)
-- value: es-mx
+- value: ES_MX
   text: Spanish (Mexico)
-- value: es-ni
+- value: ES_NI
   text: Spanish (Nicaragua)
-- value: es-pa
+- value: ES_PA
   text: Spanish (Panama)
-- value: es-py
+- value: ES_PY
   text: Spanish (Paraguay)
-- value: es-pe
+- value: ES_PE
   text: Spanish (Peru)
-- value: es-pr
+- value: ES_PR
   text: Spanish (Puerto Rico)
-- value: es-sv
+- value: ES_SV
   text: Spanish (El Salvador)
-- value: es-uy
+- value: ES_UY
   text: Spanish (Uruguay)
-- value: es-ve
+- value: ES_VE
   text: Spanish (Venezuela)
-- value: et
+- value: ET
   text: Estonian
-- value: eu
+- value: EU
   text: Basque
-- value: fa
+- value: FA
   text: Farsi
-- value: fi
+- value: FI
   text: Finnish
-- value: fo
+- value: FO
   text: Faeroese
-- value: fr
+- value: FR
   text: French
-- value: fr-be
+- value: FR_BE
   text: French (Belgium)
-- value: fr-ca
+- value: FR_CA
   text: French (Canada)
-- value: fr-ch
+- value: FR_CH
   text: French (Switzerland)
-- value: fr-fr
+- value: FR_FR
   text: French (France)
-- value: fr-lu
+- value: FR_LU
   text: French (Luxembourg)
-- value: ga
+- value: GA
   text: Irish
-- value: gd
+- value: GD
   text: Gaelic
-- value: he
+- value: HE
   text: Hebrew
-- value: hi
+- value: HI
   text: Hindi
-- value: hr
+- value: HR
   text: Croatian
-- value: hu
+- value: HU
   text: Hungarian
-- value: is
+- value: IS
   text: Icelandic
-- value: id
+- value: ID
   text: Indonesian
-- value: it
+- value: IT
   text: Italian
-- value: it-ch
+- value: IT_CH
   text: Italian (Switzerland)
-- value: it-it
+- value: IT_IT
   text: Italian (Italy)
-- value: ja
+- value: JA
   text: Japanese
-- value: ko
+- value: KO
   text: Korean
-- value: ku
+- value: KU
   text: Kurdish
-- value: lv
+- value: LV
   text: Latvian
-- value: lt
+- value: LT
   text: Lithuanian
-- value: mk
+- value: MK
   text: Macedonian (FYROM)
-- value: ml
+- value: ML
   text: Malayalam
-- value: ms
+- value: MS
   text: Malaysian
-- value: mt
+- value: MT
   text: Maltese
-- value: nb
+- value: NB
   text: Norwegian (Bokmål)
-- value: nl
+- value: NL
   text: Dutch
-- value: nl-be
+- value: NL_BE
   text: Dutch (Belgium)
-- value: nn
+- value: NN
   text: Norwegian (Nynorsk)
-- value: 'no'
+- value: 'NO'
   text: Norwegian
-- value: pl
+- value: PL
   text: Polish
-- value: pa
+- value: PA
   text: Punjabi
-- value: pt
+- value: PT
   text: Portuguese
-- value: pt-pt
+- value: PT_PT
   text: Portuguese (Portugal)
-- value: pt-br
+- value: PT_BR
   text: Portuguese (Brazil)
-- value: rm
+- value: RM
   text: Rhaeto-Romanic
-- value: ro
+- value: RO
   text: Romanian
-- value: ro-ro
+- value: RO_RO
   text: Romanian (Romania)
-- value: ro-md
+- value: RO_MD
   text: Romanian (Republic of Moldova)
-- value: ru
+- value: RU
   text: Russian
-- value: ru-ru
+- value: RU_RU
   text: Russian (Russia)
-- value: ru-md
+- value: RU_MD
   text: Russian (Republic of Moldova)
-- value: sb
+- value: SB
   text: Sorbian
-- value: sk
+- value: SK
   text: Slovak
-- value: sl
+- value: SL
   text: Slovenian
-- value: sq
+- value: SQ
   text: Albanian
-- value: sr
+- value: SR
   text: Serbian
-- value: sv
+- value: SV
   text: Swedish
-- value: sv-sv
+- value: SV_SV
   text: Swedish (Sweden)
-- value: sv-fi
+- value: SV_FI
   text: Swedish (Finland)
-- value: th
+- value: TH
   text: Thai
-- value: ts
+- value: TS
   text: Tsonga
-- value: tn
+- value: TN
   text: Tswana
-- value: tr
+- value: TR
   text: Turkish
-- value: uk
+- value: UK
   text: Ukrainian
-- value: ur
+- value: UR
   text: Urdu
-- value: ve
+- value: VE
   text: Venda
-- value: vi
+- value: VI
   text: Vietnamese
-- value: xh
+- value: XH
   text: Xhosa
-- value: yi
+- value: YI
   text: Yiddish
-- value: zh-hk
+- value: ZH_HK
   text: Chinese (Hong Kong)
-- value: zh-cn
+- value: ZH_CN
   text: Chinese (PRC)
-- value: zh-sg
+- value: ZH_SG
   text: Chinese (Singapore)
-- value: zh-tw
+- value: ZH_TW
   text: Chinese (Taiwan)
-- value: zu
+- value: ZU
   text: Zulu

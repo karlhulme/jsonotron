@@ -5,556 +5,872 @@ system: jss
 name: currencyCode
 title: Currency Code
 documentation: A currency designator from ISO 4217.  The data is taken from https://en.wikipedia.org/wiki/ISO_4217.
+dataJsonSchema:
+  type: object
+  additionalProperties: false
+  properties:
+    scaler:
+      type: integer
+      minimum: 0
+      maximum: 100
 items:
-- value: aed
+- value: AED
   symbol: د.إ
   text: United Arab Emirates Dirham
-- value: afn
+  data:
+    scaler: 2
+- value: AFN
   symbol: AFN
   text: Afghan Afghani
-- value: all
+  data:
+    scaler: 2
+- value: ALL
   symbol: ALL
   text: Albanian Lek
-- value: amd
+  data:
+    scaler: 2
+- value: AMD
   symbol: AMD
   text: Armenian Dram
-- value: ang
+  data:
+    scaler: 2
+- value: ANG
   symbol: ANG
   text: Netherlands Antillean Guilder
-- value: aoa
+  data:
+    scaler: 2
+- value: AOA
   symbol: AOA
   text: Angolan Kwanza
-- value: ars
+  data:
+    scaler: 2
+- value: ARS
   symbol: ARS
   text: Argentine Peso
-- value: aud
+  data:
+    scaler: 2
+- value: AUD
   symbol: "$"
   text: Australian Dollar
-- value: awg
+  data:
+    scaler: 2
+- value: AWG
   symbol: AWG
   text: Aruban Florin
-- value: azn
+  data:
+    scaler: 2
+- value: AZN
   symbol: AZN
   text: Azerbaijani Manat
-- value: bam
+  data:
+    scaler: 2
+- value: BAM
   symbol: BAM
   text: Bosnia and Herzegovina Convertible Mark
-- value: bbd
+  data:
+    scaler: 2
+- value: BBD
   symbol: BBD
   text: Barbados Dollar
-- value: bdt
+  data:
+    scaler: 2
+- value: BDT
   symbol: "৳"
   text: Bangladeshi Taka
-- value: bgn
+  data:
+    scaler: 2
+- value: BGN
   symbol: лв
   text: Bulgarian Lev
-- value: bhd
+  data:
+    scaler: 2
+- value: BHD
   symbol: BHD
   text: Bahraini Dinar
-- value: bif
+  data:
+    scaler: 3
+- value: BIF
   symbol: BIF
   text: Burundian Franc
-- value: bmd
+  data:
+    scaler: 0
+- value: BMD
   symbol: BMD
   text: Bermudian Dollar
-- value: bnd
+  data:
+    scaler: 2
+- value: BND
   symbol: BND
   text: Brunei Dollar
-- value: bob
+  data:
+    scaler: 2
+- value: BOB
   symbol: BOB
   text: Boliviano
-- value: bov
+  data:
+    scaler: 2
+- value: BOV
   symbol: BOV
   text: Bolivian Mvdol (funds code)
-- value: brl
+  data:
+    scaler: 2
+- value: BRL
   symbol: R$
   text: Brazilian Real
-- value: bsd
+  data:
+    scaler: 2
+- value: BSD
   symbol: BSD
   text: Bahamian Dollar
-- value: btc
+  data:
+    scaler: 2
+- value: BTC
   symbol: "₿"
   text: Bitcoin
-- value: btn
+  data:
+    scaler: 8
+- value: BTN
   symbol: BTN
   text: Bhutanese Ngultrum
-- value: bwp
+  data:
+    scaler: 2
+- value: BWP
   symbol: BWP
   text: Botswana Pula
-- value: byn
+  data:
+    scaler: 2
+- value: BYN
   symbol: BYN
   text: Belarusian Ruble
-- value: bzd
+  data:
+    scaler: 2
+- value: BZD
   symbol: BZD
   text: Belize Dollar
-- value: cad
+  data:
+    scaler: 2
+- value: CAD
   symbol: "$"
   text: Canadian Dollar
-- value: cdf
+  data:
+    scaler: 2
+- value: CDF
   symbol: CDF
   text: Congolese Franc
-- value: che
+  data:
+    scaler: 2
+- value: CHE
   symbol: "€"
   text: WIR Euro
-- value: chf
+  data:
+    scaler: 2
+- value: CHF
   symbol: CHF
   text: Swiss Franc
-- value: chw
+  data:
+    scaler: 2
+- value: CHW
   symbol: CHW
   text: WIR Franc
-- value: clf
+  data:
+    scaler: 2
+- value: CLF
   symbol: CLF
   text: Unidad de Fomento (funds code)
-- value: clp
+  data:
+    scaler: 4
+- value: CLP
   symbol: "$"
   text: Chilean Peso
-- value: cny
+  data:
+    scaler: 0
+- value: CNY
   symbol: "¥"
   text: Renminbi (Chinese) Yuan
-- value: cop
+  data:
+    scaler: 2
+- value: COP
   symbol: "$"
   text: Colombian Peso
-- value: cou
+  data:
+    scaler: 2
+- value: COU
   symbol: COU
   text: Unidad de Valor Real (UVR)
-- value: crc
+  data:
+    scaler: 2
+- value: CRC
   symbol: CRC
   text: Costa Rican Colon
-- value: cuc
+  data:
+    scaler: 2
+- value: CUC
   symbol: CUC
   text: Cuban convertible Peso
-- value: cup
+  data:
+    scaler: 2
+- value: CUP
   symbol: CUP
   text: Cuban Peso
-- value: cve
+  data:
+    scaler: 2
+- value: CVE
   symbol: CVE
   text: Cape Verdean Escudo
-- value: czk
+  data:
+    scaler: 2
+- value: CZK
   symbol: Kč
   text: Czech Koruna
-- value: djf
+  data:
+    scaler: 2
+- value: DJF
   symbol: DJF
   text: Djiboutian Franc
-- value: dkk
+  data:
+    scaler: 0
+- value: DKK
   symbol: kr
   text: Danish Krone
-- value: dop
+  data:
+    scaler: 2
+- value: DOP
   symbol: DOP
   text: Dominican Peso
-- value: dzd
+  data:
+    scaler: 2
+- value: DZD
   symbol: DZD
   text: Algerian Dinar
-- value: egp
+  data:
+    scaler: 2
+- value: EGP
   symbol: EGP
   text: Egyptian Pound
-- value: ern
+  data:
+    scaler: 2
+- value: ERN
   symbol: ERN
   text: Eritrean Nakfa
-- value: etb
+  data:
+    scaler: 2
+- value: ETB
   symbol: ETB
   text: Ethiopian Birr
-- value: eth
+  data:
+    scaler: 2
+- value: ETH
   symbol: Ξ
   text: Etherium
-- value: eur
+  data:
+    scaler: 18
+- value: EUR
   symbol: "€"
   text: Euro
-- value: fjd
+  data:
+    scaler: 2
+- value: FJD
   symbol: FJD
   text: Fiji Dollar
-- value: fkp
+  data:
+    scaler: 2
+- value: FKP
   symbol: FKP
   text: Falkland Islands Pound
-- value: gbp
+  data:
+    scaler: 2
+- value: GBP
   symbol: "£"
   text: Pound Sterling
-- value: gel
+  data:
+    scaler: 2
+- value: GEL
   symbol: "₾"
   text: Georgian Lari
-- value: ghs
+  data:
+    scaler: 2
+- value: GHS
   symbol: GHS
   text: Ghanaian Cedi
-- value: gip
+  data:
+    scaler: 2
+- value: GIP
   symbol: GIP
   text: Gibraltar Pound
-- value: gmd
+  data:
+    scaler: 2
+- value: GMD
   symbol: GMD
   text: Gambian Dalasi
-- value: gnf
+  data:
+    scaler: 2
+- value: GNF
   symbol: GNF
   text: Guinean Franc
-- value: gtq
+  data:
+    scaler: 0
+- value: GTQ
   symbol: GTQ
   text: Guatemalan Quetzal
-- value: gyd
+  data:
+    scaler: 2
+- value: GYD
   symbol: GYD
   text: Guyanese Dollar
-- value: hkd
+  data:
+    scaler: 2
+- value: HKD
   symbol: "$"
   text: Hong Kong Dollar
-- value: hnl
+  data:
+    scaler: 2
+- value: HNL
   symbol: HNL
   text: Honduran Lempira
-- value: hrk
+  data:
+    scaler: 2
+- value: HRK
   symbol: kn
   text: Croatian Kuna
-- value: htg
+  data:
+    scaler: 2
+- value: HTG
   symbol: HTG
   text: Haitian Gourde
-- value: huf
+  data:
+    scaler: 2
+- value: HUF
   symbol: ft
   text: Hungarian Forint
-- value: idr
+  data:
+    scaler: 2
+- value: IDR
   symbol: Rp
   text: Indonesian Rupiah
-- value: ils
+  data:
+    scaler: 2
+- value: ILS
   symbol: "₪"
   text: Israeli New Shekel
-- value: inr
+  data:
+    scaler: 2
+- value: INR
   symbol: "₹"
   text: Indian Rupee
-- value: iqd
+  data:
+    scaler: 2
+- value: IQD
   symbol: IQD
   text: Iraqi Dinar
-- value: irr
+  data:
+    scaler: 3
+- value: IRR
   symbol: IRR
   text: Iranian Rial
-- value: isk
+  data:
+    scaler: 2
+- value: ISK
   symbol: ISK
   text: Icelandic Króna
-- value: jmd
+  data:
+    scaler: 0
+- value: JMD
   symbol: JMD
   text: Jamaican Dollar
-- value: jod
+  data:
+    scaler: 2
+- value: JOD
   symbol: JOD
   text: Jordanian Dinar
-- value: jpy
+  data:
+    scaler: 3
+- value: JPY
   symbol: "¥"
   text: Japanese Yen
-- value: kes
+  data:
+    scaler: 0
+- value: KES
   symbol: Ksh
   text: Kenyan Shilling
-- value: kgs
+  data:
+    scaler: 2
+- value: KGS
   symbol: KGS
   text: Kyrgyzstani Som
-- value: khr
+  data:
+    scaler: 2
+- value: KHR
   symbol: KHR
   text: Cambodian Riel
-- value: kmf
+  data:
+    scaler: 2
+- value: KMF
   symbol: KMF
   text: Comoro Franc
-- value: kpw
+  data:
+    scaler: 0
+- value: KPW
   symbol: "$KPW"
   text: North Korean Won
-- value: krw
+  data:
+    scaler: 2
+- value: KRW
   symbol: "₩"
   text: South Korean Won
-- value: kwd
+  data:
+    scaler: 0
+- value: KWD
   symbol: KWD
   text: Kuwaiti Dinar
-- value: kyd
+  data:
+    scaler: 3
+- value: KYD
   symbol: KYD
   text: Cayman Islands Dollar
-- value: kzt
+  data:
+    scaler: 2
+- value: KZT
   symbol: KZT
   text: Kazakhstani Tenge
-- value: lak
+  data:
+    scaler: 2
+- value: LAK
   symbol: LAK
   text: Lao Kip
-- value: lbp
+  data:
+    scaler: 2
+- value: LBP
   symbol: LBP
   text: Lebanese Pound
-- value: lkr
+  data:
+    scaler: 2
+- value: LKR
   symbol: Rs
   text: Sri Lankan Rupee
-- value: lrd
+  data:
+    scaler: 2
+- value: LRD
   symbol: LRD
   text: Liberian Dollar
-- value: lsl
+  data:
+    scaler: 2
+- value: LSL
   symbol: LDL
   text: Lesotho Loti
-- value: ltc
+  data:
+    scaler: 2
+- value: LTC
   symbol: Ł
   text: Litecoin
-- value: lyd
+  data:
+    scaler: 8
+- value: LYD
   symbol: LYD
   text: Libyan Dinar
-- value: mad
+  data:
+    scaler: 3
+- value: MAD
   symbol: ".د.م"
   text: Moroccan Dirham
-- value: mdl
+  data:
+    scaler: 2
+- value: MDL
   symbol: MDL
   text: Moldovan Leu
-- value: mga
+  data:
+    scaler: 2
+- value: MGA
   symbol: MGA
   text: Malagasy Ariary
-- value: mkd
+  data:
+    scaler: 2
+- value: MKD
   symbol: MKD
   text: Macedonian Denar
-- value: mmk
+  data:
+    scaler: 2
+- value: MMK
   symbol: MMK
   text: Myanmar Kyat
-- value: mnt
+  data:
+    scaler: 2
+- value: MNT
   symbol: MNT
   text: Mongolian Tögrög
-- value: mop
+  data:
+    scaler: 2
+- value: MOP
   symbol: MOP
   text: Macanese Pataca
-- value: mru
+  data:
+    scaler: 2
+- value: MRU
   symbol: MRU
   text: Mauritanian Ouguiya
-- value: mur
+  data:
+    scaler: 2
+- value: MUR
   symbol: MUR
   text: Mauritian Rupee
-- value: mvr
+  data:
+    scaler: 2
+- value: MVR
   symbol: MVR
   text: Maldivian Rufiyaa
-- value: mwk
+  data:
+    scaler: 2
+- value: MWK
   symbol: MWK
   text: Malawian Kwacha
-- value: mxn
+  data:
+    scaler: 2
+- value: MXN
   symbol: "$"
   text: Mexican Peso
-- value: mxv
+  data:
+    scaler: 2
+- value: MXV
   symbol: MXV
   text: Mexican Unidad de Inversion (UDI)
-- value: myr
+  data:
+    scaler: 2
+- value: MYR
   symbol: RM
   text: Malaysian Ringgit
-- value: mzn
+  data:
+    scaler: 2
+- value: MZN
   symbol: MZN
   text: Mozambican Metical
-- value: nad
+  data:
+    scaler: 2
+- value: NAD
   symbol: NAD
   text: Namibian Dollar
-- value: ngn
+  data:
+    scaler: 2
+- value: NGN
   symbol: "₦"
   text: Nigerian Naira
-- value: nio
+  data:
+    scaler: 2
+- value: NIO
   symbol: NIO
   text: Nicaraguan Córdoba
-- value: nok
+  data:
+    scaler: 2
+- value: NOK
   symbol: kr
   text: Norwegian Krone
-- value: npr
+  data:
+    scaler: 2
+- value: NPR
   symbol: NPR
   text: Nepalese Rupee
-- value: nzd
+  data:
+    scaler: 2
+- value: NZD
   symbol: "$"
   text: New Zealand Dollar
-- value: omr
+  data:
+    scaler: 2
+- value: OMR
   symbol: OMR
   text: Omani Rial
-- value: pab
+  data:
+    scaler: 3
+- value: PAB
   symbol: PAB
   text: Panamanian Balboa
-- value: pen
+  data:
+    scaler: 2
+- value: PEN
   symbol: S/.
   text: Peruvian Sol
-- value: pgk
+  data:
+    scaler: 2
+- value: PGK
   symbol: PGK
   text: Papua New Guinean Kina
-- value: php
+  data:
+    scaler: 2
+- value: PHP
   symbol: "₱"
   text: Philippine Peso
-- value: pkr
+  data:
+    scaler: 2
+- value: PKR
   symbol: Rs
   text: Pakistani Rupee
-- value: pln
+  data:
+    scaler: 2
+- value: PLN
   symbol: zł
   text: Polish Złoty
-- value: pyg
+  data:
+    scaler: 2
+- value: PYG
   symbol: PYG
   text: Paraguayan Guaraní
-- value: qar
+  data:
+    scaler: 0
+- value: QAR
   symbol: QAR
   text: Qatari Riyal
-- value: ron
+  data:
+    scaler: 2
+- value: RON
   symbol: lei
   text: Romanian Leu
-- value: rsd
+  data:
+    scaler: 2
+- value: RSD
   symbol: RSD
   text: Serbian Dinar
-- value: rub
+  data:
+    scaler: 2
+- value: RUB
   symbol: "₽"
   text: Russian Ruble
-- value: rwf
+  data:
+    scaler: 2
+- value: RWF
   symbol: RWF
   text: Rwandan Franc
-- value: sar
+  data:
+    scaler: 0
+- value: SAR
   symbol: SAR
   text: Saudi Riyal
-- value: sbd
+  data:
+    scaler: 2
+- value: SBD
   symbol: SBD
   text: Solomon Islands Dollar
-- value: scr
+  data:
+    scaler: 2
+- value: SCR
   symbol: SCR
   text: Seychelles Rupee
-- value: sdg
+  data:
+    scaler: 2
+- value: SDG
   symbol: SDG
   text: Sudanese Pound
-- value: sek
+  data:
+    scaler: 2
+- value: SEK
   symbol: kr
   text: Swedish Krona/Kronor
-- value: sgd
+  data:
+    scaler: 2
+- value: SGD
   symbol: "$"
   text: Singapore Dollar
-- value: shp
+  data:
+    scaler: 2
+- value: SHP
   symbol: SHP
   text: Saint Helena Pound
-- value: sll
+  data:
+    scaler: 2
+- value: SLL
   symbol: SLL
   text: Sierra Leonean Leone
-- value: sos
+  data:
+    scaler: 2
+- value: SOS
   symbol: SOS
   text: Somali Shilling
-- value: srd
+  data:
+    scaler: 2
+- value: SRD
   symbol: SRD
   text: Surinamese Dollar
-- value: ssp
+  data:
+    scaler: 2
+- value: SSP
   symbol: SSP
   text: South Sudanese Pound
-- value: stn
+  data:
+    scaler: 2
+- value: STN
   symbol: STN
   text: São Tomé and Príncipe Dobra
-- value: svc
+  data:
+    scaler: 2
+- value: SVC
   symbol: SVC
   text: Salvadoran Colón
-- value: syp
+  data:
+    scaler: 2
+- value: SYP
   symbol: SYP
   text: Syrian Pound
-- value: szl
+  data:
+    scaler: 2
+- value: SZL
   symbol: SZL
   text: Swazi Lilangeni
-- value: thb
+  data:
+    scaler: 2
+- value: THB
   symbol: "฿"
   text: Thai Baht
-- value: tjs
+  data:
+    scaler: 2
+- value: TJS
   symbol: TJS
   text: Tajikistani Somoni
-- value: tmt
+  data:
+    scaler: 2
+- value: TMT
   symbol: TMT
   text: Turkmenistan Manat
-- value: tnd
+  data:
+    scaler: 2
+- value: TND
   symbol: TND
   text: Tunisian Dinar
-- value: top
+  data:
+    scaler: 3
+- value: TOP
   symbol: TOP
   text: Tongan Paʻanga
-- value: try
+  data:
+    scaler: 2
+- value: TRY
   symbol: "₺"
   text: Turkish Lira
-- value: ttd
+  data:
+    scaler: 2
+- value: TTD
   symbol: TTD
   text: Trinidad and Tobago Dollar
-- value: twd
+  data:
+    scaler: 2
+- value: TWD
   symbol: TWD
   text: New Taiwan Dollar
-- value: tzs
+  data:
+    scaler: 2
+- value: TZS
   symbol: TZS
   text: Tanzanian Shilling
-- value: uah
+  data:
+    scaler: 2
+- value: UAH
   symbol: "₴"
   text: Ukrainian Hryvnia
-- value: ugx
+  data:
+    scaler: 2
+- value: UGX
   symbol: UGX
   text: Ugandan Shilling
-- value: usd
+  data:
+    scaler: 0
+- value: USD
   symbol: "$"
   text: United States Dollar
-- value: usn
+  data:
+    scaler: 2
+- value: USN
   symbol: "$"
   text: United States Dollar (next day)
-- value: uyi
+  data:
+    scaler: 2
+- value: UYI
   symbol: UYI
   text: Uruguay Peso en Unidades Indexadas (URUIURUI)
-- value: uyu
+  data:
+    scaler: 0
+- value: UYU
   symbol: UYU
   text: Uruguayan Peso
-- value: uyw
+  data:
+    scaler: 2
+- value: UYW
   symbol: UYW
   text: Unidad Previsional
-- value: uzs
+  data:
+    scaler: 4
+- value: UZS
   symbol: UZS
   text: Uzbekistan Som
-- value: ves
+  data:
+    scaler: 2
+- value: VES
   symbol: VES
   text: Venezuelan Bolívar Soberano
-- value: vnd
+  data:
+    scaler: 2
+- value: VND
   symbol: "₫"
   text: Vietnamese Dồng
-- value: vuv
+  data:
+    scaler: 0
+- value: VUV
   symbol: VUV
   text: Vanuatu Vatu
-- value: wst
+  data:
+    scaler: 0
+- value: WST
   symbol: WST
   text: Samoan Tala
-- value: xaf
+  data:
+    scaler: 2
+- value: XAF
   symbol: XAF
   text: CFA franc BEAC
-- value: xag
-  symbol: XAG
-  text: Silver (one troy ounce)
-- value: xau
-  symbol: XAU
-  text: Gold (one troy ounce)
-- value: xba
-  symbol: XBA
-  text: European Composite Unit (EURCO)
-- value: xbb
-  symbol: XBB
-  text: European Monetary Unit (E.M.U.-6)
-- value: xbc
-  symbol: XBC
-  text: European Unit of Account 9 (E.U.A.-9)
-- value: xbd
-  symbol: XBD
-  text: European Unit of Account 17 (E.U.A.-17)
-- value: xcd
+  data:
+    scaler: 0
+- value: XCD
   symbol: XCD
   text: East Caribbean Dollar
-- value: xdr
-  symbol: XDR
-  text: Special Drawing Rights
-- value: xmr
+  data:
+    scaler: 2
+- value: XMR
   symbol: ɱ
   text: Monero
-- value: xof
+  data:
+    scaler: 12
+- value: XOF
   symbol: XOF
   text: CFA Franc BCEAO
-- value: xpd
+  data:
+    scaler: 0
+- value: XPD
   symbol: XPD
   text: Palladium (one troy ounce)
-- value: xpf
+  data:
+    scaler: 2
+- value: XPF
   symbol: XPF
   text: CFP Franc (franc Pacifique)
-- value: xpt
-  symbol: XPT
-  text: Platinum (one troy ounce)
-- value: xrp
+  data:
+    scaler: 0
+- value: XRP
   symbol: XRP
   text: Ripples
-- value: xsu
-  symbol: XSU
-  text: SUCRE
-- value: xts
-  symbol: XTS
-  text: Code Reserved for Testing
-- value: xua
-  symbol: XUA
-  text: ADB Unit of Account
-- value: xxx
-  symbol: XXX
-  text: No Currency
-- value: yer
+  data:
+    scaler: 6
+- value: YER
   symbol: YER
   text: Yemeni Rial
-- value: zar
+  data:
+    scaler: 2
+- value: ZAR
   symbol: R
   text: South African Rand
-- value: zmw
+  data:
+    scaler: 2
+- value: ZMW
   symbol: ZMW
   text: Zambian Kwacha
-- value: zwl
+  data:
+    scaler: 2
+- value: ZWL
   symbol: ZWL
   text: Zimbabwean Dollar
+  data:
+    scaler: 2

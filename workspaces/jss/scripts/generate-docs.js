@@ -4,7 +4,10 @@ const { MarkdownGenerator } = require('jsonotron-codegen')
 const { readFile, writeFile } = require('fs/promises')
 
 async function run () {
-  const typeFileNames = await fg('../**/*.yaml')
+  const enumTypeFileNames = await fg('./enumTypes/*.yaml')
+  const schemaTypeFileNames = await fg('./schemaTypes/*.yaml')
+  const typeFileNames = enumTypeFileNames.concat(schemaTypeFileNames)
+
   const types = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
 
   const jsonotron = new Jsonotron({ types })
