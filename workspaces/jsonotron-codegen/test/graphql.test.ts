@@ -11,7 +11,7 @@ test('Generate graph ql code.', async () => {
   })
 
   // useful for debug
-  console.log(result)
+  // console.log(result)
 
   // the object-type interfaces
   expect(result).toContain('type Bed {')

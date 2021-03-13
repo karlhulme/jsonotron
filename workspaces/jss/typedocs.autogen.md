@@ -1,6 +1,6 @@
 # Type Systems
 
-[jss https://jsonotron.org/jss](#jss)
+* ["jss" System of https://jsonotron.org/jss](#"jss"-System)
 
 
 ## "jss" System
@@ -73,7 +73,7 @@ The `postalCode` property records the post code or zip code of the address.
 
 The `countryCode` property records countryCode value.
 
-### Example 1
+#### Example 1
 
 This example is an address in England so it uses a UK post code.
 
@@ -85,7 +85,7 @@ This example is an address in England so it uses a UK post code.
 }
 ```
 
-### Example 2
+#### Example 2
 
 This example is an address in the United States so it uses a zip code.
 
@@ -98,7 +98,7 @@ This example is an address in the United States so it uses a zip code.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -137,7 +137,7 @@ This example is an address in the United States so it uses a zip code.
 
 A value of either true or false.
 
-### Example 1
+#### Example 1
 
 A value of true.
 
@@ -145,7 +145,7 @@ A value of true.
 true
 ```
 
-### Example 2
+#### Example 2
 
 A value of false.
 
@@ -154,7 +154,7 @@ false
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -839,7 +839,7 @@ ZWL | ZWL | Zimbabwean Dollar |
 
 A string with the date components arranged using the YYYY-MM-DD pattern.  If the day or month component is a value less than 10 then a leading zero must be included.  This ensures that all stored dates are the same length.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -848,7 +848,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -881,7 +881,7 @@ of a time zone is changed at some point in the future.  Knowing when the capture
 was made allows you to pinpoint the rules at the point and then convert to the prevailing
 rules.  Leading zeroes must be used to ensure that all values are the same length.
 
-### Example 1
+#### Example 1
 
 The europe/london time zone operates at +00:00 during the winter and +01:00 during the summer.  In this example we can see the value is in the summer because of the +01:00 suffix.
 
@@ -894,7 +894,7 @@ The europe/london time zone operates at +00:00 during the winter and +01:00 duri
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -935,7 +935,7 @@ The europe/london time zone operates at +00:00 during the winter and +01:00 duri
 
 A string with the date and time components arranged using the YYYY-MM-DDTHH:mm:ssZ pattern. Leading zeroes must be used to ensure that all values are the same length.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -944,7 +944,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -985,7 +985,7 @@ SA |  | Saturday |
 
 An email address.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -994,7 +994,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1014,7 +1014,7 @@ An example.
 
 A number with an integral and decimal part.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1023,7 +1023,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1042,7 +1042,7 @@ An example.
 
 A point on Earth.
 
-### Example 1
+#### Example 1
 
 A position on Earth recorded in GeoJSON format expressed as a longitude and latitude pair.
 The `type` value should be 'Point'.
@@ -1059,7 +1059,7 @@ The `coordinates` property should be a 2-element array consisting of longitude f
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1115,7 +1115,7 @@ should be a duplicate of the first co-ordinate.  This means the minimum number o
 elements in the co-ordinate array is 4.
 Each element in the co-ordinate array is 2-element array, longitude first and latitude second.
 
-### Example 1
+#### Example 1
 
 A region on Earth recorded in GeoJSON format expressed as a series of longitude and latitude pairs.
 
@@ -1148,7 +1148,7 @@ A region on Earth recorded in GeoJSON format expressed as a series of longitude 
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1202,7 +1202,7 @@ A region on Earth recorded in GeoJSON format expressed as a series of longitude 
 
 A string of 4000 characters or less.  An empty string is valid.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1211,7 +1211,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1231,7 +1231,7 @@ An example.
 
 A whole number.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1240,7 +1240,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1259,7 +1259,7 @@ An example.
 
 A string of digits that identify a computer on a network in IP v4 format.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1268,7 +1268,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1288,7 +1288,7 @@ An example.
 
 A string of digits that identify a computer on a network in IP v6 format.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1296,7 +1296,7 @@ An example.
 "2001:0DB8:85A3:0000:0000:8A2E:0370:7334"
 ```
 
-### Example 2
+#### Example 2
 
 The shorthand loopback address is also supported.
 
@@ -1305,7 +1305,7 @@ The shorthand loopback address is also supported.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1325,7 +1325,7 @@ The shorthand loopback address is also supported.
 
 A JSON pointer.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1334,7 +1334,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1500,7 +1500,7 @@ ZU |  | Zulu |
 
 A string of 250 characters or less.  An empty string is valid.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1509,7 +1509,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1529,7 +1529,7 @@ An example.
 
 A string of 50 characters or less.  An empty string is valid.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1538,7 +1538,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1560,7 +1560,7 @@ An amount of money designated in a specific currency.
 The `amount` property stores an integral amount of money in a currencies minor denomination. Each currency defines a scalar which indicates how many places the decimal point is shifted to the left, in order to convert to a currencies major denomination.  Storing the data in the minor denomination ensures that most currency manipulation and equality checks can be performed using integers rather than floating point numbers.
 The `currency` indicates which currency this monetary amount represents.
 
-### Example 1
+#### Example 1
 
 In this example, the GBP currency defines a scaler of 2, which means that we shift the decimal point 2 places to the left.  So 9999 becomes £ 99.99 for display.
 
@@ -1572,7 +1572,7 @@ In this example, the GBP currency defines a scaler of 2, which means that we shi
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1631,7 +1631,7 @@ DEC |  | December |
 
 A number with an integral and decimal part that is less than zero.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1640,7 +1640,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1660,7 +1660,7 @@ An example.
 
 A number with an integral and decimal part that is less than or equal to zero.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1668,7 +1668,7 @@ An example.
 -6.16
 ```
 
-### Example 2
+#### Example 2
 
 An example.
 
@@ -1677,7 +1677,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1697,7 +1697,7 @@ An example.
 
 A whole number that is equal to -1 or less.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1706,7 +1706,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1726,7 +1726,7 @@ An example.
 
 A whole number that is equal to zero or less.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1734,7 +1734,7 @@ An example.
 -15
 ```
 
-### Example 2
+#### Example 2
 
 An example.
 
@@ -1743,7 +1743,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1763,7 +1763,7 @@ An example.
 
 A JSON object.  The underlying data store may impose a limit of the depth of the JSON object.  You cannot store a null value.  Care should be taken not to supply an object of such depth or serialized size that the underlying data store cannot save it.
 
-### Example 1
+#### Example 1
 
 In this example we store an object with nested objects.
 
@@ -1776,7 +1776,7 @@ In this example we store an object with nested objects.
 }
 ```
 
-### Example 2
+#### Example 2
 
 Here we store an empty object.
 
@@ -1785,7 +1785,7 @@ Here we store an empty object.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1804,7 +1804,7 @@ Here we store an empty object.
 
 A value that uniquely identifies a payment card, such as a credit or debit card.  Any stored value will need to satisfy the LUHN algorithm.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1813,7 +1813,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1833,7 +1833,7 @@ An example.
 
 A number with an integral and decimal part that is greater than zero.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1842,7 +1842,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1862,7 +1862,7 @@ An example.
 
 A number with an integral and decimal part that is greater than or equal to zero.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1870,7 +1870,7 @@ An example.
 12.34
 ```
 
-### Example 2
+#### Example 2
 
 An example.
 
@@ -1879,7 +1879,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1899,7 +1899,7 @@ An example.
 
 A whole number that is equal to 1 or greater.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1908,7 +1908,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1928,7 +1928,7 @@ An example.
 
 A whole number that is equal to zero or greater.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -1936,7 +1936,7 @@ An example.
 21
 ```
 
-### Example 2
+#### Example 2
 
 An example.
 
@@ -1945,7 +1945,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1965,7 +1965,7 @@ An example.
 
 A string of 20 characters or less.  An empty string is valid.
 
-### Example 1
+#### Example 1
 
 A short text string.
 
@@ -1974,7 +1974,7 @@ A short text string.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -1994,7 +1994,7 @@ A short text string.
 
 A string of characters of any length.  Care should be taken not to supply a string of such great length that the underlying data store cannot save it.  An empty string is valid.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -2003,7 +2003,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -2026,7 +2026,7 @@ The `isd` property identifies the country that the telephone number resides in.
 
 The `number` property optionally describes extension information.
 
-### Example 1
+#### Example 1
 
 In this example we have a UK mobile number.
 
@@ -2037,7 +2037,7 @@ In this example we have a UK mobile number.
 }
 ```
 
-### Example 2
+#### Example 2
 
 In this example we have a US landline number with an extension.
 
@@ -2050,7 +2050,7 @@ In this example we have a US landline number with an extension.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -2088,7 +2088,7 @@ In this example we have a US landline number with an extension.
 
 A string with the time components arranged using the HH:mm:ss pattern.  If the hours, minutes or seconds component is a value less than 10 then a leading zero must be included.  This ensures that all stored times are the same length.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -2097,7 +2097,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -2117,7 +2117,7 @@ An example.
 
 The number of milliseconds that have elapsed since 00:00:00 Thursday, 1 January 1970.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -2126,7 +2126,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -2533,7 +2533,7 @@ PACIFIC_WALLIS |  | Pacific/Wallis (+12:00, DST +12:00) |
 
 A universally unique 128 bit number formatted as 32 alphanumeric characters and defined by RFC 4122.
 
-### Example 1
+#### Example 1
 
 An example.
 
@@ -2542,7 +2542,7 @@ An example.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -2562,7 +2562,7 @@ An example.
 
 A url that is prefixed with either https or https.
 
-### Example 1
+#### Example 1
 
 A link to a site using HTTPS.
 
@@ -2570,7 +2570,7 @@ A link to a site using HTTPS.
 "https://www.bbc.co.uk"
 ```
 
-### Example 2
+#### Example 2
 
 A link to an secured site using HTTP.
 
@@ -2579,7 +2579,7 @@ A link to an secured site using HTTP.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json
@@ -2599,7 +2599,7 @@ A link to an secured site using HTTP.
 
 A 3-element array that captures an address based on the https://what3words.com geocoding system. The system allows you to specify any location on Earth, within a few metres, using just 3 words. Each element in the array is a shortString.
 
-### Example 1
+#### Example 1
 
 This example locates an address near Charing Cross Station.
 
@@ -2611,7 +2611,7 @@ This example locates an address near Charing Cross Station.
 ]
 ```
 
-### Example 2
+#### Example 2
 
 This example is for an embassy in panama.
 
@@ -2624,7 +2624,7 @@ This example is for an embassy in panama.
 ```
 
 
-### Schema
+#### Schema
 
 
 ```json

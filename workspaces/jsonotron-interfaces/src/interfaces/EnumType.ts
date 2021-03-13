@@ -32,7 +32,7 @@ export interface EnumType {
   /**
    * A JSON schema for data attached to each item.
    */
-  dataJsonSchema: Record<string, unknown>
+  dataJsonSchema?: Record<string, unknown>
 
   /**
    * An array of items.
