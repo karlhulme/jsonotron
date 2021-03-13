@@ -31,7 +31,12 @@ The code generates required marks that match the original schema.  This means:
 * In **Typescript**, only optional properties are marked with a ?
 * In **GraphQL**, required properties are marked with a !
 
-A GraphQL client may present a user with a UI that allows them to build up a valid value over time.  In this editing mode, the value will sometimes be valid and sometimes not.  To assist with this, the GraphQL code generator outputs ___Editing types.
+In Typescript, you can use the Partial type to make all the fields optional.  This is useful when defining UI components that edit composite or complex types and not all fields will be populated at all times.
+
+The GraphQL output supports types that define the customised data of enum types, as well as all the standard properties.
+This allows you to build a graph that will return the additional enum information if the client requests.  This will
+typically be required for any enums that are to be presented to the user, such as in a drop-down.  These should be
+requested on first use and then cached.
 
 ## Continuous Deployment
 
