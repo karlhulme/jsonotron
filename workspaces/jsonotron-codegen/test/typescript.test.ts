@@ -15,6 +15,7 @@ test('Generate typescript code.', async () => {
 
   // the standard outputs
   expect(result).toContain('export interface EnumTypeItem {')
+  expect(result).toContain('export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {')
 
   // the system-centric wrappers
   expect(result).toContain('export const test = {')

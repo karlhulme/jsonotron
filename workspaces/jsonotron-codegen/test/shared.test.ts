@@ -15,12 +15,16 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       title: 'Color',
       dataJsonSchema: {
         type: 'object',
+        documentation: 'Custom data that is attached to each color enum item.',
+        additionalProperties: false,
         properties: {
-          hexCode: { type: 'string' }
-        }
+          hexCode: { type: 'string' },
+          isWarningColor: { type: 'boolean' }
+        },
+        required: ['hexCode']
       },
       items: [
-        { value: 'RED', text: 'Red', documentation: 'The color for errors', data: { hexCode: 'f00'} },
+        { value: 'RED', text: 'Red', documentation: 'The color for errors', data: { hexCode: 'f00', isWarningColor: true } },
         { value: 'GREEN', text: 'Green', data: { hexCode: '0f0' } }
       ]
     }, {

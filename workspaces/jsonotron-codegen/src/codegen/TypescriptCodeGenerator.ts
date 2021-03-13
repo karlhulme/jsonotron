@@ -17,14 +17,41 @@ export class TypescriptCodeGenerator implements CodeGenerator {
   }
 
   private generateStandardCode (): string {
-    return `/**\n * Represents an item in an enumeration.\n */\n` +
-      `export interface EnumTypeItem {\n` +
-      `  /**\n   * The underlying value of the item.\n   */\n  value: string\n\n` +
-      `  /**\n   * The display text of the value in English.\n   */\n  text: string\n\n` +
-      `  /**\n   * The documentation associated with this item.\n   */\n  documentation?: string\n\n` +
-      `  /**\n   * If populated, this value explains why the value was deprecated and/or which item to use instead.\n   */\n  deprecated?: string\n\n` +
-      `  /**\n   * A symbol associated with the item.\n   */\n  symbol?: string\n` +
-      `}`
+    return `
+/**
+ * Represents an item in an enumeration.
+ */
+export interface EnumTypeItem {
+  /**
+   * The underlying value of the item.
+   */
+  value: string
+  
+  /**
+   * The display text of the value in English.
+   */
+  text: string
+
+  /**
+   * The documentation associated with this item.
+   */
+  documentation?: string
+  
+  /**
+   * If populated, this value explains why the value was deprecated and/or which item to use instead.
+   */
+  deprecated?: string
+  
+  /**
+   * A symbol associated with the item
+   */
+  symbol?: string
+}
+
+export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
+  data: T
+}
+`
   }
 
   private generateSystemCentricCode (enumTypes: EnumType[], schemaTypes: SchemaType[]): string {
@@ -87,11 +114,16 @@ export class TypescriptCodeGenerator implements CodeGenerator {
           const documentation = item.documentation ? `, documentation: '${escapeQuotes(item.documentation)}'` : ''
           const deprecated = item.deprecated ? `, deprecated: '${escapeQuotes(item.deprecated)}'` : ''
           const symbol = item.symbol ? `, symbol: '${escapeQuotes(item.symbol)}'` : ''
-          return `    { value: '${item.value}', text: '${escapeQuotes(item.text)}'${documentation}${deprecated}${symbol} }`
+          const data = e.dataJsonSchema ? `, data: ${JSON.stringify(item.data)}` : ''
+          return `    { value: '${item.value}', text: '${escapeQuotes(item.text)}'${documentation}${deprecated}${symbol}${data} }`
         })
 
         const docBlock = `  /**\n   * ${e.documentation}\n   */\n`
-        return `${docBlock}  ${e.name}Items: [\n${itemLines.join(',\n')}\n  ] as EnumTypeItem[]`
+        const typeCast = e.dataJsonSchema
+          ? `ExtendedEnumTypeItem<${this.convertJsonotronTypeNameToTypescriptInterfaceName(`${e.domain}/${e.system}/${e.name}_data`)}>[]`
+          : `EnumTypeItem[]`
+    
+        return `${docBlock}  ${e.name}Items: [\n${itemLines.join(',\n')}\n  ] as ${typeCast}`
       })
   }
 
