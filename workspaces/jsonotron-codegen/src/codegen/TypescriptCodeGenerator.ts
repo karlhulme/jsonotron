@@ -1,4 +1,4 @@
-import { EnumType, SchemaType, TypeMap } from 'jsonotron-interfaces'
+import { EnumType, SchemaType, TypeMap, TypeMapObject } from 'jsonotron-interfaces'
 import { convertJsonotronTypesToTypeMap } from '../typeMap'
 import { appendArrayIndicators, capitaliseInitialLetters, ensureInitialCharacter, ensureValidCodePropertyCharacters, escapeQuotes } from '../utils'
 import { CodeGenerationParameters } from './CodeGenerationParameters'
@@ -8,16 +8,18 @@ import { getUniqueSystemRefs } from './getUniqueSystemRefs'
 export class TypescriptCodeGenerator implements CodeGenerator {
   generate (params: CodeGenerationParameters): string {
     const code = [
-      this.generateStandardCode(),
-      this.generateSystemCentricCode(params.enumTypes, params.schemaTypes),
-      this.generateUnnamespacedCode(params.enumTypes, params.schemaTypes)
+      ...this.generateStandardCode(),
+      ...this.generateTypeNameConstants(params.enumTypes, params.schemaTypes),
+      ...this.generateEnumTypeValues(params.enumTypes),
+      ...this.generateEnumTypeItems(params.enumTypes),
+      ...this.generateInterfacesForSchemaTypeObjects(params.enumTypes, params.schemaTypes)
     ]
 
     return code.join('\n\n')
   }
 
-  private generateStandardCode (): string {
-    return `
+  private generateStandardCode (): string[] {
+    return [`
 /**
  * Represents an item in an enumeration.
  */
@@ -51,10 +53,10 @@ export interface EnumTypeItem {
 export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
   data: T
 }
-`
+`]
   }
 
-  private generateSystemCentricCode (enumTypes: EnumType[], schemaTypes: SchemaType[]): string {
+  private generateTypeNameConstants (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {
     const lines: string[] = []
 
     const uniqueSystemRefs = getUniqueSystemRefs(enumTypes, schemaTypes)
@@ -66,48 +68,40 @@ export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
       const systemSchemaTypes = schemaTypes
         .filter(s => `${s.domain}/${s.system}` === uniqueSystemRef.domainSystem)
 
-      const systemLines = [
-        ...this.generateSystemCentricTypeNames(systemEnumTypes, systemSchemaTypes),
-        ...this.generateSystemCentricEnumValues(systemEnumTypes),
-        ...this.generateSystemCentricEnumItems(systemEnumTypes)
+      const enumTypeNameConstants = systemEnumTypes
+        .map(e => `  /**\n   * The fully qualified name of the ${e.name} type. \n   */\n  ${e.name}: '${e.domain}/${e.system}/${e.name}'`)
+
+      const schemaTypeNameConstants = systemSchemaTypes
+        .map(s => `  /**\n   * The fully qualified name of the ${s.name} type. \n   */\n  ${s.name}: '${s.domain}/${s.system}/${s.name}'`)
+
+      const typeNameConstants = [
+        ...enumTypeNameConstants,
+        ...schemaTypeNameConstants
       ]
 
       const docBlock = `/**\n * The types of the ${uniqueSystemRef.domainSystem} system.\n */`
-      const code = `${docBlock}\nexport const ${uniqueSystemRef.system} = {\n${systemLines.join(',\n\n')}\n}`
+      const code = `${docBlock}\nexport const ${uniqueSystemRef.system.toUpperCase()} = {\n${typeNameConstants.join(',\n\n')}\n}`
 
       lines.push(code)
     }
 
-    return lines.join('\n\n')
+    return lines
   }
 
-  private generateSystemCentricTypeNames (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {
-    const enumTypeNames = enumTypes
-      .map(e => `  /**\n   * The qualified name of the ${e.name} type. \n   */\n  ${e.name}: '${e.domain}/${e.system}/${e.name}'`)
-
-    const schemaTypeNames = schemaTypes
-      .map(s => `  /**\n   * The qualified name of the ${s.name} type. \n   */\n  ${s.name}: '${s.domain}/${s.system}/${s.name}'`)
-
-    return [
-      ...enumTypeNames,
-      ...schemaTypeNames
-    ]
-  }
-
-  private generateSystemCentricEnumValues (enumTypes: EnumType[]): string[] {
+  private generateEnumTypeValues (enumTypes: EnumType[]): string[] {
     return enumTypes
       .map(e => {
         const valueLines = e.items.map(item => {
-          const documentation = item.documentation ? `    /**\n     * ${item.documentation}\n     */\n` : ''
-          return `${documentation}    ${ensureInitialCharacter(ensureValidCodePropertyCharacters(item.value))}: '${item.value}'`
+          const documentation = item.documentation ? `  /**\n   * ${item.documentation}\n   */\n` : ''
+          return `${documentation}  ${ensureInitialCharacter(ensureValidCodePropertyCharacters(item.value))}: '${item.value}'`
         })
 
-        const docBlock = `  /**\n   * ${e.documentation}\n   */`
-        return `${docBlock}\n  ${e.name}Values: {\n${valueLines.join(',\n\n')}\n  }`
+        const docBlock = `/**\n * ${e.documentation}\n */`
+        return `${docBlock}\nexport const ${e.system.toUpperCase()}_${e.name.toUpperCase()}_VALUES = {\n${valueLines.join(',\n\n')}\n}`
       })
   }
 
-  private generateSystemCentricEnumItems (enumTypes: EnumType[]): string[] {
+  private generateEnumTypeItems (enumTypes: EnumType[]): string[] {
     return enumTypes
       .map(e => {
         const itemLines = e.items.map(item => {
@@ -115,24 +109,16 @@ export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
           const deprecated = item.deprecated ? `, deprecated: '${escapeQuotes(item.deprecated)}'` : ''
           const symbol = item.symbol ? `, symbol: '${escapeQuotes(item.symbol)}'` : ''
           const data = e.dataJsonSchema ? `, data: ${JSON.stringify(item.data)}` : ''
-          return `    { value: '${item.value}', text: '${escapeQuotes(item.text)}'${documentation}${deprecated}${symbol}${data} }`
+          return `  { value: '${item.value}', text: '${escapeQuotes(item.text)}'${documentation}${deprecated}${symbol}${data} }`
         })
 
-        const docBlock = `  /**\n   * ${e.documentation}\n   */\n`
+        const docBlock = `/**\n * ${e.documentation}\n */\n`
         const typeCast = e.dataJsonSchema
-          ? `ExtendedEnumTypeItem<${this.convertJsonotronTypeNameToTypescriptInterfaceName(`${e.domain}/${e.system}/${e.name}_data`)}>[]`
+          ? `ExtendedEnumTypeItem<${capitaliseInitialLetters(e.system)}${capitaliseInitialLetters(e.name)}_Data>[]`
           : `EnumTypeItem[]`
     
-        return `${docBlock}  ${e.name}Items: [\n${itemLines.join(',\n')}\n  ] as ${typeCast}`
+        return `${docBlock}export const ${e.system}${capitaliseInitialLetters(e.name)}Items = [\n${itemLines.join(',\n')}\n] as ${typeCast}`
       })
-  }
-
-  private generateUnnamespacedCode (enumTypes: EnumType[], schemaTypes: SchemaType[]): string {
-    const lines: string[] = [
-      ...this.generateInterfacesForSchemaTypeObjects(enumTypes, schemaTypes)
-    ]
-
-    return lines.join('\n\n')
   }
 
   private generateInterfacesForSchemaTypeObjects (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {
@@ -148,29 +134,29 @@ export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
         })
 
         const docBlock = `/**\n * ${t.documentation}\n */\n`
-        return `${docBlock}export interface ${this.convertJsonotronTypeNameToTypescriptInterfaceName(t.name)} {\n${propLines.join('\n\n')}\n}`
+        return `${docBlock}export interface ${this.convertJsonotronTypeNameToTypescriptInterfaceName(t)} {\n${propLines.join('\n\n')}\n}`
       })
   }
 
-  private resolveJsonotronTypeToTypescriptType (fqnTypeName: string, arrayCount: number, map: TypeMap): string {
-    const matchedRefType = map.refTypes.find(t => t.name === fqnTypeName)
-  
+  private resolveJsonotronTypeToTypescriptType (fqn: string, arrayCount: number, map: TypeMap): string {
+    const matchedRefType = map.refTypes.find(t => t.fullyQualifiedName === fqn)
+
     // we matched a ref type, if it's a scalar we can return that type
     // otherwise we need to repeat the search using the new (resolved) type name.
     if (matchedRefType) {
-      if (matchedRefType.isScalarRef) {
+      if (matchedRefType.isScalarRef || matchedRefType.isEnumRef) {
         return appendArrayIndicators(arrayCount + matchedRefType.refTypeArrayCount, this.convertJsonotronScalarNameToTypescriptScalarName(matchedRefType.refTypeName))
       } else {
         return this.resolveJsonotronTypeToTypescriptType(matchedRefType.refTypeName, arrayCount + matchedRefType.refTypeArrayCount, map)
       }
     }
   
-    const matchedObjectType = map.objectTypes.find(t => t.name === fqnTypeName)
+    const matchedObjectType = map.objectTypes.find(t => t.fullyQualifiedName === fqn)
 
     // we matched an object type, so we need to return it but apply formatting.
     /* istanbul ignore else */
     if (matchedObjectType) {
-      return appendArrayIndicators(arrayCount + matchedObjectType.objectTypeArrayCount, this.convertJsonotronTypeNameToTypescriptInterfaceName(matchedObjectType.name))
+      return appendArrayIndicators(arrayCount + matchedObjectType.objectTypeArrayCount, this.convertJsonotronTypeNameToTypescriptInterfaceName(matchedObjectType))
     } else {
       // we failed to resolve the type name
       return 'unknown'
@@ -189,8 +175,7 @@ export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
     }
   }
   
-  private convertJsonotronTypeNameToTypescriptInterfaceName (fqn: string): string {
-    const slashIndex = fqn.lastIndexOf('/')
-    return capitaliseInitialLetters(fqn.slice(slashIndex + 1))
+  private convertJsonotronTypeNameToTypescriptInterfaceName (obj: TypeMapObject): string {
+    return `${capitaliseInitialLetters(obj.system)}${capitaliseInitialLetters(obj.name)}`
   }
 }

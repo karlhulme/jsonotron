@@ -15,7 +15,7 @@ export interface SchemaType {
   system: string
 
   /**
-   * The system name of the type.
+   * The short name of the type.
    */
   name: string
 

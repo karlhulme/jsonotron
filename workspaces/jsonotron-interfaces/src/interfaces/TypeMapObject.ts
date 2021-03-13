@@ -3,9 +3,24 @@
  */
 export interface TypeMapObject {
   /**
-   * The name of a type.
+   * The domain of the owning type system.
+   */
+  domain: string
+
+  /**
+   * The name of the type system.
+   */
+  system: string
+
+  /**
+   * The short name of the type.
    */
   name: string
+
+  /**
+   * The fully qualified name of a type.
+   */
+  fullyQualifiedName: string
 
   /**
    * The documentation associated with the type.

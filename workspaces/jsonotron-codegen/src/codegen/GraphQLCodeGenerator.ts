@@ -48,13 +48,13 @@ export class GraphQLCodeGenerator implements CodeGenerator {
         }
 
         const docBlock = `"""\n${t.documentation}\n"""\n`
-        return `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t.name)} {\n${propLinesFunc(true).join('\n\n')}\n}\n\n` +
-          `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t.name)}Editing {\n${propLinesFunc(false).join('\n\n')}\n}\n\n`
+        return `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t.fullyQualifiedName)} {\n${propLinesFunc(true).join('\n\n')}\n}\n\n` +
+          `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t.fullyQualifiedName)}Editing {\n${propLinesFunc(false).join('\n\n')}\n}\n\n`
       })
   }
 
   private resolveJsonotronTypeToGraphQLType (fqnTypeName: string, arrayCount: number, map: TypeMap): string {
-    const matchedRefType = map.refTypes.find(t => t.name === fqnTypeName)
+    const matchedRefType = map.refTypes.find(t => t.fullyQualifiedName === fqnTypeName)
   
     // we matched a ref type, if it's a scalar we can return that type
     // otherwise we need to repeat the search using the new (resolved) type name.
@@ -66,12 +66,12 @@ export class GraphQLCodeGenerator implements CodeGenerator {
       }
     }
   
-    const matchedObjectType = map.objectTypes.find(t => t.name === fqnTypeName)
+    const matchedObjectType = map.objectTypes.find(t => t.fullyQualifiedName === fqnTypeName)
 
     // we matched an object type, so we need to return it but apply formatting.
     /* istanbul ignore else */
     if (matchedObjectType) {
-      return wrapArrayIndicators(arrayCount + matchedObjectType.objectTypeArrayCount, this.convertJsonotronTypeNameToGraphQLTypeName(matchedObjectType.name))
+      return wrapArrayIndicators(arrayCount + matchedObjectType.objectTypeArrayCount, this.convertJsonotronTypeNameToGraphQLTypeName(matchedObjectType.fullyQualifiedName))
     } else {
       // we failed to resolve the type name
       return 'JSON'

@@ -27,14 +27,42 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
         : typeof exampleEnumItem === 'boolean'
           ? 'boolean'
           : 'object'
-    map.refTypes.push({ name: fqn, refTypeName: exampleEnumItemScalarType, refTypeArrayCount: arrayCount, isScalarRef: true })
+
+    map.refTypes.push({
+      domain,
+      system,
+      name: proposedTypeName,
+      fullyQualifiedName: fqn, 
+      refTypeName: exampleEnumItemScalarType,
+      refTypeArrayCount: arrayCount,
+      isScalarRef: true,
+      isEnumRef: false
+    })
   } else if (typeof jsonSchema.$ref === 'string') {
     // A json-schema reference to another type
     const qualifiedRef = jsonSchema.$ref.includes('/') ? jsonSchema.$ref : `${domain}/${system}/${jsonSchema.$ref}`
-    map.refTypes.push({ name: fqn, refTypeName: qualifiedRef, refTypeArrayCount: arrayCount, isScalarRef: false})
+    map.refTypes.push({
+      domain,
+      system,
+      name: proposedTypeName,
+      fullyQualifiedName: fqn,
+      refTypeName: qualifiedRef,
+      refTypeArrayCount: arrayCount,
+      isScalarRef: false,
+      isEnumRef: false
+    })
   } else if (['string', 'number', 'integer', 'boolean'].includes(jsonSchema.type as string)) {
     // A primitive type.
-    map.refTypes.push({ name: fqn, refTypeName: jsonSchema.type as string, refTypeArrayCount: arrayCount, isScalarRef: true})
+    map.refTypes.push({
+      domain,
+      system,
+      name: proposedTypeName,
+      fullyQualifiedName: fqn,
+      refTypeName: jsonSchema.type as string,
+      refTypeArrayCount: arrayCount,
+      isScalarRef: true,
+      isEnumRef: false
+    })
   } else if (jsonSchema.type === 'array' && typeof jsonSchema.items === 'object') {
     // An array type.
     // Increase the number of array brackets and resolve the 'items' property
@@ -67,7 +95,10 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
     })
 
     map.objectTypes.push({
-      name: `${domain}/${system}/${proposedTypeName}`,
+      domain,
+      system,
+      name: proposedTypeName,
+      fullyQualifiedName: `${domain}/${system}/${proposedTypeName}`,
       documentation: (jsonSchema.documentation || `The ${proposedTypeName} type.`) as string,
       objectTypeArrayCount: arrayCount,
       properties: objectSubProperties
@@ -75,6 +106,15 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
   } else {
     // Type attribute is missing, contains an array or is generally not understood,
     // so we have to use the object type.
-    map.refTypes.push({ name: fqn, refTypeName: 'object', refTypeArrayCount: arrayCount, isScalarRef: true})
+    map.refTypes.push({
+      domain,
+      system,
+      name: proposedTypeName,
+      fullyQualifiedName: fqn,
+      refTypeName: 'object',
+      refTypeArrayCount: arrayCount,
+      isScalarRef: true,
+      isEnumRef: false
+    })
   }
 }
