@@ -13,9 +13,15 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       name: 'color',
       documentation: 'A list of colors',
       title: 'Color',
+      dataJsonSchema: {
+        type: 'object',
+        properties: {
+          hexCode: { type: 'string' }
+        }
+      },
       items: [
-        { value: 'red', text: 'Red', documentation: 'The color for errors' },
-        { value: 'green', text: 'Green' }
+        { value: 'RED', text: 'Red', documentation: 'The color for errors', data: { hexCode: 'f00'} },
+        { value: 'GREEN', text: 'Green', data: { hexCode: '0f0' } }
       ]
     }, {
       domain: 'https://jsonotron.org',
@@ -24,9 +30,9 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       documentation: 'A list of sizes',
       title: 'Size',
       items: [
-        { value: 'regular', text: 'Regular', symbol: 'M' },
-        { value: 'large', text: 'Large', symbol: 'L' },
-        { value: 'xlarge', text: 'Extra Large', deprecated: 'Cannot source anymore.' }
+        { value: 'REGULAR', text: 'Regular', symbol: 'M' },
+        { value: 'LARGE', text: 'Large', symbol: 'L' },
+        { value: 'XLARGE', text: 'Extra Large', deprecated: 'Cannot source anymore.' }
       ]
     }, {
       domain: 'https://jsonotron.org',
@@ -35,8 +41,8 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       documentation: 'A list of directions (in an alternative system).',
       title: 'Directions',
       items: [
-        { value: 'up', text: 'Up' },
-        { value: 'down', text: 'Down' }
+        { value: 'UP', text: 'Up' },
+        { value: 'DOWN', text: 'Down' }
       ]
     }],
     schemaTypes: [{

@@ -6,9 +6,9 @@ name: trouserStyle
 title: Trouser Style
 documentation: A set of directions.
 items:
-- value: bootLeg
+- value: BOOTLEG
   text: Boot Leg
-- value: skinny
+- value: SKINNY
   text: Skinny
-- value: flared
+- value: FLARED
   text: Flared

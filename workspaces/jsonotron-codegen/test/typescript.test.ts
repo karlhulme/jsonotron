@@ -24,8 +24,8 @@ test('Generate typescript code.', async () => {
   expect(result).toContain('color: \'https://jsonotron.org/test/color\'')
 
   // the enum values
-  expect(result).toContain('sizeValues: {\n    regular: \'regular\',')
-  expect(result).toContain('{ value: \'xlarge\', text: \'Extra Large\', deprecated: \'Cannot source anymore.\' }')
+  expect(result).toContain('sizeValues: {\n    REGULAR: \'REGULAR\',')
+  expect(result).toContain('{ value: \'XLARGE\', text: \'Extra Large\', deprecated: \'Cannot source anymore.\' }')
 
   // the object-type interfaces
   expect(result).toContain('export interface Bed {')

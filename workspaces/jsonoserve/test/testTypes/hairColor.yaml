@@ -6,11 +6,11 @@ name: hairColor
 title: Hair Color
 documentation: The color of a persons hair.
 items:
-- value: auburn
+- value: AUBURN
   text: Auburn
-- value: brunette
+- value: BRUNETTE
   text: Brunette
-- value: blonde
+- value: BLONDE
   text: Blonde
-- value: silver
+- value: SILVER
   text: Silver

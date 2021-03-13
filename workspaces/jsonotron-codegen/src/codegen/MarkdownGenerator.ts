@@ -84,10 +84,10 @@ ${schemaTypes
 
 ${enumType.documentation}
 
-Value | Symbol | Text | Documentation
---- | --- | --- | ---
+Value | Symbol | Text | Data | Documentation
+--- | --- | --- | --- | ---
 ${enumType.items
-  .map(item => `${item.value} | ${item.symbol || ''} | ${item.text} | ${item.deprecated ? '*Deprecated: ' + item.deprecated + '*<br />' : ''} ${item.documentation || ''}`)
+  .map(item => `${item.value} | ${item.symbol || ''} | ${item.text} | ${item.data ? '`' + JSON.stringify(item.data) + '`' : ''}  | ${item.deprecated ? '*Deprecated: ' + item.deprecated + '*<br />' : ''} ${item.documentation || ''}`)
   .join('\n')
 }
 
