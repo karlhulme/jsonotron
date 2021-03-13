@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from 'fs/promises'
-import { CodeGenerator, TypescriptCodeGenerator } from 'jsonotron-codegen'
+import { CodeGenerator, GraphQLCodeGenerator, TypescriptCodeGenerator } from 'jsonotron-codegen'
 import { fetchTypes } from '../requests'
 
 /**
@@ -10,6 +10,8 @@ import { fetchTypes } from '../requests'
 function chooseGenerator (path: string): CodeGenerator {
   if (path.endsWith('.ts')) {
     return new TypescriptCodeGenerator()
+  } else if (path.endsWith('.gql')) {
+    return new GraphQLCodeGenerator()
   } else {
     throw new Error('Unrecognised extension on code file.')
   }
