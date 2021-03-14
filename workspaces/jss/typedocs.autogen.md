@@ -81,7 +81,7 @@ This example is an address in England so it uses a UK post code.
 {
   "addressLines": "1 Acacia Avenue\nPortsmouth",
   "postalCode": "PO125LP",
-  "countryCode": "GB"
+  "countryCode": "gb"
 }
 ```
 
@@ -93,7 +93,7 @@ This example is an address in the United States so it uses a zip code.
 {
   "addressLines": "1 Mansion Street\nBeverley Hills\nLos Angeles",
   "postalCode": "90210",
-  "countryCode": "US"
+  "countryCode": "gb"
 }
 ```
 
@@ -175,215 +175,215 @@ An international telephone calling code defined by the ITU-T in standards E.123 
 
 Value | Symbol | Text | Data | Documentation
 --- | --- | --- | --- | ---
-ISD_1 |  | 1 | `{"region":"Canada, United States and North American Numbering Plan (NANP)"}`  |  
-ISD_20 |  | 20 | `{"region":"Egypt"}`  |  
-ISD_211 |  | 211 | `{"region":"South Sudan"}`  |  
-ISD_212 |  | 212 | `{"region":"Morocco"}`  |  
-ISD_213 |  | 213 | `{"region":"Algeria"}`  |  
-ISD_216 |  | 216 | `{"region":"Tunisia"}`  |  
-ISD_218 |  | 218 | `{"region":"Libya"}`  |  
-ISD_220 |  | 220 | `{"region":"Gambia"}`  |  
-ISD_221 |  | 221 | `{"region":"Senegal"}`  |  
-ISD_222 |  | 222 | `{"region":"Mauritania"}`  |  
-ISD_223 |  | 223 | `{"region":"Mali"}`  |  
-ISD_224 |  | 224 | `{"region":"Guinea"}`  |  
-ISD_225 |  | 225 | `{"region":"Ivory Coast"}`  |  
-ISD_226 |  | 226 | `{"region":"Burkina Faso"}`  |  
-ISD_227 |  | 227 | `{"region":"Niger"}`  |  
-ISD_228 |  | 228 | `{"region":"Togo"}`  |  
-ISD_229 |  | 229 | `{"region":"Benin"}`  |  
-ISD_230 |  | 230 | `{"region":"Mauritius"}`  |  
-ISD_231 |  | 231 | `{"region":"Liberia"}`  |  
-ISD_232 |  | 232 | `{"region":"Sierra Leone"}`  |  
-ISD_233 |  | 233 | `{"region":"Ghana"}`  |  
-ISD_234 |  | 234 | `{"region":"Nigeria"}`  |  
-ISD_235 |  | 235 | `{"region":"Chad"}`  |  
-ISD_236 |  | 236 | `{"region":"Central African Republic"}`  |  
-ISD_237 |  | 237 | `{"region":"Cameroon"}`  |  
-ISD_238 |  | 238 | `{"region":"Cape Verde"}`  |  
-ISD_239 |  | 239 | `{"region":"São Tomé and Príncipe"}`  |  
-ISD_240 |  | 240 | `{"region":"Equatorial Guinea"}`  |  
-ISD_241 |  | 241 | `{"region":"Gabon"}`  |  
-ISD_242 |  | 242 | `{"region":"Republic of the Congo"}`  |  
-ISD_243 |  | 243 | `{"region":"Democratic Republic of the Congo"}`  |  
-ISD_244 |  | 244 | `{"region":"Angola"}`  |  
-ISD_245 |  | 245 | `{"region":"Guinea-Bissau"}`  |  
-ISD_246 |  | 246 | `{"region":"British Indian Ocean Territory"}`  |  
-ISD_247 |  | 247 | `{"region":"Ascension Island"}`  |  
-ISD_248 |  | 248 | `{"region":"Seychelles"}`  |  
-ISD_249 |  | 249 | `{"region":"Sudan"}`  |  
-ISD_250 |  | 250 | `{"region":"Rwanda"}`  |  
-ISD_251 |  | 251 | `{"region":"Ethiopia"}`  |  
-ISD_252 |  | 252 | `{"region":"Somalia"}`  |  
-ISD_253 |  | 253 | `{"region":"Djibouti"}`  |  
-ISD_254 |  | 254 | `{"region":"Kenya"}`  |  
-ISD_255 |  | 255 | `{"region":"Tanzania and Zanzibar"}`  |  
-ISD_256 |  | 256 | `{"region":"Uganda"}`  |  
-ISD_257 |  | 257 | `{"region":"Burundi"}`  |  
-ISD_258 |  | 258 | `{"region":"Mozambique"}`  |  
-ISD_260 |  | 260 | `{"region":"Zambia"}`  |  
-ISD_261 |  | 261 | `{"region":"Madagascar"}`  |  
-ISD_262 |  | 262 | `{"region":"Réunion and Moyette"}`  |  
-ISD_263 |  | 263 | `{"region":"Zimbabwe"}`  |  
-ISD_264 |  | 264 | `{"region":"Namibia"}`  |  
-ISD_265 |  | 265 | `{"region":"Malawi"}`  |  
-ISD_266 |  | 266 | `{"region":"Lesotho"}`  |  
-ISD_267 |  | 267 | `{"region":"Botswana"}`  |  
-ISD_268 |  | 268 | `{"region":"Eswatini"}`  |  
-ISD_269 |  | 269 | `{"region":"Comoros"}`  |  
-ISD_27 |  | 27 | `{"region":"South Africa"}`  |  
-ISD_290 |  | 290 | `{"region":"Saint Helena and Tristan da Cunha"}`  |  
-ISD_291 |  | 291 | `{"region":"Eritrea"}`  |  
-ISD_297 |  | 297 | `{"region":"Aruba"}`  |  
-ISD_298 |  | 298 | `{"region":"Faroe Islands"}`  |  
-ISD_299 |  | 299 | `{"region":"Greenland"}`  |  
-ISD_30 |  | 30 | `{"region":"Greece"}`  |  
-ISD_31 |  | 31 | `{"region":"Netherlands"}`  |  
-ISD_32 |  | 32 | `{"region":"Belgium"}`  |  
-ISD_33 |  | 33 | `{"region":"France"}`  |  
-ISD_34 |  | 34 | `{"region":"Spain"}`  |  
-ISD_350 |  | 350 | `{"region":"Gibraltar"}`  |  
-ISD_351 |  | 351 | `{"region":"Portugal"}`  |  
-ISD_352 |  | 352 | `{"region":"Luxembourg"}`  |  
-ISD_353 |  | 353 | `{"region":"Ireland"}`  |  
-ISD_354 |  | 354 | `{"region":"Iceland"}`  |  
-ISD_355 |  | 355 | `{"region":"Albania"}`  |  
-ISD_356 |  | 356 | `{"region":"Malta"}`  |  
-ISD_357 |  | 357 | `{"region":"Cyprus"}`  |  
-ISD_358 |  | 358 | `{"region":"Finland and Åland Islands"}`  |  
-ISD_359 |  | 359 | `{"region":"Bulgaria"}`  |  
-ISD_36 |  | 36 | `{"region":"Hungary"}`  |  
-ISD_370 |  | 370 | `{"region":"Lithuania"}`  |  
-ISD_371 |  | 371 | `{"region":"Latvia"}`  |  
-ISD_372 |  | 372 | `{"region":"Estonia"}`  |  
-ISD_373 |  | 373 | `{"region":"Moldova"}`  |  
-ISD_374 |  | 374 | `{"region":"Armenia and Artsakh"}`  |  
-ISD_375 |  | 375 | `{"region":"Belarus"}`  |  
-ISD_376 |  | 376 | `{"region":"Andorra"}`  |  
-ISD_377 |  | 377 | `{"region":"Monaco"}`  |  
-ISD_378 |  | 378 | `{"region":"San Marino"}`  |  
-ISD_388 |  | 380 | `{"region":"Ukraine"}`  |  
-ISD_381 |  | 381 | `{"region":"Serbia"}`  |  
-ISD_382 |  | 382 | `{"region":"Montenegro"}`  |  
-ISD_383 |  | 383 | `{"region":"Kosovo"}`  |  
-ISD_385 |  | 385 | `{"region":"Croatia"}`  |  
-ISD_386 |  | 386 | `{"region":"Slovenia"}`  |  
-ISD_387 |  | 387 | `{"region":"Bosnia and Herzegovina"}`  |  
-ISD_389 |  | 389 | `{"region":"North Macedonia"}`  |  
-ISD_39 |  | 39 | `{"region":"Italy and Vatican City"}`  |  
-ISD_40 |  | 40 | `{"region":"Romania"}`  |  
-ISD_41 |  | 41 | `{"region":"Switzerland"}`  |  
-ISD_420 |  | 420 | `{"region":"Czech Republic"}`  |  
-ISD_421 |  | 421 | `{"region":"Slovakia"}`  |  
-ISD_423 |  | 423 | `{"region":"Liechtenstein"}`  |  
-ISD_43 |  | 43 | `{"region":"Austria"}`  |  
-ISD_44 |  | 44 | `{"region":"United Kingdom, Guernsey, Jersey and Isle of Man"}`  |  
-ISD_45 |  | 45 | `{"region":"Denmark"}`  |  
-ISD_46 |  | 46 | `{"region":"Sweden"}`  |  
-ISD_47 |  | 47 | `{"region":"Norway and Svalbard"}`  |  
-ISD_48 |  | 48 | `{"region":"Poland"}`  |  
-ISD_49 |  | 49 | `{"region":"Germany"}`  |  
-ISD_500 |  | 500 | `{"region":"Falkland Islands, South Georgia and the South Sandwich Islands"}`  |  
-ISD_501 |  | 501 | `{"region":"Belize"}`  |  
-ISD_502 |  | 502 | `{"region":"Guatemala"}`  |  
-ISD_503 |  | 503 | `{"region":"El Salvador"}`  |  
-ISD_504 |  | 504 | `{"region":"Honduras"}`  |  
-ISD_505 |  | 505 | `{"region":"Nicaragua"}`  |  
-ISD_506 |  | 506 | `{"region":"Costa Rica"}`  |  
-ISD_507 |  | 507 | `{"region":"Panama"}`  |  
-ISD_508 |  | 508 | `{"region":"Saint-Pierre and Miquelon"}`  |  
-ISD_509 |  | 509 | `{"region":"Haiti"}`  |  
-ISD_51 |  | 51 | `{"region":"Peru"}`  |  
-ISD_52 |  | 52 | `{"region":"Mexico"}`  |  
-ISD_53 |  | 53 | `{"region":"Cuba"}`  |  
-ISD_54 |  | 54 | `{"region":"Argentina"}`  |  
-ISD_55 |  | 55 | `{"region":"Brazil"}`  |  
-ISD_56 |  | 56 | `{"region":"Chile"}`  |  
-ISD_57 |  | 57 | `{"region":"Colombia"}`  |  
-ISD_58 |  | 58 | `{"region":"Venezuela"}`  |  
-ISD_590 |  | 590 | `{"region":"Guadeloupe, Saint Barthélemy and Saint Martin"}`  |  
-ISD_591 |  | 591 | `{"region":"Bolivia"}`  |  
-ISD_592 |  | 592 | `{"region":"Guyana"}`  |  
-ISD_593 |  | 593 | `{"region":"Ecuador"}`  |  
-ISD_594 |  | 594 | `{"region":"French Guiana"}`  |  
-ISD_595 |  | 595 | `{"region":"Paraguay"}`  |  
-ISD_596 |  | 596 | `{"region":"Martinique"}`  |  
-ISD_597 |  | 597 | `{"region":"Suriname"}`  |  
-ISD_598 |  | 598 | `{"region":"Uruguay"}`  |  
-ISD_599 |  | 599 | `{"region":"Sint Eustatius, Saba, Bonaire, Curaçao"}`  |  
-ISD_60 |  | 60 | `{"region":"Malaysia"}`  |  
-ISD_61 |  | 61 | `{"region":"Australia, Cocos Islands and Christmas Island"}`  |  
-ISD_62 |  | 62 | `{"region":"Indonesia"}`  |  
-ISD_63 |  | 63 | `{"region":"Philippines"}`  |  
-ISD_64 |  | 64 | `{"region":"New Zealand and Pitcairn Islands"}`  |  
-ISD_65 |  | 65 | `{"region":"Singapore"}`  |  
-ISD_66 |  | 66 | `{"region":"Thailand"}`  |  
-ISD_670 |  | 670 | `{"region":"East Timor"}`  |  
-ISD_672 |  | 672 | `{"region":"Australian External Territories, Australian Antarctic Territory and Norfolk Island"}`  |  
-ISD_673 |  | 673 | `{"region":"Brunei"}`  |  
-ISD_674 |  | 674 | `{"region":"Nauru"}`  |  
-ISD_675 |  | 675 | `{"region":"Papua New Guinea"}`  |  
-ISD_676 |  | 676 | `{"region":"Tonga"}`  |  
-ISD_677 |  | 677 | `{"region":"Solomon Islands"}`  |  
-ISD_678 |  | 678 | `{"region":"Vanuatu"}`  |  
-ISD_679 |  | 679 | `{"region":"Fiji"}`  |  
-ISD_680 |  | 680 | `{"region":"Palau"}`  |  
-ISD_681 |  | 681 | `{"region":"Wallis and Futuna"}`  |  
-ISD_682 |  | 682 | `{"region":"Cook Islands"}`  |  
-ISD_683 |  | 683 | `{"region":"Niue"}`  |  
-ISD_685 |  | 685 | `{"region":"Samoa"}`  |  
-ISD_686 |  | 686 | `{"region":"Kiribati"}`  |  
-ISD_687 |  | 687 | `{"region":"New Caledonia"}`  |  
-ISD_688 |  | 688 | `{"region":"Tuvalu"}`  |  
-ISD_689 |  | 689 | `{"region":"French Polynesia"}`  |  
-ISD_690 |  | 690 | `{"region":"Tokelau"}`  |  
-ISD_691 |  | 691 | `{"region":"Federated States of Micronesia"}`  |  
-ISD_692 |  | 692 | `{"region":"Marshall Islands"}`  |  
-ISD_7 |  | 7 | `{"region":"Russia, Kazakhstan and Abkhazia"}`  |  
-ISD_800 |  | 800 | `{"region":"International Freephone (UIFN)"}`  |  
-ISD_808 |  | 808 | `{"region":"Shared Cost Services"}`  |  
-ISD_81 |  | 81 | `{"region":"Japan"}`  |  
-ISD_82 |  | 82 | `{"region":"South Korea"}`  |  
-ISD_84 |  | 84 | `{"region":"Vietnam"}`  |  
-ISD_850 |  | 850 | `{"region":"North Korea"}`  |  
-ISD_852 |  | 852 | `{"region":"Hong Kong"}`  |  
-ISD_853 |  | 853 | `{"region":"Macau"}`  |  
-ISD_855 |  | 855 | `{"region":"Cambodia"}`  |  
-ISD_856 |  | 856 | `{"region":"Laos"}`  |  
-ISD_86 |  | 86 | `{"region":"China"}`  |  
-ISD_880 |  | 880 | `{"region":"Bangladesh"}`  |  
-ISD_886 |  | 886 | `{"region":"Taiwan"}`  |  
-ISD_90 |  | 90 | `{"region":"Turkey and Northern Cyprus"}`  |  
-ISD_91 |  | 91 | `{"region":"India"}`  |  
-ISD_92 |  | 92 | `{"region":"Pakistan, Azad Kashmir and Gilgit Baltistan"}`  |  
-ISD_93 |  | 93 | `{"region":"Afghanistan"}`  |  
-ISD_94 |  | 94 | `{"region":"Sri Lanka"}`  |  
-ISD_95 |  | 95 | `{"region":"Myanmar"}`  |  
-ISD_960 |  | 960 | `{"region":"Maldives"}`  |  
-ISD_961 |  | 961 | `{"region":"Lebanon"}`  |  
-ISD_962 |  | 962 | `{"region":"Jordan"}`  |  
-ISD_963 |  | 963 | `{"region":"Syria"}`  |  
-ISD_964 |  | 964 | `{"region":"Iraq"}`  |  
-ISD_965 |  | 965 | `{"region":"Kuwait"}`  |  
-ISD_966 |  | 966 | `{"region":"Saudi Arabia"}`  |  
-ISD_967 |  | 967 | `{"region":"Yemen"}`  |  
-ISD_968 |  | 968 | `{"region":"Oman"}`  |  
-ISD_970 |  | 970 | `{"region":"Palestine"}`  |  
-ISD_971 |  | 971 | `{"region":"United Arab Emirates"}`  |  
-ISD_972 |  | 972 | `{"region":"Israel"}`  |  
-ISD_973 |  | 973 | `{"region":"Bahrain"}`  |  
-ISD_974 |  | 974 | `{"region":"Qatar"}`  |  
-ISD_975 |  | 975 | `{"region":"Bhutan"}`  |  
-ISD_976 |  | 976 | `{"region":"Mongolia"}`  |  
-ISD_977 |  | 977 | `{"region":"Nepal"}`  |  
-ISD_979 |  | 979 | `{"region":"International Premium Rate Service"}`  |  
-ISD_98 |  | 98 | `{"region":"Iran"}`  |  
-ISD_992 |  | 992 | `{"region":"Tajikistan"}`  |  
-ISD_993 |  | 993 | `{"region":"Turkmenistan"}`  |  
-ISD_994 |  | 994 | `{"region":"Azerbaijan"}`  |  
-ISD_995 |  | 995 | `{"region":"Georgia, South Ossetia and Abkhazia"}`  |  
-ISD_996 |  | 996 | `{"region":"Kyrgyzstan"}`  |  
-ISD_998 |  | 998 | `{"region":"Uzbekistan"}`  |  
+1 |  | 1 | `{"region":"Canada, United States and North American Numbering Plan (NANP)"}`  |  
+20 |  | 20 | `{"region":"Egypt"}`  |  
+211 |  | 211 | `{"region":"South Sudan"}`  |  
+212 |  | 212 | `{"region":"Morocco"}`  |  
+213 |  | 213 | `{"region":"Algeria"}`  |  
+216 |  | 216 | `{"region":"Tunisia"}`  |  
+218 |  | 218 | `{"region":"Libya"}`  |  
+220 |  | 220 | `{"region":"Gambia"}`  |  
+221 |  | 221 | `{"region":"Senegal"}`  |  
+222 |  | 222 | `{"region":"Mauritania"}`  |  
+223 |  | 223 | `{"region":"Mali"}`  |  
+224 |  | 224 | `{"region":"Guinea"}`  |  
+225 |  | 225 | `{"region":"Ivory Coast"}`  |  
+226 |  | 226 | `{"region":"Burkina Faso"}`  |  
+227 |  | 227 | `{"region":"Niger"}`  |  
+228 |  | 228 | `{"region":"Togo"}`  |  
+229 |  | 229 | `{"region":"Benin"}`  |  
+230 |  | 230 | `{"region":"Mauritius"}`  |  
+231 |  | 231 | `{"region":"Liberia"}`  |  
+232 |  | 232 | `{"region":"Sierra Leone"}`  |  
+233 |  | 233 | `{"region":"Ghana"}`  |  
+234 |  | 234 | `{"region":"Nigeria"}`  |  
+235 |  | 235 | `{"region":"Chad"}`  |  
+236 |  | 236 | `{"region":"Central African Republic"}`  |  
+237 |  | 237 | `{"region":"Cameroon"}`  |  
+238 |  | 238 | `{"region":"Cape Verde"}`  |  
+239 |  | 239 | `{"region":"São Tomé and Príncipe"}`  |  
+240 |  | 240 | `{"region":"Equatorial Guinea"}`  |  
+241 |  | 241 | `{"region":"Gabon"}`  |  
+242 |  | 242 | `{"region":"Republic of the Congo"}`  |  
+243 |  | 243 | `{"region":"Democratic Republic of the Congo"}`  |  
+244 |  | 244 | `{"region":"Angola"}`  |  
+245 |  | 245 | `{"region":"Guinea-Bissau"}`  |  
+246 |  | 246 | `{"region":"British Indian Ocean Territory"}`  |  
+247 |  | 247 | `{"region":"Ascension Island"}`  |  
+248 |  | 248 | `{"region":"Seychelles"}`  |  
+249 |  | 249 | `{"region":"Sudan"}`  |  
+250 |  | 250 | `{"region":"Rwanda"}`  |  
+251 |  | 251 | `{"region":"Ethiopia"}`  |  
+252 |  | 252 | `{"region":"Somalia"}`  |  
+253 |  | 253 | `{"region":"Djibouti"}`  |  
+254 |  | 254 | `{"region":"Kenya"}`  |  
+255 |  | 255 | `{"region":"Tanzania and Zanzibar"}`  |  
+256 |  | 256 | `{"region":"Uganda"}`  |  
+257 |  | 257 | `{"region":"Burundi"}`  |  
+258 |  | 258 | `{"region":"Mozambique"}`  |  
+260 |  | 260 | `{"region":"Zambia"}`  |  
+261 |  | 261 | `{"region":"Madagascar"}`  |  
+262 |  | 262 | `{"region":"Réunion and Moyette"}`  |  
+263 |  | 263 | `{"region":"Zimbabwe"}`  |  
+264 |  | 264 | `{"region":"Namibia"}`  |  
+265 |  | 265 | `{"region":"Malawi"}`  |  
+266 |  | 266 | `{"region":"Lesotho"}`  |  
+267 |  | 267 | `{"region":"Botswana"}`  |  
+268 |  | 268 | `{"region":"Eswatini"}`  |  
+269 |  | 269 | `{"region":"Comoros"}`  |  
+27 |  | 27 | `{"region":"South Africa"}`  |  
+290 |  | 290 | `{"region":"Saint Helena and Tristan da Cunha"}`  |  
+291 |  | 291 | `{"region":"Eritrea"}`  |  
+297 |  | 297 | `{"region":"Aruba"}`  |  
+298 |  | 298 | `{"region":"Faroe Islands"}`  |  
+299 |  | 299 | `{"region":"Greenland"}`  |  
+30 |  | 30 | `{"region":"Greece"}`  |  
+31 |  | 31 | `{"region":"Netherlands"}`  |  
+32 |  | 32 | `{"region":"Belgium"}`  |  
+33 |  | 33 | `{"region":"France"}`  |  
+34 |  | 34 | `{"region":"Spain"}`  |  
+350 |  | 350 | `{"region":"Gibraltar"}`  |  
+351 |  | 351 | `{"region":"Portugal"}`  |  
+352 |  | 352 | `{"region":"Luxembourg"}`  |  
+353 |  | 353 | `{"region":"Ireland"}`  |  
+354 |  | 354 | `{"region":"Iceland"}`  |  
+355 |  | 355 | `{"region":"Albania"}`  |  
+356 |  | 356 | `{"region":"Malta"}`  |  
+357 |  | 357 | `{"region":"Cyprus"}`  |  
+358 |  | 358 | `{"region":"Finland and Åland Islands"}`  |  
+359 |  | 359 | `{"region":"Bulgaria"}`  |  
+36 |  | 36 | `{"region":"Hungary"}`  |  
+370 |  | 370 | `{"region":"Lithuania"}`  |  
+371 |  | 371 | `{"region":"Latvia"}`  |  
+372 |  | 372 | `{"region":"Estonia"}`  |  
+373 |  | 373 | `{"region":"Moldova"}`  |  
+374 |  | 374 | `{"region":"Armenia and Artsakh"}`  |  
+375 |  | 375 | `{"region":"Belarus"}`  |  
+376 |  | 376 | `{"region":"Andorra"}`  |  
+377 |  | 377 | `{"region":"Monaco"}`  |  
+378 |  | 378 | `{"region":"San Marino"}`  |  
+388 |  | 380 | `{"region":"Ukraine"}`  |  
+381 |  | 381 | `{"region":"Serbia"}`  |  
+382 |  | 382 | `{"region":"Montenegro"}`  |  
+383 |  | 383 | `{"region":"Kosovo"}`  |  
+385 |  | 385 | `{"region":"Croatia"}`  |  
+386 |  | 386 | `{"region":"Slovenia"}`  |  
+387 |  | 387 | `{"region":"Bosnia and Herzegovina"}`  |  
+389 |  | 389 | `{"region":"North Macedonia"}`  |  
+39 |  | 39 | `{"region":"Italy and Vatican City"}`  |  
+40 |  | 40 | `{"region":"Romania"}`  |  
+41 |  | 41 | `{"region":"Switzerland"}`  |  
+420 |  | 420 | `{"region":"Czech Republic"}`  |  
+421 |  | 421 | `{"region":"Slovakia"}`  |  
+423 |  | 423 | `{"region":"Liechtenstein"}`  |  
+43 |  | 43 | `{"region":"Austria"}`  |  
+44 |  | 44 | `{"region":"United Kingdom, Guernsey, Jersey and Isle of Man"}`  |  
+45 |  | 45 | `{"region":"Denmark"}`  |  
+46 |  | 46 | `{"region":"Sweden"}`  |  
+47 |  | 47 | `{"region":"Norway and Svalbard"}`  |  
+48 |  | 48 | `{"region":"Poland"}`  |  
+49 |  | 49 | `{"region":"Germany"}`  |  
+500 |  | 500 | `{"region":"Falkland Islands, South Georgia and the South Sandwich Islands"}`  |  
+501 |  | 501 | `{"region":"Belize"}`  |  
+502 |  | 502 | `{"region":"Guatemala"}`  |  
+503 |  | 503 | `{"region":"El Salvador"}`  |  
+504 |  | 504 | `{"region":"Honduras"}`  |  
+505 |  | 505 | `{"region":"Nicaragua"}`  |  
+506 |  | 506 | `{"region":"Costa Rica"}`  |  
+507 |  | 507 | `{"region":"Panama"}`  |  
+508 |  | 508 | `{"region":"Saint-Pierre and Miquelon"}`  |  
+509 |  | 509 | `{"region":"Haiti"}`  |  
+51 |  | 51 | `{"region":"Peru"}`  |  
+52 |  | 52 | `{"region":"Mexico"}`  |  
+53 |  | 53 | `{"region":"Cuba"}`  |  
+54 |  | 54 | `{"region":"Argentina"}`  |  
+55 |  | 55 | `{"region":"Brazil"}`  |  
+56 |  | 56 | `{"region":"Chile"}`  |  
+57 |  | 57 | `{"region":"Colombia"}`  |  
+58 |  | 58 | `{"region":"Venezuela"}`  |  
+590 |  | 590 | `{"region":"Guadeloupe, Saint Barthélemy and Saint Martin"}`  |  
+591 |  | 591 | `{"region":"Bolivia"}`  |  
+592 |  | 592 | `{"region":"Guyana"}`  |  
+593 |  | 593 | `{"region":"Ecuador"}`  |  
+594 |  | 594 | `{"region":"French Guiana"}`  |  
+595 |  | 595 | `{"region":"Paraguay"}`  |  
+596 |  | 596 | `{"region":"Martinique"}`  |  
+597 |  | 597 | `{"region":"Suriname"}`  |  
+598 |  | 598 | `{"region":"Uruguay"}`  |  
+599 |  | 599 | `{"region":"Sint Eustatius, Saba, Bonaire, Curaçao"}`  |  
+60 |  | 60 | `{"region":"Malaysia"}`  |  
+61 |  | 61 | `{"region":"Australia, Cocos Islands and Christmas Island"}`  |  
+62 |  | 62 | `{"region":"Indonesia"}`  |  
+63 |  | 63 | `{"region":"Philippines"}`  |  
+64 |  | 64 | `{"region":"New Zealand and Pitcairn Islands"}`  |  
+65 |  | 65 | `{"region":"Singapore"}`  |  
+66 |  | 66 | `{"region":"Thailand"}`  |  
+670 |  | 670 | `{"region":"East Timor"}`  |  
+672 |  | 672 | `{"region":"Australian External Territories, Australian Antarctic Territory and Norfolk Island"}`  |  
+673 |  | 673 | `{"region":"Brunei"}`  |  
+674 |  | 674 | `{"region":"Nauru"}`  |  
+675 |  | 675 | `{"region":"Papua New Guinea"}`  |  
+676 |  | 676 | `{"region":"Tonga"}`  |  
+677 |  | 677 | `{"region":"Solomon Islands"}`  |  
+678 |  | 678 | `{"region":"Vanuatu"}`  |  
+679 |  | 679 | `{"region":"Fiji"}`  |  
+680 |  | 680 | `{"region":"Palau"}`  |  
+681 |  | 681 | `{"region":"Wallis and Futuna"}`  |  
+682 |  | 682 | `{"region":"Cook Islands"}`  |  
+683 |  | 683 | `{"region":"Niue"}`  |  
+685 |  | 685 | `{"region":"Samoa"}`  |  
+686 |  | 686 | `{"region":"Kiribati"}`  |  
+687 |  | 687 | `{"region":"New Caledonia"}`  |  
+688 |  | 688 | `{"region":"Tuvalu"}`  |  
+689 |  | 689 | `{"region":"French Polynesia"}`  |  
+690 |  | 690 | `{"region":"Tokelau"}`  |  
+691 |  | 691 | `{"region":"Federated States of Micronesia"}`  |  
+692 |  | 692 | `{"region":"Marshall Islands"}`  |  
+7 |  | 7 | `{"region":"Russia, Kazakhstan and Abkhazia"}`  |  
+800 |  | 800 | `{"region":"International Freephone (UIFN)"}`  |  
+808 |  | 808 | `{"region":"Shared Cost Services"}`  |  
+81 |  | 81 | `{"region":"Japan"}`  |  
+82 |  | 82 | `{"region":"South Korea"}`  |  
+84 |  | 84 | `{"region":"Vietnam"}`  |  
+850 |  | 850 | `{"region":"North Korea"}`  |  
+852 |  | 852 | `{"region":"Hong Kong"}`  |  
+853 |  | 853 | `{"region":"Macau"}`  |  
+855 |  | 855 | `{"region":"Cambodia"}`  |  
+856 |  | 856 | `{"region":"Laos"}`  |  
+86 |  | 86 | `{"region":"China"}`  |  
+880 |  | 880 | `{"region":"Bangladesh"}`  |  
+886 |  | 886 | `{"region":"Taiwan"}`  |  
+90 |  | 90 | `{"region":"Turkey and Northern Cyprus"}`  |  
+91 |  | 91 | `{"region":"India"}`  |  
+92 |  | 92 | `{"region":"Pakistan, Azad Kashmir and Gilgit Baltistan"}`  |  
+93 |  | 93 | `{"region":"Afghanistan"}`  |  
+94 |  | 94 | `{"region":"Sri Lanka"}`  |  
+95 |  | 95 | `{"region":"Myanmar"}`  |  
+960 |  | 960 | `{"region":"Maldives"}`  |  
+961 |  | 961 | `{"region":"Lebanon"}`  |  
+962 |  | 962 | `{"region":"Jordan"}`  |  
+963 |  | 963 | `{"region":"Syria"}`  |  
+964 |  | 964 | `{"region":"Iraq"}`  |  
+965 |  | 965 | `{"region":"Kuwait"}`  |  
+966 |  | 966 | `{"region":"Saudi Arabia"}`  |  
+967 |  | 967 | `{"region":"Yemen"}`  |  
+968 |  | 968 | `{"region":"Oman"}`  |  
+970 |  | 970 | `{"region":"Palestine"}`  |  
+971 |  | 971 | `{"region":"United Arab Emirates"}`  |  
+972 |  | 972 | `{"region":"Israel"}`  |  
+973 |  | 973 | `{"region":"Bahrain"}`  |  
+974 |  | 974 | `{"region":"Qatar"}`  |  
+975 |  | 975 | `{"region":"Bhutan"}`  |  
+976 |  | 976 | `{"region":"Mongolia"}`  |  
+977 |  | 977 | `{"region":"Nepal"}`  |  
+979 |  | 979 | `{"region":"International Premium Rate Service"}`  |  
+98 |  | 98 | `{"region":"Iran"}`  |  
+992 |  | 992 | `{"region":"Tajikistan"}`  |  
+993 |  | 993 | `{"region":"Turkmenistan"}`  |  
+994 |  | 994 | `{"region":"Azerbaijan"}`  |  
+995 |  | 995 | `{"region":"Georgia, South Ossetia and Abkhazia"}`  |  
+996 |  | 996 | `{"region":"Kyrgyzstan"}`  |  
+998 |  | 998 | `{"region":"Uzbekistan"}`  |  
 
   
 
@@ -397,252 +397,252 @@ A country designator from ISO 3166, taken from https://en.wikipedia.org/wiki/Lis
 
 Value | Symbol | Text | Data | Documentation
 --- | --- | --- | --- | ---
-AF |  | Afghanistan |   |  
-AX |  | Åland Islands |   |  
-AL |  | Albania |   |  
-DZ |  | Algeria |   |  
-AS |  | American Samoa |   |  
-AD |  | Andorra |   |  
-AO |  | Angola |   |  
-AI |  | Anguilla |   |  
-AQ |  | Antarctica |   |  
-AG |  | Antigua and Barbuda |   |  
-AR |  | Argentina |   |  
-AM |  | Armenia |   |  
-AW |  | Aruba |   |  
+af |  | Afghanistan |   |  
+ax |  | Åland Islands |   |  
+al |  | Albania |   |  
+dz |  | Algeria |   |  
+as |  | American Samoa |   |  
+ad |  | Andorra |   |  
+ao |  | Angola |   |  
+ai |  | Anguilla |   |  
+aq |  | Antarctica |   |  
+ag |  | Antigua and Barbuda |   |  
+ar |  | Argentina |   |  
+am |  | Armenia |   |  
+aw |  | Aruba |   |  
 AU |  | Australia |   |  
-AT |  | Austria |   |  
-AZ |  | Azerbaijan |   |  
-BS |  | Bahamas (the) |   |  
-BH |  | Bahrain |   |  
-BD |  | Bangladesh |   |  
-BB |  | Barbados |   |  
-BY |  | Belarus |   |  
-BE |  | Belgium |   |  
-BZ |  | Belize |   |  
-BJ |  | Benin |   |  
-BM |  | Bermuda |   |  
-BT |  | Bhutan |   |  
-BO |  | Bolivia (Plurinational State of) |   |  
-BA |  | Bosnia and Herzegovina |   |  
-BW |  | Botswana |   |  
-BV |  | Bouvet Island |   |  
-BR |  | Brazil |   |  
-IO |  | British Indian Ocean Territory (the) |   |  
-BN |  | Brunei Darussalam |   |  
-BG |  | Bulgaria |   |  
-BF |  | Burkina Faso |   |  
-BI |  | Burundi |   |  
-CV |  | Cabo Verde |   |  
-KH |  | Cambodia |   |  
-CM |  | Cameroon |   |  
-CA |  | Canada |   |  
-KY |  | Cayman Islands (the) |   |  
-CF |  | Central African Republic (the) |   |  
-TD |  | Chad |   |  
-CL |  | Chile |   |  
-CN |  | China |   |  
-CX |  | Christmas Island |   |  
-CC |  | Cocos (Keeling) Islands (the) |   |  
-CO |  | Colombia |   |  
-KM |  | Comoros (the) |   |  
-CD |  | Congo (the Democratic Republic of the) |   |  
-CG |  | Congo (the) |   |  
-CK |  | Cook Islands (the) |   |  
-CR |  | Costa Rica |   |  
-CI |  | Côte d"Ivoire |   |  
-HR |  | Croatia |   |  
-CU |  | Cuba |   |  
-CW |  | Curaçao |   |  
-CY |  | Cyprus |   |  
-CZ |  | Czechia |   |  
-DK |  | Denmark |   |  
-DJ |  | Djibouti |   |  
-DM |  | Dominica |   |  
-DO |  | Dominican Republic (the) |   |  
-EC |  | Ecuador |   |  
-EG |  | Egypt |   |  
-SV |  | El Salvador |   |  
-GQ |  | Equatorial Guinea |   |  
-ER |  | Eritrea |   |  
-EE |  | Estonia |   |  
-SZ |  | Eswatini |   |  
-ET |  | Ethiopia |   |  
-FK |  | Falkland Islands (the) |   |  
-FO |  | Faroe Islands (the) |   |  
-FJ |  | Fiji |   |  
-FI |  | Finland |   |  
-FR |  | France |   |  
-GF |  | French Guiana |   |  
-PF |  | French Polynesia |   |  
-TF |  | French Southern Territories (the) |   |  
-GA |  | Gabon |   |  
-GM |  | Gambia (the) |   |  
-GE |  | Georgia |   |  
-DE |  | Germany |   |  
-GH |  | Ghana |   |  
-GI |  | Gibraltar |   |  
-GR |  | Greece |   |  
-GL |  | Greenland |   |  
-GD |  | Grenada |   |  
-GP |  | Guadeloupe |   |  
-GU |  | Guam |   |  
-GT |  | Guatemala |   |  
-GG |  | Guernsey |   |  
-GN |  | Guinea |   |  
-GW |  | Guinea-Bissau |   |  
-GY |  | Guyana |   |  
-HT |  | Haiti |   |  
-HM |  | Heard Island and McDonald Islands |   |  
-VA |  | Holy See (the) |   |  
-HN |  | Honduras |   |  
-HK |  | Hong Kong |   |  
-HU |  | Hungary |   |  
-IS |  | Iceland |   |  
-IN |  | India |   |  
-ID |  | Indonesia |   |  
-IR |  | Iran (Islamic Republic of) |   |  
-IQ |  | Iraq |   |  
-IE |  | Ireland |   |  
-IM |  | Isle of Man |   |  
-IL |  | Israel |   |  
-IT |  | Italy |   |  
-JM |  | Jamaica |   |  
-JP |  | Japan |   |  
-JE |  | Jersey |   |  
-JO |  | Jordan |   |  
-KZ |  | Kazakhstan |   |  
-KE |  | Kenya |   |  
-KI |  | Kiribati |   |  
-KP |  | Korea (the Democratic People"s Republic of) |   |  
-KR |  | Korea (the Republic of) |   |  
-KW |  | Kuwait |   |  
-KG |  | Kyrgyzstan |   |  
-LA |  | Lao People"s Democratic Republic (the) |   |  
-LV |  | Latvia |   |  
-LB |  | Lebanon |   |  
-LS |  | Lesotho |   |  
-LR |  | Liberia |   |  
-LY |  | Libya |   |  
-LI |  | Liechtenstein |   |  
-LT |  | Lithuania |   |  
-LU |  | Luxembourg |   |  
-MO |  | Macao  |   |  
-MK |  | North Macedonia |   |  
-MG |  | Madagascar |   |  
-MW |  | Malawi |   |  
-MY |  | Malaysia |   |  
-MV |  | Maldives |   |  
-ML |  | Mali |   |  
-MT |  | Malta |   |  
-MH |  | Marshall Islands (the) |   |  
-MQ |  | Martinique |   |  
-MR |  | Mauritania |   |  
-MU |  | Mauritius |   |  
-YT |  | Mayotte |   |  
-MX |  | Mexico |   |  
-FM |  | Micronesia (Federated States of) |   |  
-MD |  | Moldova (the Republic of) |   |  
-MC |  | Monaco |   |  
-MN |  | Mongolia |   |  
-ME |  | Montenegro |   |  
-MS |  | Montserrat |   |  
-MA |  | Morocco |   |  
-MZ |  | Mozambique |   |  
-MM |  | Myanmar |   |  
-NA |  | Namibia |   |  
-NR |  | Nauru |   |  
-NP |  | Nepal |   |  
-NL |  | Netherlands (the) |   |  
-NC |  | New Caledonia |   |  
-NZ |  | New Zealand |   |  
-NI |  | Nicaragua |   |  
-NE |  | Niger (the) |   |  
-NG |  | Nigeria |   |  
-NU |  | Niue |   |  
-NF |  | Norfolk Island |   |  
-MP |  | Northern Mariana Islands (the) |   |  
-NO |  | Norway |   |  
-OM |  | Oman |   |  
-PK |  | Pakistan |   |  
-PW |  | Palau |   |  
-PS |  | Palestine, State of |   |  
-PA |  | Panama |   |  
-PG |  | Papua New Guinea |   |  
-PY |  | Paraguay |   |  
-PE |  | Peru |   |  
-PH |  | Philippines (the) |   |  
-PN |  | Pitcairn |   |  
-PL |  | Poland |   |  
-PT |  | Portugal |   |  
-PR |  | Puerto Rico |   |  
-QA |  | Qatar |   |  
-RE |  | Réunion |   |  
-RO |  | Romania |   |  
-RU |  | Russian Federation (the) |   |  
-RW |  | Rwanda |   |  
-BL |  | Saint Barthélemy |   |  
-KN |  | Saint Kitts and Nevis |   |  
-LC |  | Saint Lucia |   |  
-MF |  | Saint Martin (French part) |   |  
-PM |  | Saint Pierre and Miquelon |   |  
-VC |  | Saint Vincent and the Grenadines |   |  
-WS |  | Samoa |   |  
-SM |  | San Marino |   |  
-ST |  | Sao Tome and Principe |   |  
-SA |  | Saudi Arabia |   |  
-SN |  | Senegal |   |  
-RS |  | Serbia |   |  
-SC |  | Seychelles |   |  
-SL |  | Sierra Leone |   |  
-SG |  | Singapore |   |  
-SX |  | Sint Maarten (Dutch part) |   |  
-SK |  | Slovakia |   |  
-SI |  | Slovenia |   |  
-SB |  | Solomon Islands |   |  
-SO |  | Somalia |   |  
-ZA |  | South Africa |   |  
-GS |  | South Georgia and the South Sandwich Islands |   |  
-SS |  | South Sudan |   |  
-ES |  | Spain |   |  
-LK |  | Sri Lanka |   |  
-SD |  | Sudan (the) |   |  
-SR |  | Suriname |   |  
-SE |  | Sweden |   |  
-CH |  | Switzerland |   |  
-SY |  | Syrian Arab Republic (the) |   |  
-TW |  | Taiwan (Province of China) |   |  
-TJ |  | Tajikistan |   |  
-TZ |  | Tanzania, the United Republic of |   |  
-TH |  | Thailand |   |  
-TL |  | Timor-Leste |   |  
-TG |  | Togo |   |  
-TK |  | Tokelau |   |  
-TO |  | Tonga |   |  
-TT |  | Trinidad and Tobago |   |  
-TN |  | Tunisia |   |  
-TR |  | Turkey |   |  
-TM |  | Turkmenistan |   |  
-TC |  | Turks and Caicos Islands (the) |   |  
-TV |  | Tuvalu |   |  
-UG |  | Uganda |   |  
-UA |  | Ukraine |   |  
-AE |  | United Arab Emirates (the) |   |  
-GB |  | United Kingdom of Great Britain and Northern Ireland (the) |   |  
-UM |  | United States Minor Outlying Islands (the) |   |  
-US |  | United States of America (the) |   |  
-UY |  | Uruguay |   |  
-UZ |  | Uzbekistan |   |  
-VU |  | Vanuatu |   |  
-VE |  | Venezuela (Bolivarian Republic of) |   |  
-VN |  | Viet Nam |   |  
-VG |  | Virgin Islands (British) |   |  
-VI |  | Virgin Islands (U.S.) |   |  
-WF |  | Wallis and Futuna |   |  
-EH |  | Western Sahara |   |  
-YE |  | Yemen |   |  
-ZM |  | Zambia |   |  
-ZW |  | Zimbabwe |   |  
+at |  | Austria |   |  
+az |  | Azerbaijan |   |  
+bs |  | Bahamas (the) |   |  
+bh |  | Bahrain |   |  
+bd |  | Bangladesh |   |  
+bb |  | Barbados |   |  
+by |  | Belarus |   |  
+be |  | Belgium |   |  
+bz |  | Belize |   |  
+bj |  | Benin |   |  
+bm |  | Bermuda |   |  
+bt |  | Bhutan |   |  
+bo |  | Bolivia (Plurinational State of) |   |  
+ba |  | Bosnia and Herzegovina |   |  
+bw |  | Botswana |   |  
+bv |  | Bouvet Island |   |  
+br |  | Brazil |   |  
+io |  | British Indian Ocean Territory (the) |   |  
+bn |  | Brunei Darussalam |   |  
+bg |  | Bulgaria |   |  
+bf |  | Burkina Faso |   |  
+bi |  | Burundi |   |  
+cv |  | Cabo Verde |   |  
+kh |  | Cambodia |   |  
+cm |  | Cameroon |   |  
+ca |  | Canada |   |  
+ky |  | Cayman Islands (the) |   |  
+cf |  | Central African Republic (the) |   |  
+td |  | Chad |   |  
+cl |  | Chile |   |  
+cn |  | China |   |  
+cx |  | Christmas Island |   |  
+cc |  | Cocos (Keeling) Islands (the) |   |  
+co |  | Colombia |   |  
+km |  | Comoros (the) |   |  
+cd |  | Congo (the Democratic Republic of the) |   |  
+cg |  | Congo (the) |   |  
+ck |  | Cook Islands (the) |   |  
+cr |  | Costa Rica |   |  
+ci |  | Côte d"Ivoire |   |  
+hr |  | Croatia |   |  
+cu |  | Cuba |   |  
+cw |  | Curaçao |   |  
+cy |  | Cyprus |   |  
+cz |  | Czechia |   |  
+dk |  | Denmark |   |  
+dj |  | Djibouti |   |  
+dm |  | Dominica |   |  
+do |  | Dominican Republic (the) |   |  
+ec |  | Ecuador |   |  
+eg |  | Egypt |   |  
+sv |  | El Salvador |   |  
+gq |  | Equatorial Guinea |   |  
+er |  | Eritrea |   |  
+ee |  | Estonia |   |  
+sz |  | Eswatini |   |  
+et |  | Ethiopia |   |  
+fk |  | Falkland Islands (the) |   |  
+fo |  | Faroe Islands (the) |   |  
+fj |  | Fiji |   |  
+fi |  | Finland |   |  
+fr |  | France |   |  
+gf |  | French Guiana |   |  
+pf |  | French Polynesia |   |  
+tf |  | French Southern Territories (the) |   |  
+ga |  | Gabon |   |  
+gm |  | Gambia (the) |   |  
+ge |  | Georgia |   |  
+de |  | Germany |   |  
+gh |  | Ghana |   |  
+gi |  | Gibraltar |   |  
+gr |  | Greece |   |  
+gl |  | Greenland |   |  
+gd |  | Grenada |   |  
+gp |  | Guadeloupe |   |  
+gu |  | Guam |   |  
+gt |  | Guatemala |   |  
+gg |  | Guernsey |   |  
+gn |  | Guinea |   |  
+gw |  | Guinea-Bissau |   |  
+gy |  | Guyana |   |  
+ht |  | Haiti |   |  
+hm |  | Heard Island and McDonald Islands |   |  
+va |  | Holy See (the) |   |  
+hn |  | Honduras |   |  
+hk |  | Hong Kong |   |  
+hu |  | Hungary |   |  
+is |  | Iceland |   |  
+in |  | India |   |  
+id |  | Indonesia |   |  
+ir |  | Iran (Islamic Republic of) |   |  
+iq |  | Iraq |   |  
+ie |  | Ireland |   |  
+im |  | Isle of Man |   |  
+il |  | Israel |   |  
+it |  | Italy |   |  
+jm |  | Jamaica |   |  
+jp |  | Japan |   |  
+je |  | Jersey |   |  
+jo |  | Jordan |   |  
+kz |  | Kazakhstan |   |  
+ke |  | Kenya |   |  
+ki |  | Kiribati |   |  
+kp |  | Korea (the Democratic People"s Republic of) |   |  
+kr |  | Korea (the Republic of) |   |  
+kw |  | Kuwait |   |  
+kg |  | Kyrgyzstan |   |  
+la |  | Lao People"s Democratic Republic (the) |   |  
+lv |  | Latvia |   |  
+lb |  | Lebanon |   |  
+ls |  | Lesotho |   |  
+lr |  | Liberia |   |  
+ly |  | Libya |   |  
+li |  | Liechtenstein |   |  
+lt |  | Lithuania |   |  
+lu |  | Luxembourg |   |  
+mo |  | Macao  |   |  
+mk |  | North Macedonia |   |  
+mg |  | Madagascar |   |  
+mw |  | Malawi |   |  
+my |  | Malaysia |   |  
+mv |  | Maldives |   |  
+ml |  | Mali |   |  
+mt |  | Malta |   |  
+mh |  | Marshall Islands (the) |   |  
+mq |  | Martinique |   |  
+mr |  | Mauritania |   |  
+mu |  | Mauritius |   |  
+yt |  | Mayotte |   |  
+mx |  | Mexico |   |  
+fm |  | Micronesia (Federated States of) |   |  
+md |  | Moldova (the Republic of) |   |  
+mc |  | Monaco |   |  
+mn |  | Mongolia |   |  
+me |  | Montenegro |   |  
+ms |  | Montserrat |   |  
+ma |  | Morocco |   |  
+mz |  | Mozambique |   |  
+mm |  | Myanmar |   |  
+na |  | Namibia |   |  
+nr |  | Nauru |   |  
+np |  | Nepal |   |  
+nl |  | Netherlands (the) |   |  
+nc |  | New Caledonia |   |  
+nz |  | New Zealand |   |  
+ni |  | Nicaragua |   |  
+ne |  | Niger (the) |   |  
+ng |  | Nigeria |   |  
+nu |  | Niue |   |  
+nf |  | Norfolk Island |   |  
+mp |  | Northern Mariana Islands (the) |   |  
+no |  | Norway |   |  
+om |  | Oman |   |  
+pk |  | Pakistan |   |  
+pw |  | Palau |   |  
+ps |  | Palestine, State of |   |  
+pa |  | Panama |   |  
+pg |  | Papua New Guinea |   |  
+py |  | Paraguay |   |  
+pe |  | Peru |   |  
+ph |  | Philippines (the) |   |  
+pn |  | Pitcairn |   |  
+pl |  | Poland |   |  
+pt |  | Portugal |   |  
+pr |  | Puerto Rico |   |  
+qa |  | Qatar |   |  
+re |  | Réunion |   |  
+ro |  | Romania |   |  
+ru |  | Russian Federation (the) |   |  
+rw |  | Rwanda |   |  
+bl |  | Saint Barthélemy |   |  
+kn |  | Saint Kitts and Nevis |   |  
+lc |  | Saint Lucia |   |  
+mf |  | Saint Martin (French part) |   |  
+pm |  | Saint Pierre and Miquelon |   |  
+vc |  | Saint Vincent and the Grenadines |   |  
+ws |  | Samoa |   |  
+sm |  | San Marino |   |  
+st |  | Sao Tome and Principe |   |  
+sa |  | Saudi Arabia |   |  
+sn |  | Senegal |   |  
+rs |  | Serbia |   |  
+sc |  | Seychelles |   |  
+sl |  | Sierra Leone |   |  
+sg |  | Singapore |   |  
+sx |  | Sint Maarten (Dutch part) |   |  
+sk |  | Slovakia |   |  
+si |  | Slovenia |   |  
+sb |  | Solomon Islands |   |  
+so |  | Somalia |   |  
+za |  | South Africa |   |  
+gs |  | South Georgia and the South Sandwich Islands |   |  
+ss |  | South Sudan |   |  
+es |  | Spain |   |  
+lk |  | Sri Lanka |   |  
+sd |  | Sudan (the) |   |  
+sr |  | Suriname |   |  
+se |  | Sweden |   |  
+ch |  | Switzerland |   |  
+sy |  | Syrian Arab Republic (the) |   |  
+tw |  | Taiwan (Province of China) |   |  
+tj |  | Tajikistan |   |  
+tz |  | Tanzania, the United Republic of |   |  
+th |  | Thailand |   |  
+tl |  | Timor-Leste |   |  
+tg |  | Togo |   |  
+tk |  | Tokelau |   |  
+to |  | Tonga |   |  
+tt |  | Trinidad and Tobago |   |  
+tn |  | Tunisia |   |  
+tr |  | Turkey |   |  
+tm |  | Turkmenistan |   |  
+tc |  | Turks and Caicos Islands (the) |   |  
+tv |  | Tuvalu |   |  
+ug |  | Uganda |   |  
+ua |  | Ukraine |   |  
+ae |  | United Arab Emirates (the) |   |  
+gb |  | United Kingdom of Great Britain and Northern Ireland (the) |   |  
+um |  | United States Minor Outlying Islands (the) |   |  
+us |  | United States of America (the) |   |  
+uy |  | Uruguay |   |  
+uz |  | Uzbekistan |   |  
+vu |  | Vanuatu |   |  
+ve |  | Venezuela (Bolivarian Republic of) |   |  
+vn |  | Viet Nam |   |  
+vg |  | Virgin Islands (British) |   |  
+vi |  | Virgin Islands (U.S.) |   |  
+wf |  | Wallis and Futuna |   |  
+eh |  | Western Sahara |   |  
+ye |  | Yemen |   |  
+zm |  | Zambia |   |  
+zw |  | Zimbabwe |   |  
 
   
 
@@ -656,178 +656,178 @@ A currency designator from ISO 4217.  The data is taken from https://en.wikipedi
 
 Value | Symbol | Text | Data | Documentation
 --- | --- | --- | --- | ---
-AED | د.إ | United Arab Emirates Dirham | `{"scaler":2}`  |  
-AFN | AFN | Afghan Afghani | `{"scaler":2}`  |  
-ALL | ALL | Albanian Lek | `{"scaler":2}`  |  
-AMD | AMD | Armenian Dram | `{"scaler":2}`  |  
-ANG | ANG | Netherlands Antillean Guilder | `{"scaler":2}`  |  
-AOA | AOA | Angolan Kwanza | `{"scaler":2}`  |  
-ARS | ARS | Argentine Peso | `{"scaler":2}`  |  
-AUD | $ | Australian Dollar | `{"scaler":2}`  |  
-AWG | AWG | Aruban Florin | `{"scaler":2}`  |  
-AZN | AZN | Azerbaijani Manat | `{"scaler":2}`  |  
-BAM | BAM | Bosnia and Herzegovina Convertible Mark | `{"scaler":2}`  |  
-BBD | BBD | Barbados Dollar | `{"scaler":2}`  |  
-BDT | ৳ | Bangladeshi Taka | `{"scaler":2}`  |  
-BGN | лв | Bulgarian Lev | `{"scaler":2}`  |  
-BHD | BHD | Bahraini Dinar | `{"scaler":3}`  |  
-BIF | BIF | Burundian Franc | `{"scaler":0}`  |  
-BMD | BMD | Bermudian Dollar | `{"scaler":2}`  |  
-BND | BND | Brunei Dollar | `{"scaler":2}`  |  
-BOB | BOB | Boliviano | `{"scaler":2}`  |  
-BOV | BOV | Bolivian Mvdol (funds code) | `{"scaler":2}`  |  
-BRL | R$ | Brazilian Real | `{"scaler":2}`  |  
-BSD | BSD | Bahamian Dollar | `{"scaler":2}`  |  
-BTC | ₿ | Bitcoin | `{"scaler":8}`  |  
-BTN | BTN | Bhutanese Ngultrum | `{"scaler":2}`  |  
-BWP | BWP | Botswana Pula | `{"scaler":2}`  |  
-BYN | BYN | Belarusian Ruble | `{"scaler":2}`  |  
-BZD | BZD | Belize Dollar | `{"scaler":2}`  |  
-CAD | $ | Canadian Dollar | `{"scaler":2}`  |  
-CDF | CDF | Congolese Franc | `{"scaler":2}`  |  
-CHE | € | WIR Euro | `{"scaler":2}`  |  
-CHF | CHF | Swiss Franc | `{"scaler":2}`  |  
-CHW | CHW | WIR Franc | `{"scaler":2}`  |  
-CLF | CLF | Unidad de Fomento (funds code) | `{"scaler":4}`  |  
-CLP | $ | Chilean Peso | `{"scaler":0}`  |  
-CNY | ¥ | Renminbi (Chinese) Yuan | `{"scaler":2}`  |  
-COP | $ | Colombian Peso | `{"scaler":2}`  |  
-COU | COU | Unidad de Valor Real (UVR) | `{"scaler":2}`  |  
-CRC | CRC | Costa Rican Colon | `{"scaler":2}`  |  
-CUC | CUC | Cuban convertible Peso | `{"scaler":2}`  |  
-CUP | CUP | Cuban Peso | `{"scaler":2}`  |  
-CVE | CVE | Cape Verdean Escudo | `{"scaler":2}`  |  
-CZK | Kč | Czech Koruna | `{"scaler":2}`  |  
-DJF | DJF | Djiboutian Franc | `{"scaler":0}`  |  
-DKK | kr | Danish Krone | `{"scaler":2}`  |  
-DOP | DOP | Dominican Peso | `{"scaler":2}`  |  
-DZD | DZD | Algerian Dinar | `{"scaler":2}`  |  
-EGP | EGP | Egyptian Pound | `{"scaler":2}`  |  
-ERN | ERN | Eritrean Nakfa | `{"scaler":2}`  |  
-ETB | ETB | Ethiopian Birr | `{"scaler":2}`  |  
-ETH | Ξ | Etherium | `{"scaler":18}`  |  
-EUR | € | Euro | `{"scaler":2}`  |  
-FJD | FJD | Fiji Dollar | `{"scaler":2}`  |  
-FKP | FKP | Falkland Islands Pound | `{"scaler":2}`  |  
-GBP | £ | Pound Sterling | `{"scaler":2}`  |  
-GEL | ₾ | Georgian Lari | `{"scaler":2}`  |  
-GHS | GHS | Ghanaian Cedi | `{"scaler":2}`  |  
-GIP | GIP | Gibraltar Pound | `{"scaler":2}`  |  
-GMD | GMD | Gambian Dalasi | `{"scaler":2}`  |  
-GNF | GNF | Guinean Franc | `{"scaler":0}`  |  
-GTQ | GTQ | Guatemalan Quetzal | `{"scaler":2}`  |  
-GYD | GYD | Guyanese Dollar | `{"scaler":2}`  |  
-HKD | $ | Hong Kong Dollar | `{"scaler":2}`  |  
-HNL | HNL | Honduran Lempira | `{"scaler":2}`  |  
-HRK | kn | Croatian Kuna | `{"scaler":2}`  |  
-HTG | HTG | Haitian Gourde | `{"scaler":2}`  |  
-HUF | ft | Hungarian Forint | `{"scaler":2}`  |  
-IDR | Rp | Indonesian Rupiah | `{"scaler":2}`  |  
-ILS | ₪ | Israeli New Shekel | `{"scaler":2}`  |  
-INR | ₹ | Indian Rupee | `{"scaler":2}`  |  
-IQD | IQD | Iraqi Dinar | `{"scaler":3}`  |  
-IRR | IRR | Iranian Rial | `{"scaler":2}`  |  
-ISK | ISK | Icelandic Króna | `{"scaler":0}`  |  
-JMD | JMD | Jamaican Dollar | `{"scaler":2}`  |  
-JOD | JOD | Jordanian Dinar | `{"scaler":3}`  |  
-JPY | ¥ | Japanese Yen | `{"scaler":0}`  |  
-KES | Ksh | Kenyan Shilling | `{"scaler":2}`  |  
-KGS | KGS | Kyrgyzstani Som | `{"scaler":2}`  |  
-KHR | KHR | Cambodian Riel | `{"scaler":2}`  |  
-KMF | KMF | Comoro Franc | `{"scaler":0}`  |  
-KPW | $KPW | North Korean Won | `{"scaler":2}`  |  
-KRW | ₩ | South Korean Won | `{"scaler":0}`  |  
-KWD | KWD | Kuwaiti Dinar | `{"scaler":3}`  |  
-KYD | KYD | Cayman Islands Dollar | `{"scaler":2}`  |  
-KZT | KZT | Kazakhstani Tenge | `{"scaler":2}`  |  
-LAK | LAK | Lao Kip | `{"scaler":2}`  |  
-LBP | LBP | Lebanese Pound | `{"scaler":2}`  |  
-LKR | Rs | Sri Lankan Rupee | `{"scaler":2}`  |  
-LRD | LRD | Liberian Dollar | `{"scaler":2}`  |  
-LSL | LDL | Lesotho Loti | `{"scaler":2}`  |  
-LTC | Ł | Litecoin | `{"scaler":8}`  |  
-LYD | LYD | Libyan Dinar | `{"scaler":3}`  |  
-MAD | .د.م | Moroccan Dirham | `{"scaler":2}`  |  
-MDL | MDL | Moldovan Leu | `{"scaler":2}`  |  
-MGA | MGA | Malagasy Ariary | `{"scaler":2}`  |  
-MKD | MKD | Macedonian Denar | `{"scaler":2}`  |  
-MMK | MMK | Myanmar Kyat | `{"scaler":2}`  |  
-MNT | MNT | Mongolian Tögrög | `{"scaler":2}`  |  
-MOP | MOP | Macanese Pataca | `{"scaler":2}`  |  
-MRU | MRU | Mauritanian Ouguiya | `{"scaler":2}`  |  
-MUR | MUR | Mauritian Rupee | `{"scaler":2}`  |  
-MVR | MVR | Maldivian Rufiyaa | `{"scaler":2}`  |  
-MWK | MWK | Malawian Kwacha | `{"scaler":2}`  |  
-MXN | $ | Mexican Peso | `{"scaler":2}`  |  
-MXV | MXV | Mexican Unidad de Inversion (UDI) | `{"scaler":2}`  |  
-MYR | RM | Malaysian Ringgit | `{"scaler":2}`  |  
-MZN | MZN | Mozambican Metical | `{"scaler":2}`  |  
-NAD | NAD | Namibian Dollar | `{"scaler":2}`  |  
-NGN | ₦ | Nigerian Naira | `{"scaler":2}`  |  
-NIO | NIO | Nicaraguan Córdoba | `{"scaler":2}`  |  
-NOK | kr | Norwegian Krone | `{"scaler":2}`  |  
-NPR | NPR | Nepalese Rupee | `{"scaler":2}`  |  
-NZD | $ | New Zealand Dollar | `{"scaler":2}`  |  
-OMR | OMR | Omani Rial | `{"scaler":3}`  |  
-PAB | PAB | Panamanian Balboa | `{"scaler":2}`  |  
-PEN | S/. | Peruvian Sol | `{"scaler":2}`  |  
-PGK | PGK | Papua New Guinean Kina | `{"scaler":2}`  |  
-PHP | ₱ | Philippine Peso | `{"scaler":2}`  |  
-PKR | Rs | Pakistani Rupee | `{"scaler":2}`  |  
-PLN | zł | Polish Złoty | `{"scaler":2}`  |  
-PYG | PYG | Paraguayan Guaraní | `{"scaler":0}`  |  
-QAR | QAR | Qatari Riyal | `{"scaler":2}`  |  
-RON | lei | Romanian Leu | `{"scaler":2}`  |  
-RSD | RSD | Serbian Dinar | `{"scaler":2}`  |  
-RUB | ₽ | Russian Ruble | `{"scaler":2}`  |  
-RWF | RWF | Rwandan Franc | `{"scaler":0}`  |  
-SAR | SAR | Saudi Riyal | `{"scaler":2}`  |  
-SBD | SBD | Solomon Islands Dollar | `{"scaler":2}`  |  
-SCR | SCR | Seychelles Rupee | `{"scaler":2}`  |  
-SDG | SDG | Sudanese Pound | `{"scaler":2}`  |  
-SEK | kr | Swedish Krona/Kronor | `{"scaler":2}`  |  
-SGD | $ | Singapore Dollar | `{"scaler":2}`  |  
-SHP | SHP | Saint Helena Pound | `{"scaler":2}`  |  
-SLL | SLL | Sierra Leonean Leone | `{"scaler":2}`  |  
-SOS | SOS | Somali Shilling | `{"scaler":2}`  |  
-SRD | SRD | Surinamese Dollar | `{"scaler":2}`  |  
-SSP | SSP | South Sudanese Pound | `{"scaler":2}`  |  
-STN | STN | São Tomé and Príncipe Dobra | `{"scaler":2}`  |  
-SVC | SVC | Salvadoran Colón | `{"scaler":2}`  |  
-SYP | SYP | Syrian Pound | `{"scaler":2}`  |  
-SZL | SZL | Swazi Lilangeni | `{"scaler":2}`  |  
-THB | ฿ | Thai Baht | `{"scaler":2}`  |  
-TJS | TJS | Tajikistani Somoni | `{"scaler":2}`  |  
-TMT | TMT | Turkmenistan Manat | `{"scaler":2}`  |  
-TND | TND | Tunisian Dinar | `{"scaler":3}`  |  
-TOP | TOP | Tongan Paʻanga | `{"scaler":2}`  |  
-TRY | ₺ | Turkish Lira | `{"scaler":2}`  |  
-TTD | TTD | Trinidad and Tobago Dollar | `{"scaler":2}`  |  
-TWD | TWD | New Taiwan Dollar | `{"scaler":2}`  |  
-TZS | TZS | Tanzanian Shilling | `{"scaler":2}`  |  
-UAH | ₴ | Ukrainian Hryvnia | `{"scaler":2}`  |  
-UGX | UGX | Ugandan Shilling | `{"scaler":0}`  |  
-USD | $ | United States Dollar | `{"scaler":2}`  |  
-USN | $ | United States Dollar (next day) | `{"scaler":2}`  |  
-UYI | UYI | Uruguay Peso en Unidades Indexadas (URUIURUI) | `{"scaler":0}`  |  
-UYU | UYU | Uruguayan Peso | `{"scaler":2}`  |  
-UYW | UYW | Unidad Previsional | `{"scaler":4}`  |  
-UZS | UZS | Uzbekistan Som | `{"scaler":2}`  |  
-VES | VES | Venezuelan Bolívar Soberano | `{"scaler":2}`  |  
-VND | ₫ | Vietnamese Dồng | `{"scaler":0}`  |  
-VUV | VUV | Vanuatu Vatu | `{"scaler":0}`  |  
-WST | WST | Samoan Tala | `{"scaler":2}`  |  
-XAF | XAF | CFA franc BEAC | `{"scaler":0}`  |  
-XCD | XCD | East Caribbean Dollar | `{"scaler":2}`  |  
-XMR | ɱ | Monero | `{"scaler":12}`  |  
-XOF | XOF | CFA Franc BCEAO | `{"scaler":0}`  |  
-XPD | XPD | Palladium (one troy ounce) | `{"scaler":2}`  |  
-XPF | XPF | CFP Franc (franc Pacifique) | `{"scaler":0}`  |  
-XRP | XRP | Ripples | `{"scaler":6}`  |  
-YER | YER | Yemeni Rial | `{"scaler":2}`  |  
-ZAR | R | South African Rand | `{"scaler":2}`  |  
-ZMW | ZMW | Zambian Kwacha | `{"scaler":2}`  |  
-ZWL | ZWL | Zimbabwean Dollar | `{"scaler":2}`  |  
+aed | د.إ | United Arab Emirates Dirham | `{"scaler":2}`  |  
+afn | AFN | Afghan Afghani | `{"scaler":2}`  |  
+all | ALL | Albanian Lek | `{"scaler":2}`  |  
+amd | AMD | Armenian Dram | `{"scaler":2}`  |  
+ang | ANG | Netherlands Antillean Guilder | `{"scaler":2}`  |  
+aoa | AOA | Angolan Kwanza | `{"scaler":2}`  |  
+ars | ARS | Argentine Peso | `{"scaler":2}`  |  
+aud | $ | Australian Dollar | `{"scaler":2}`  |  
+awg | AWG | Aruban Florin | `{"scaler":2}`  |  
+azn | AZN | Azerbaijani Manat | `{"scaler":2}`  |  
+bam | BAM | Bosnia and Herzegovina Convertible Mark | `{"scaler":2}`  |  
+bbd | BBD | Barbados Dollar | `{"scaler":2}`  |  
+bdt | ৳ | Bangladeshi Taka | `{"scaler":2}`  |  
+bgn | лв | Bulgarian Lev | `{"scaler":2}`  |  
+bhd | BHD | Bahraini Dinar | `{"scaler":3}`  |  
+bif | BIF | Burundian Franc | `{"scaler":0}`  |  
+bmd | BMD | Bermudian Dollar | `{"scaler":2}`  |  
+bnd | BND | Brunei Dollar | `{"scaler":2}`  |  
+bob | BOB | Boliviano | `{"scaler":2}`  |  
+bov | BOV | Bolivian Mvdol (funds code) | `{"scaler":2}`  |  
+brl | R$ | Brazilian Real | `{"scaler":2}`  |  
+bsd | BSD | Bahamian Dollar | `{"scaler":2}`  |  
+btc | ₿ | Bitcoin | `{"scaler":8}`  |  
+btn | BTN | Bhutanese Ngultrum | `{"scaler":2}`  |  
+bwp | BWP | Botswana Pula | `{"scaler":2}`  |  
+byn | BYN | Belarusian Ruble | `{"scaler":2}`  |  
+bzd | BZD | Belize Dollar | `{"scaler":2}`  |  
+cad | $ | Canadian Dollar | `{"scaler":2}`  |  
+cdf | CDF | Congolese Franc | `{"scaler":2}`  |  
+che | € | WIR Euro | `{"scaler":2}`  |  
+chf | CHF | Swiss Franc | `{"scaler":2}`  |  
+chw | CHW | WIR Franc | `{"scaler":2}`  |  
+clf | CLF | Unidad de Fomento (funds code) | `{"scaler":4}`  |  
+clp | $ | Chilean Peso | `{"scaler":0}`  |  
+cny | ¥ | Renminbi (Chinese) Yuan | `{"scaler":2}`  |  
+cop | $ | Colombian Peso | `{"scaler":2}`  |  
+cou | COU | Unidad de Valor Real (UVR) | `{"scaler":2}`  |  
+crc | CRC | Costa Rican Colon | `{"scaler":2}`  |  
+cuc | CUC | Cuban convertible Peso | `{"scaler":2}`  |  
+cup | CUP | Cuban Peso | `{"scaler":2}`  |  
+cve | CVE | Cape Verdean Escudo | `{"scaler":2}`  |  
+czk | Kč | Czech Koruna | `{"scaler":2}`  |  
+djf | DJF | Djiboutian Franc | `{"scaler":0}`  |  
+dkk | kr | Danish Krone | `{"scaler":2}`  |  
+dop | DOP | Dominican Peso | `{"scaler":2}`  |  
+dzd | DZD | Algerian Dinar | `{"scaler":2}`  |  
+egp | EGP | Egyptian Pound | `{"scaler":2}`  |  
+ern | ERN | Eritrean Nakfa | `{"scaler":2}`  |  
+etb | ETB | Ethiopian Birr | `{"scaler":2}`  |  
+eth | Ξ | Etherium | `{"scaler":18}`  |  
+eur | € | Euro | `{"scaler":2}`  |  
+fjd | FJD | Fiji Dollar | `{"scaler":2}`  |  
+fkp | FKP | Falkland Islands Pound | `{"scaler":2}`  |  
+gbp | £ | Pound Sterling | `{"scaler":2}`  |  
+gel | ₾ | Georgian Lari | `{"scaler":2}`  |  
+ghs | GHS | Ghanaian Cedi | `{"scaler":2}`  |  
+gip | GIP | Gibraltar Pound | `{"scaler":2}`  |  
+gmd | GMD | Gambian Dalasi | `{"scaler":2}`  |  
+gnf | GNF | Guinean Franc | `{"scaler":0}`  |  
+gtq | GTQ | Guatemalan Quetzal | `{"scaler":2}`  |  
+gyd | GYD | Guyanese Dollar | `{"scaler":2}`  |  
+hkd | $ | Hong Kong Dollar | `{"scaler":2}`  |  
+hnl | HNL | Honduran Lempira | `{"scaler":2}`  |  
+hrk | kn | Croatian Kuna | `{"scaler":2}`  |  
+htg | HTG | Haitian Gourde | `{"scaler":2}`  |  
+huf | ft | Hungarian Forint | `{"scaler":2}`  |  
+idr | Rp | Indonesian Rupiah | `{"scaler":2}`  |  
+ils | ₪ | Israeli New Shekel | `{"scaler":2}`  |  
+inr | ₹ | Indian Rupee | `{"scaler":2}`  |  
+iqd | IQD | Iraqi Dinar | `{"scaler":3}`  |  
+irr | IRR | Iranian Rial | `{"scaler":2}`  |  
+isk | ISK | Icelandic Króna | `{"scaler":0}`  |  
+jmd | JMD | Jamaican Dollar | `{"scaler":2}`  |  
+jod | JOD | Jordanian Dinar | `{"scaler":3}`  |  
+jpy | ¥ | Japanese Yen | `{"scaler":0}`  |  
+kes | Ksh | Kenyan Shilling | `{"scaler":2}`  |  
+kgs | KGS | Kyrgyzstani Som | `{"scaler":2}`  |  
+khr | KHR | Cambodian Riel | `{"scaler":2}`  |  
+kmf | KMF | Comoro Franc | `{"scaler":0}`  |  
+kpw | $KPW | North Korean Won | `{"scaler":2}`  |  
+krw | ₩ | South Korean Won | `{"scaler":0}`  |  
+kwd | KWD | Kuwaiti Dinar | `{"scaler":3}`  |  
+kyd | KYD | Cayman Islands Dollar | `{"scaler":2}`  |  
+kzt | KZT | Kazakhstani Tenge | `{"scaler":2}`  |  
+lak | LAK | Lao Kip | `{"scaler":2}`  |  
+lbp | LBP | Lebanese Pound | `{"scaler":2}`  |  
+lkr | Rs | Sri Lankan Rupee | `{"scaler":2}`  |  
+lrd | LRD | Liberian Dollar | `{"scaler":2}`  |  
+lsl | LDL | Lesotho Loti | `{"scaler":2}`  |  
+ltc | Ł | Litecoin | `{"scaler":8}`  |  
+lyd | LYD | Libyan Dinar | `{"scaler":3}`  |  
+mad | .د.م | Moroccan Dirham | `{"scaler":2}`  |  
+mdl | MDL | Moldovan Leu | `{"scaler":2}`  |  
+mga | MGA | Malagasy Ariary | `{"scaler":2}`  |  
+mkd | MKD | Macedonian Denar | `{"scaler":2}`  |  
+mmk | MMK | Myanmar Kyat | `{"scaler":2}`  |  
+mnt | MNT | Mongolian Tögrög | `{"scaler":2}`  |  
+mop | MOP | Macanese Pataca | `{"scaler":2}`  |  
+mru | MRU | Mauritanian Ouguiya | `{"scaler":2}`  |  
+mur | MUR | Mauritian Rupee | `{"scaler":2}`  |  
+mvr | MVR | Maldivian Rufiyaa | `{"scaler":2}`  |  
+mwk | MWK | Malawian Kwacha | `{"scaler":2}`  |  
+mxn | $ | Mexican Peso | `{"scaler":2}`  |  
+mxv | MXV | Mexican Unidad de Inversion (UDI) | `{"scaler":2}`  |  
+myr | RM | Malaysian Ringgit | `{"scaler":2}`  |  
+mzn | MZN | Mozambican Metical | `{"scaler":2}`  |  
+nad | NAD | Namibian Dollar | `{"scaler":2}`  |  
+ngn | ₦ | Nigerian Naira | `{"scaler":2}`  |  
+nio | NIO | Nicaraguan Córdoba | `{"scaler":2}`  |  
+nok | kr | Norwegian Krone | `{"scaler":2}`  |  
+npr | NPR | Nepalese Rupee | `{"scaler":2}`  |  
+nzd | $ | New Zealand Dollar | `{"scaler":2}`  |  
+omr | OMR | Omani Rial | `{"scaler":3}`  |  
+pab | PAB | Panamanian Balboa | `{"scaler":2}`  |  
+pen | S/. | Peruvian Sol | `{"scaler":2}`  |  
+pgk | PGK | Papua New Guinean Kina | `{"scaler":2}`  |  
+php | ₱ | Philippine Peso | `{"scaler":2}`  |  
+pkr | Rs | Pakistani Rupee | `{"scaler":2}`  |  
+pln | zł | Polish Złoty | `{"scaler":2}`  |  
+pyg | PYG | Paraguayan Guaraní | `{"scaler":0}`  |  
+qar | QAR | Qatari Riyal | `{"scaler":2}`  |  
+ron | lei | Romanian Leu | `{"scaler":2}`  |  
+rsd | RSD | Serbian Dinar | `{"scaler":2}`  |  
+rub | ₽ | Russian Ruble | `{"scaler":2}`  |  
+rwf | RWF | Rwandan Franc | `{"scaler":0}`  |  
+sar | SAR | Saudi Riyal | `{"scaler":2}`  |  
+sbd | SBD | Solomon Islands Dollar | `{"scaler":2}`  |  
+scr | SCR | Seychelles Rupee | `{"scaler":2}`  |  
+sdg | SDG | Sudanese Pound | `{"scaler":2}`  |  
+sek | kr | Swedish Krona/Kronor | `{"scaler":2}`  |  
+sgd | $ | Singapore Dollar | `{"scaler":2}`  |  
+shp | SHP | Saint Helena Pound | `{"scaler":2}`  |  
+sll | SLL | Sierra Leonean Leone | `{"scaler":2}`  |  
+sos | SOS | Somali Shilling | `{"scaler":2}`  |  
+srd | SRD | Surinamese Dollar | `{"scaler":2}`  |  
+ssp | SSP | South Sudanese Pound | `{"scaler":2}`  |  
+stn | STN | São Tomé and Príncipe Dobra | `{"scaler":2}`  |  
+svc | SVC | Salvadoran Colón | `{"scaler":2}`  |  
+syp | SYP | Syrian Pound | `{"scaler":2}`  |  
+szl | SZL | Swazi Lilangeni | `{"scaler":2}`  |  
+thb | ฿ | Thai Baht | `{"scaler":2}`  |  
+tjs | TJS | Tajikistani Somoni | `{"scaler":2}`  |  
+tmt | TMT | Turkmenistan Manat | `{"scaler":2}`  |  
+tnd | TND | Tunisian Dinar | `{"scaler":3}`  |  
+top | TOP | Tongan Paʻanga | `{"scaler":2}`  |  
+try | ₺ | Turkish Lira | `{"scaler":2}`  |  
+ttd | TTD | Trinidad and Tobago Dollar | `{"scaler":2}`  |  
+twd | TWD | New Taiwan Dollar | `{"scaler":2}`  |  
+tzs | TZS | Tanzanian Shilling | `{"scaler":2}`  |  
+uah | ₴ | Ukrainian Hryvnia | `{"scaler":2}`  |  
+ugx | UGX | Ugandan Shilling | `{"scaler":0}`  |  
+usd | $ | United States Dollar | `{"scaler":2}`  |  
+usn | $ | United States Dollar (next day) | `{"scaler":2}`  |  
+uyi | UYI | Uruguay Peso en Unidades Indexadas (URUIURUI) | `{"scaler":0}`  |  
+uyu | UYU | Uruguayan Peso | `{"scaler":2}`  |  
+uyw | UYW | Unidad Previsional | `{"scaler":4}`  |  
+uzs | UZS | Uzbekistan Som | `{"scaler":2}`  |  
+ves | VES | Venezuelan Bolívar Soberano | `{"scaler":2}`  |  
+vnd | ₫ | Vietnamese Dồng | `{"scaler":0}`  |  
+vuv | VUV | Vanuatu Vatu | `{"scaler":0}`  |  
+wst | WST | Samoan Tala | `{"scaler":2}`  |  
+xaf | XAF | CFA franc BEAC | `{"scaler":0}`  |  
+xcd | XCD | East Caribbean Dollar | `{"scaler":2}`  |  
+xmr | ɱ | Monero | `{"scaler":12}`  |  
+xof | XOF | CFA Franc BCEAO | `{"scaler":0}`  |  
+xpd | XPD | Palladium (one troy ounce) | `{"scaler":2}`  |  
+xpf | XPF | CFP Franc (franc Pacifique) | `{"scaler":0}`  |  
+xrp | XRP | Ripples | `{"scaler":6}`  |  
+yer | YER | Yemeni Rial | `{"scaler":2}`  |  
+zar | R | South African Rand | `{"scaler":2}`  |  
+zmw | ZMW | Zambian Kwacha | `{"scaler":2}`  |  
+zwl | ZWL | Zimbabwean Dollar | `{"scaler":2}`  |  
 
   
 
@@ -888,7 +888,7 @@ The europe/london time zone operates at +00:00 during the winter and +01:00 duri
 ```json
 {
   "dateTime": "2010-06-08T05:30:12+01:00",
-  "timeZone": "EUROPE_LONDON",
+  "timeZone": "europe/london",
   "captured": 1563119540628
 }
 ```
@@ -967,13 +967,13 @@ A day of the week.
 
 Value | Symbol | Text | Data | Documentation
 --- | --- | --- | --- | ---
-SU |  | Sunday |   |  
-MO |  | Monday |   |  
-TU |  | Tuesday |   |  
-WE |  | Wednesday |   |  
-TH |  | Thursday |   |  
-FR |  | Friday |   |  
-SA |  | Saturday |   |  
+su |  | Sunday |   |  
+mo |  | Monday |   |  
+tu |  | Tuesday |   |  
+we |  | Wednesday |   |  
+th |  | Thursday |   |  
+fr |  | Friday |   |  
+sa |  | Saturday |   |  
 
   
 
@@ -1356,139 +1356,139 @@ A language code conforming to the from ISO 639-1 standard.
 
 Value | Symbol | Text | Data | Documentation
 --- | --- | --- | --- | ---
-AF |  | Afrikaans |   |  
-AR |  | Arabic |   |  
-AR_DZ |  | Arabic (Algeria) |   |  
-AR_BH |  | Arabic (Bahrain) |   |  
-AR_EG |  | Arabic (Egypt) |   |  
-AR_IQ |  | Arabic (Iraq) |   |  
-AR_JO |  | Arabic (Jordan) |   |  
-AR_KW |  | Arabic (Kuwait) |   |  
-AR_LB |  | Arabic (Lebanon) |   |  
-AR_LY |  | Arabic (Libya) |   |  
-AR_MA |  | Arabic (Morocco) |   |  
-AR_OM |  | Arabic (Oman) |   |  
-AR_QA |  | Arabic (Qatar) |   |  
-AR_SA |  | Arabic (Saudi Arabia) |   |  
-AR_SY |  | Arabic (Syria) |   |  
-AR_TN |  | Arabic (Tunisia) |   |  
-AR_AE |  | Arabic (U.A.E.) |   |  
-AR_YE |  | Arabic (Yemen) |   |  
-BE |  | Belarusian |   |  
-BG |  | Bulgarian |   |  
-CA |  | Catalan |   |  
-CY |  | Welsh |   |  
-CS |  | Czech |   |  
-DA |  | Danish |   |  
-DE |  | German |   |  
-DE_AT |  | German (Austria) |   |  
-DE_CH |  | German (Switzerland) |   |  
-DE_DE |  | German (Germany) |   |  
-DE_LI |  | German (Liechtenstein) |   |  
-DE_LU |  | German (Luxembourg) |   |  
-EL |  | Greek |   |  
-EN |  | English |   |  
-EN_AU |  | English (Australia) |   |  
-EN_BZ |  | English (Belize) |   |  
-EN_CA |  | English (Canada) |   |  
-EN_GB |  | English (United Kingdom) |   |  
-EN_IE |  | English (Ireland) |   |  
-EN_JM |  | English (Jamaica) |   |  
-EN_NZ |  | English (New Zealand) |   |  
-EN_ZA |  | English (South Africa) |   |  
-EN_TT |  | English (Trinidad) |   |  
-EN_US |  | English (United States) |   |  
-ES |  | Spanish |   |  
-ES_AR |  | Spanish (Argentina) |   |  
-ES_BO |  | Spanish (Bolivia) |   |  
-ES_CL |  | Spanish (Chile) |   |  
-ES_CO |  | Spanish (Colombia) |   |  
-ES_CR |  | Spanish (Costa Rica) |   |  
-ES_DO |  | Spanish (Dominican Republic) |   |  
-ES_EC |  | Spanish (Ecuador) |   |  
-ES_ES |  | Spanish (Spain) |   |  
-ES_GT |  | Spanish (Guatemala) |   |  
-ES_HN |  | Spanish (Honduras) |   |  
-ES_MX |  | Spanish (Mexico) |   |  
-ES_NI |  | Spanish (Nicaragua) |   |  
-ES_PA |  | Spanish (Panama) |   |  
-ES_PY |  | Spanish (Paraguay) |   |  
-ES_PE |  | Spanish (Peru) |   |  
-ES_PR |  | Spanish (Puerto Rico) |   |  
-ES_SV |  | Spanish (El Salvador) |   |  
-ES_UY |  | Spanish (Uruguay) |   |  
-ES_VE |  | Spanish (Venezuela) |   |  
-ET |  | Estonian |   |  
-EU |  | Basque |   |  
-FA |  | Farsi |   |  
-FI |  | Finnish |   |  
-FO |  | Faeroese |   |  
-FR |  | French |   |  
-FR_BE |  | French (Belgium) |   |  
-FR_CA |  | French (Canada) |   |  
-FR_CH |  | French (Switzerland) |   |  
-FR_FR |  | French (France) |   |  
-FR_LU |  | French (Luxembourg) |   |  
-GA |  | Irish |   |  
-GD |  | Gaelic |   |  
-HE |  | Hebrew |   |  
-HI |  | Hindi |   |  
-HR |  | Croatian |   |  
-HU |  | Hungarian |   |  
-IS |  | Icelandic |   |  
-ID |  | Indonesian |   |  
-IT |  | Italian |   |  
-IT_CH |  | Italian (Switzerland) |   |  
-IT_IT |  | Italian (Italy) |   |  
-JA |  | Japanese |   |  
-KO |  | Korean |   |  
-KU |  | Kurdish |   |  
-LV |  | Latvian |   |  
-LT |  | Lithuanian |   |  
-MK |  | Macedonian (FYROM) |   |  
-ML |  | Malayalam |   |  
-MS |  | Malaysian |   |  
-MT |  | Maltese |   |  
-NB |  | Norwegian (Bokmål) |   |  
-NL |  | Dutch |   |  
-NL_BE |  | Dutch (Belgium) |   |  
-NN |  | Norwegian (Nynorsk) |   |  
-NO |  | Norwegian |   |  
-PL |  | Polish |   |  
-PA |  | Punjabi |   |  
-PT |  | Portuguese |   |  
-PT_PT |  | Portuguese (Portugal) |   |  
-PT_BR |  | Portuguese (Brazil) |   |  
-RM |  | Rhaeto-Romanic |   |  
-RO |  | Romanian |   |  
-RO_RO |  | Romanian (Romania) |   |  
-RO_MD |  | Romanian (Republic of Moldova) |   |  
-RU |  | Russian |   |  
-RU_RU |  | Russian (Russia) |   |  
-RU_MD |  | Russian (Republic of Moldova) |   |  
-SB |  | Sorbian |   |  
-SK |  | Slovak |   |  
-SL |  | Slovenian |   |  
-SQ |  | Albanian |   |  
-SR |  | Serbian |   |  
-SV |  | Swedish |   |  
-SV_SV |  | Swedish (Sweden) |   |  
-SV_FI |  | Swedish (Finland) |   |  
-TH |  | Thai |   |  
-TS |  | Tsonga |   |  
-TN |  | Tswana |   |  
-TR |  | Turkish |   |  
-UK |  | Ukrainian |   |  
-UR |  | Urdu |   |  
-VE |  | Venda |   |  
-VI |  | Vietnamese |   |  
-XH |  | Xhosa |   |  
-YI |  | Yiddish |   |  
-ZH_HK |  | Chinese (Hong Kong) |   |  
-ZH_CN |  | Chinese (PRC) |   |  
-ZH_SG |  | Chinese (Singapore) |   |  
-ZH_TW |  | Chinese (Taiwan) |   |  
-ZU |  | Zulu |   |  
+af |  | Afrikaans |   |  
+ar |  | Arabic |   |  
+ar-dz |  | Arabic (Algeria) |   |  
+ar-bh |  | Arabic (Bahrain) |   |  
+ar-eg |  | Arabic (Egypt) |   |  
+ar-iq |  | Arabic (Iraq) |   |  
+ar-jo |  | Arabic (Jordan) |   |  
+ar-kw |  | Arabic (Kuwait) |   |  
+ar-lb |  | Arabic (Lebanon) |   |  
+ar-ly |  | Arabic (Libya) |   |  
+ar-ma |  | Arabic (Morocco) |   |  
+ar-om |  | Arabic (Oman) |   |  
+ar-qa |  | Arabic (Qatar) |   |  
+ar-sa |  | Arabic (Saudi Arabia) |   |  
+ar-sy |  | Arabic (Syria) |   |  
+ar-tn |  | Arabic (Tunisia) |   |  
+ar-ae |  | Arabic (U.A.E.) |   |  
+ar-ye |  | Arabic (Yemen) |   |  
+be |  | Belarusian |   |  
+bg |  | Bulgarian |   |  
+ca |  | Catalan |   |  
+cy |  | Welsh |   |  
+cs |  | Czech |   |  
+da |  | Danish |   |  
+de |  | German |   |  
+de-at |  | German (Austria) |   |  
+de-ch |  | German (Switzerland) |   |  
+de-de |  | German (Germany) |   |  
+de-li |  | German (Liechtenstein) |   |  
+de-lu |  | German (Luxembourg) |   |  
+el |  | Greek |   |  
+en |  | English |   |  
+en-au |  | English (Australia) |   |  
+en-bz |  | English (Belize) |   |  
+en-ca |  | English (Canada) |   |  
+en-gb |  | English (United Kingdom) |   |  
+en-ie |  | English (Ireland) |   |  
+en-jm |  | English (Jamaica) |   |  
+en-nz |  | English (New Zealand) |   |  
+en-za |  | English (South Africa) |   |  
+en-tt |  | English (Trinidad) |   |  
+en-us |  | English (United States) |   |  
+es |  | Spanish |   |  
+es-ar |  | Spanish (Argentina) |   |  
+es-bo |  | Spanish (Bolivia) |   |  
+es-cl |  | Spanish (Chile) |   |  
+es-co |  | Spanish (Colombia) |   |  
+es-cr |  | Spanish (Costa Rica) |   |  
+es-do |  | Spanish (Dominican Republic) |   |  
+es-ec |  | Spanish (Ecuador) |   |  
+es-es |  | Spanish (Spain) |   |  
+es-gt |  | Spanish (Guatemala) |   |  
+es-hn |  | Spanish (Honduras) |   |  
+es-mx |  | Spanish (Mexico) |   |  
+es-ni |  | Spanish (Nicaragua) |   |  
+es-pa |  | Spanish (Panama) |   |  
+es-py |  | Spanish (Paraguay) |   |  
+es-pe |  | Spanish (Peru) |   |  
+es-pr |  | Spanish (Puerto Rico) |   |  
+es-sv |  | Spanish (El Salvador) |   |  
+es-uy |  | Spanish (Uruguay) |   |  
+es-ve |  | Spanish (Venezuela) |   |  
+et |  | Estonian |   |  
+eu |  | Basque |   |  
+fa |  | Farsi |   |  
+fi |  | Finnish |   |  
+fo |  | Faeroese |   |  
+fr |  | French |   |  
+fr-be |  | French (Belgium) |   |  
+fr-ca |  | French (Canada) |   |  
+fr-ch |  | French (Switzerland) |   |  
+fr-fr |  | French (France) |   |  
+fr-lu |  | French (Luxembourg) |   |  
+ga |  | Irish |   |  
+gd |  | Gaelic |   |  
+he |  | Hebrew |   |  
+hi |  | Hindi |   |  
+hr |  | Croatian |   |  
+hu |  | Hungarian |   |  
+is |  | Icelandic |   |  
+id |  | Indonesian |   |  
+it |  | Italian |   |  
+it-ch |  | Italian (Switzerland) |   |  
+it-it |  | Italian (Italy) |   |  
+ja |  | Japanese |   |  
+ko |  | Korean |   |  
+ku |  | Kurdish |   |  
+lv |  | Latvian |   |  
+lt |  | Lithuanian |   |  
+mk |  | Macedonian (FYROM) |   |  
+ml |  | Malayalam |   |  
+ms |  | Malaysian |   |  
+mt |  | Maltese |   |  
+nb |  | Norwegian (Bokmål) |   |  
+nl |  | Dutch |   |  
+nl-be |  | Dutch (Belgium) |   |  
+nn |  | Norwegian (Nynorsk) |   |  
+no |  | Norwegian |   |  
+pl |  | Polish |   |  
+pa |  | Punjabi |   |  
+pt |  | Portuguese |   |  
+pt-pt |  | Portuguese (Portugal) |   |  
+pt-br |  | Portuguese (Brazil) |   |  
+rm |  | Rhaeto-Romanic |   |  
+ro |  | Romanian |   |  
+ro-ro |  | Romanian (Romania) |   |  
+ro-md |  | Romanian (Republic of Moldova) |   |  
+ru |  | Russian |   |  
+ru-ru |  | Russian (Russia) |   |  
+ru-md |  | Russian (Republic of Moldova) |   |  
+sb |  | Sorbian |   |  
+sk |  | Slovak |   |  
+sl |  | Slovenian |   |  
+sq |  | Albanian |   |  
+sr |  | Serbian |   |  
+sv |  | Swedish |   |  
+sv-sv |  | Swedish (Sweden) |   |  
+sv-fi |  | Swedish (Finland) |   |  
+th |  | Thai |   |  
+ts |  | Tsonga |   |  
+tn |  | Tswana |   |  
+tr |  | Turkish |   |  
+uk |  | Ukrainian |   |  
+ur |  | Urdu |   |  
+ve |  | Venda |   |  
+vi |  | Vietnamese |   |  
+xh |  | Xhosa |   |  
+yi |  | Yiddish |   |  
+zh-hk |  | Chinese (Hong Kong) |   |  
+zh-cn |  | Chinese (PRC) |   |  
+zh-sg |  | Chinese (Singapore) |   |  
+zh-tw |  | Chinese (Taiwan) |   |  
+zu |  | Zulu |   |  
 
   
 
@@ -1567,7 +1567,7 @@ In this example, the GBP currency defines a scaler of 2, which means that we shi
 ```json
 {
   "amount": 9999,
-  "currency": "GBP"
+  "currency": "gbp"
 }
 ```
 
@@ -1608,18 +1608,18 @@ A calendar month.
 
 Value | Symbol | Text | Data | Documentation
 --- | --- | --- | --- | ---
-JAN |  | January |   |  
-FEB |  | February |   |  
-MAR |  | March |   |  
-APR |  | April |   |  
-MAY |  | May |   |  
-JUN |  | June |   |  
-JUL |  | July |   |  
-AUG |  | August |   |  
-SEP |  | September |   |  
-OCT |  | October |   |  
-NOV |  | November |   |  
-DEC |  | December |   |  
+jan |  | January |   |  
+feb |  | February |   |  
+mar |  | March |   |  
+apr |  | April |   |  
+may |  | May |   |  
+jun |  | June |   |  
+jul |  | July |   |  
+aug |  | August |   |  
+sep |  | September |   |  
+oct |  | October |   |  
+nov |  | November |   |  
+dec |  | December |   |  
 
   
 
@@ -2032,7 +2032,7 @@ In this example we have a UK mobile number.
 
 ```json
 {
-  "isd": "ISD_44",
+  "isd": "44",
   "number": "7834111222"
 }
 ```
@@ -2043,7 +2043,7 @@ In this example we have a US landline number with an extension.
 
 ```json
 {
-  "isd": "ISD_1",
+  "isd": "44",
   "number": "5550172",
   "ext": "2209"
 }
@@ -2148,380 +2148,380 @@ A time zone from the IANA tz database.  The data is taken from https://en.wikipe
 
 Value | Symbol | Text | Data | Documentation
 --- | --- | --- | --- | ---
-AFRICA_ABIDJAN |  | Africa/Abidjan (+00:00, DST +00:00) |   |  
-AFRICA_ACCRA |  | Africa/Accra (+00:00, DST +00:00) |   |  
-AFRICA_ALGIERS |  | Africa/Algiers (+01:00, DST +01:00) |   |  
-AFRICA_BISSAU |  | Africa/Bissau (+00:00, DST +00:00) |   |  
-AFRICA_CAIRO |  | Africa/Cairo (+02:00, DST +02:00) |   |  
-AFRICA_CASABLANCA |  | Africa/Casablanca (+01:00, DST +01:00) |   |  
-AFRICA_CEUTA |  | Africa/Ceuta (+01:00, DST +02:00) |   |  
-AFRICA_EL_AAIUN |  | Africa/El_Aaiun (+00:00, DST +01:00) |   |  
-AFRICA_JOHANNESBURG |  | Africa/Johannesburg (+02:00, DST +02:00) |   |  
-AFRICA_JUBA |  | Africa/Juba (+03:00, DST +03:00) |   |  
-AFRICA_KHARTOUM |  | Africa/Khartoum (+02:00, DST +02:00) |   |  
-AFRICA_LAGOS |  | Africa/Lagos (+01:00, DST +01:00) |   |  
-AFRICA_MAPUTO |  | Africa/Maputo (+02:00, DST +02:00) |   |  
-AFRICA_MONROVIA |  | Africa/Monrovia (+00:00, DST +00:00) |   |  
-AFRICA_NAIROBI |  | Africa/Nairobi (+03:00, DST +03:00) |   |  
-AFRICA_NDJAMENA |  | Africa/Ndjamena (+01:00, DST +01:00) |   |  
-AFRICA_TRIPOLI |  | Africa/Tripoli (+02:00, DST +02:00) |   |  
-AFRICA_TUNIS |  | Africa/Tunis (+01:00, DST +01:00) |   |  
-AFRICA_WINDHOEK |  | Africa/Windhoek (+02:00, DST +02:00) |   |  
-AMERICA_ADAK |  | America/Adak (−10:00, DST −09:00) |   |  
-AMERICA_ANCHORAGE |  | America/Anchorage (−09:00, DST −08:00) |   |  
-AMERICA_ARAGUAINA |  | America/Araguaina (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_BUENOS_AIRES |  | America/Argentina/Buenos_Aires (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_CATAMARCA |  | America/Argentina/Catamarca (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_CORDOBA |  | America/Argentina/Cordoba (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_JUJUY |  | America/Argentina/Jujuy (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_LA_RIOJA |  | America/Argentina/La_Rioja (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_MENDOZA |  | America/Argentina/Mendoza (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_RIO_GALLEGOS |  | America/Argentina/Rio_Gallegos (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_SALTA |  | America/Argentina/Salta (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_SAN_JUAN |  | America/Argentina/San_Juan (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_SAN_LUIS |  | America/Argentina/San_Luis (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_TUCUMAN |  | America/Argentina/Tucuman (−03:00, DST −03:00) |   |  
-AMERICA_ARGENTINA_USHUAIA |  | America/Argentina/Ushuaia (−03:00, DST −03:00) |   |  
-AMERICA_ASUNCION |  | America/Asuncion (−04:00, DST −03:00) |   |  
-AMERICA_ATIKOKAN |  | America/Atikokan (−05:00, DST −05:00) |   |  
-AMERICA_BAHIA |  | America/Bahia (−03:00, DST −03:00) |   |  
-AMERICA_BAHIA_BANDERAS |  | America/Bahia_Banderas (−06:00, DST −05:00) |   |  
-AMERICA_BARBADOS |  | America/Barbados (−04:00, DST −04:00) |   |  
-AMERICA_BELEM |  | America/Belem (−03:00, DST −03:00) |   |  
-AMERICA_BELIZE |  | America/Belize (−06:00, DST −06:00) |   |  
-AMERICA_BLANC_SABLON |  | America/Blanc-Sablon (−04:00, DST −04:00) |   |  
-AMERICA_BOA_VISTA |  | America/Boa_Vista (−04:00, DST −04:00) |   |  
-AMERICA_BOGOTA |  | America/Bogota (−05:00, DST −05:00) |   |  
-AMERICA_BOISE |  | America/Boise (−07:00, DST −06:00) |   |  
-AMERICA_CAMBRIDGE_BAY |  | America/Cambridge_Bay (−07:00, DST −06:00) |   |  
-AMERICA_CAMPO_GRANDE |  | America/Campo_Grande (−04:00, DST −03:00) |   |  
-AMERICA_CANCUN |  | America/Cancun (−05:00, DST −05:00) |   |  
-AMERICA_CARACAS |  | America/Caracas (−04:00, DST −04:00) |   |  
-AMERICA_CAYENNE |  | America/Cayenne (−03:00, DST −03:00) |   |  
-AMERICA_CHICAGO |  | America/Chicago (−06:00, DST −05:00) |   |  
-AMERICA_CHIHUAHUA |  | America/Chihuahua (−07:00, DST −06:00) |   |  
-AMERICA_COSTA_RICA |  | America/Costa_Rica (−06:00, DST −06:00) |   |  
-AMERICA_CRESTON |  | America/Creston (−07:00, DST −07:00) |   |  
-AMERICA_CUIABA |  | America/Cuiaba (−04:00, DST −03:00) |   |  
-AMERICA_CURACAO |  | America/Curacao (−04:00, DST −04:00) |   |  
-AMERICA_DANMARKSHAVN |  | America/Danmarkshavn (+00:00, DST +00:00) |   |  
-AMERICA_DAWSON |  | America/Dawson (−08:00, DST −07:00) |   |  
-AMERICA_DAWSON_CREEK |  | America/Dawson_Creek (−07:00, DST −07:00) |   |  
-AMERICA_DENVER |  | America/Denver (−07:00, DST −06:00) |   |  
-AMERICA_DETROIT |  | America/Detroit (−05:00, DST −04:00) |   |  
-AMERICA_EDMONTON |  | America/Edmonton (−07:00, DST −06:00) |   |  
-AMERICA_EIRUNEPE |  | America/Eirunepe (−05:00, DST −05:00) |   |  
-AMERICA_EL_SALVADOR |  | America/El_Salvador (−06:00, DST −06:00) |   |  
-AMERICA_FORT_NELSON |  | America/Fort_Nelson (−07:00, DST −07:00) |   |  
-AMERICA_FORTALEZA |  | America/Fortaleza (−03:00, DST −03:00) |   |  
-AMERICA_GLACE_BAY |  | America/Glace_Bay (−04:00, DST −03:00) |   |  
-AMERICA_GODTHAB |  | America/Godthab (−03:00, DST −02:00) |   |  
-AMERICA_GOOSE_BAY |  | America/Goose_Bay (−04:00, DST −03:00) |   |  
-AMERICA_GRAND_TURK |  | America/Grand_Turk (−05:00, DST −04:00) |   |  
-AMERICA_GUATEMALA |  | America/Guatemala (−06:00, DST −06:00) |   |  
-AMERICA_GUAYAQUIL |  | America/Guayaquil (−05:00, DST −05:00) |   |  
-AMERICA_GUYANA |  | America/Guyana (−04:00, DST −04:00) |   |  
-AMERICA_HALIFAX |  | America/Halifax (−04:00, DST −03:00) |   |  
-AMERICA_HAVANA |  | America/Havana (−05:00, DST −04:00) |   |  
-AMERICA_HERMOSILLO |  | America/Hermosillo (−07:00, DST −07:00) |   |  
-AMERICA_INDIANA_INDIANAPOLIS |  | America/Indiana/Indianapolis (−05:00, DST −04:00) |   |  
-AMERICA_INDIANA_KNOX |  | America/Indiana/Knox (−06:00, DST −05:00) |   |  
-AMERICA_INDIANA_MARENGO |  | America/Indiana/Marengo (−05:00, DST −04:00) |   |  
-AMERICA_INDIANA_PETERSBURG |  | America/Indiana/Petersburg (−05:00, DST −04:00) |   |  
-AMERICA_INDIANA_TELL_CITY |  | America/Indiana/Tell_City (−06:00, DST −05:00) |   |  
-AMERICA_INDIANA_VEVAY |  | America/Indiana/Vevay (−05:00, DST −04:00) |   |  
-AMERICA_INDIANA_VINCENNES |  | America/Indiana/Vincennes (−05:00, DST −04:00) |   |  
-AMERICA_INDIANA_WINAMAC |  | America/Indiana/Winamac (−05:00, DST −04:00) |   |  
-AMERICA_INUVIK |  | America/Inuvik (−07:00, DST −06:00) |   |  
-AMERICA_IQALUIT |  | America/Iqaluit (−05:00, DST −04:00) |   |  
-AMERICA_JAMAICA |  | America/Jamaica (−05:00, DST −05:00) |   |  
-AMERICA_JUNEAU |  | America/Juneau (−09:00, DST −08:00) |   |  
-AMERICA_KENTUCKY_LOUISVILLE |  | America/Kentucky/Louisville (−05:00, DST −04:00) |   |  
-AMERICA_KENTUCKY_MONTICELLO |  | America/Kentucky/Monticello (−05:00, DST −04:00) |   |  
-AMERICA_LA_PAZ |  | America/La_Paz (−04:00, DST −04:00) |   |  
-AMERICA_LIMA |  | America/Lima (−05:00, DST −05:00) |   |  
-AMERICA_LOS_ANGELES |  | America/Los_Angeles (−08:00, DST −07:00) |   |  
-AMERICA_MACEIO |  | America/Maceio (−03:00, DST −03:00) |   |  
-AMERICA_MANAGUA |  | America/Managua (−06:00, DST −06:00) |   |  
-AMERICA_MANAUS |  | America/Manaus (−04:00, DST −04:00) |   |  
-AMERICA_MARTINIQUE |  | America/Martinique (−04:00, DST −04:00) |   |  
-AMERICA_MATAMOROS |  | America/Matamoros (−06:00, DST −05:00) |   |  
-AMERICA_MAZATLAN |  | America/Mazatlan (−07:00, DST −06:00) |   |  
-AMERICA_MENOMINEE |  | America/Menominee (−06:00, DST −05:00) |   |  
-AMERICA_MERIDA |  | America/Merida (−06:00, DST −05:00) |   |  
-AMERICA_METLAKATLA |  | America/Metlakatla (−09:00, DST −08:00) |   |  
-AMERICA_MEXICO_CITY |  | America/Mexico_City (−06:00, DST −05:00) |   |  
-AMERICA_MIQUELON |  | America/Miquelon (−03:00, DST −02:00) |   |  
-AMERICA_MONCTON |  | America/Moncton (−04:00, DST −03:00) |   |  
-AMERICA_MONTERREY |  | America/Monterrey (−06:00, DST −05:00) |   |  
-AMERICA_MONTEVIDEO |  | America/Montevideo (−03:00, DST −03:00) |   |  
-AMERICA_NASSAU |  | America/Nassau (−05:00, DST −04:00) |   |  
-AMERICA_NEW_YORK |  | America/New_York (−05:00, DST −04:00) |   |  
-AMERICA_NIPIGON |  | America/Nipigon (−05:00, DST −04:00) |   |  
-AMERICA_NOME |  | America/Nome (−09:00, DST −08:00) |   |  
-AMERICA_NORONHA |  | America/Noronha (−02:00, DST −02:00) |   |  
-AMERICA_NORTH_DAKOTA_BEULAH |  | America/North_Dakota/Beulah (−06:00, DST −05:00) |   |  
-AMERICA_NORTH_DAKOTA_CENTER |  | AmericaNorth_Dakota/Center (−06:00, DST −05:00) |   |  
-AMERICA_NORTH_DAKOTA_NEW_SALEM |  | America/North_Dakota/New_Salem (−06:00, DST −05:00) |   |  
-AMERICA_OJINAGA |  | America/Ojinaga (−07:00, DST −06:00) |   |  
-AMERICA_PANAMA |  | America/Panama (−05:00, DST −05:00) |   |  
-AMERICA_PANGNIRTUNG |  | America/Pangnirtung (−05:00, DST −04:00) |   |  
-AMERICA_PARAMARIBO |  | America/Paramaribo (−03:00, DST −03:00) |   |  
-AMERICA_PHOENIX |  | America/Phoenix (−07:00, DST −07:00) |   |  
-AMERICA_PORT_OF_SPAIN |  | America/Port_of_Spain (−04:00, DST −04:00) |   |  
-AMERICA_PORT_AU_PRINCE |  | America/Port-au-Prince (−05:00, DST −04:00) |   |  
-AMERICA_PORTO_VELHO |  | America/Porto_Velho (−04:00, DST −04:00) |   |  
-AMERICA_PUERTO_RICO |  | America/Puerto_Rico (−04:00, DST −04:00) |   |  
-AMERICA_PUNTA_ARENAS |  | America/Punta_Arenas (−03:00, DST −03:00) |   |  
-AMERICA_RAINY_RIVER |  | America/Rainy_River (−06:00, DST −05:00) |   |  
-AMERICA_RANKIN_INLET |  | America/Rankin_Inlet (−06:00, DST −05:00) |   |  
-AMERICA_RECIFE |  | America/Recife (−03:00, DST −03:00) |   |  
-AMERICA_REGINA |  | America/Regina (−06:00, DST −06:00) |   |  
-AMERICA_RESOLUTE |  | America/Resolute (−06:00, DST −05:00) |   |  
-AMERICA_RIO_BRANCO |  | America/Rio_Branco (−05:00, DST −05:00) |   |  
-AMERICA_SANTAREM |  | America/Santarem (−03:00, DST −03:00) |   |  
-AMERICA_SANTIAGO |  | America/Santiago (−04:00, DST −03:00) |   |  
-AMERICA_SANTO_DOMINGO |  | America/Santo_Domingo (−04:00, DST −04:00) |   |  
-AMERICA_SAO_PAULO |  | America/Sao_Paulo (−03:00, DST −02:00) |   |  
-AMERICA_SCORESBYSUND |  | America/Scoresbysund (−01:00, DST +00:00) |   |  
-AMERICA_SITKA |  | America/Sitka (−09:00, DST −08:00) |   |  
-AMERICA_ST_JOHNS |  | America/St_Johns (−03:30, DST −02:30) |   |  
-AMERICA_SWIFT_CURRENT |  | America/Swift_Current (−06:00, DST −06:00) |   |  
-AMERICA_TEGUCIGALPA |  | America/Tegucigalpa (−06:00, DST −06:00) |   |  
-AMERICA_THULE |  | America/Thule (−04:00, DST −03:00) |   |  
-AMERICA_THUNDER_BAY |  | America/Thunder_Bay (−05:00, DST −04:00) |   |  
-AMERICA_TIJUANA |  | America/Tijuana (−08:00, DST −07:00) |   |  
-AMERICA_TORONTO |  | America/Toronto (−05:00, DST −04:00) |   |  
-AMERICA_VANCOUVER |  | America/Vancouver (−08:00, DST −07:00) |   |  
-AMERICA_WHITEHORSE |  | America/Whitehorse (−08:00, DST −07:00) |   |  
-AMERICA_WINNIPEG |  | America/Winnipeg (−06:00, DST −05:00) |   |  
-AMERICA_YAKUTAT |  | America/Yakutat (−09:00, DST −08:00) |   |  
-AMERICA_YELLOWKNIFE |  | America/Yellowknife (−07:00, DST −06:00) |   |  
-ANTARCTICA_CASEY |  | Antarctica/Casey (+11:00, DST +11:00) |   |  
-ANTARCTICA_DAVIS |  | Antarctica/Davis (+07:00, DST +07:00) |   |  
-ANTARCTICA_DUMONTDURVILLE |  | Antarctica/DumontDUrville (+10:00, DST +10:00) |   |  
-ANTARCTICA_MACQUARIE |  | Antarctica/Macquarie (+11:00, DST +11:00) |   |  
-ANTARCTICA_MAWSON |  | Antarctica/Mawson (+05:00, DST +05:00) |   |  
-ANTARCTICA_PALMER |  | Antarctica/Palmer (−03:00, DST −03:00) |   |  
-ANTARCTICA_ROTHERA |  | Antarctica/Rothera (−03:00, DST −03:00) |   |  
-ANTARCTICA_SYOWA |  | Antarctica/Syowa (+03:00, DST +03:00) |   |  
-ANTARCTICA_TROLL |  | Antarctica/Troll (+00:00, DST +02:00) |   |  
-ANTARCTICA_VOSTOK |  | Antarctica/Vostok (+06:00, DST +06:00) |   |  
-ASIA_ALMATY |  | Asia/Almaty (+06:00, DST +06:00) |   |  
-ASIA_AMMAN |  | Asia/Amman (+02:00, DST +03:00) |   |  
-ASIA_ANADYR |  | Asia/Anadyr (+12:00, DST +12:00) |   |  
-ASIA_AQTAU |  | Asia/Aqtau (+05:00, DST +05:00) |   |  
-ASIA_AQTOBE |  | Asia/Aqtobe (+05:00, DST +05:00) |   |  
-ASIA_ASHGABAT |  | Asia/Ashgabat (+05:00, DST +05:00) |   |  
-ASIA_ATYRAU |  | Asia/Atyrau (+05:00, DST +05:00) |   |  
-ASIA_BAGHDAD |  | Asia/Baghdad (+03:00, DST +03:00) |   |  
-ASIA_BAKU |  | Asia/Baku (+04:00, DST +04:00) |   |  
-ASIA_BANGKOK |  | Asia/Bangkok (+07:00, DST +07:00) |   |  
-ASIA_BARNAUL |  | Asia/Barnaul (+07:00, DST +07:00) |   |  
-ASIA_BEIRUT |  | Asia/Beirut (+02:00, DST +03:00) |   |  
-ASIA_BISHKEK |  | Asia/Bishkek (+06:00, DST +06:00) |   |  
-ASIA_BRUNEI |  | Asia/Brunei (+08:00, DST +08:00) |   |  
-ASIA_CHITA |  | Asia/Chita (+09:00, DST +09:00) |   |  
-ASIA_CHOIBALSAN |  | Asia/Choibalsan (+08:00, DST +08:00) |   |  
-ASIA_COLOMBO |  | Asia/Colombo (+05:30, DST +05:30) |   |  
-ASIA_DAMASCUS |  | Asia/Damascus (+02:00, DST +03:00) |   |  
-ASIA_DHAKA |  | Asia/Dhaka (+06:00, DST +06:00) |   |  
-ASIA_DILI |  | Asia/Dili (+09:00, DST +09:00) |   |  
-ASIA_DUBAI |  | Asia/Dubai (+04:00, DST +04:00) |   |  
-ASIA_DUSHANBE |  | Asia/Dushanbe (+05:00, DST +05:00) |   |  
-ASIA_FAMAGUSTA |  | Asia/Famagusta (+02:00, DST +02:00) |   |  
-ASIA_GAZA |  | Asia/Gaza (+02:00, DST +03:00) |   |  
-ASIA_HEBRON |  | Asia/Hebron (+02:00, DST +03:00) |   |  
-ASIA_HO_CHI_MINH |  | Asia/Ho_Chi_Minh (+07:00, DST +07:00) |   |  
-ASIA_HONG_KONG |  | Asia/Hong_Kong (+08:00, DST +08:00) |   |  
-ASIA_HOVD |  | Asia/Hovd (+07:00, DST +07:00) |   |  
-ASIA_IRKUTSK |  | Asia/Irkutsk (+08:00, DST +08:00) |   |  
-ASIA_JAKARTA |  | Asia/Jakarta (+07:00, DST +07:00) |   |  
-ASIA_JAYAPURA |  | Asia/Jayapura (+09:00, DST +09:00) |   |  
-ASIA_JERUSALEM |  | Asia/Jerusalem (+02:00, DST +03:00) |   |  
-ASIA_KABUL |  | Asia/Kabul (+04:30, DST +04:30) |   |  
-ASIA_KAMCHATKA |  | Asia/Kamchatka (+12:00, DST +12:00) |   |  
-ASIA_KARACHI |  | Asia/Karachi (+05:00, DST +05:00) |   |  
-ASIA_KATHMANDU |  | Asia/Kathmandu (+05:45, DST +05:45) |   |  
-ASIA_KHANDYGA |  | Asia/Khandyga (+09:00, DST +09:00) |   |  
-ASIA_KOLKATA |  | Asia/Kolkata (+05:30, DST +05:30) |   |  
-ASIA_KRASNOYARSK |  | Asia/Krasnoyarsk (+07:00, DST +07:00) |   |  
-ASIA_KUALA_LUMPUR |  | Asia/Kuala_Lumpur (+08:00, DST +08:00) |   |  
-ASIA_KUCHING |  | Asia/Kuching (+08:00, DST +08:00) |   |  
-ASIA_MACAU |  | Asia/Macau (+08:00, DST +08:00) |   |  
-ASIA_MAGADAN |  | Asia/Magadan (+11:00, DST +11:00) |   |  
-ASIA_MAKASSAR |  | Asia/Makassar (+08:00, DST +08:00) |   |  
-ASIA_MANILA |  | Asia/Manila (+08:00, DST +08:00) |   |  
-ASIA_NOVOKUZNETSK |  | Asia/Novokuznetsk (+07:00, DST +07:00) |   |  
-ASIA_NOVOSIBIRSK |  | Asia/Novosibirsk (+07:00, DST +07:00) |   |  
-ASIA_OMSK |  | Asia/Omsk (+06:00, DST +06:00) |   |  
-ASIA_ORAL |  | Asia/Oral (+05:00, DST +05:00) |   |  
-ASIA_PONTIANAK |  | Asia/Pontianak (+07:00, DST +07:00) |   |  
-ASIA_PYONGYANG |  | Asia/Pyongyang (+09:00, DST +09:00) |   |  
-ASIA_QATAR |  | Asia/Qatar (+03:00, DST +03:00) |   |  
-ASIA_QYZYLORDA |  | Asia/Qyzylorda (+05:00, DST +05:00) |   |  
-ASIA_RIYADH |  | Asia/Riyadh (+03:00, DST +03:00) |   |  
-ASIA_SAKHALIN |  | Asia/Sakhalin (+11:00, DST +11:00) |   |  
-ASIA_SAMARKAND |  | Asia/Samarkand (+05:00, DST +05:00) |   |  
-ASIA_SEOUL |  | Asia/Seoul (+09:00, DST +09:00) |   |  
-ASIA_SHANGHAI |  | Asia/Shanghai (+08:00, DST +08:00) |   |  
-ASIA_SINGAPORE |  | Asia/Singapore (+08:00, DST +08:00) |   |  
-ASIA_SREDNEKOLYMSK |  | Asia/Srednekolymsk (+11:00, DST +11:00) |   |  
-ASIA_TAIPEI |  | Asia/Taipei (+08:00, DST +08:00) |   |  
-ASIA_TASHKENT |  | Asia/Tashkent (+05:00, DST +05:00) |   |  
-ASIA_TBILISI |  | Asia/Tbilisi (+04:00, DST +04:00) |   |  
-ASIA_TEHRAN |  | Asia/Tehran (+03:30, DST +04:30) |   |  
-ASIA_THIMPHU |  | Asia/Thimphu (+06:00, DST +06:00) |   |  
-ASIA_TOKYO |  | Asia/Tokyo (+09:00, DST +09:00) |   |  
-ASIA_TOMSK |  | Asia/Tomsk (+07:00, DST +07:00) |   |  
-ASIA_ULAANBAATAR |  | Asia/Ulaanbaatar (+08:00, DST +08:00) |   |  
-ASIA_URUMQI |  | Asia/Urumqi (+06:00, DST +06:00) |   |  
-ASIA_UST_NERA |  | Asia/Ust-Nera (+10:00, DST +10:00) |   |  
-ASIA_VLADIVOSTOK |  | Asia/Vladivostok (+10:00, DST +10:00) |   |  
-ASIA_YAKUTSK |  | Asia/Yakutsk (+09:00, DST +09:00) |   |  
-ASIA_YANGON |  | Asia/Yangon (+06:30, DST +06:30) |   |  
-ASIA_YEKATERINBURG |  | Asia/Yekaterinburg (+05:00, DST +05:00) |   |  
-ASIA_YEREVAN |  | Asia/Yerevan (+04:00, DST +04:00) |   |  
-ATLANTIC_AZORES |  | Atlantic/Azores (−01:00, DST +00:00) |   |  
-ATLANTIC_BERMUDA |  | Atlantic/Bermuda (−04:00, DST −03:00) |   |  
-ATLANTIC_CANARY |  | Atlantic/Canary (+00:00, DST +01:00) |   |  
-ATLANTIC_CAPE_VERDE |  | Atlantic/Cape_Verde (−01:00, DST −01:00) |   |  
-ATLANTIC_FAROE |  | Atlantic/Faroe (+00:00, DST +01:00) |   |  
-ATLANTIC_MADEIRA |  | Atlantic/Madeira (+00:00, DST +01:00) |   |  
-ATLANTIC_REYKJAVIK |  | Atlantic/Reykjavik (+00:00, DST +00:00) |   |  
-ATLANTIC_SOUTH_GEORGIA |  | Atlantic/South_Georgia (−02:00, DST −02:00) |   |  
-ATLANTIC_STANLEY |  | Atlantic/Stanley (−03:00, DST −03:00) |   |  
-AUSTRALIA_ADELAIDE |  | Australia/Adelaide (+09:30, DST +10:30) |   |  
-AUSTRALIA_BRISBANE |  | Australia/Brisbane (+10:00, DST +10:00) |   |  
-AUSTRALIA_BROKEN_HILL |  | Australia/Broken_Hill (+09:30, DST +10:30) |   |  
-AUSTRALIA_CURRIE |  | Australia/Currie (+10:00, DST +11:00) |   |  
-AUSTRALIA_DARWIN |  | Australia/Darwin (+09:30, DST +09:30) |   |  
-AUSTRALIA_EUCLA |  | Australia/Eucla (+08:45, DST +08:45) |   |  
-AUSTRALIA_HOBART |  | Australia/Hobart (+10:00, DST +11:00) |   |  
-AUSTRALIA_LINDEMAN |  | Australia/Lindeman (+10:00, DST +10:00) |   |  
-AUSTRALIA_LORD_HOWE |  | Australia/Lord_Howe (+10:30, DST +11:00) |   |  
-AUSTRALIA_MELBOURNE |  | Australia/Melbourne (+10:00, DST +11:00) |   |  
-AUSTRALIA_PERTH |  | Australia/Perth (+08:00, DST +08:00) |   |  
-AUSTRALIA_SYDNEY |  | Australia/Sydney (+10:00, DST +11:00) |   |  
-ETC_GMT |  | Etc/GMT (+00:00, DST +00:00) |   |  
-ETC_GMT_PLUS_1 |  | Etc/GMT+1 (−01:00, DST −01:00) |   |  
-ETC_GMT_PLUS_10 |  | Etc/GMT+10 (−10:00, DST −10:00) |   |  
-ETC_GMT_PLUS_11 |  | Etc/GMT+11 (−11:00, DST −11:00) |   |  
-ETC_GMT_PLUS_12 |  | Etc/GMT+12 (−12:00, DST −12:00) |   |  
-ETC_GMT_PLUS_2 |  | Etc/GMT+2 (−02:00, DST −02:00) |   |  
-ETC_GMT_PLUS_3 |  | Etc/GMT+3 (−03:00, DST −03:00) |   |  
-ETC_GMT_PLUS_4 |  | Etc/GMT+4 (−04:00, DST −04:00) |   |  
-ETC_GMT_PLUS_5 |  | Etc/GMT+5 (−05:00, DST −05:00) |   |  
-ETC_GMT_PLUS_6 |  | Etc/GMT+6 (−06:00, DST −06:00) |   |  
-ETC_GMT_PLUS_7 |  | Etc/GMT+7 (−07:00, DST −07:00) |   |  
-ETC_GMT_PLUS_8 |  | Etc/GMT+8 (−08:00, DST −08:00) |   |  
-ETC_GMT_PLUS_9 |  | Etc/GMT+9 (−09:00, DST −09:00) |   |  
-ETC_GMT_MINUS_1 |  | Etc/GMT-1 (+01:00, DST +01:00) |   |  
-ETC_GMT_MINUS_10 |  | Etc/GMT-10 (+10:00, DST +10:00) |   |  
-ETC_GMT_MINUS_11 |  | Etc/GMT-11 (+11:00, DST +11:00) |   |  
-ETC_GMT_MINUS_12 |  | Etc/GMT-12 (+12:00, DST +12:00) |   |  
-ETC_GMT_MINUS_13 |  | Etc/GMT-13 (+13:00, DST +13:00) |   |  
-ETC_GMT_MINUS_14 |  | Etc/GMT-14 (+14:00, DST +14:00) |   |  
-ETC_GMT_MINUS_2 |  | Etc/GMT-2 (+02:00, DST +02:00) |   |  
-ETC_GMT_MINUS_3 |  | Etc/GMT-3 (+03:00, DST +03:00) |   |  
-ETC_GMT_MINUS_4 |  | Etc/GMT-4 (+04:00, DST +04:00) |   |  
-ETC_GMT_MINUS_5 |  | Etc/GMT-5 (+05:00, DST +05:00) |   |  
-ETC_GMT_MINUS_6 |  | Etc/GMT-6 (+06:00, DST +06:00) |   |  
-ETC_GMT_MINUS_7 |  | Etc/GMT-7 (+07:00, DST +07:00) |   |  
-ETC_GMT_MINUS_8 |  | Etc/GMT-8 (+08:00, DST +08:00) |   |  
-ETC_GMT_MINUS_9 |  | Etc/GMT-9 (+09:00, DST +09:00) |   |  
-ETC_UTC |  | Etc/UTC (+00:00, DST +00:00) |   |  
-EUROPE_AMSTERDAM |  | Europe/Amsterdam (+01:00, DST +02:00) |   |  
-EUROPE_ANDORRA |  | Europe/Andorra (+01:00, DST +02:00) |   |  
-EUROPE_ASTRAKHAN |  | Europe/Astrakhan (+04:00, DST +04:00) |   |  
-EUROPE_ATHENS |  | Europe/Athens (+02:00, DST +03:00) |   |  
-EUROPE_BELGRADE |  | Europe/Belgrade (+01:00, DST +02:00) |   |  
-EUROPE_BERLIN |  | Europe/Berlin (+01:00, DST +02:00) |   |  
-EUROPE_BRUSSELS |  | Europe/Brussels (+01:00, DST +02:00) |   |  
-EUROPE_BUCHAREST |  | Europe/Bucharest (+02:00, DST +03:00) |   |  
-EUROPE_BUDAPEST |  | Europe/Budapest (+01:00, DST +02:00) |   |  
-EUROPE_CHISINAU |  | Europe/Chisinau (+02:00, DST +03:00) |   |  
-EUROPE_COPENHAGEN |  | Europe/Copenhagen (+01:00, DST +02:00) |   |  
-EUROPE_DUBLIN |  | Europe/Dublin (+00:00, DST +01:00) |   |  
-EUROPE_GIBRALTAR |  | Europe/Gibraltar (+01:00, DST +02:00) |   |  
-EUROPE_HELSINKI |  | Europe/Helsinki (+02:00, DST +03:00) |   |  
-EUROPE_ISTANBUL |  | Europe/Istanbul (+03:00, DST +03:00) |   |  
-EUROPE_KALININGRAD |  | Europe/Kaliningrad (+02:00, DST +02:00) |   |  
-EUROPE_KIEV |  | Europe/Kiev (+02:00, DST +03:00) |   |  
-EUROPE_KIROV |  | Europe/Kirov (+03:00, DST +03:00) |   |  
-EUROPE_LISBON |  | Europe/Lisbon (+00:00, DST +01:00) |   |  
-EUROPE_LONDON |  | Europe/London (+00:00, DST +01:00) |   |  
-EUROPE_LUXEMBOURG |  | Europe/Luxembourg (+01:00, DST +02:00) |   |  
-EUROPE_MADRID |  | Europe/Madrid (+01:00, DST +02:00) |   |  
-EUROPE_MALTA |  | Europe/Malta (+01:00, DST +02:00) |   |  
-EUROPE_MINSK |  | Europe/Minsk (+03:00, DST +03:00) |   |  
-EUROPE_MONACO |  | Europe/Monaco (+01:00, DST +02:00) |   |  
-EUROPE_MOSCOW |  | Europe/Moscow (+03:00, DST +03:00) |   |  
-ASIA_NICOSIA |  | Asia/Nicosia (+02:00, DST +03:00) |   |  
-EUROPE_OSLO |  | Europe/Oslo (+01:00, DST +02:00) |   |  
-EUROPE_PARIS |  | Europe/Paris (+01:00, DST +02:00) |   |  
-EUROPE_PRAGUE |  | Europe/Prague (+01:00, DST +02:00) |   |  
-EUROPE_RIGA |  | Europe/Riga (+02:00, DST +03:00) |   |  
-EUROPE_ROME |  | Europe/Rome (+01:00, DST +02:00) |   |  
-EUROPE_SAMARA |  | Europe/Samara (+04:00, DST +04:00) |   |  
-EUROPE_SARATOV |  | Europe/Saratov (+04:00, DST +04:00) |   |  
-EUROPE_SIMFEROPOL |  | Europe/Simferopol (+03:00, DST +03:00) |   |  
-EUROPE_SOFIA |  | Europe/Sofia (+02:00, DST +03:00) |   |  
-EUROPE_STOCKHOLM |  | Europe/Stockholm (+01:00, DST +02:00) |   |  
-EUROPE_TALLINN |  | Europe/Tallinn (+02:00, DST +03:00) |   |  
-EUROPE_TIRANE |  | Europe/Tirane (+01:00, DST +02:00) |   |  
-EUROPE_ULYANOVSK |  | Europe/Ulyanovsk (+04:00, DST +04:00) |   |  
-EUROPE_UZHGOROD |  | Europe/Uzhgorod (+02:00, DST +03:00) |   |  
-EUROPE_VIENNA |  | Europe/Vienna (+01:00, DST +02:00) |   |  
-EUROPE_VILNIUS |  | Europe/Vilnius (+02:00, DST +03:00) |   |  
-EUROPE_VOLGOGRAD |  | Europe/Volgograd (+04:00, DST +04:00) |   |  
-EUROPE_WARSAW |  | Europe/Warsaw (+01:00, DST +02:00) |   |  
-EUROPE_ZAPOROZHYE |  | Europe/Zaporozhye (+02:00, DST +03:00) |   |  
-EUROPE_ZURICH |  | Europe/Zurich (+01:00, DST +02:00) |   |  
-INDIAN_CHAGOS |  | Indian/Chagos (+06:00, DST +06:00) |   |  
-INDIAN_CHRISTMAS |  | Indian/Christmas (+07:00, DST +07:00) |   |  
-INDIAN_COCOS |  | Indian/Cocos (+06:30, DST +06:30) |   |  
-INDIAN_KERGUELEN |  | Indian/Kerguelen (+05:00, DST +05:00) |   |  
-INDIAN_MAHE |  | Indian/Mahe (+04:00, DST +04:00) |   |  
-INDIAN_MALDIVES |  | Indian/Maldives (+05:00, DST +05:00) |   |  
-INDIAN_MAURITIUS |  | Indian/Mauritius (+04:00, DST +04:00) |   |  
-INDIAN_REUNION |  | Indian/Reunion (+04:00, DST +04:00) |   |  
-PACIFIC_APIA |  | Pacific/Apia (+13:00, DST +14:00) |   |  
-PACIFIC_AUCKLAND |  | Pacific/Auckland (+12:00, DST +13:00) |   |  
-PACIFIC_BOUGAINVILLE |  | Pacific/Bougainville (+11:00, DST +11:00) |   |  
-PACIFIC_CHATHAM |  | Pacific/Chatham (+12:45, DST +13:45) |   |  
-PACIFIC_CHUUK |  | Pacific/Chuuk (+10:00, DST +10:00) |   |  
-PACIFIC_EASTER |  | Pacific/Easter (−06:00, DST −05:00) |   |  
-PACIFIC_EFATE |  | Pacific/Efate (+11:00, DST +11:00) |   |  
-PACIFIC_ENDERBURY |  | Pacific/Enderbury (+13:00, DST +13:00) |   |  
-PACIFIC_FAKAOFO |  | Pacific/Fakaofo (+13:00, DST +13:00) |   |  
-PACIFIC_FIJI |  | Pacific/Fiji (+12:00, DST +13:00) |   |  
-PACIFIC_FUNAFUTI |  | Pacific/Funafuti (+12:00, DST +12:00) |   |  
-PACIFIC_GALAPAGOS |  | Pacific/Galapagos (−06:00, DST −06:00) |   |  
-PACIFIC_GAMBIER |  | Pacific/Gambier (−09:00, DST −09:00) |   |  
-PACIFIC_GUADALCANAL |  | Pacific/Guadalcanal (+11:00, DST +11:00) |   |  
-PACIFIC_GUAM |  | Pacific/Guam (+10:00, DST +10:00) |   |  
-PACIFIC_HONOLULU |  | Pacific/Honolulu (−10:00, DST −10:00) |   |  
-PACIFIC_KIRITIMATI |  | Pacific/Kiritimati (+14:00, DST +14:00) |   |  
-PACIFIC_KOSRAE |  | Pacific/Kosrae (+11:00, DST +11:00) |   |  
-PACIFIC_KWAJALEIN |  | Pacific/Kwajalein (+12:00, DST +12:00) |   |  
-PACIFIC_MAJURO |  | Pacific/Majuro (+12:00, DST +12:00) |   |  
-PACIFIC_MARQUESAS |  | Pacific/Marquesas (−09:30, DST −09:30) |   |  
-PACIFIC_NAURU |  | Pacific/Nauru (+12:00, DST +12:00) |   |  
-PACIFIC_NIUE |  | Pacific/Niue (−11:00, DST −11:00) |   |  
-PACIFIC_NORFOLK |  | Pacific/Norfolk (+11:00, DST +11:00) |   |  
-PACIFIC_NOUMEA |  | Pacific/Noumea (+11:00, DST +11:00) |   |  
-PACIFIC_PAGO_PAGO |  | Pacific/Pago_Pago (−11:00, DST −11:00) |   |  
-PACIFIC_PALAU |  | Pacific/Palau (+09:00, DST +09:00) |   |  
-PACIFIC_PITCAIRN |  | Pacific/Pitcairn (−08:00, DST −08:00) |   |  
-PACIFIC_POHNPEI |  | Pacific/Pohnpei (+11:00, DST +11:00) |   |  
-PACIFIC_PORT_MORESBY |  | Pacific/Port_Moresby (+10:00, DST +10:00) |   |  
-PACIFIC_RAROTONGA |  | Pacific/Rarotonga (−10:00, DST −10:00) |   |  
-PACIFIC_TAHITI |  | Pacific/Tahiti (−10:00, DST −10:00) |   |  
-PACIFIC_TARAWA |  | Pacific/Tarawa (+12:00, DST +12:00) |   |  
-PACIFIC_TONGATAPU |  | Pacific/Tongatapu (+13:00, DST +14:00) |   |  
-PACIFIC_WAKE |  | Pacific/Wake (+12:00, DST +12:00) |   |  
-PACIFIC_WALLIS |  | Pacific/Wallis (+12:00, DST +12:00) |   |  
+africa/abidjan |  | Africa/Abidjan (+00:00, DST +00:00) |   |  
+africa/accra |  | Africa/Accra (+00:00, DST +00:00) |   |  
+africa/algiers |  | Africa/Algiers (+01:00, DST +01:00) |   |  
+africa/bissau |  | Africa/Bissau (+00:00, DST +00:00) |   |  
+africa/cairo |  | Africa/Cairo (+02:00, DST +02:00) |   |  
+africa/casablanca |  | Africa/Casablanca (+01:00, DST +01:00) |   |  
+africa/ceuta |  | Africa/Ceuta (+01:00, DST +02:00) |   |  
+africa/el_aaiun |  | Africa/El Aaiun (+00:00, DST +01:00) |   |  
+africa/johannesburg |  | Africa/Johannesburg (+02:00, DST +02:00) |   |  
+africa/juba |  | Africa/Juba (+03:00, DST +03:00) |   |  
+africa/khartoum |  | Africa/Khartoum (+02:00, DST +02:00) |   |  
+africa/lagos |  | Africa/Lagos (+01:00, DST +01:00) |   |  
+africa/maputo |  | Africa/Maputo (+02:00, DST +02:00) |   |  
+africa/monrovia |  | Africa/Monrovia (+00:00, DST +00:00) |   |  
+africa/nairobi |  | Africa/Nairobi (+03:00, DST +03:00) |   |  
+africa/ndjamena |  | Africa/Ndjamena (+01:00, DST +01:00) |   |  
+africa/tripoli |  | Africa/Tripoli (+02:00, DST +02:00) |   |  
+africa/tunis |  | Africa/Tunis (+01:00, DST +01:00) |   |  
+africa/windhoek |  | Africa/Windhoek (+02:00, DST +02:00) |   |  
+america/adak |  | America/Adak (−10:00, DST −09:00) |   |  
+america/anchorage |  | America/Anchorage (−09:00, DST −08:00) |   |  
+america/araguaina |  | America/Araguaina (−03:00, DST −03:00) |   |  
+america/argentina/buenos_aires |  | America/Argentina/Buenos Aires (−03:00, DST −03:00) |   |  
+america/argentina/catamarca |  | America/Argentina/Catamarca (−03:00, DST −03:00) |   |  
+america/argentina/cordoba |  | America/Argentina/Cordoba (−03:00, DST −03:00) |   |  
+america/argentina/jujuy |  | America/Argentina/Jujuy (−03:00, DST −03:00) |   |  
+america/argentina/la_rioja |  | America/Argentina/La Rioja (−03:00, DST −03:00) |   |  
+america/argentina/mendoza |  | America/Argentina/Mendoza (−03:00, DST −03:00) |   |  
+america/argentina/rio_gallegos |  | America/Argentina/Rio Gallegos (−03:00, DST −03:00) |   |  
+america/argentina/salta |  | America/Argentina/Salta (−03:00, DST −03:00) |   |  
+america/argentina/san_juan |  | America/Argentina/San Juan (−03:00, DST −03:00) |   |  
+america/argentina/san_luis |  | America/Argentina/San Luis (−03:00, DST −03:00) |   |  
+america/argentina/tucuman |  | America/Argentina/Tucuman (−03:00, DST −03:00) |   |  
+america/argentina/ushuaia |  | America/Argentina/Ushuaia (−03:00, DST −03:00) |   |  
+america/asuncion |  | America/Asuncion (−04:00, DST −03:00) |   |  
+america/atikokan |  | America/Atikokan (−05:00, DST −05:00) |   |  
+america/bahia |  | America/Bahia (−03:00, DST −03:00) |   |  
+america/bahia_banderas |  | America/Bahia Banderas (−06:00, DST −05:00) |   |  
+america/barbados |  | America/Barbados (−04:00, DST −04:00) |   |  
+america/belem |  | America/Belem (−03:00, DST −03:00) |   |  
+america/belize |  | America/Belize (−06:00, DST −06:00) |   |  
+america/blanc_sablon |  | America/Blanc-Sablon (−04:00, DST −04:00) |   |  
+america/boa_vista |  | America/Boa Vista (−04:00, DST −04:00) |   |  
+america/bogota |  | America/Bogota (−05:00, DST −05:00) |   |  
+america/boise |  | America/Boise (−07:00, DST −06:00) |   |  
+america/cambridge_bay |  | America/Cambridge Bay (−07:00, DST −06:00) |   |  
+america/campo_grande |  | America/Campo Grande (−04:00, DST −03:00) |   |  
+america/cancun |  | America/Cancun (−05:00, DST −05:00) |   |  
+america/caracas |  | America/Caracas (−04:00, DST −04:00) |   |  
+america/cayenne |  | America/Cayenne (−03:00, DST −03:00) |   |  
+america/chicago |  | America/Chicago (−06:00, DST −05:00) |   |  
+america/chihuahua |  | America/Chihuahua (−07:00, DST −06:00) |   |  
+america/costa_rica |  | America/Costa Rica (−06:00, DST −06:00) |   |  
+america/creston |  | America/Creston (−07:00, DST −07:00) |   |  
+america/cuiaba |  | America/Cuiaba (−04:00, DST −03:00) |   |  
+america/curacao |  | America/Curacao (−04:00, DST −04:00) |   |  
+america/danmarkshavn |  | America/Danmarkshavn (+00:00, DST +00:00) |   |  
+america/dawson |  | America/Dawson (−08:00, DST −07:00) |   |  
+america/dawson_creek |  | America/Dawson Creek (−07:00, DST −07:00) |   |  
+america/denver |  | America/Denver (−07:00, DST −06:00) |   |  
+america/detroit |  | America/Detroit (−05:00, DST −04:00) |   |  
+america/edmonton |  | America/Edmonton (−07:00, DST −06:00) |   |  
+america/eirunepe |  | America/Eirunepe (−05:00, DST −05:00) |   |  
+america/el_salvador |  | America/El Salvador (−06:00, DST −06:00) |   |  
+america/fort_nelson |  | America/Fort Nelson (−07:00, DST −07:00) |   |  
+america/fortaleza |  | America/Fortaleza (−03:00, DST −03:00) |   |  
+america/glace_bay |  | America/Glace Bay (−04:00, DST −03:00) |   |  
+america/godthab |  | America/Godthab (−03:00, DST −02:00) |   |  
+america/goose_bay |  | America/Goose Bay (−04:00, DST −03:00) |   |  
+america/grand_turk |  | America/Grand Turk (−05:00, DST −04:00) |   |  
+america/guatemala |  | America/Guatemala (−06:00, DST −06:00) |   |  
+america/guayaquil |  | America/Guayaquil (−05:00, DST −05:00) |   |  
+america/guyana |  | America/Guyana (−04:00, DST −04:00) |   |  
+america/halifax |  | America/Halifax (−04:00, DST −03:00) |   |  
+america/havana |  | America/Havana (−05:00, DST −04:00) |   |  
+america/hermosillo |  | America/Hermosillo (−07:00, DST −07:00) |   |  
+america/indiana/indianapolis |  | America/Indiana/Indianapolis (−05:00, DST −04:00) |   |  
+america/indiana/knox |  | America/Indiana/Knox (−06:00, DST −05:00) |   |  
+america/indiana/marengo |  | America/Indiana/Marengo (−05:00, DST −04:00) |   |  
+america/indiana/petersburg |  | America/Indiana/Petersburg (−05:00, DST −04:00) |   |  
+america/indiana/tell_city |  | America/Indiana/Tell City (−06:00, DST −05:00) |   |  
+america/indiana/vevay |  | America/Indiana/Vevay (−05:00, DST −04:00) |   |  
+america/indiana/vincennes |  | America/Indiana/Vincennes (−05:00, DST −04:00) |   |  
+america/indiana/winamac |  | America/Indiana/Winamac (−05:00, DST −04:00) |   |  
+america/inuvik |  | America/Inuvik (−07:00, DST −06:00) |   |  
+america/iqaluit |  | America/Iqaluit (−05:00, DST −04:00) |   |  
+america/jamaica |  | America/Jamaica (−05:00, DST −05:00) |   |  
+america/juneau |  | America/Juneau (−09:00, DST −08:00) |   |  
+america/kentucky/louisville |  | America/Kentucky/Louisville (−05:00, DST −04:00) |   |  
+america/kentucky/monticello |  | America/Kentucky/Monticello (−05:00, DST −04:00) |   |  
+america/la_paz |  | America/La Paz (−04:00, DST −04:00) |   |  
+america/lima |  | America/Lima (−05:00, DST −05:00) |   |  
+america/los_angeles |  | America/Los Angeles (−08:00, DST −07:00) |   |  
+america/maceio |  | America/Maceio (−03:00, DST −03:00) |   |  
+america/managua |  | America/Managua (−06:00, DST −06:00) |   |  
+america/manaus |  | America/Manaus (−04:00, DST −04:00) |   |  
+america/martinique |  | America/Martinique (−04:00, DST −04:00) |   |  
+america/matamoros |  | America/Matamoros (−06:00, DST −05:00) |   |  
+america/mazatlan |  | America/Mazatlan (−07:00, DST −06:00) |   |  
+america/menominee |  | America/Menominee (−06:00, DST −05:00) |   |  
+america/merida |  | America/Merida (−06:00, DST −05:00) |   |  
+america/metlakatla |  | America/Metlakatla (−09:00, DST −08:00) |   |  
+america/mexico_city |  | America/Mexico City (−06:00, DST −05:00) |   |  
+america/miquelon |  | America/Miquelon (−03:00, DST −02:00) |   |  
+america/moncton |  | America/Moncton (−04:00, DST −03:00) |   |  
+america/monterrey |  | America/Monterrey (−06:00, DST −05:00) |   |  
+america/montevideo |  | America/Montevideo (−03:00, DST −03:00) |   |  
+america/nassau |  | America/Nassau (−05:00, DST −04:00) |   |  
+america/new_york |  | America/New York (−05:00, DST −04:00) |   |  
+america/nipigon |  | America/Nipigon (−05:00, DST −04:00) |   |  
+america/nome |  | America/Nome (−09:00, DST −08:00) |   |  
+america/noronha |  | America/Noronha (−02:00, DST −02:00) |   |  
+america/north_dakota/beulah |  | America/North Dakota/Beulah (−06:00, DST −05:00) |   |  
+america/north_dakota/center |  | AmericaNorth Dakota/Center (−06:00, DST −05:00) |   |  
+america/north_dakota/new_salem |  | America/North Dakota/New Salem (−06:00, DST −05:00) |   |  
+america/ojinaga |  | America/Ojinaga (−07:00, DST −06:00) |   |  
+america/panama |  | America/Panama (−05:00, DST −05:00) |   |  
+america/pangnirtung |  | America/Pangnirtung (−05:00, DST −04:00) |   |  
+america/paramaribo |  | America/Paramaribo (−03:00, DST −03:00) |   |  
+america/phoenix |  | America/Phoenix (−07:00, DST −07:00) |   |  
+america/port_of_spain |  | America/Port of Spain (−04:00, DST −04:00) |   |  
+america/port_au_prince |  | America/Port-au-Prince (−05:00, DST −04:00) |   |  
+america/porto_velho |  | America/Porto Velho (−04:00, DST −04:00) |   |  
+america/puerto_rico |  | America/Puerto Rico (−04:00, DST −04:00) |   |  
+america/punta_arenas |  | America/Punta Arenas (−03:00, DST −03:00) |   |  
+america/rainy_river |  | America/Rainy River (−06:00, DST −05:00) |   |  
+america/rankin_inlet |  | America/Rankin Inlet (−06:00, DST −05:00) |   |  
+america/recife |  | America/Recife (−03:00, DST −03:00) |   |  
+america/regina |  | America/Regina (−06:00, DST −06:00) |   |  
+america/resolute |  | America/Resolute (−06:00, DST −05:00) |   |  
+america/rio_branco |  | America/Rio Branco (−05:00, DST −05:00) |   |  
+america/santarem |  | America/Santarem (−03:00, DST −03:00) |   |  
+america/santiago |  | America/Santiago (−04:00, DST −03:00) |   |  
+america/santo_domingo |  | America/Santo Domingo (−04:00, DST −04:00) |   |  
+america/sao_paulo |  | America/Sao Paulo (−03:00, DST −02:00) |   |  
+america/scoresbysund |  | America/Scoresbysund (−01:00, DST +00:00) |   |  
+america/sitka |  | America/Sitka (−09:00, DST −08:00) |   |  
+america/st_johns |  | America/St Johns (−03:30, DST −02:30) |   |  
+america/swift_current |  | America/Swift Current (−06:00, DST −06:00) |   |  
+america/tegucigalpa |  | America/Tegucigalpa (−06:00, DST −06:00) |   |  
+america/thule |  | America/Thule (−04:00, DST −03:00) |   |  
+america/thunder_bay |  | America/Thunder Bay (−05:00, DST −04:00) |   |  
+america/tijuana |  | America/Tijuana (−08:00, DST −07:00) |   |  
+america/toronto |  | America/Toronto (−05:00, DST −04:00) |   |  
+america/vancouver |  | America/Vancouver (−08:00, DST −07:00) |   |  
+america/whitehorse |  | America/Whitehorse (−08:00, DST −07:00) |   |  
+america/winnipeg |  | America/Winnipeg (−06:00, DST −05:00) |   |  
+america/yakutat |  | America/Yakutat (−09:00, DST −08:00) |   |  
+america/yellowknife |  | America/Yellowknife (−07:00, DST −06:00) |   |  
+antarctica/casey |  | Antarctica/Casey (+11:00, DST +11:00) |   |  
+antarctica/davis |  | Antarctica/Davis (+07:00, DST +07:00) |   |  
+antarctica/dumontdurville |  | Antarctica/DumontDUrville (+10:00, DST +10:00) |   |  
+antarctica/macquarie |  | Antarctica/Macquarie (+11:00, DST +11:00) |   |  
+antarctica/mawson |  | Antarctica/Mawson (+05:00, DST +05:00) |   |  
+antarctica/palmer |  | Antarctica/Palmer (−03:00, DST −03:00) |   |  
+antarctica/rothera |  | Antarctica/Rothera (−03:00, DST −03:00) |   |  
+antarctica/syowa |  | Antarctica/Syowa (+03:00, DST +03:00) |   |  
+antarctica/troll |  | Antarctica/Troll (+00:00, DST +02:00) |   |  
+antarctica/vostok |  | Antarctica/Vostok (+06:00, DST +06:00) |   |  
+asia/almaty |  | Asia/Almaty (+06:00, DST +06:00) |   |  
+asia/amman |  | Asia/Amman (+02:00, DST +03:00) |   |  
+asia/anadyr |  | Asia/Anadyr (+12:00, DST +12:00) |   |  
+asia/aqtau |  | Asia/Aqtau (+05:00, DST +05:00) |   |  
+asia/aqtobe |  | Asia/Aqtobe (+05:00, DST +05:00) |   |  
+asia/ashgabat |  | Asia/Ashgabat (+05:00, DST +05:00) |   |  
+asia/atyrau |  | Asia/Atyrau (+05:00, DST +05:00) |   |  
+asia/baghdad |  | Asia/Baghdad (+03:00, DST +03:00) |   |  
+asia/baku |  | Asia/Baku (+04:00, DST +04:00) |   |  
+asia/bangkok |  | Asia/Bangkok (+07:00, DST +07:00) |   |  
+asia/barnaul |  | Asia/Barnaul (+07:00, DST +07:00) |   |  
+asia/beirut |  | Asia/Beirut (+02:00, DST +03:00) |   |  
+asia/bishkek |  | Asia/Bishkek (+06:00, DST +06:00) |   |  
+asia/brunei |  | Asia/Brunei (+08:00, DST +08:00) |   |  
+asia/chita |  | Asia/Chita (+09:00, DST +09:00) |   |  
+asia/choibalsan |  | Asia/Choibalsan (+08:00, DST +08:00) |   |  
+asia/colombo |  | Asia/Colombo (+05:30, DST +05:30) |   |  
+asia/damascus |  | Asia/Damascus (+02:00, DST +03:00) |   |  
+asia/dhaka |  | Asia/Dhaka (+06:00, DST +06:00) |   |  
+asia/dili |  | Asia/Dili (+09:00, DST +09:00) |   |  
+asia/dubai |  | Asia/Dubai (+04:00, DST +04:00) |   |  
+asia/dushanbe |  | Asia/Dushanbe (+05:00, DST +05:00) |   |  
+asia/famagusta |  | Asia/Famagusta (+02:00, DST +02:00) |   |  
+asia/gaza |  | Asia/Gaza (+02:00, DST +03:00) |   |  
+asia/hebron |  | Asia/Hebron (+02:00, DST +03:00) |   |  
+asia/ho_chi_minh |  | Asia/Ho Chi Minh (+07:00, DST +07:00) |   |  
+asia/hong_kong |  | Asia/Hong Kong (+08:00, DST +08:00) |   |  
+asia/hovd |  | Asia/Hovd (+07:00, DST +07:00) |   |  
+asia/irkutsk |  | Asia/Irkutsk (+08:00, DST +08:00) |   |  
+asia/jakarta |  | Asia/Jakarta (+07:00, DST +07:00) |   |  
+asia/jayapura |  | Asia/Jayapura (+09:00, DST +09:00) |   |  
+asia/jerusalem |  | Asia/Jerusalem (+02:00, DST +03:00) |   |  
+asia/kabul |  | Asia/Kabul (+04:30, DST +04:30) |   |  
+asia/kamchatka |  | Asia/Kamchatka (+12:00, DST +12:00) |   |  
+asia/karachi |  | Asia/Karachi (+05:00, DST +05:00) |   |  
+asia/kathmandu |  | Asia/Kathmandu (+05:45, DST +05:45) |   |  
+asia/khandyga |  | Asia/Khandyga (+09:00, DST +09:00) |   |  
+asia/kolkata |  | Asia/Kolkata (+05:30, DST +05:30) |   |  
+asia/krasnoyarsk |  | Asia/Krasnoyarsk (+07:00, DST +07:00) |   |  
+asia/kuala_lumpur |  | Asia/Kuala Lumpur (+08:00, DST +08:00) |   |  
+asia/kuching |  | Asia/Kuching (+08:00, DST +08:00) |   |  
+asia/macau |  | Asia/Macau (+08:00, DST +08:00) |   |  
+asia/magadan |  | Asia/Magadan (+11:00, DST +11:00) |   |  
+asia/makassar |  | Asia/Makassar (+08:00, DST +08:00) |   |  
+asia/manila |  | Asia/Manila (+08:00, DST +08:00) |   |  
+asia/novokuznetsk |  | Asia/Novokuznetsk (+07:00, DST +07:00) |   |  
+asia/novosibirsk |  | Asia/Novosibirsk (+07:00, DST +07:00) |   |  
+asia/omsk |  | Asia/Omsk (+06:00, DST +06:00) |   |  
+asia/oral |  | Asia/Oral (+05:00, DST +05:00) |   |  
+asia/pontianak |  | Asia/Pontianak (+07:00, DST +07:00) |   |  
+asia/pyongyang |  | Asia/Pyongyang (+09:00, DST +09:00) |   |  
+asia/qatar |  | Asia/Qatar (+03:00, DST +03:00) |   |  
+asia/qyzylorda |  | Asia/Qyzylorda (+05:00, DST +05:00) |   |  
+asia/riyadh |  | Asia/Riyadh (+03:00, DST +03:00) |   |  
+asia/sakhalin |  | Asia/Sakhalin (+11:00, DST +11:00) |   |  
+asia/samarkand |  | Asia/Samarkand (+05:00, DST +05:00) |   |  
+asia/seoul |  | Asia/Seoul (+09:00, DST +09:00) |   |  
+asia/shanghai |  | Asia/Shanghai (+08:00, DST +08:00) |   |  
+asia/singapore |  | Asia/Singapore (+08:00, DST +08:00) |   |  
+asia/srednekolymsk |  | Asia/Srednekolymsk (+11:00, DST +11:00) |   |  
+asia/taipei |  | Asia/Taipei (+08:00, DST +08:00) |   |  
+asia/tashkent |  | Asia/Tashkent (+05:00, DST +05:00) |   |  
+asia/tbilisi |  | Asia/Tbilisi (+04:00, DST +04:00) |   |  
+asia/tehran |  | Asia/Tehran (+03:30, DST +04:30) |   |  
+asia/thimphu |  | Asia/Thimphu (+06:00, DST +06:00) |   |  
+asia/tokyo |  | Asia/Tokyo (+09:00, DST +09:00) |   |  
+asia/tomsk |  | Asia/Tomsk (+07:00, DST +07:00) |   |  
+asia/ulaanbaatar |  | Asia/Ulaanbaatar (+08:00, DST +08:00) |   |  
+asia/urumqi |  | Asia/Urumqi (+06:00, DST +06:00) |   |  
+asia/ust_nera |  | Asia/Ust-Nera (+10:00, DST +10:00) |   |  
+asia/vladivostok |  | Asia/Vladivostok (+10:00, DST +10:00) |   |  
+asia/yakutsk |  | Asia/Yakutsk (+09:00, DST +09:00) |   |  
+asia/yangon |  | Asia/Yangon (+06:30, DST +06:30) |   |  
+asia/yekaterinburg |  | Asia/Yekaterinburg (+05:00, DST +05:00) |   |  
+asia/yerevan |  | Asia/Yerevan (+04:00, DST +04:00) |   |  
+atlantic/azores |  | Atlantic/Azores (−01:00, DST +00:00) |   |  
+atlantic/bermuda |  | Atlantic/Bermuda (−04:00, DST −03:00) |   |  
+atlantic/canary |  | Atlantic/Canary (+00:00, DST +01:00) |   |  
+atlantic/cape_verde |  | Atlantic/Cape Verde (−01:00, DST −01:00) |   |  
+atlantic/faroe |  | Atlantic/Faroe (+00:00, DST +01:00) |   |  
+atlantic/madeira |  | Atlantic/Madeira (+00:00, DST +01:00) |   |  
+atlantic/reykjavik |  | Atlantic/Reykjavik (+00:00, DST +00:00) |   |  
+atlantic/south_georgia |  | Atlantic/South Georgia (−02:00, DST −02:00) |   |  
+atlantic/stanley |  | Atlantic/Stanley (−03:00, DST −03:00) |   |  
+australia/adelaide |  | Australia/Adelaide (+09:30, DST +10:30) |   |  
+australia/brisbane |  | Australia/Brisbane (+10:00, DST +10:00) |   |  
+australia/broken_hill |  | Australia/Broken Hill (+09:30, DST +10:30) |   |  
+australia/currie |  | Australia/Currie (+10:00, DST +11:00) |   |  
+australia/darwin |  | Australia/Darwin (+09:30, DST +09:30) |   |  
+australia/eucla |  | Australia/Eucla (+08:45, DST +08:45) |   |  
+australia/hobart |  | Australia/Hobart (+10:00, DST +11:00) |   |  
+australia/lindeman |  | Australia/Lindeman (+10:00, DST +10:00) |   |  
+australia/lord_howe |  | Australia/Lord Howe (+10:30, DST +11:00) |   |  
+australia/melbourne |  | Australia/Melbourne (+10:00, DST +11:00) |   |  
+australia/perth |  | Australia/Perth (+08:00, DST +08:00) |   |  
+australia/sydney |  | Australia/Sydney (+10:00, DST +11:00) |   |  
+etc/gmt |  | Etc/GMT (+00:00, DST +00:00) |   |  
+etc/gmt_plus_1 |  | Etc/GMT+1 (−01:00, DST −01:00) |   |  
+etc/gmt_plus_10 |  | Etc/GMT+10 (−10:00, DST −10:00) |   |  
+etc/gmt_plus_11 |  | Etc/GMT+11 (−11:00, DST −11:00) |   |  
+etc/gmt_plus_12 |  | Etc/GMT+12 (−12:00, DST −12:00) |   |  
+etc/gmt_plus_2 |  | Etc/GMT+2 (−02:00, DST −02:00) |   |  
+etc/gmt_plus_3 |  | Etc/GMT+3 (−03:00, DST −03:00) |   |  
+etc/gmt_plus_4 |  | Etc/GMT+4 (−04:00, DST −04:00) |   |  
+etc/gmt_plus_5 |  | Etc/GMT+5 (−05:00, DST −05:00) |   |  
+etc/gmt_plus_6 |  | Etc/GMT+6 (−06:00, DST −06:00) |   |  
+etc/gmt_plus_7 |  | Etc/GMT+7 (−07:00, DST −07:00) |   |  
+etc/gmt_plus_8 |  | Etc/GMT+8 (−08:00, DST −08:00) |   |  
+etc/gmt_plus_9 |  | Etc/GMT+9 (−09:00, DST −09:00) |   |  
+etc/gmt_minus_1 |  | Etc/GMT-1 (+01:00, DST +01:00) |   |  
+etc/gmt_minus_10 |  | Etc/GMT-10 (+10:00, DST +10:00) |   |  
+etc/gmt_minus_11 |  | Etc/GMT-11 (+11:00, DST +11:00) |   |  
+etc/gmt_minus_12 |  | Etc/GMT-12 (+12:00, DST +12:00) |   |  
+etc/gmt_minus_13 |  | Etc/GMT-13 (+13:00, DST +13:00) |   |  
+etc/gmt_minus_14 |  | Etc/GMT-14 (+14:00, DST +14:00) |   |  
+etc/gmt_minus_2 |  | Etc/GMT-2 (+02:00, DST +02:00) |   |  
+etc/gmt_minus_3 |  | Etc/GMT-3 (+03:00, DST +03:00) |   |  
+etc/gmt_minus_4 |  | Etc/GMT-4 (+04:00, DST +04:00) |   |  
+etc/gmt_minus_5 |  | Etc/GMT-5 (+05:00, DST +05:00) |   |  
+etc/gmt_minus_6 |  | Etc/GMT-6 (+06:00, DST +06:00) |   |  
+etc/gmt_minus_7 |  | Etc/GMT-7 (+07:00, DST +07:00) |   |  
+etc/gmt_minus_8 |  | Etc/GMT-8 (+08:00, DST +08:00) |   |  
+etc/gmt_minus_9 |  | Etc/GMT-9 (+09:00, DST +09:00) |   |  
+etc/utc |  | Etc/UTC (+00:00, DST +00:00) |   |  
+europe/amsterdam |  | Europe/Amsterdam (+01:00, DST +02:00) |   |  
+europe/andorra |  | Europe/Andorra (+01:00, DST +02:00) |   |  
+europe/astrakhan |  | Europe/Astrakhan (+04:00, DST +04:00) |   |  
+europe/athens |  | Europe/Athens (+02:00, DST +03:00) |   |  
+europe/belgrade |  | Europe/Belgrade (+01:00, DST +02:00) |   |  
+europe/berlin |  | Europe/Berlin (+01:00, DST +02:00) |   |  
+europe/brussels |  | Europe/Brussels (+01:00, DST +02:00) |   |  
+europe/bucharest |  | Europe/Bucharest (+02:00, DST +03:00) |   |  
+europe/budapest |  | Europe/Budapest (+01:00, DST +02:00) |   |  
+europe/chisinau |  | Europe/Chisinau (+02:00, DST +03:00) |   |  
+europe/copenhagen |  | Europe/Copenhagen (+01:00, DST +02:00) |   |  
+europe/dublin |  | Europe/Dublin (+00:00, DST +01:00) |   |  
+europe/gibraltar |  | Europe/Gibraltar (+01:00, DST +02:00) |   |  
+europe/helsinki |  | Europe/Helsinki (+02:00, DST +03:00) |   |  
+europe/istanbul |  | Europe/Istanbul (+03:00, DST +03:00) |   |  
+europe/kaliningrad |  | Europe/Kaliningrad (+02:00, DST +02:00) |   |  
+europe/kiev |  | Europe/Kiev (+02:00, DST +03:00) |   |  
+europe/kirov |  | Europe/Kirov (+03:00, DST +03:00) |   |  
+europe/lisbon |  | Europe/Lisbon (+00:00, DST +01:00) |   |  
+europe/london |  | Europe/London (+00:00, DST +01:00) |   |  
+europe/luxembourg |  | Europe/Luxembourg (+01:00, DST +02:00) |   |  
+europe/madrid |  | Europe/Madrid (+01:00, DST +02:00) |   |  
+europe/malta |  | Europe/Malta (+01:00, DST +02:00) |   |  
+europe/minsk |  | Europe/Minsk (+03:00, DST +03:00) |   |  
+europe/monaco |  | Europe/Monaco (+01:00, DST +02:00) |   |  
+europe/moscow |  | Europe/Moscow (+03:00, DST +03:00) |   |  
+asia/nicosia |  | Asia/Nicosia (+02:00, DST +03:00) |   |  
+europe/oslo |  | Europe/Oslo (+01:00, DST +02:00) |   |  
+europe/paris |  | Europe/Paris (+01:00, DST +02:00) |   |  
+europe/prague |  | Europe/Prague (+01:00, DST +02:00) |   |  
+europe/riga |  | Europe/Riga (+02:00, DST +03:00) |   |  
+europe/rome |  | Europe/Rome (+01:00, DST +02:00) |   |  
+europe/samara |  | Europe/Samara (+04:00, DST +04:00) |   |  
+europe/saratov |  | Europe/Saratov (+04:00, DST +04:00) |   |  
+europe/simferopol |  | Europe/Simferopol (+03:00, DST +03:00) |   |  
+europe/sofia |  | Europe/Sofia (+02:00, DST +03:00) |   |  
+europe/stockholm |  | Europe/Stockholm (+01:00, DST +02:00) |   |  
+europe/tallinn |  | Europe/Tallinn (+02:00, DST +03:00) |   |  
+europe/tirane |  | Europe/Tirane (+01:00, DST +02:00) |   |  
+europe/ulyanovsk |  | Europe/Ulyanovsk (+04:00, DST +04:00) |   |  
+europe/uzhgorod |  | Europe/Uzhgorod (+02:00, DST +03:00) |   |  
+europe/vienna |  | Europe/Vienna (+01:00, DST +02:00) |   |  
+europe/vilnius |  | Europe/Vilnius (+02:00, DST +03:00) |   |  
+europe/volgograd |  | Europe/Volgograd (+04:00, DST +04:00) |   |  
+europe/warsaw |  | Europe/Warsaw (+01:00, DST +02:00) |   |  
+europe/zaporozhye |  | Europe/Zaporozhye (+02:00, DST +03:00) |   |  
+europe/zurich |  | Europe/Zurich (+01:00, DST +02:00) |   |  
+indian/chagos |  | Indian/Chagos (+06:00, DST +06:00) |   |  
+indian/christmas |  | Indian/Christmas (+07:00, DST +07:00) |   |  
+indian/cocos |  | Indian/Cocos (+06:30, DST +06:30) |   |  
+indian/kerguelen |  | Indian/Kerguelen (+05:00, DST +05:00) |   |  
+indian/mahe |  | Indian/Mahe (+04:00, DST +04:00) |   |  
+indian/maldives |  | Indian/Maldives (+05:00, DST +05:00) |   |  
+indian/mauritius |  | Indian/Mauritius (+04:00, DST +04:00) |   |  
+indian/reunion |  | Indian/Reunion (+04:00, DST +04:00) |   |  
+pacific/apia |  | Pacific/Apia (+13:00, DST +14:00) |   |  
+pacific/auckland |  | Pacific/Auckland (+12:00, DST +13:00) |   |  
+pacific/bougainville |  | Pacific/Bougainville (+11:00, DST +11:00) |   |  
+pacific/chatham |  | Pacific/Chatham (+12:45, DST +13:45) |   |  
+pacific/chuuk |  | Pacific/Chuuk (+10:00, DST +10:00) |   |  
+pacific/easter |  | Pacific/Easter (−06:00, DST −05:00) |   |  
+pacific/efate |  | Pacific/Efate (+11:00, DST +11:00) |   |  
+pacific/enderbury |  | Pacific/Enderbury (+13:00, DST +13:00) |   |  
+pacific/fakaofo |  | Pacific/Fakaofo (+13:00, DST +13:00) |   |  
+pacific/fiji |  | Pacific/Fiji (+12:00, DST +13:00) |   |  
+pacific/funafuti |  | Pacific/Funafuti (+12:00, DST +12:00) |   |  
+pacific/galapagos |  | Pacific/Galapagos (−06:00, DST −06:00) |   |  
+pacific/gambier |  | Pacific/Gambier (−09:00, DST −09:00) |   |  
+pacific/guadalcanal |  | Pacific/Guadalcanal (+11:00, DST +11:00) |   |  
+pacific/guam |  | Pacific/Guam (+10:00, DST +10:00) |   |  
+pacific/honolulu |  | Pacific/Honolulu (−10:00, DST −10:00) |   |  
+pacific/kiritimati |  | Pacific/Kiritimati (+14:00, DST +14:00) |   |  
+pacific/kosrae |  | Pacific/Kosrae (+11:00, DST +11:00) |   |  
+pacific/kwajalein |  | Pacific/Kwajalein (+12:00, DST +12:00) |   |  
+pacific/majuro |  | Pacific/Majuro (+12:00, DST +12:00) |   |  
+pacific/marquesas |  | Pacific/Marquesas (−09:30, DST −09:30) |   |  
+pacific/nauru |  | Pacific/Nauru (+12:00, DST +12:00) |   |  
+pacific/niue |  | Pacific/Niue (−11:00, DST −11:00) |   |  
+pacific/norfolk |  | Pacific/Norfolk (+11:00, DST +11:00) |   |  
+pacific/noumea |  | Pacific/Noumea (+11:00, DST +11:00) |   |  
+pacific/pago_pago |  | Pacific/Pago Pago (−11:00, DST −11:00) |   |  
+pacific/palau |  | Pacific/Palau (+09:00, DST +09:00) |   |  
+pacific/pitcairn |  | Pacific/Pitcairn (−08:00, DST −08:00) |   |  
+pacific/pohnpei |  | Pacific/Pohnpei (+11:00, DST +11:00) |   |  
+pacific/port_moresby |  | Pacific/Port Moresby (+10:00, DST +10:00) |   |  
+pacific/rarotonga |  | Pacific/Rarotonga (−10:00, DST −10:00) |   |  
+pacific/tahiti |  | Pacific/Tahiti (−10:00, DST −10:00) |   |  
+pacific/tarawa |  | Pacific/Tarawa (+12:00, DST +12:00) |   |  
+pacific/tongatapu |  | Pacific/Tongatapu (+13:00, DST +14:00) |   |  
+pacific/wake |  | Pacific/Wake (+12:00, DST +12:00) |   |  
+pacific/wallis |  | Pacific/Wallis (+12:00, DST +12:00) |   |  
 
   
 
@@ -2651,8 +2651,8 @@ This type can be used where a third option may be introduced in the future.  In 
 
 Value | Symbol | Text | Data | Documentation
 --- | --- | --- | --- | ---
-YES |  | Yes |   |  
-NO |  | No |   |  
+yes |  | Yes |   |  
+no |  | No |   |  
 
   
       

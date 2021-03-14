@@ -7,495 +7,495 @@ title: Country Code
 documentation: A country designator from ISO 3166,
   taken from https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes.
 items:
-- value: AF
+- value: af
   text: Afghanistan
-- value: AX
+- value: ax
   text: Åland Islands
-- value: AL
+- value: al
   text: Albania
-- value: DZ
+- value: dz
   text: Algeria
-- value: AS
+- value: as
   text: American Samoa
-- value: AD
+- value: ad
   text: Andorra
-- value: AO
+- value: ao
   text: Angola
-- value: AI
+- value: ai
   text: Anguilla
-- value: AQ
+- value: aq
   text: Antarctica
-- value: AG
+- value: ag
   text: Antigua and Barbuda
-- value: AR
+- value: ar
   text: Argentina
-- value: AM
+- value: am
   text: Armenia
-- value: AW
+- value: aw
   text: Aruba
 - value: AU
   text: Australia
-- value: AT
+- value: at
   text: Austria
-- value: AZ
+- value: az
   text: Azerbaijan
-- value: BS
+- value: bs
   text: Bahamas (the)
-- value: BH
+- value: bh
   text: Bahrain
-- value: BD
+- value: bd
   text: Bangladesh
-- value: BB
+- value: bb
   text: Barbados
-- value: BY
+- value: by
   text: Belarus
-- value: BE
+- value: be
   text: Belgium
-- value: BZ
+- value: bz
   text: Belize
-- value: BJ
+- value: bj
   text: Benin
-- value: BM
+- value: bm
   text: Bermuda
-- value: BT
+- value: bt
   text: Bhutan
-- value: BO
+- value: bo
   text: Bolivia (Plurinational State of)
-- value: BA
+- value: ba
   text: Bosnia and Herzegovina
-- value: BW
+- value: bw
   text: Botswana
-- value: BV
+- value: bv
   text: Bouvet Island
-- value: BR
+- value: br
   text: Brazil
-- value: IO
+- value: io
   text: British Indian Ocean Territory (the)
-- value: BN
+- value: bn
   text: Brunei Darussalam
-- value: BG
+- value: bg
   text: Bulgaria
-- value: BF
+- value: bf
   text: Burkina Faso
-- value: BI
+- value: bi
   text: Burundi
-- value: CV
+- value: cv
   text: Cabo Verde
-- value: KH
+- value: kh
   text: Cambodia
-- value: CM
+- value: cm
   text: Cameroon
-- value: CA
+- value: ca
   text: Canada
-- value: KY
+- value: ky
   text: Cayman Islands (the)
-- value: CF
+- value: cf
   text: Central African Republic (the)
-- value: TD
+- value: td
   text: Chad
-- value: CL
+- value: cl
   text: Chile
-- value: CN
+- value: cn
   text: China
-- value: CX
+- value: cx
   text: Christmas Island
-- value: CC
+- value: cc
   text: Cocos (Keeling) Islands (the)
-- value: CO
+- value: co
   text: Colombia
-- value: KM
+- value: km
   text: Comoros (the)
-- value: CD
+- value: cd
   text: Congo (the Democratic Republic of the)
-- value: CG
+- value: cg
   text: Congo (the)
-- value: CK
+- value: ck
   text: Cook Islands (the)
-- value: CR
+- value: cr
   text: Costa Rica
-- value: CI
+- value: ci
   text: Côte d"Ivoire
-- value: HR
+- value: hr
   text: Croatia
-- value: CU
+- value: cu
   text: Cuba
-- value: CW
+- value: cw
   text: Curaçao
-- value: CY
+- value: cy
   text: Cyprus
-- value: CZ
+- value: cz
   text: Czechia
-- value: DK
+- value: dk
   text: Denmark
-- value: DJ
+- value: dj
   text: Djibouti
-- value: DM
+- value: dm
   text: Dominica
-- value: DO
+- value: do
   text: Dominican Republic (the)
-- value: EC
+- value: ec
   text: Ecuador
-- value: EG
+- value: eg
   text: Egypt
-- value: SV
+- value: sv
   text: El Salvador
-- value: GQ
+- value: gq
   text: Equatorial Guinea
-- value: ER
+- value: er
   text: Eritrea
-- value: EE
+- value: ee
   text: Estonia
-- value: SZ
+- value: sz
   text: Eswatini
-- value: ET
+- value: et
   text: Ethiopia
-- value: FK
+- value: fk
   text: Falkland Islands (the)
-- value: FO
+- value: fo
   text: Faroe Islands (the)
-- value: FJ
+- value: fj
   text: Fiji
-- value: FI
+- value: fi
   text: Finland
-- value: FR
+- value: fr
   text: France
-- value: GF
+- value: gf
   text: French Guiana
-- value: PF
+- value: pf
   text: French Polynesia
-- value: TF
+- value: tf
   text: French Southern Territories (the)
-- value: GA
+- value: ga
   text: Gabon
-- value: GM
+- value: gm
   text: Gambia (the)
-- value: GE
+- value: ge
   text: Georgia
-- value: DE
+- value: de
   text: Germany
-- value: GH
+- value: gh
   text: Ghana
-- value: GI
+- value: gi
   text: Gibraltar
-- value: GR
+- value: gr
   text: Greece
-- value: GL
+- value: gl
   text: Greenland
-- value: GD
+- value: gd
   text: Grenada
-- value: GP
+- value: gp
   text: Guadeloupe
-- value: GU
+- value: gu
   text: Guam
-- value: GT
+- value: gt
   text: Guatemala
-- value: GG
+- value: gg
   text: Guernsey
-- value: GN
+- value: gn
   text: Guinea
-- value: GW
+- value: gw
   text: Guinea-Bissau
-- value: GY
+- value: gy
   text: Guyana
-- value: HT
+- value: ht
   text: Haiti
-- value: HM
+- value: hm
   text: Heard Island and McDonald Islands
-- value: VA
+- value: va
   text: Holy See (the)
-- value: HN
+- value: hn
   text: Honduras
-- value: HK
+- value: hk
   text: Hong Kong
-- value: HU
+- value: hu
   text: Hungary
-- value: IS
+- value: is
   text: Iceland
-- value: IN
+- value: in
   text: India
-- value: ID
+- value: id
   text: Indonesia
-- value: IR
+- value: ir
   text: Iran (Islamic Republic of)
-- value: IQ
+- value: iq
   text: Iraq
-- value: IE
+- value: ie
   text: Ireland
-- value: IM
+- value: im
   text: Isle of Man
-- value: IL
+- value: il
   text: Israel
-- value: IT
+- value: it
   text: Italy
-- value: JM
+- value: jm
   text: Jamaica
-- value: JP
+- value: jp
   text: Japan
-- value: JE
+- value: je
   text: Jersey
-- value: JO
+- value: jo
   text: Jordan
-- value: KZ
+- value: kz
   text: Kazakhstan
-- value: KE
+- value: ke
   text: Kenya
-- value: KI
+- value: ki
   text: Kiribati
-- value: KP
+- value: kp
   text: Korea (the Democratic People"s Republic of)
-- value: KR
+- value: kr
   text: Korea (the Republic of)
-- value: KW
+- value: kw
   text: Kuwait
-- value: KG
+- value: kg
   text: Kyrgyzstan
-- value: LA
+- value: la
   text: Lao People"s Democratic Republic (the)
-- value: LV
+- value: lv
   text: Latvia
-- value: LB
+- value: lb
   text: Lebanon
-- value: LS
+- value: ls
   text: Lesotho
-- value: LR
+- value: lr
   text: Liberia
-- value: LY
+- value: ly
   text: Libya
-- value: LI
+- value: li
   text: Liechtenstein
-- value: LT
+- value: lt
   text: Lithuania
-- value: LU
+- value: lu
   text: Luxembourg
-- value: MO
+- value: mo
   text: Macao 
-- value: MK
+- value: mk
   text: North Macedonia
-- value: MG
+- value: mg
   text: Madagascar
-- value: MW
+- value: mw
   text: Malawi
-- value: MY
+- value: my
   text: Malaysia
-- value: MV
+- value: mv
   text: Maldives
-- value: ML
+- value: ml
   text: Mali
-- value: MT
+- value: mt
   text: Malta
-- value: MH
+- value: mh
   text: Marshall Islands (the)
-- value: MQ
+- value: mq
   text: Martinique
-- value: MR
+- value: mr
   text: Mauritania
-- value: MU
+- value: mu
   text: Mauritius
-- value: YT
+- value: yt
   text: Mayotte
-- value: MX
+- value: mx
   text: Mexico
-- value: FM
+- value: fm
   text: Micronesia (Federated States of)
-- value: MD
+- value: md
   text: Moldova (the Republic of)
-- value: MC
+- value: mc
   text: Monaco
-- value: MN
+- value: mn
   text: Mongolia
-- value: ME
+- value: me
   text: Montenegro
-- value: MS
+- value: ms
   text: Montserrat
-- value: MA
+- value: ma
   text: Morocco
-- value: MZ
+- value: mz
   text: Mozambique
-- value: MM
+- value: mm
   text: Myanmar
-- value: NA
+- value: na
   text: Namibia
-- value: NR
+- value: nr
   text: Nauru
-- value: NP
+- value: np
   text: Nepal
-- value: NL
+- value: nl
   text: Netherlands (the)
-- value: NC
+- value: nc
   text: New Caledonia
-- value: NZ
+- value: nz
   text: New Zealand
-- value: NI
+- value: ni
   text: Nicaragua
-- value: NE
+- value: ne
   text: Niger (the)
-- value: NG
+- value: ng
   text: Nigeria
-- value: NU
+- value: nu
   text: Niue
-- value: NF
+- value: nf
   text: Norfolk Island
-- value: MP
+- value: mp
   text: Northern Mariana Islands (the)
-- value: 'NO'
+- value: 'no'
   text: Norway
-- value: OM
+- value: om
   text: Oman
-- value: PK
+- value: pk
   text: Pakistan
-- value: PW
+- value: pw
   text: Palau
-- value: PS
+- value: ps
   text: Palestine, State of
-- value: PA
+- value: pa
   text: Panama
-- value: PG
+- value: pg
   text: Papua New Guinea
-- value: PY
+- value: py
   text: Paraguay
-- value: PE
+- value: pe
   text: Peru
-- value: PH
+- value: ph
   text: Philippines (the)
-- value: PN
+- value: pn
   text: Pitcairn
-- value: PL
+- value: pl
   text: Poland
-- value: PT
+- value: pt
   text: Portugal
-- value: PR
+- value: pr
   text: Puerto Rico
-- value: QA
+- value: qa
   text: Qatar
-- value: RE
+- value: re
   text: Réunion
-- value: RO
+- value: ro
   text: Romania
-- value: RU
+- value: ru
   text: Russian Federation (the)
-- value: RW
+- value: rw
   text: Rwanda
-- value: BL
+- value: bl
   text: Saint Barthélemy
-- value: KN
+- value: kn
   text: Saint Kitts and Nevis
-- value: LC
+- value: lc
   text: Saint Lucia
-- value: MF
+- value: mf
   text: Saint Martin (French part)
-- value: PM
+- value: pm
   text: Saint Pierre and Miquelon
-- value: VC
+- value: vc
   text: Saint Vincent and the Grenadines
-- value: WS
+- value: ws
   text: Samoa
-- value: SM
+- value: sm
   text: San Marino
-- value: ST
+- value: st
   text: Sao Tome and Principe
-- value: SA
+- value: sa
   text: Saudi Arabia
-- value: SN
+- value: sn
   text: Senegal
-- value: RS
+- value: rs
   text: Serbia
-- value: SC
+- value: sc
   text: Seychelles
-- value: SL
+- value: sl
   text: Sierra Leone
-- value: SG
+- value: sg
   text: Singapore
-- value: SX
+- value: sx
   text: Sint Maarten (Dutch part)
-- value: SK
+- value: sk
   text: Slovakia
-- value: SI
+- value: si
   text: Slovenia
-- value: SB
+- value: sb
   text: Solomon Islands
-- value: SO
+- value: so
   text: Somalia
-- value: ZA
+- value: za
   text: South Africa
-- value: GS
+- value: gs
   text: South Georgia and the South Sandwich Islands
-- value: SS
+- value: ss
   text: South Sudan
-- value: ES
+- value: es
   text: Spain
-- value: LK
+- value: lk
   text: Sri Lanka
-- value: SD
+- value: sd
   text: Sudan (the)
-- value: SR
+- value: sr
   text: Suriname
-- value: SE
+- value: se
   text: Sweden
-- value: CH
+- value: ch
   text: Switzerland
-- value: SY
+- value: sy
   text: Syrian Arab Republic (the)
-- value: TW
+- value: tw
   text: Taiwan (Province of China)
-- value: TJ
+- value: tj
   text: Tajikistan
-- value: TZ
+- value: tz
   text: Tanzania, the United Republic of
-- value: TH
+- value: th
   text: Thailand
-- value: TL
+- value: tl
   text: Timor-Leste
-- value: TG
+- value: tg
   text: Togo
-- value: TK
+- value: tk
   text: Tokelau
-- value: TO
+- value: to
   text: Tonga
-- value: TT
+- value: tt
   text: Trinidad and Tobago
-- value: TN
+- value: tn
   text: Tunisia
-- value: TR
+- value: tr
   text: Turkey
-- value: TM
+- value: tm
   text: Turkmenistan
-- value: TC
+- value: tc
   text: Turks and Caicos Islands (the)
-- value: TV
+- value: tv
   text: Tuvalu
-- value: UG
+- value: ug
   text: Uganda
-- value: UA
+- value: ua
   text: Ukraine
-- value: AE
+- value: ae
   text: United Arab Emirates (the)
-- value: GB
+- value: gb
   text: United Kingdom of Great Britain and Northern Ireland (the)
-- value: UM
+- value: um
   text: United States Minor Outlying Islands (the)
-- value: US
+- value: us
   text: United States of America (the)
-- value: UY
+- value: uy
   text: Uruguay
-- value: UZ
+- value: uz
   text: Uzbekistan
-- value: VU
+- value: vu
   text: Vanuatu
-- value: VE
+- value: ve
   text: Venezuela (Bolivarian Republic of)
-- value: VN
+- value: vn
   text: Viet Nam
-- value: VG
+- value: vg
   text: Virgin Islands (British)
-- value: VI
+- value: vi
   text: Virgin Islands (U.S.)
-- value: WF
+- value: wf
   text: Wallis and Futuna
-- value: EH
+- value: eh
   text: Western Sahara
-- value: YE
+- value: ye
   text: Yemen
-- value: ZM
+- value: zm
   text: Zambia
-- value: ZW
+- value: zw
   text: Zimbabwe

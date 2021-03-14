@@ -1,3 +1,4 @@
+import { snakeCase } from 'lodash'
 import { EnumType, SchemaType, TypeMap, TypeMapObject } from 'jsonotron-interfaces'
 import { convertJsonotronTypesToTypeMap } from '../typeMap'
 import { appendArrayIndicators, capitaliseInitialLetters, ensureInitialCharacter, ensureValidCodePropertyCharacters, escapeQuotes } from '../utils'
@@ -12,6 +13,7 @@ export class TypescriptCodeGenerator implements CodeGenerator {
       ...this.generateTypeNameConstants(params.enumTypes, params.schemaTypes),
       ...this.generateEnumTypeValues(params.enumTypes),
       ...this.generateEnumTypeItems(params.enumTypes),
+      ...this.generateEnumTypeResolvers(params.enumTypes),
       ...this.generateInterfacesForSchemaTypeObjects(params.enumTypes, params.schemaTypes)
     ]
 
@@ -97,7 +99,7 @@ export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
         })
 
         const docBlock = `/**\n * ${e.documentation}\n */`
-        return `${docBlock}\nexport const ${e.system.toUpperCase()}_${e.name.toUpperCase()}_VALUES = {\n${valueLines.join(',\n\n')}\n}`
+        return `${docBlock}\nexport const ${e.system.toUpperCase()}_${snakeCase(e.name).toUpperCase()}_VALUES = {\n${valueLines.join(',\n\n')}\n}`
       })
   }
 
@@ -118,6 +120,18 @@ export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
           : `EnumTypeItem[]`
     
         return `${docBlock}export const ${e.system}${capitaliseInitialLetters(e.name)}Items = [\n${itemLines.join(',\n')}\n] as ${typeCast}`
+      })
+  }
+
+  private generateEnumTypeResolvers (enumTypes: EnumType[]): string[] {
+    return enumTypes
+      .map(e => {
+        const resolverLines = e.items.map(item => {
+          return `  ${ensureInitialCharacter(snakeCase(item.value).toUpperCase())}: '${item.value}'`
+        })
+
+        const docBlock = `/**\n * A GraphQL resolver for the ${e.name} enum.\n */\n`
+        return `${docBlock}export const ${e.system}${capitaliseInitialLetters(e.name)}Resolver = {\n${resolverLines.join(',\n')}\n}`
       })
   }
 

@@ -12,16 +12,16 @@ documentation: |-
   The `number` property optionally describes extension information.
 examples:
 - value:
-    isd: 'ISD_44'
+    isd: '44'
     number: '7834111222'
   documentation: In this example we have a UK mobile number.
 - value:
-    isd: 'ISD_1'
+    isd: '44'
     number: '5550172'
     ext: '2209'
   documentation: In this example we have a US landline number with an extension.
 validTestCases:
-- isd: 'ISD_44'
+- isd: '44'
   number: '1202111222'
   ext: '237'
 invalidTestCases:
@@ -31,11 +31,11 @@ invalidTestCases:
 - a string
 - []
 - {}
-- isd: 'ISD_044'
+- isd: 'madeup'
   number: '1234567'
 - isd: 44
   number: '1234567'
-- isd: '_44'
+- isd: '44'
   number: 1234567
 jsonSchema:
   type: object

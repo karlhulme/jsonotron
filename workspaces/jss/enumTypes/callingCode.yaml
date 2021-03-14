@@ -20,839 +20,839 @@ dataJsonSchema:
       type: string
       maxLength: 250
 items:
-- value: 'ISD_1'
+- value: '1'
   text: '1' # Zone 1: North American Numbering Plan
   data:
     region: Canada, United States and North American Numbering Plan (NANP)
-- value: 'ISD_20'
+- value: '20'
   text: '20' # Zone 2: Mostly Africa
   data:
     region: Egypt
-- value: 'ISD_211'
+- value: '211'
   text: '211'
   data:
     region: South Sudan
-- value: 'ISD_212'
+- value: '212'
   text: '212'
   data:
     region: Morocco
-- value: 'ISD_213'
+- value: '213'
   text: '213'
   data:
     region: Algeria
-- value: 'ISD_216'
+- value: '216'
   text: '216'
   data:
     region: Tunisia
-- value: 'ISD_218'
+- value: '218'
   text: '218'
   data:
     region: Libya
-- value: 'ISD_220'
+- value: '220'
   text: '220'
   data:
     region: Gambia
-- value: 'ISD_221'
+- value: '221'
   text: '221'
   data:
     region: Senegal
-- value: 'ISD_222'
+- value: '222'
   text: '222'
   data:
     region: Mauritania
-- value: 'ISD_223'
+- value: '223'
   text: '223'
   data:
     region: Mali
-- value: 'ISD_224'
+- value: '224'
   text: '224'
   data:
     region: Guinea
-- value: 'ISD_225'
+- value: '225'
   text: '225'
   data:
     region: Ivory Coast
-- value: 'ISD_226'
+- value: '226'
   text: '226'
   data:
     region: Burkina Faso
-- value: 'ISD_227'
+- value: '227'
   text: '227'
   data:
     region: Niger
-- value: 'ISD_228'
+- value: '228'
   text: '228'
   data:
     region: Togo
-- value: 'ISD_229'
+- value: '229'
   text: '229'
   data:
     region: Benin
-- value: 'ISD_230'
+- value: '230'
   text: '230'
   data:
     region: Mauritius
-- value: 'ISD_231'
+- value: '231'
   text: '231'
   data:
     region: Liberia
-- value: 'ISD_232'
+- value: '232'
   text: '232'
   data:
     region: Sierra Leone
-- value: 'ISD_233'
+- value: '233'
   text: '233'
   data:
     region: Ghana
-- value: 'ISD_234'
+- value: '234'
   text: '234'
   data:
     region: Nigeria
-- value: 'ISD_235'
+- value: '235'
   text: '235'
   data:
     region: Chad
-- value: 'ISD_236'
+- value: '236'
   text: '236'
   data:
     region: Central African Republic
-- value: 'ISD_237'
+- value: '237'
   text: '237'
   data:
     region: Cameroon
-- value: 'ISD_238'
+- value: '238'
   text: '238'
   data:
     region: Cape Verde
-- value: 'ISD_239'
+- value: '239'
   text: '239'
   data:
     region: São Tomé and Príncipe
-- value: 'ISD_240'
+- value: '240'
   text: '240'
   data:
     region: Equatorial Guinea
-- value: 'ISD_241'
+- value: '241'
   text: '241'
   data:
     region: Gabon
-- value: 'ISD_242'
+- value: '242'
   text: '242'
   data:
     region: Republic of the Congo
-- value: 'ISD_243'
+- value: '243'
   text: '243'
   data:
     region: Democratic Republic of the Congo
-- value: 'ISD_244'
+- value: '244'
   text: '244'
   data:
     region: Angola
-- value: 'ISD_245'
+- value: '245'
   text: '245'
   data:
     region: Guinea-Bissau
-- value: 'ISD_246'
+- value: '246'
   text: '246'
   data:
     region: British Indian Ocean Territory
-- value: 'ISD_247'
+- value: '247'
   text: '247'
   data:
     region: Ascension Island
-- value: 'ISD_248'
+- value: '248'
   text: '248'
   data:
     region: Seychelles
-- value: 'ISD_249'
+- value: '249'
   text: '249'
   data:
     region: Sudan
-- value: 'ISD_250'
+- value: '250'
   text: '250'
   data:
     region: Rwanda
-- value: 'ISD_251'
+- value: '251'
   text: '251'
   data:
     region: Ethiopia
-- value: 'ISD_252'
+- value: '252'
   text: '252'
   data:
     region: Somalia
-- value: 'ISD_253'
+- value: '253'
   text: '253'
   data:
     region: Djibouti
-- value: 'ISD_254'
+- value: '254'
   text: '254'
   data:
     region: Kenya
-- value: 'ISD_255'
+- value: '255'
   text: '255'
   data:
     region: Tanzania and Zanzibar
-- value: 'ISD_256'
+- value: '256'
   text: '256'
   data:
     region: Uganda
-- value: 'ISD_257'
+- value: '257'
   text: '257'
   data:
     region: Burundi
-- value: 'ISD_258'
+- value: '258'
   text: '258'
   data:
     region: Mozambique
-- value: 'ISD_260'
+- value: '260'
   text: '260'
   data:
     region: Zambia
-- value: 'ISD_261'
+- value: '261'
   text: '261'
   data:
     region: Madagascar
-- value: 'ISD_262'
+- value: '262'
   text: '262'
   data:
     region: Réunion and Moyette
-- value: 'ISD_263'
+- value: '263'
   text: '263'
   data:
     region: Zimbabwe
-- value: 'ISD_264'
+- value: '264'
   text: '264'
   data:
     region: Namibia
-- value: 'ISD_265'
+- value: '265'
   text: '265'
   data:
     region: Malawi
-- value: 'ISD_266'
+- value: '266'
   text: '266'
   data:
     region: Lesotho
-- value: 'ISD_267'
+- value: '267'
   text: '267'
   data:
     region: Botswana
-- value: 'ISD_268'
+- value: '268'
   text: '268'
   data:
     region: Eswatini
-- value: 'ISD_269'
+- value: '269'
   text: '269'
   data:
     region: Comoros
-- value: 'ISD_27'
+- value: '27'
   text: '27'
   data:
     region: South Africa
-- value: 'ISD_290'
+- value: '290'
   text: '290'
   data:
     region: Saint Helena and Tristan da Cunha
-- value: 'ISD_291'
+- value: '291'
   text: '291'
   data:
     region: Eritrea
-- value: 'ISD_297'
+- value: '297'
   text: '297'
   data:
     region: Aruba
-- value: 'ISD_298'
+- value: '298'
   text: '298'
   data:
     region: Faroe Islands
-- value: 'ISD_299'
+- value: '299'
   text: '299'
   data:
     region: Greenland
-- value: 'ISD_30' # Zones 3-4: Europe
+- value: '30' # Zones 3-4: Europe
   text: '30' 
   data:
     region: Greece
-- value: 'ISD_31'
+- value: '31'
   text: '31'
   data:
     region: Netherlands
-- value: 'ISD_32'
+- value: '32'
   text: '32'
   data:
     region: Belgium
-- value: 'ISD_33'
+- value: '33'
   text: '33'
   data:
     region: France
-- value: 'ISD_34'
+- value: '34'
   text: '34'
   data:
     region: Spain
-- value: 'ISD_350'
+- value: '350'
   text: '350'
   data:
     region: Gibraltar
-- value: 'ISD_351'
+- value: '351'
   text: '351'
   data:
     region: Portugal
-- value: 'ISD_352'
+- value: '352'
   text: '352'
   data:
     region: Luxembourg
-- value: 'ISD_353'
+- value: '353'
   text: '353'
   data:
     region: Ireland
-- value: 'ISD_354'
+- value: '354'
   text: '354'
   data:
     region: Iceland
-- value: 'ISD_355'
+- value: '355'
   text: '355'
   data:
     region: Albania
-- value: 'ISD_356'
+- value: '356'
   text: '356'
   data:
     region: Malta
-- value: 'ISD_357'
+- value: '357'
   text: '357'
   data:
     region: Cyprus
-- value: 'ISD_358'
+- value: '358'
   text: '358'
   data:
     region: Finland and Åland Islands
-- value: 'ISD_359'
+- value: '359'
   text: '359'
   data:
     region: Bulgaria
-- value: 'ISD_36'
+- value: '36'
   text: '36'
   data:
     region: Hungary
-- value: 'ISD_370'
+- value: '370'
   text: '370'
   data:
     region: Lithuania
-- value: 'ISD_371'
+- value: '371'
   text: '371'
   data:
     region: Latvia
-- value: 'ISD_372'
+- value: '372'
   text: '372'
   data:
     region: Estonia
-- value: 'ISD_373'
+- value: '373'
   text: '373'
   data:
     region: Moldova
-- value: 'ISD_374'
+- value: '374'
   text: '374'
   data:
     region: Armenia and Artsakh
-- value: 'ISD_375'
+- value: '375'
   text: '375'
   data:
     region: Belarus
-- value: 'ISD_376'
+- value: '376'
   text: '376'
   data:
     region: Andorra
-- value: 'ISD_377'
+- value: '377'
   text: '377'
   data:
     region: Monaco
-- value: 'ISD_378'
+- value: '378'
   text: '378'
   data:
     region: San Marino
-- value: 'ISD_388'
+- value: '388'
   text: '380'
   data:
     region: Ukraine
-- value: 'ISD_381'
+- value: '381'
   text: '381'
   data:
     region: Serbia
-- value: 'ISD_382'
+- value: '382'
   text: '382'
   data:
     region: Montenegro
-- value: 'ISD_383'
+- value: '383'
   text: '383'
   data:
     region: Kosovo
-- value: 'ISD_385'
+- value: '385'
   text: '385'
   data:
     region: Croatia
-- value: 'ISD_386'
+- value: '386'
   text: '386'
   data:
     region: Slovenia
-- value: 'ISD_387'
+- value: '387'
   text: '387'
   data:
     region: Bosnia and Herzegovina
-- value: 'ISD_389'
+- value: '389'
   text: '389'
   data:
     region: North Macedonia
-- value: 'ISD_39'
+- value: '39'
   text: '39'
   data:
     region: Italy and Vatican City
-- value: 'ISD_40'
+- value: '40'
   text: '40'
   data:
     region: Romania
-- value: 'ISD_41'
+- value: '41'
   text: '41'
   data:
     region: Switzerland
-- value: 'ISD_420'
+- value: '420'
   text: '420'
   data:
     region: Czech Republic
-- value: 'ISD_421'
+- value: '421'
   text: '421'
   data:
     region: Slovakia
-- value: 'ISD_423'
+- value: '423'
   text: '423'
   data:
     region: Liechtenstein
-- value: 'ISD_43'
+- value: '43'
   text: '43'
   data:
     region: Austria
-- value: 'ISD_44'
+- value: '44'
   text: '44'
   data:
     region: United Kingdom, Guernsey, Jersey and Isle of Man
-- value: 'ISD_45'
+- value: '45'
   text: '45'
   data:
     region: Denmark
-- value: 'ISD_46'
+- value: '46'
   text: '46'
   data:
     region: Sweden
-- value: 'ISD_47'
+- value: '47'
   text: '47'
   data:
     region: Norway and Svalbard
-- value: 'ISD_48'
+- value: '48'
   text: '48'
   data:
     region: Poland
-- value: 'ISD_49'
+- value: '49'
   text: '49'
   data:
     region: Germany
-- value: 'ISD_500'
+- value: '500'
   text: '500' # Zone 5: Americas outside the NANP
   data:
     region: Falkland Islands, South Georgia and the South Sandwich Islands
-- value: 'ISD_501'
+- value: '501'
   text: '501'
   data:
     region: Belize
-- value: 'ISD_502'
+- value: '502'
   text: '502'
   data:
     region: Guatemala
-- value: 'ISD_503'
+- value: '503'
   text: '503'
   data:
     region: El Salvador
-- value: 'ISD_504'
+- value: '504'
   text: '504'
   data:
     region: Honduras
-- value: 'ISD_505'
+- value: '505'
   text: '505'
   data:
     region: Nicaragua
-- value: 'ISD_506'
+- value: '506'
   text: '506'
   data:
     region: Costa Rica
-- value: 'ISD_507'
+- value: '507'
   text: '507'
   data:
     region: Panama
-- value: 'ISD_508'
+- value: '508'
   text: '508'
   data:
     region: Saint-Pierre and Miquelon
-- value: 'ISD_509'
+- value: '509'
   text: '509'
   data:
     region: Haiti
-- value: 'ISD_51'
+- value: '51'
   text: '51'
   data:
     region: Peru
-- value: 'ISD_52'
+- value: '52'
   text: '52'
   data:
     region: Mexico
-- value: 'ISD_53'
+- value: '53'
   text: '53'
   data:
     region: Cuba
-- value: 'ISD_54'
+- value: '54'
   text: '54'
   data:
     region: Argentina
-- value: 'ISD_55'
+- value: '55'
   text: '55'
   data:
     region: Brazil
-- value: 'ISD_56'
+- value: '56'
   text: '56'
   data:
     region: Chile
-- value: 'ISD_57'
+- value: '57'
   text: '57'
   data:
     region: Colombia
-- value: 'ISD_58'
+- value: '58'
   text: '58'
   data:
     region: Venezuela
-- value: 'ISD_590'
+- value: '590'
   text: '590'
   data:
     region: Guadeloupe, Saint Barthélemy and Saint Martin
-- value: 'ISD_591'
+- value: '591'
   text: '591'
   data:
     region: Bolivia
-- value: 'ISD_592'
+- value: '592'
   text: '592'
   data:
     region: Guyana
-- value: 'ISD_593'
+- value: '593'
   text: '593'
   data:
     region: Ecuador
-- value: 'ISD_594'
+- value: '594'
   text: '594'
   data:
     region: French Guiana
-- value: 'ISD_595'
+- value: '595'
   text: '595'
   data:
     region: Paraguay
-- value: 'ISD_596'
+- value: '596'
   text: '596'
   data:
     region: Martinique
-- value: 'ISD_597'
+- value: '597'
   text: '597'
   data:
     region: Suriname
-- value: 'ISD_598'
+- value: '598'
   text: '598'
   data:
     region: Uruguay
-- value: 'ISD_599'
+- value: '599'
   text: '599'
   data:
     region: Sint Eustatius, Saba, Bonaire, Curaçao
-- value: 'ISD_60'
+- value: '60'
   text: '60' # Zone 6: Southeast Asia and Oceania
   data:
     region: Malaysia
-- value: 'ISD_61'
+- value: '61'
   text: '61'
   data:
     region: Australia, Cocos Islands and Christmas Island
-- value: 'ISD_62'
+- value: '62'
   text: '62'
   data:
     region: Indonesia
-- value: 'ISD_63'
+- value: '63'
   text: '63'
   data:
     region: Philippines
-- value: 'ISD_64'
+- value: '64'
   text: '64'
   data:
     region: New Zealand and Pitcairn Islands
-- value: 'ISD_65'
+- value: '65'
   text: '65'
   data:
     region: Singapore
-- value: 'ISD_66'
+- value: '66'
   text: '66'
   data:
     region: Thailand
-- value: 'ISD_670'
+- value: '670'
   text: '670'
   data:
     region: East Timor
-- value: 'ISD_672'
+- value: '672'
   text: '672'
   data:
     region: Australian External Territories, Australian Antarctic Territory and Norfolk Island
-- value: 'ISD_673'
+- value: '673'
   text: '673'
   data:
     region: Brunei
-- value: 'ISD_674'
+- value: '674'
   text: '674'
   data:
     region: Nauru
-- value: 'ISD_675'
+- value: '675'
   text: '675'
   data:
     region: Papua New Guinea
-- value: 'ISD_676'
+- value: '676'
   text: '676'
   data:
     region: Tonga
-- value: 'ISD_677'
+- value: '677'
   text: '677'
   data:
     region: Solomon Islands
-- value: 'ISD_678'
+- value: '678'
   text: '678'
   data:
     region: Vanuatu
-- value: 'ISD_679'
+- value: '679'
   text: '679'
   data:
     region: Fiji
-- value: 'ISD_680'
+- value: '680'
   text: '680'
   data:
     region: Palau
-- value: 'ISD_681'
+- value: '681'
   text: '681'
   data:
     region: Wallis and Futuna
-- value: 'ISD_682'
+- value: '682'
   text: '682'
   data:
     region: Cook Islands
-- value: 'ISD_683'
+- value: '683'
   text: '683'
   data:
     region: Niue
-- value: 'ISD_685'
+- value: '685'
   text: '685'
   data:
     region: Samoa
-- value: 'ISD_686'
+- value: '686'
   text: '686'
   data:
     region: Kiribati
-- value: 'ISD_687'
+- value: '687'
   text: '687'
   data:
     region: New Caledonia
-- value: 'ISD_688'
+- value: '688'
   text: '688'
   data:
     region: Tuvalu
-- value: 'ISD_689'
+- value: '689'
   text: '689'
   data:
     region: French Polynesia
-- value: 'ISD_690'
+- value: '690'
   text: '690'
   data:
     region: Tokelau
-- value: 'ISD_691'
+- value: '691'
   text: '691'
   data:
     region: Federated States of Micronesia
-- value: 'ISD_692'
+- value: '692'
   text: '692'
   data:
     region: Marshall Islands
-- value: 'ISD_7'
+- value: '7'
   text: '7' # Zone 7: Parts of the former Soviet Union
   data:
     region: Russia, Kazakhstan and Abkhazia
-- value: 'ISD_800'
+- value: '800'
   text: '800' # Zone 8: East Asia and special services
   data:
     region: International Freephone (UIFN)
-- value: 'ISD_808'
+- value: '808'
   text: '808'
   data:
     region: Shared Cost Services
-- value: 'ISD_81'
+- value: '81'
   text: '81'
   data:
     region: Japan
-- value: 'ISD_82'
+- value: '82'
   text: '82'
   data:
     region: South Korea
-- value: 'ISD_84'
+- value: '84'
   text: '84'
   data:
     region: Vietnam
-- value: 'ISD_850'
+- value: '850'
   text: '850'
   data:
     region: North Korea
-- value: 'ISD_852'
+- value: '852'
   text: '852'
   data:
     region: Hong Kong
-- value: 'ISD_853'
+- value: '853'
   text: '853'
   data:
     region: Macau
-- value: 'ISD_855'
+- value: '855'
   text: '855'
   data:
     region: Cambodia
-- value: 'ISD_856'
+- value: '856'
   text: '856'
   data:
     region: Laos
-- value: 'ISD_86'
+- value: '86'
   text: '86'
   data:
     region: China
-- value: 'ISD_880'
+- value: '880'
   text: '880'
   data:
     region: Bangladesh
-- value: 'ISD_886'
+- value: '886'
   text: '886'
   data:
     region: Taiwan
-- value: 'ISD_90'
+- value: '90'
   text: '90' # Zone 9: Mostly Middle East and parts of southern Asia
   data:
     region: Turkey and Northern Cyprus
-- value: 'ISD_91'
+- value: '91'
   text: '91'
   data:
     region: India
-- value: 'ISD_92'
+- value: '92'
   text: '92'
   data:
     region: Pakistan, Azad Kashmir and Gilgit Baltistan
-- value: 'ISD_93'
+- value: '93'
   text: '93'
   data:
     region: Afghanistan
-- value: 'ISD_94'
+- value: '94'
   text: '94'
   data:
     region: Sri Lanka
-- value: 'ISD_95'
+- value: '95'
   text: '95'
   data:
     region: Myanmar
-- value: 'ISD_960'
+- value: '960'
   text: '960'
   data:
     region: Maldives
-- value: 'ISD_961'
+- value: '961'
   text: '961'
   data:
     region: Lebanon
-- value: 'ISD_962'
+- value: '962'
   text: '962'
   data:
     region: Jordan
-- value: 'ISD_963'
+- value: '963'
   text: '963'
   data:
     region: Syria
-- value: 'ISD_964'
+- value: '964'
   text: '964'
   data:
     region: Iraq
-- value: 'ISD_965'
+- value: '965'
   text: '965'
   data:
     region: Kuwait
-- value: 'ISD_966'
+- value: '966'
   text: '966'
   data:
     region: Saudi Arabia
-- value: 'ISD_967'
+- value: '967'
   text: '967'
   data:
     region: Yemen
-- value: 'ISD_968'
+- value: '968'
   text: '968'
   data:
     region: Oman
-- value: 'ISD_970'
+- value: '970'
   text: '970'
   data:
     region: Palestine
-- value: 'ISD_971'
+- value: '971'
   text: '971'
   data:
     region: United Arab Emirates
-- value: 'ISD_972'
+- value: '972'
   text: '972'
   data:
     region: Israel
-- value: 'ISD_973'
+- value: '973'
   text: '973'
   data:
     region: Bahrain
-- value: 'ISD_974'
+- value: '974'
   text: '974'
   data:
     region: Qatar
-- value: 'ISD_975'
+- value: '975'
   text: '975'
   data:
     region: Bhutan
-- value: 'ISD_976'
+- value: '976'
   text: '976'
   data:
     region: Mongolia
-- value: 'ISD_977'
+- value: '977'
   text: '977'
   data:
     region: Nepal
-- value: 'ISD_979'
+- value: '979'
   text: '979'
   data:
     region: International Premium Rate Service
-- value: 'ISD_98'
+- value: '98'
   text: '98'
   data:
     region: Iran
-- value: 'ISD_992'
+- value: '992'
   text: '992'
   data:
     region: Tajikistan
-- value: 'ISD_993'
+- value: '993'
   text: '993'
   data:
     region: Turkmenistan
-- value: 'ISD_994'
+- value: '994'
   text: '994'
   data:
     region: Azerbaijan
-- value: 'ISD_995'
+- value: '995'
   text: '995'
   data:
     region: Georgia, South Ossetia and Abkhazia
-- value: 'ISD_996'
+- value: '996'
   text: '996'
   data:
     region: Kyrgyzstan
-- value: 'ISD_998'
+- value: '998'
   text: '998'
   data:
     region: Uzbekistan

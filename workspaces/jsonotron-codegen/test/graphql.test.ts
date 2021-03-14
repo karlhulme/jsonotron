@@ -19,10 +19,14 @@ test('Generate graph ql code for enum type item declarations.', async () => {
   expect(result).toContain('data: Color_Data!')
 
   // the enum constants
+  expect(result).toContain('enum Color {')
+  expect(result).toContain('  _1_RED')
+  expect(result).toContain('  _2_GREEN')
   expect(result).toContain('enum Size {')
   expect(result).toContain('enum Direction {')
-  expect(result).toContain('  UP')
-  expect(result).toContain('  DOWN')
+  expect(result).toContain('  GOING_UP')
+  expect(result).toContain('  GOING_DOWN')
+  expect(result).toContain('  GOING_AROUND')
 
   // the object-type interfaces
   expect(result).toContain('type Color_Data {')

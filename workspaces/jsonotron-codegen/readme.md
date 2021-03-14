@@ -38,6 +38,9 @@ This allows you to build a graph that will return the additional enum informatio
 typically be required for any enums that are to be presented to the user, such as in a drop-down.  These should be
 requested on first use and then cached.
 
+Capitalization for the typescript code generation has proved difficult to choose.  There are various style guides from large tech companies that do not agree, but there does not seem to be an authoritative reference.  Having tried a lot of different variants, none of them are consistently satisfying becuase javascript does not in fact support constants (or enums) in the sense established by other languages.  However there is a convention for uppercase characters to denote values that will not change, which is reflected in the types produced by this lib.
+
+
 ## Continuous Deployment
 
 Any pushes or pull-requests on non-main branches will trigger the test runner.

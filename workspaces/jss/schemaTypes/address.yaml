@@ -18,7 +18,7 @@ examples:
       1 Acacia Avenue
       Portsmouth
     postalCode: PO125LP
-    countryCode: GB
+    countryCode: gb
   documentation: This example is an address in England so it uses a UK post code.
 - value:
     addressLines: |-
@@ -26,7 +26,7 @@ examples:
       Beverley Hills
       Los Angeles
     postalCode: '90210'
-    countryCode: US
+    countryCode: gb
   documentation: This example is an address in the United States so it uses a zip
     code.
 validTestCases:
@@ -34,13 +34,13 @@ validTestCases:
     1 Acacia Avenue
     Portsmouth
   postalCode: PO125LP
-  countryCode: GB
+  countryCode: gb
 - addressLines: |-
     1 Mansion Street
     Beverley Hills
     Los Angeles
   postalCode: '90210'
-  countryCode: US
+  countryCode: us
 invalidTestCases:
 - -1
 - 0
@@ -52,12 +52,12 @@ invalidTestCases:
 - []
 - addressLines: 123
   postalCode: PO125LP
-  countryCode: GB
+  countryCode: gb
 - addressLines: |-
     1 Acacia Avenue
     Portsmouth
   postalCode: 234
-  countryCode: GB
+  countryCode: gb
 - addressLines: |-
     1 Acacia Avenue
     Portsmouth

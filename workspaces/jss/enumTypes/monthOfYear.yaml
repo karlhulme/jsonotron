@@ -6,27 +6,27 @@ name: monthOfYear
 title: Month of Year
 documentation: A calendar month.
 items:
-- value: JAN
+- value: jan
   text: January
-- value: FEB
+- value: feb
   text: February
-- value: MAR
+- value: mar
   text: March
-- value: APR
+- value: apr
   text: April
-- value: MAY
+- value: may
   text: May
-- value: JUN
+- value: jun
   text: June
-- value: JUL
+- value: jul
   text: July
-- value: AUG
+- value: aug
   text: August
-- value: SEP
+- value: sep
   text: September
-- value: OCT
+- value: oct
   text: October
-- value: NOV
+- value: nov
   text: November
-- value: DEC
+- value: dec
   text: December

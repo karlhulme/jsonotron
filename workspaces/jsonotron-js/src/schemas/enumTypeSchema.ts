@@ -35,7 +35,8 @@ export const enumTypeSchema = {
         "properties": {
           "value": {
             "type": "string",
-            "pattern": "^[A-Z][_a-zA-Z0-9]*$"
+            "minLength": 1,
+            "maxLength": 250
           },
           "text": {
             "type": "string"

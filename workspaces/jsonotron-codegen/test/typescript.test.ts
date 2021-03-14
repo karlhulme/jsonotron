@@ -25,8 +25,11 @@ test('Generate typescript code.', async () => {
   expect(result).toContain('color: \'https://jsonotron.org/test/color\'')
 
   // the enum values
-  expect(result).toContain('TEST_SIZE_VALUES = {\n  REGULAR: \'REGULAR\',')
-  expect(result).toContain('{ value: \'XLARGE\', text: \'Extra Large\', deprecated: \'Cannot source anymore.\' }')
+  expect(result).toContain('TEST_SIZE_VALUES = {\n  regular: \'regular\',')
+  expect(result).toContain('{ value: \'xlarge\', text: \'Extra Large\', deprecated: \'Cannot source anymore.\' }')
+  expect(result).toContain('going_up: \'going/up\'')
+  expect(result).toContain('goingAround: \'goingAround\'')
+  expect(result).toContain('_1red: \'1red\'')
 
   // the object-type interfaces
   expect(result).toContain('export interface TestBed {')

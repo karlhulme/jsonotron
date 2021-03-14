@@ -24,8 +24,8 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         required: ['hexCode']
       },
       items: [
-        { value: 'RED', text: 'Red', documentation: 'The color for errors', data: { hexCode: 'f00', isWarningColor: true } },
-        { value: 'GREEN', text: 'Green', data: { hexCode: '0f0' } }
+        { value: '1red', text: 'Red', documentation: 'The color for errors', data: { hexCode: 'f00', isWarningColor: true } },
+        { value: '2green', text: 'Green', data: { hexCode: '0f0' } }
       ]
     }, {
       domain: 'https://jsonotron.org',
@@ -34,9 +34,20 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       documentation: 'A list of sizes',
       title: 'Size',
       items: [
-        { value: 'REGULAR', text: 'Regular', symbol: 'M' },
-        { value: 'LARGE', text: 'Large', symbol: 'L' },
-        { value: 'XLARGE', text: 'Extra Large', deprecated: 'Cannot source anymore.' }
+        { value: 'regular', text: 'Regular', symbol: 'M' },
+        { value: 'large', text: 'Large', symbol: 'L' },
+        { value: 'xlarge', text: 'Extra Large', deprecated: 'Cannot source anymore.' }
+      ]
+    }, {
+      domain: 'https://jsonotron.org',
+      system: 'test',
+      name: 'numbersList',
+      documentation: 'A list of numbers',
+      title: 'Numbers List',
+      items: [
+        { value: '1', text: '1 One' },
+        { value: '2', text: '2 Two' },
+        { value: '3', text: '3 Three' }
       ]
     }, {
       domain: 'https://jsonotron.org',
@@ -45,8 +56,9 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       documentation: 'A list of directions (in an alternative system).',
       title: 'Directions',
       items: [
-        { value: 'UP', text: 'Up' },
-        { value: 'DOWN', text: 'Down' }
+        { value: 'going/up', text: 'Up' },
+        { value: 'going/down', text: 'Down' },
+        { value: 'goingAround', text: 'Around' }
       ]
     }],
     schemaTypes: [{

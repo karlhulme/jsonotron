@@ -16,12 +16,12 @@ documentation: An amount of money designated in a specific currency.
 examples:
 - value:
     amount: 9999
-    currency: GBP
+    currency: gbp
   documentation: In this example, the GBP currency defines a scaler of 2, which means that we shift the decimal point
     2 places to the left.  So 9999 becomes £ 99.99 for display.
 validTestCases:
 - amount: 1125
-  currency: GBP
+  currency: gbp
 invalidTestCases:
 - 
 - true
@@ -30,9 +30,9 @@ invalidTestCases:
 - []
 - {}
 - amount: 11.25
-  currency: GBP
+  currency: gbp
 - amount: 1125
-  currency: MADEUP
+  currency: madeup
 jsonSchema:
   type: object
   additionalProperties: false

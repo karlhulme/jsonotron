@@ -1,6 +1,7 @@
+import { snakeCase } from 'lodash'
 import { EnumType, SchemaType, TypeMap, TypeMapObject } from 'jsonotron-interfaces'
 import { convertJsonotronTypesToTypeMap } from '../typeMap'
-import { wrapArrayIndicators, capitaliseInitialLetters } from '../utils'
+import { wrapArrayIndicators, capitaliseInitialLetters, ensureInitialCharacter } from '../utils'
 import { CodeGenerationParameters } from './CodeGenerationParameters'
 import { CodeGenerator } from './CodeGenerator'
 
@@ -31,7 +32,7 @@ export class GraphQLCodeGenerator implements CodeGenerator {
 
   private generateEnumDeclarations (enumTypes: EnumType[]): string[] {
     return enumTypes.map(enumType => {
-      const itemLines = enumType.items.map(item => `  ${item.value}`)
+      const itemLines = enumType.items.map(item => `  ${ensureInitialCharacter(snakeCase(item.value).toUpperCase())}`)
 
       return `enum ${capitaliseInitialLetters(enumType.name)} {\n${itemLines.join('\n')}\n}`
     })
