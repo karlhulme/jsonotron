@@ -1,0 +1,233 @@
+"Represents an enum type item"
+type EnumTypeItem {
+  """
+  The underlying value of the item.
+  """
+  value: String!
+
+  """
+  The display text of the value in English.
+  """
+  text: String!
+
+  """
+  The documentation associated with this item.
+  """
+  documentation: String
+
+  """
+  If populated, this value explains why the value was deprecated and/or which item to use instead.
+  """
+  deprecated: String
+
+  """
+  A symbol associated with the item.
+  """
+  symbol: String
+
+
+}
+
+
+"""
+Represents an enum type item
+"""
+type ColorEnumTypeItem {
+  """
+  The underlying value of the item.
+  """
+  value: String!
+
+  """
+  The display text of the value in English.
+  """
+  text: String!
+
+  """
+  The documentation associated with this item.
+  """
+  documentation: String
+
+  """
+  If populated, this value explains why the value was deprecated and/or which item to use instead.
+  """
+  deprecated: String
+
+  """
+  A symbol associated with the item.
+  """
+  symbol: String
+
+  """
+  The custom data associated with the enum item.
+  """
+  data: Color_Data!
+}
+
+enum Color {
+  RED
+  GREEN
+}
+
+enum Size {
+  REGULAR
+  LARGE
+  XLARGE
+}
+
+enum Direction {
+  UP
+  DOWN
+}
+
+"""
+Custom data that is attached to each color enum item.
+"""
+type Color_Data {
+  hexCode: String!
+
+  isWarningColor: Boolean
+}
+
+"""
+Custom data that is attached to each color enum item.
+"""
+input Color_Data_Input {
+  hexCode: String!
+
+  isWarningColor: Boolean
+}
+
+"""
+A bed
+"""
+type Bed {
+  make: String!
+
+  thickness: Float
+
+  pillow: Pillow
+
+  """
+  A value from the **direction** enum of the **alt** type system defined by **https://jsonotron.org**.
+  """
+  direction: Direction
+}
+
+"""
+A bed
+"""
+input Bed_Input {
+  make: String!
+
+  thickness: Float
+
+  pillow: Pillow
+
+  """
+  A value from the **direction** enum of the **alt** type system defined by **https://jsonotron.org**.
+  """
+  direction: Direction
+}
+
+"""
+A pillow
+"""
+type Pillow {
+  make: String!
+
+  color: String
+}
+
+"""
+A pillow
+"""
+input Pillow_Input {
+  make: String!
+
+  color: String
+}
+
+"""
+The drawer_arrayOfObjects type.
+"""
+type Drawer_ArrayOfObjects {
+  a: String
+
+  b: String
+}
+
+"""
+The drawer_arrayOfObjects type.
+"""
+input Drawer_ArrayOfObjects_Input {
+  a: String
+
+  b: String
+}
+
+"""
+The drawer type.
+"""
+type Drawer {
+  instructions: JSON
+
+  compact: Boolean
+
+  fabrics: String
+
+  enumNumbers: Float
+
+  enumBoolean: Boolean
+
+  enumObjects: JSON
+
+  arrayOfStrings: [String]
+
+  arrayOfObjects: [Drawer_ArrayOfObjects]
+
+  """
+  The age in years.
+  """
+  age: Int
+}
+
+"""
+The drawer type.
+"""
+input Drawer_Input {
+  instructions: JSON
+
+  compact: Boolean
+
+  fabrics: String
+
+  enumNumbers: Float
+
+  enumBoolean: Boolean
+
+  enumObjects: JSON
+
+  arrayOfStrings: [String]
+
+  arrayOfObjects: [Drawer_ArrayOfObjects]
+
+  """
+  The age in years.
+  """
+  age: Int
+}
+
+"""
+A table
+"""
+type Table {
+  height: Float
+}
+
+"""
+A table
+"""
+input Table_Input {
+  height: Float
+}

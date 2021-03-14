@@ -49,8 +49,11 @@ export class GraphQLCodeGenerator implements CodeGenerator {
           return `${docBlock}  ${p.propertyName}: ${resolvedType}${reqMark}`
         })
 
-        const docBlock = `"""\n${t.documentation}\n"""\n`
-        return `${docBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t)} {\n${propLines.join('\n\n')}\n}\n\n`
+        const typeDocBlock = `"""\n${t.documentation}\n"""\n`
+        const inputDocBlock = `"""\nThis is an input object.  ${t.documentation}\n"""\n`
+
+        return `${typeDocBlock}type ${this.convertJsonotronTypeNameToGraphQLTypeName(t)} {\n${propLines.join('\n\n')}\n}\n\n` +
+          `${inputDocBlock}input ${this.convertJsonotronTypeNameToGraphQLTypeName(t)}_Input {\n${propLines.join('\n\n')}\n}`
       })
   }
 
