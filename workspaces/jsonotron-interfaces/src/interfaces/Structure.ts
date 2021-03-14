@@ -1,9 +1,10 @@
 import { Field } from './Field'
+import { JsonotronResource } from './JsonotronResource'
 
 /**
  * Represents a named collection of fields that can be validated.
  */
-export interface Structure {
+export interface Structure extends JsonotronResource {
   /**
    * The unique name for the structure.
    */

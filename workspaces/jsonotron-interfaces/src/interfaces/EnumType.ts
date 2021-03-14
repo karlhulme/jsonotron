@@ -1,5 +1,5 @@
 import { EnumTypeItem } from './EnumTypeItem'
-import { JsonotronBaseType } from './JsonotronBaseType';
+import { JsonotronBaseType } from './JsonotronBaseType'
 
 /**
  * Represents an enumerated type.
