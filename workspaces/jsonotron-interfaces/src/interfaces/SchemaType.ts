@@ -1,24 +1,10 @@
+import { JsonotronBaseType } from './JsonotronBaseType'
 import { SchemaTypeExample } from './SchemaTypeExample'
 
 /**
  * Represents a type based on a JSON schema.
  */
-export interface SchemaType {
-  /**
-   * The domain of the owning type system.
-   */
-  domain: string
-
-  /**
-   * The name of the type system.
-   */
-  system: string
-
-  /**
-   * The short name of the type.
-   */
-  name: string
-
+export interface SchemaType extends JsonotronBaseType {
   /**
    * The display name of the type.
    */

@@ -8,6 +8,7 @@ test('Accept library', () => {
 export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaType[] } {
   return {
     enumTypes: [{
+      kind: 'enum',
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'color',
@@ -28,6 +29,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         { value: '2green', text: 'Green', data: { hexCode: '0f0' } }
       ]
     }, {
+      kind: 'enum',
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'size',
@@ -39,6 +41,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         { value: 'xlarge', text: 'Extra Large', deprecated: 'Cannot source anymore.' }
       ]
     }, {
+      kind: 'enum',
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'numbersList',
@@ -50,6 +53,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         { value: '3', text: '3 Three' }
       ]
     }, {
+      kind: 'enum',
       domain: 'https://jsonotron.org',
       system: 'alt',
       name: 'direction',
@@ -62,6 +66,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       ]
     }],
     schemaTypes: [{
+      kind: 'schema',
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'bed',
@@ -84,6 +89,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       validTestCases: [],
       invalidTestCases: []
     }, {
+      kind: 'schema',
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'pillow',
@@ -104,6 +110,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       validTestCases: [],
       invalidTestCases: []
     }, {
+      kind: 'schema',
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'drawer',
@@ -150,6 +157,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       validTestCases: [],
       invalidTestCases: []
     }, {
+      kind: 'schema',
       domain: 'https://jsonotron.org',
       system: 'extra',
       name: 'table',

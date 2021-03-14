@@ -1,24 +1,10 @@
 import { EnumTypeItem } from './EnumTypeItem'
+import { JsonotronBaseType } from './JsonotronBaseType';
 
 /**
  * Represents an enumerated type.
  */
-export interface EnumType {
-  /**
-   * The domain of the owning type system.
-   */
-  domain: string
-
-  /**
-   * The name of the type system.
-   */
-  system: string
-
-  /**
-   * The system name of the type.
-   */
-  name: string
-
+export interface EnumType extends JsonotronBaseType {
   /**
    * The display name of the type.
    */

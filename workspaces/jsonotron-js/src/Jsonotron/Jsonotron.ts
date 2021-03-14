@@ -4,7 +4,7 @@ import cloneDeep from 'clone-deep'
 import {
   EnumType, JsonSchemaFormatValidatorFunc,
   SchemaType, Structure,
-  StructureValidationResult, UnclassifiedType,
+  StructureValidationResult, JsonotronBaseType,
   ValueValidationResult
 } from 'jsonotron-interfaces'
 import {
@@ -108,9 +108,9 @@ export class Jsonotron {
    * Returns an object containing the parsed yaml contents.
    * @param contents The yaml contents.
    */
-  private parseYaml (contents: string): UnclassifiedType {
+  private parseYaml (contents: string): JsonotronBaseType {
     try {
-      return yaml.safeLoad(contents, { }) as unknown as UnclassifiedType
+      return yaml.safeLoad(contents, { }) as unknown as JsonotronBaseType
     } catch (err) {
       throw new ParseYamlError(contents, err)
     }
@@ -246,6 +246,27 @@ export class Jsonotron {
     return this.schemaTypes
       .filter(s => (systems ||[]).includes(`${s.domain}/${s.system}`))
       .map(s => cloneDeep<SchemaType>(s))
+  }
+
+  /**
+   * Returns the enum or schema type with the given fully qualified name.
+   * If the type cannot be found, this function returns null.
+   * @param fullyQualifiedName The fully qualified name of a type.
+   */
+  getType (fullyQualifiedName: string): JsonotronBaseType|null {
+    for (const enumType of this.enumTypes) {
+      if (`${enumType.domain}/${enumType.system}/${enumType.name}` === fullyQualifiedName) {
+        return cloneDeep<EnumType>(enumType)
+      }
+    }
+
+    for (const schemaType of this.schemaTypes) {
+      if (`${schemaType.domain}/${schemaType.system}/${schemaType.name}` === fullyQualifiedName) {
+        return cloneDeep<SchemaType>(schemaType)
+      }
+    }
+
+    return null
   }
 
   /**

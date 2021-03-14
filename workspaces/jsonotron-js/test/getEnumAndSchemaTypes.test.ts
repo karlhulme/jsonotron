@@ -31,3 +31,11 @@ test('The jsonotron will return empty arrays if the requested systems are not fo
   expect(jsonotron.getEnumTypes().length).toEqual(0)
   expect(jsonotron.getSchemaTypes().length).toEqual(0)
 })
+
+test('The jsonotron can return a requested type.', () => {
+  const jsonotron = createJsonotron()
+
+  expect(jsonotron.getType('https://jsonotron.org/test/color')).toEqual(expect.objectContaining({ name: 'color' }))
+  expect(jsonotron.getType('https://jsonotron.org/test/household')).toEqual(expect.objectContaining({ name: 'household' }))
+  expect(jsonotron.getType('madeup')).toEqual(null)
+})
