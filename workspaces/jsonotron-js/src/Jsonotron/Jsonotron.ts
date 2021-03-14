@@ -3,7 +3,7 @@ import yaml from 'js-yaml'
 import cloneDeep from 'clone-deep'
 import {
   EnumType, Field,
-  JsonotronBaseType, JsonSchemaFormatValidatorFunc,
+  JsonotronBaseType, JsonotronResource, JsonSchemaFormatValidatorFunc,
   SchemaType, StructureValidationResult,
   ValueValidationResult
 } from 'jsonotron-interfaces'
@@ -93,6 +93,7 @@ export class Jsonotron {
         // process schema type
         this.addSchemaTypeToAjv(t as unknown as SchemaType)
       } else {
+        // else if t.kind === 'structure' then store the named structure for later
         throw new UnrecognisedTypeKindError(t.kind)
       }
     })
@@ -108,7 +109,7 @@ export class Jsonotron {
    * Returns an object containing the parsed yaml contents.
    * @param contents The yaml contents.
    */
-  private parseYaml (contents: string): JsonotronBaseType {
+  private parseYaml (contents: string): JsonotronResource {
     try {
       return yaml.safeLoad(contents, { }) as unknown as JsonotronBaseType
     } catch (err) {
@@ -340,4 +341,15 @@ export class Jsonotron {
 
     return structureResult
   }
+
+  // validateStructure<T> (name: string, value: Record<string, unknown>): T {
+  //   const structure: Structure = {} // lookup the structure
+  //   const validationResult = this.validateFields(structure, value)
+    
+  //   if (!validationResult.validated) {
+  //     throw new Error(validationResult.fields)
+  //   }
+
+  //   return value as T
+  // }
 }
