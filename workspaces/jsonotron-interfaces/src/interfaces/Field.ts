@@ -8,6 +8,11 @@ export interface Field {
   type: string
 
   /**
+   * Any information concerning this field.
+   */
+  documentation?: string
+
+  /**
    * True if the field is expected to be an array.
    */
   isArray?: boolean

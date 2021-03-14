@@ -2,9 +2,9 @@ import Ajv from 'ajv'
 import yaml from 'js-yaml'
 import cloneDeep from 'clone-deep'
 import {
-  EnumType, JsonSchemaFormatValidatorFunc,
-  SchemaType, Structure,
-  StructureValidationResult, JsonotronBaseType,
+  EnumType, Field,
+  JsonotronBaseType, JsonSchemaFormatValidatorFunc,
+  SchemaType, StructureValidationResult,
   ValueValidationResult
 } from 'jsonotron-interfaces'
 import {
@@ -298,18 +298,18 @@ export class Jsonotron {
   }
 
   /**
-   * Validates the given value object against the given structure.
-   * @param structure An object where each key is the name of a field
+   * Validates the given value object against the given field set.
+   * @param fields An object where each key is the name of a field
    * and each value is a field definition.
    * @param value Any object.
    */
-  validateStructure (structure: Structure, value: Record<string, unknown>): StructureValidationResult {
+  validateFields (fields: Record<string, Field>, value: Record<string, unknown>): StructureValidationResult {
     const structureResult: StructureValidationResult = { fields: [], validated: true }
 
-    const fieldNames = Object.keys(structure)
+    const fieldNames = Object.keys(fields)
 
     fieldNames.forEach(fieldName => {
-      const f = structure[fieldName]
+      const f = fields[fieldName]
       const v = value[fieldName]
 
       if (typeof v === 'undefined') {
