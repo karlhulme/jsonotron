@@ -8,8 +8,7 @@
     "types"
   ],
   "scripts": {
-    "build": "rm -rf types && rm -rf lib && tsc",
-    "reinstall": "rm -rf node_modules && npm install"
+    "build": "rm -rf types && rm -rf lib && tsc"
   },
   "repository": {
     "type": "git",

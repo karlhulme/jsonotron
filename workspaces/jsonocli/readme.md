@@ -10,29 +10,30 @@ A command-line for interacting with a Jsonoserve server.
 ## Installation
 
 ```bash
-npm install jsonocli
+npm install jsonocli jsonotron-codegen
 ```
+
 
 ## Commands
 
+The following commands work in the package.json scripts section, from a client repo, once the jsonocli dependency is installed.
+
 Command | Output
 --- | ---
-npm start | Show the help output
-npm start clone -- --help | Show the help output for the clone command
-npm start clone https://localhost:3006 ./temp/folder | Clone the systems to a series of JSON files locally
-npm start codegen https://localhost:3006 ./autogen.ts | Generate typescript code to a local file
-npm start codegen https://localhost:3006 ./autogen.gql | Generate GraphQL code to a local file
+jsonocli | Show the help output
+jsonocli clone -- --help | Show the help output for the clone command
+jsonocli clone https://localhost:3006 ./temp/folder https://a.com/sys1 https://a.com/sys2 | Clone the systems to a series of JSON files locally
+jsonocli codegen https://localhost:3006 ./autogen.ts https://a.com/sys1 https://a.com/sys2 | Generate typescript code to a local file
+jsonocli codegen https://localhost:3006 ./autogen.gql https://a.com/sys1 https://a.com/sys2 | Generate GraphQL code to a local file
+
+To run the commands within the jsonocli (for testing) replace `jsonocli` with `npm start`.
 
 
 ## Development
 
 This repo does not contain any tests at this time.
 
-This repo directly references `jsonotron-codegen` as a **dependency** in the `package.json`.  This has the following effects:
-
-* [PRO] Any project that depends on jsonocli will pick up jsonotron-codegen as well.
-* [CON] You must update the version number in the `package.json` in order to get the latest definitions.
-* [CON] When building, a local node_modules will be created with the specific version.
+The code generation feature uses the `jsonotron-codegen` package.  If you receive 'package not found' errors when trying to run `jsonocli codegen ___` then you need to `npm install jsonotron-codegen`.
 
 To publish an ES5 transpiled version (with typescript definitions) to npm:
 
