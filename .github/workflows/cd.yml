@@ -120,7 +120,6 @@ jobs:
       run: |
         cd workspaces/jsonocli
         npm version ${{ steps.prepare.outputs.releaseVersion }}
-        npm install jsonotron-codegen@${{ steps.prepare.outputs.releaseVersion }}
         npm run build
         npm publish
       env:
