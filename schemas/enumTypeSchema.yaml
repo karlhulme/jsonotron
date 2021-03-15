@@ -15,7 +15,7 @@ properties:
   # The enum type name.
   name:
     type: string
-    pattern: "^([_a-zA-Z][_a-zA-Z0-9]*$"
+    pattern: "^[_a-zA-Z][_a-zA-Z0-9]*$"
   # The title (display name) of the type.
   title:
     type: string

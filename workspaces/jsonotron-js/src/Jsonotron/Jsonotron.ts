@@ -4,7 +4,7 @@ import cloneDeep from 'clone-deep'
 import {
   EnumType, Field,
   JsonotronBaseType, JsonotronResource, JsonSchemaFormatValidatorFunc,
-  SchemaType, StructureValidationResult,
+  SchemaType, Structure, StructureValidationResult,
   ValueValidationResult
 } from 'jsonotron-interfaces'
 import {
@@ -16,24 +16,32 @@ import {
   createJsonSchemaForEnumType, createJsonSchemaForEnumTypeArray,
   createJsonSchemaForSchemaType, createJsonSchemaForSchemaTypeArray
 } from '../jsonSchemaGeneration'
-import { EnumTypeItemDataValidationError, InvalidEnumTypeDataSchemaError, InvalidEnumTypeError,
+import {
+  EnumTypeItemDataValidationError,
+  InvalidEnumTypeDataSchemaError,
+  InvalidEnumTypeError,
   InvalidSchemaTypeError,
+  InvalidStructureError,
   ParseYamlError,
   SchemaTypeExampleValidationError,
   SchemaTypeTestCaseInvalidationError,
   SchemaTypeTestCaseValidationError,
+  StructureFieldsValidationError,
+  StructureNotFoundError,
+  StructureValidationError,
   UnrecognisedTypeKindError
 } from '../errors'
-import { enumTypeSchema, schemaTypeSchema } from '../schemas'
+import { enumTypeSchema, schemaTypeSchema, structureSchema } from '../schemas'
 
 /**
  * Represents the properties that can be supplied to a Jsonotron constructur.
  */
 interface JsonotronConstructorProps {
   /**
-   * An array of enum and schema types as a YAML string.
+   * An array of resources as an array of YAML strings.
+   * A resource is an enum type, schema type or structure.
    */
-  types?: string[]
+  resources?: string[]
 
   /**
    * An object where each key is the name of a json schema format validator
@@ -48,9 +56,11 @@ interface JsonotronConstructorProps {
 export class Jsonotron {
   enumTypes: EnumType[] = []
   schemaTypes: SchemaType[] = []
+  structures: Structure[] = []
   ajv: Ajv.Ajv
   enumTypeValidator?: Ajv.ValidateFunction
   schemaTypeValidator?: Ajv.ValidateFunction
+  structureValidator?: Ajv.ValidateFunction
 
   /**
    * Constructs a new instance of the Jsonotron class.
@@ -58,7 +68,7 @@ export class Jsonotron {
    */
    constructor (props?: JsonotronConstructorProps) {
     if (!props) { props = {} }
-    if (!props.types) { props.types = [] }
+    if (!props.resources) { props.resources = [] }
     if (!props.jsonSchemaFormatValidators) { props.jsonSchemaFormatValidators = {} }
 
     // create a validator
@@ -67,7 +77,8 @@ export class Jsonotron {
       ownProperties: true, // only iterate over objects found directly on the object
       schemas: [
         enumTypeSchema,
-        schemaTypeSchema
+        schemaTypeSchema,
+        structureSchema
       ],
       formats: {
         'jsonotron-dateTimeLocal': dateTimeLocalFormatValidatorFunc,
@@ -80,20 +91,23 @@ export class Jsonotron {
     // create the enum and schema validators for checking the types provided
     this.enumTypeValidator = this.ajv.getSchema('enumTypeSchema')
     this.schemaTypeValidator = this.ajv.getSchema('schemaTypeSchema')
+    this.structureValidator = this.ajv.getSchema('structureSchema')
 
-    // check all types can be parsed
-    const parsedTypes = props.types.map(t => this.parseYaml(t))
+    // check all types and structures can be parsed
+    const parsedResources = props.resources.map(t => this.parseYaml(t))
 
     // add the types to the ajv
-    parsedTypes.forEach(t => {
+    parsedResources.forEach(t => {
       if (t.kind === 'enum') {
         // process enum type
         this.addEnumTypeToAjv(t as unknown as EnumType)
       } else if (t.kind === 'schema') {
         // process schema type
         this.addSchemaTypeToAjv(t as unknown as SchemaType)
+      } else if (t.kind === 'structure') {
+        // process structure
+        this.addStructureToAjv(t as unknown as Structure)
       } else {
-        // else if t.kind === 'structure' then store the named structure for later
         throw new UnrecognisedTypeKindError(t.kind)
       }
     })
@@ -103,6 +117,9 @@ export class Jsonotron {
 
     // validate the schema type examples and test cases
     this.validateSchemaTypeExamplesAndTestCases()
+
+    // validate the field types used in the structures
+    this.validateStructureFields()
   }
 
   /**
@@ -111,7 +128,7 @@ export class Jsonotron {
    */
   private parseYaml (contents: string): JsonotronResource {
     try {
-      return yaml.safeLoad(contents, { }) as unknown as JsonotronBaseType
+      return yaml.safeLoad(contents, { }) as unknown as JsonotronResource
     } catch (err) {
       throw new ParseYamlError(contents, err)
     }
@@ -153,6 +170,24 @@ export class Jsonotron {
     this.ajv.addSchema(createJsonSchemaForSchemaTypeArray(schemaType))
   }
 
+    /**
+   * Add the given structure to the Ajv.
+   * @param structure A structure.
+   */
+  private addStructureToAjv (structure: Structure): void {
+    // check schema type conforms to the schema
+    if (this.structureValidator && !this.structureValidator(structure)) {
+      throw new InvalidStructureError(structure.name, this.ajvErrorsToString(this.structureValidator.errors))
+    }
+
+    // store the structure
+    this.structures.push(structure)
+  }
+
+  /**
+   * Convert AJV errors to a string.
+   * @param errors An array of error objects.
+   */
   private ajvErrorsToString (errors?: Ajv.ErrorObject[]|null) {
     /* istanbul ignore next - errors will never be null/undefined */
     return JSON.stringify(errors || [], null, 2)
@@ -162,7 +197,6 @@ export class Jsonotron {
    * Validate the data properties of the enum type items.
    */
   private validateEnumTypeItemDataProperties (): void {
-    // check all the enum types
     this.enumTypes.forEach(enumType => {
       // only check data if a schema is provided
       if (enumType.dataJsonSchema) {
@@ -196,7 +230,6 @@ export class Jsonotron {
    * Validate the schema type examples, test cases and invalid test cases.
    */
   private validateSchemaTypeExamplesAndTestCases (): void {
-    // validate the examples and test cases (now that all the types have been added)
     this.schemaTypes.forEach(s => {
       // get a validator
       const validator = this.ajv.getSchema(`${s.domain}/${s.system}/${s.name}`)
@@ -219,6 +252,23 @@ export class Jsonotron {
       s.invalidTestCases.forEach((t, index) => {
         if (validator && validator(t)) {
           throw new SchemaTypeTestCaseInvalidationError(s.name, index)
+        }
+      })
+    })
+  }
+
+  /**
+   * Validate the fields of the structures.
+   */
+  private validateStructureFields (): void {
+    this.structures.forEach(structure => {
+      Object.keys(structure.fields).forEach(fieldName => {
+        const field = structure.fields[fieldName]
+        const matchedEnumType = this.enumTypes.findIndex(e => `${e.domain}/${e.system}/${e.name}` === field.type)
+        const matchedSchemaType = this.schemaTypes.findIndex(s => `${s.domain}/${s.system}/${s.name}` === field.type)
+
+        if (matchedEnumType === -1 && matchedSchemaType === -1) {
+          throw new StructureFieldsValidationError(structure.name, fieldName, field.type)
         }
       })
     })
@@ -302,16 +352,16 @@ export class Jsonotron {
    * Validates the given value object against the given field set.
    * @param fields An object where each key is the name of a field
    * and each value is a field definition.
-   * @param value Any object.
+   * @param obj An object to validate.
    */
-  validateFields (fields: Record<string, Field>, value: Record<string, unknown>): StructureValidationResult {
+  validateStructure (fields: Record<string, Field>, obj: Record<string, unknown>): StructureValidationResult {
     const structureResult: StructureValidationResult = { fields: [], validated: true }
 
     const fieldNames = Object.keys(fields)
 
     fieldNames.forEach(fieldName => {
       const f = fields[fieldName]
-      const v = value[fieldName]
+      const v = obj[fieldName]
 
       if (typeof v === 'undefined') {
         if (f.isRequired) {
@@ -324,8 +374,8 @@ export class Jsonotron {
         }
       } else {
         const fieldResult = f.isArray
-        ? this.validateValueArray(f.type, v as unknown[] )
-        : this.validateValue(f.type, v)
+          ? this.validateValueArray(f.type, v as unknown[] )
+          : this.validateValue(f.type, v)
 
         if (!fieldResult.resolved) {
            /* istanbul ignore next - fieldResult.message will never be empty */
@@ -342,14 +392,24 @@ export class Jsonotron {
     return structureResult
   }
 
-  // validateStructure<T> (name: string, value: Record<string, unknown>): T {
-  //   const structure: Structure = {} // lookup the structure
-  //   const validationResult = this.validateFields(structure, value)
-    
-  //   if (!validationResult.validated) {
-  //     throw new Error(validationResult.fields)
-  //   }
+  /**
+   * Validate the given object against the named structure.
+   * @param structureName The name of a structure.
+   * @param obj An object to validate.
+   */
+  ensureStructure<T> (structureName: string, obj: Record<string, unknown>): T {
+    const structure = this.structures.find(s => s.name === structureName)
 
-  //   return value as T
-  // }
+    if (!structure) {
+      throw new StructureNotFoundError(structureName)
+    }
+
+    const validationResult = this.validateStructure(structure.fields, obj)
+    
+    if (!validationResult.validated) {
+      throw new StructureValidationError(structure.name, validationResult)
+    }
+
+    return obj as T
+  }
 }

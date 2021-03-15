@@ -1,0 +1,14 @@
+---
+kind: structure
+name: painting
+title: Painting
+documentation: A famous painting.
+fields:
+  artist:
+    type: https://jsonotron.org/test/string
+    isRequired: true
+    documentation: The surname of the artist.
+  location:
+    type: https://jsonotron.org/test/string
+    isNullable: true
+    documentation: The location where the painting is being presented.

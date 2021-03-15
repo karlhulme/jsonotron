@@ -9,7 +9,7 @@ function createJsonotron () {
   const stringType = fs.readFileSync('./test/testTypes/string.yaml', 'utf-8')
 
   const jsonotron = new Jsonotron({
-    types: [colorType, householdType, positiveIntegerType, stringType]
+    resources: [colorType, householdType, positiveIntegerType, stringType]
   })
 
   return jsonotron

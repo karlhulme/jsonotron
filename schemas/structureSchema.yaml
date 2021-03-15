@@ -1,7 +1,7 @@
 ---
-# The schema of an jsonotron struct including documentation.
-$id: structSchema
-title: Struct Schema
+# The schema of an jsonotron structure including documentation.
+$id: structureSchema
+title: Structure Schema
 type: object
 properties:
   # The name of the structure.
@@ -22,13 +22,10 @@ properties:
     additionalProperties:
       type: object
       properties:
-        # The name of an enum or schema type.  This value can be namespaced.
+        # The qualified name of an enum or schema type.
         type:
           type: string
-          pattern: "^([_a-zA-Z][_a-zA-Z0-9]*[.])?[_a-zA-Z][_a-zA-Z0-9]*$"
-        # The only value that can appear in the field.  Set the type to string.
-        const:
-          type: string
+          pattern: "^https?:\/\/[_a-zA-Z][_a-zA-Z0-9.]*\/[_a-zA-Z][_a-zA-Z0-9]*\/[_a-zA-Z][_a-zA-Z0-9]*$"
         # True if the field must be supplied.
         isRequired:
           type: boolean
@@ -43,9 +40,6 @@ properties:
           type: string
       required:
       - type
-      - documentation
 required:
 - name
-- title
-- documentation
 - fields

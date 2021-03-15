@@ -16,7 +16,7 @@ npm install jsonotron-js
 
 ## Instantiate a Jsonotron runtime
 
-You will need to define some types, as per the instructions for [Jsonotron](https://github.com/karlhulme/jsonotron).  You will then typically load the types (in a loop) into string variables that can be passed to the Jsonotron class constructor.
+You will need to define some types and some structures, as per the instructions for [Jsonotron](https://github.com/karlhulme/jsonotron).  These resources are passed to the Jsonotron constructor.
 
 ```javascript
 import { Jsonotron } from 'jsonotron-js'
@@ -24,7 +24,7 @@ import { Jsonotron } from 'jsonotron-js'
 const colorType = fs.readFileSync('./typeSystem/example/color.yaml', 'utf-8')
 
 const jsonotron = new Jsonotron({
-  types: [colorType],
+  resources: [colorType],
   jsonSchemaFormatValidators: {
     'mycompany-testFormatFunc': v => v.length > 5
   }
@@ -71,7 +71,7 @@ The `validateStructure` function returns a `StructureValidationResult`:
 
 ```javascript
 const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
-const jsonotron = new Jsonotron({ types: [colorType] })
+const jsonotron = new Jsonotron({ resources: [colorType] })
 
 jsonotron.validateStructure({
   doorColor: { type: 'color', isRequired: true },
@@ -84,6 +84,14 @@ jsonotron.validateStructure({
 } // { validated: true , fields: [] })
 ```
 
+There is also a typed version that can be used with code generation.
+
+```javascript
+// assuming a 'door' structure was passed to the Jsonotron constructor...
+const doorInput = { doorColor: 'red', windowColor: null, wallColors: ['green', 'blue'] }
+// validates and returns a Door variable
+const door = jsonotron.ensureStructure<Door>('door', doorInput)
+```
 
 ## Extract types
 
@@ -92,93 +100,11 @@ You can extract the types at runtime.
 ```javascript
 jsonotron.getEnumTypes()
 jsonotron.getSchemaTypes()
-jsonotron.getFullyQualifiedTypeName('typeShortName')
 ```
 
 The `getEnumTypes` function returns an array of `EnumType` objects.
 
 The `getSchemaTypes` function returns an array of `SchemaType` objects.
-
-The `getFullyQualifiedTypeName` function returns the fully qualified type name given a short name.
-
-
-## Type map
-
-Jsonotron can build a type map of all the schema and enum types.  This is used internally for generation of the types in different formats.
-
-```javascript
-jsonotron.getTypeMap()
-```
-
-
-## Markdown Generation
-
-You can generate markdown documentation:
-
-```javascript
-jsonotron.getMarkdownForTypeSystem({
-  title: 'My System',
-  domain: 'https://mydomain.org',
-  system: 'sys',
-  referencedTypeSystems: [
-    domain: 'https://jsonotron.org',
-    system: 'jss',
-    href: 'https://github.com/karlhulme/jsonotron/blob/master/systems/jss/docs.autogen.md'
-  ]
-})
-```
-
-
-## GraphQL Generation
-
-You can get the equivalent GraphQL primitive of a jsonotron type.  You can also get a definition that is valid for all enum types.
-
-Schema types that are based on an object (rather than number, integer, string or boolean) will be given the `JSON` type.  This is necessary because GraphQL uses null to represent requested but unpopulated data, whereas within Jsonotron null is a valid value within a schema type value.  Experiments with converting a JSON schema to GraphQL exposed a problem where GraphQL will insert nulls for those optional fields, and this could be at any level within a schema type value.  This creates friction when trying to round-trip a schema type value, because these optional nulls need to be removed before the data can be validated again. Serialising object-based schema types as JSON avoids the population of nulls by a GraphQL server.
-
-If you are using the types somewhere else in the system (such as in a front-end client) use the typescript generation to create strongly typed wrappers.
-
-```javascript
-jsonotron.getGraphQLEnumType()
-// result is a definition for EnumType and EnumTypeItem
-
-jsonotron.getGraphQLPrimitiveType({ typeName: 'color', isArray: true, isRequired: true })
-// assuming 'color' is an enum type, the result would be [String!]!
-```
-
-If you specify isArray, then the type will be wrapped in array markers and each array element will be non-null:  `[MyType!]`
-If you specify isRequired, then the type will be appended with a required marker: `MyType!`
-If you specify both you'll get `[MyType!]!`
-
-
-## Typescript Generation
-
-You can get typescript definitions of your Schema Types that are based on JSON objects.  It works for simple structures.  It doesn't support more advanced structures, such as unions, but these make a poor choice for transportability anyway.
-
-You will not get any output for Schema Types that are based on JSON number, boolean or string.
-
-```javascript
-jsonotron.getTypescriptInterfaces()
-// result is a string with `export interface MyInterface` blocks for each schema type that is an object.
-```
-
-You can get all the enum definitions as a const array of EnumTypeItem objects.
-
-```javascript
-jsonotron.getTypescriptEnums()
-```
-
-You can all the type names a const declaration, with a parent node for each system.
-
-```javascript
-jsonotron.getTypescriptTypeNamesConst()
-// export const JsonotronTypeNames = {
-//   test: {
-//     color: 'https://jsonotron.org/test/color',
-//     direction: 'https://jsonotron.org/test/direction',
-//     geoJsonPolygon: 'https://jsonotron.org/test/geoJsonPolygon',
-//   }
-// }
-```
 
 
 ## Design Decisions
