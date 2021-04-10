@@ -47,7 +47,7 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
       schemaType.system,
       schemaType.name,
       0,
-      { documentation: schemaType.documentation, ...schemaType.jsonSchema },
+      schemaType.jsonSchema,
       map,
       enumTypes
     )

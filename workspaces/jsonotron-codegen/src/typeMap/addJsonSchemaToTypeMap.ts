@@ -81,16 +81,21 @@ export function addJsonSchemaToTypeMap (domain: string, system: string, proposed
       addJsonSchemaToTypeMap(domain, system, subPropertyTypeName, 0, subProperty, map, enumTypes)
 
       // Pull out field-level documentation if its been provided.
-      let documentation = subProperty.documentation as string || ''
+      // let documentation = subProperty.documentation as string || ''
 
       // Spot references to enums, and include in the documentation of the field.
-      const subPropertyRefName = typeof subProperty.$ref === 'string' && subProperty.$ref.includes('/') ? subProperty.$ref : null
-      const matchedEnumType = enumTypes.find(e => `${e.domain}/${e.system}/${e.name}` === subPropertyRefName)
-      documentation += matchedEnumType
-        ? `A value from the **${matchedEnumType.name}** enum of the **${matchedEnumType.system}** type system defined by **${matchedEnumType.domain}**.`
-        : ''
+      // const subPropertyRefName = typeof subProperty.$ref === 'string' && subProperty.$ref.includes('/') ? subProperty.$ref : null
+      // const matchedEnumType = enumTypes.find(e => `${e.domain}/${e.system}/${e.name}` === subPropertyRefName)
+      // documentation += matchedEnumType
+      //   ? `A value from the **${matchedEnumType.name}** enum of the **${matchedEnumType.system}** type system defined by **${matchedEnumType.domain}**.`
+      //   : ''
 
-      objectSubProperties.push({ propertyName: subPropertyName, documentation, refTypeName: `${domain}/${system}/${subPropertyTypeName}`, isRequired })
+      objectSubProperties.push({
+        propertyName: subPropertyName,
+        documentation: subProperty.documentation as string || '',
+        refTypeName: `${domain}/${system}/${subPropertyTypeName}`,
+        isRequired
+      })
     })
 
     map.objectTypes.push({

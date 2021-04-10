@@ -52,25 +52,25 @@ test('Convert jsonotron types into a type map and check the object types.', () =
       properties: [
         {
           propertyName: 'make',
-          documentation: '',
+          documentation: 'The make of the bed.',
           refTypeName: 'https://jsonotron.org/test/bed_make',
           isRequired: true
         },
         {
           propertyName: 'thickness',
-          documentation: '',
+          documentation: 'The thickness of the bed mattress',
           refTypeName: 'https://jsonotron.org/test/bed_thickness',
           isRequired: false
         },
         {
           propertyName: 'pillow',
-          documentation: '',
+          documentation: 'The type of pillow on the bed',
           refTypeName: 'https://jsonotron.org/test/bed_pillow',
           isRequired: false
         },
         {
           propertyName: 'direction',
-          documentation: 'A value from the **direction** enum of the **alt** type system defined by **https://jsonotron.org**.',
+          documentation: 'The direction the bed is facing.',
           refTypeName: 'https://jsonotron.org/test/bed_direction',
           isRequired: false
         }

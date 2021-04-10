@@ -13,7 +13,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       system: 'test',
       name: 'color',
       documentation: 'A list of colors',
-      title: 'Color',
       dataJsonSchema: {
         type: 'object',
         documentation: 'Custom data that is attached to each color enum item.',
@@ -34,7 +33,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       system: 'test',
       name: 'size',
       documentation: 'A list of sizes',
-      title: 'Size',
       items: [
         { value: 'regular', text: 'Regular', symbol: 'M' },
         { value: 'large', text: 'Large', symbol: 'L' },
@@ -46,7 +44,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       system: 'test',
       name: 'numbersList',
       documentation: 'A list of numbers',
-      title: 'Numbers List',
       items: [
         { value: '1', text: '1 One' },
         { value: '2', text: '2 Two' },
@@ -58,7 +55,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       system: 'alt',
       name: 'direction',
       documentation: 'A list of directions (in an alternative system).',
-      title: 'Directions',
       items: [
         { value: 'going/up', text: 'Up' },
         { value: 'going/down', text: 'Down' },
@@ -70,16 +66,15 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'bed',
-      documentation: 'A bed',
-      title: 'Bed',
       jsonSchema: {
         type: 'object',
+        documentation: 'A bed',
         additionalProperties: false,
         properties: {
-          make: { type: 'string' },
-          thickness: { type: 'number' },
-          pillow: { $ref: 'pillow' },
-          direction: { $ref : 'https://jsonotron.org/alt/direction' }
+          make: { type: 'string', documentation: 'The make of the bed.' },
+          thickness: { type: 'number', documentation: 'The thickness of the bed mattress' },
+          pillow: { $ref: 'pillow', documentation: 'The type of pillow on the bed' },
+          direction: { $ref : 'https://jsonotron.org/alt/direction', documentation: 'The direction the bed is facing.' }
         },
         required: ['make']
       },
@@ -93,14 +88,13 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'pillow',
-      documentation: 'A pillow',
-      title: 'Pillow',
       jsonSchema: {
         type: 'object',
+        documentation: 'A pillow',
         additionalProperties: false,
         properties: {
-          make: { type: 'string' },
-          color: { type: 'string' }
+          make: { type: 'string', documentation: 'The mame of the pillow.' },
+          color: { type: 'string', documentation: 'The color of the pillow.' }
         },
         required: ['make']
       },
@@ -114,8 +108,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       domain: 'https://jsonotron.org',
       system: 'test',
       name: 'drawer',
-      documentation: '',
-      title: 'Bed Drawer',
       jsonSchema: {
         type: 'object',
         additionalProperties: false,
@@ -161,10 +153,9 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       domain: 'https://jsonotron.org',
       system: 'extra',
       name: 'table',
-      documentation: 'A table',
-      title: 'Table',
       jsonSchema: {
         type: 'object',
+        documentation: 'A table.',
         additionalProperties: false,
         properties: {
           height: { type: 'number' }

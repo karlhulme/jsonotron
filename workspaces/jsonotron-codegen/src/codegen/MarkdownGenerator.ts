@@ -59,16 +59,16 @@ ${allTypes
 ${enumTypes.length > 0 ? '### Enum Types' : ''}
 
 ${enumTypes
-  .sort((a, b) => a.title.localeCompare(b.title))
-  .map(enumType => `* [${enumType.title}](#${enumType.title.toLocaleLowerCase().replace(/ /g, '-')})`)
+  .sort((a, b) => a.name.localeCompare(b.name))
+  .map(enumType => `* [${enumType.name}](#${enumType.name})`)
   .join('\n')
 }
 
 ${schemaTypes.length > 0 ? '### Schema Types' : ''}
 
 ${schemaTypes
-  .sort((a, b) => a.title.localeCompare(b.title))
-  .map(schemaType => `* [${schemaType.title}](#${schemaType.title.toLocaleLowerCase().replace(/ /g, '-')})`)
+  .sort((a, b) => a.name.localeCompare(b.name))
+  .map(schemaType => `* [${schemaType.name}](#${schemaType.name})`)
   .join('\n')
 }
 `
@@ -76,7 +76,7 @@ ${schemaTypes
 
   private generateEnumTypeDocumentation (enumType: EnumType): string {
     return `
-### ${enumType.title}
+### ${enumType.name}
 
 **kind**: enum\\
 **name**: ${enumType.name}\\
@@ -96,13 +96,11 @@ ${enumType.items
 
   private generateSchemaTypeDocumentation (schemaType: SchemaType): string {
     return `
-### ${schemaType.title}
+### ${schemaType.name}
 
 **kind**: schema\\
 **name**: ${schemaType.name}\\
 **uri**: ${schemaType.domain}/${schemaType.system}/${schemaType.name}
-
-${schemaType.documentation}
 
 ${schemaType.examples
   .map((example, index) => {
