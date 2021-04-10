@@ -1,15 +1,24 @@
 # Jsonotron
 
-Jsonotron is a way of describing your own type system for JSON data.
+Jsonotron is a software stack and code generation tool, based on JSON schema, for defining and validating **data structures** that are used by cross-language services.
+
+Jsonotron is most useful when you have non-trivial data structures that are used by multiple services and you want to avoid duplicating and maintaining the same definitions in multiple places.
 
 ![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
 ![npm type definitions](https://img.shields.io/npm/types/typescript)
 
-Jsonotron takes [JSON schema](https://json-schema.org/) and adds documentation, test cases and enumerations.
+With Jsonotron data structures are comprised of **schema types** and **enum types**.
 
-  * Documentation provides a mechanism to capture detailed information on a type's usage.  This includes examples which make it quick to see how a type should be used.  This can be built into a documentation website too.
-  * The test cases provide values of the type that should be considered valid and samples that should not.  A Jsonotron runtime will check that your type is enforcing the constraints as you expect.
-  * Enumerations are defined in a dedicated JSON format (rather than JSON schema) so that we can pair an underlying value with additional properties like display text, symbol and deprecation information.
+Schema types are defined primarily using JSON schema.  This gives us the benefit of a wide range of validation checks, including the use of regular expressions.  JSON schema allows us to define new primitives like shortString or longString, whereby you assign a specific maximum length that is then well known (and can be enforced) across the system.  JSON schema also supports complex types, such as GeoJsonPoint, which supports an array with specific constraints applied to each element.  Schema types can be combined using the standard schema referencing syntax that is native to JSON schema.  In addition to the JSON shema, a Jsonotron schema type defines valid and invalid samples, so you can be confident your type is constraining data as expected.  The additional of examples and documentation can be used to produce great help documentation.
+
+Enum types are a set of string values, a text representation and documentation.  If desired, you can also define a JSON schema for meta-data that you want associated with each value of an enumeration.  For example, for each value of a currency enumeration you may also want to know the difference in magnitude between the major and minor denomination.  Jsonotron will check that the required meta-data is supplied for each enumeration value.
+
+A Jsonotron type service makes these type definitions available to other services via a simple RESTful interface.
+
+A Jsonotron command line tool offers the following capabilities to a microservice client:
+* Download the schema types and enum types in a JSON schema that can be used for validation.
+* Generate type definitions in a range of languages that can be used to provide a strongly-typed development experience when working with the data structures.
+* Generate code in a range of languages that can be used to interrogate the definition of a data structure at run-time.
 
 
 ## Repositories
@@ -208,35 +217,40 @@ It is reasonable (possibly optimal) to offer a single unified type system to fro
 
 ## JSS Change Process
 
-To avoid breaking code, The following rules are applied to proposed changes to the core types:
+For feature or bug releases, the following rules are applied to proposed changes to the core types:
 
 * Enum and schema type names cannot be changed.
 * Enum items can be deprecated but never removed or renamed.
 * New enum items can be added.
 * An optional field can be added to a schema type.
-* A required field cannot be added to a schema type.  Evolve a new type, e.g. `address` becomes `address2`.
+* A required field cannot be added to a schema type.
 
 Any change will always result in a new release.
 
+Any change that violates the rules above will result in a new major release.
 
-## Why not just use JSON schema?
 
-JSON Schema already allows us to validate arbitrary blocks of JSON.  It also allows re-use by referencing external JSON schemas.  However, a system built this way becomes hard to administer because the errors are described in terms of the resultant JSON, and those referenced files.
+## Shouldn't each service define its own interface
 
-This is where Jsonotron makes a trade-off.  **Jsonotron considers each top level property of an object to be a field.**  A field can be a primitive (boolean, string, etc) or it can be a complex deeply-nested object, but the validation is always targetted at field level.
+This often makes sense.
 
-It's analogous to validating arguments passed to a method call.  You could define every method as accepting an object and then validate it using JSON Schema but you'd lose something by doing that.  Jsonotron brings this concept of individual arguments to JSON as it moves through a system.
+However, if you have complex (non-trivial) data structures that are in use by multiple services then it becomes necessary to identify that the schema itself is now a duplication that needs to be *refactored* out.
+
+Making a change to an interface of a deployed system is always a big deal.  By extracting the data structures that are used by multiple backend services into a single place it becomes more explicit when a breaking change is on the cards.  Schema types and enum types can be placed into namespaces because it's possible (likely) that not all services require the definitions for all namespaces.
+
+
+## Why use JSON schema?
+
+JSON is already used by many (most?) services to exchange data.  JSON is also used by most of the document databases (Cosmos, Mongo, DynamoDB, etc) to store data.  Therefore using the mature and expansive JSON schema for type validation makes more sense than inventing a new type system.
 
 
 ## Why not use GraphQL?
 
-GraphQL is aimed at the interface between the client and one or more services.  Whereas Jsonotron is aimed more at strict validation in the back-end.
-
 GraphQL defines the shape of objects using primitives but not the associated validation.  For example, you cannot define the constraints for `positiveInteger` or `geoJsonPolygon` using the GraphQL format.
 
-Use GraphQL in the front-end by converting Jsonotron schema types to Graph QL types.  The `jsonotron-js` implementation provides a function for doing this.
+It's also worth recognising that GraphQL is aimed at the interface between a front-end client and a combined set of back-end services.  Whereas Jsonotron is aimed at inter-service communication in the back-end.
 
-To improve the GraphQL production, include a `documentation` property on your object property definitions.  This should be short.  If an elaborate description of a property is required, use the `documentation` property of the schema type.
+The Jsonotron type system can produce GraphQL definition language constructs for use in your graph.  To improve the GraphQL production, include a `documentation` property on your object property definitions.  This should be short.  If an elaborate description of a property is required, use the `documentation` property of the schema type.
 
 
 ## Design Decisions
