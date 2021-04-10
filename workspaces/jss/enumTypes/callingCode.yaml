@@ -3,7 +3,6 @@ kind: enum
 domain: https://jsonotron.org
 system: jss
 name: callingCode
-title: Calling Code
 documentation: An international telephone calling code defined by the ITU-T in standards
   E.123 and E.164.  The data is taken from https://en.wikipedia.org/wiki/List_of_country_calling_codes.
   The key piece of data is the dialling code, which is a number.  This is the data that a user would want

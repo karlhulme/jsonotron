@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: hugeString
-title: Huge String
 documentation: A string of 4000 characters or less.  An empty string is valid.
 examples:
 - value: A very long paragraph about an interesting subject...

@@ -3,7 +3,6 @@ kind: enum
 domain: https://jsonotron.org
 system: jss
 name: monthOfYear
-title: Month of Year
 documentation: A calendar month.
 items:
 - value: jan

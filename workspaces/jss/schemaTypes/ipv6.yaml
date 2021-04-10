@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: ipv6
-title: IP Version 6
 documentation: A string of digits that identify a computer on a network in IP v6 format.
 examples:
 - value: 2001:0DB8:85A3:0000:0000:8A2E:0370:7334

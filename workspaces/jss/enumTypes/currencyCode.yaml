@@ -3,7 +3,6 @@ kind: enum
 domain: https://jsonotron.org
 system: jss
 name: currencyCode
-title: Currency Code
 documentation: A currency designator from ISO 4217.  The data is taken from https://en.wikipedia.org/wiki/ISO_4217.
 dataJsonSchema:
   type: object

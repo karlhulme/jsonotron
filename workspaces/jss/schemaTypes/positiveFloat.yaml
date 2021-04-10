@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: positiveFloat
-title: Positive Floating Point Number
 documentation: A number with an integral and decimal part that is greater than zero.
 examples:
 - value: 12.34

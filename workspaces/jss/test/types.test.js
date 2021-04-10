@@ -10,5 +10,7 @@ test('The enum and schema types of the jsonotron standard library are valid.', a
 
   const types = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
 
-  expect(() => { new Jsonotron({ types }) }).not.toThrow()
+  console.log(`Found ${types.length} types.`)
+
+  expect(() => { new Jsonotron({ resources: types }) }).not.toThrow()
 })

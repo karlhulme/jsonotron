@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: paymentCardNo
-title: Payment Card Number
 documentation: A value that uniquely identifies a payment card, such as a credit or
   debit card.  Any stored value will need to satisfy the LUHN algorithm.
 examples:

@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: positiveFloatOrZero
-title: Positive Floating Point Number or Zero
 documentation: A number with an integral and decimal part that is greater than or
   equal to zero.
 examples:

@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: boolean
-title: Boolean
 documentation: A value of either true or false.
 examples:
 - value: true

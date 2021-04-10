@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: date
-title: Date
 documentation: A string with the date components arranged using the YYYY-MM-DD pattern.  If
   the day or month component is a value less than 10 then a leading zero must be included.  This
   ensures that all stored dates are the same length.

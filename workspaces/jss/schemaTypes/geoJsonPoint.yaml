@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: geoJsonPoint
-title: GeoJSON Point
 documentation: A point on Earth.
 examples:
 - value:

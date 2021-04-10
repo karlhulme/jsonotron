@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: jsonPointer
-title: JSON Pointer
 documentation: A JSON pointer.
 examples:
 - value: "/root/tree/branch/leaf"

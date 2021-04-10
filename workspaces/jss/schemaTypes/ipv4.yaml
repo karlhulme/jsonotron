@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: ipv4
-title: IP Version 4
 documentation: A string of digits that identify a computer on a network in IP v4 format.
 examples:
 - value: 127.0.0.1

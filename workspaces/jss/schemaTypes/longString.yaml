@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: longString
-title: Long String
 documentation: A string of 250 characters or less.  An empty string is valid.
 examples:
 - value: A long string that contains a lot of characters

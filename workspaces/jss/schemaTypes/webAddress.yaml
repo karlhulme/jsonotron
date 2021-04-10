@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: webAddress
-title: Web Address
 documentation: A url that is prefixed with either https or https.
 examples:
 - value: https://www.bbc.co.uk

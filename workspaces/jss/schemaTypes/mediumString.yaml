@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: mediumString
-title: Medium String
 documentation: A string of 50 characters or less.  An empty string is valid.
 examples:
 - value: A string that contains some characters

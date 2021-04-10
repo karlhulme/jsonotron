@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: money
-title: Money
 documentation: An amount of money designated in a specific currency.
   
   The `amount` property stores an integral amount of money in a currencies minor denomination.

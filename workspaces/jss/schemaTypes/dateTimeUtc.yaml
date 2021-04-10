@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: dateTimeUtc
-title: Date & Time UTC
 documentation: A string with the date and time components arranged using the YYYY-MM-DDTHH:mm:ssZ
   pattern. Leading zeroes must be used to ensure that all values are the same length.
 examples:

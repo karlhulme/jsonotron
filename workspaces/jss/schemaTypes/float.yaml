@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: float
-title: Floating Point Number
 documentation: A number with an integral and decimal part.
 examples:
 - value: 3.14

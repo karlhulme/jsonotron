@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: negativeFloatOrZero
-title: Negative Floating Point Number or Zero
 documentation: A number with an integral and decimal part that is less than or equal
   to zero.
 examples:

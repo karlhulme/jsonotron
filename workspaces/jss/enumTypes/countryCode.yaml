@@ -3,7 +3,6 @@ kind: enum
 domain: https://jsonotron.org
 system: jss
 name: countryCode
-title: Country Code
 documentation: A country designator from ISO 3166,
   taken from https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes.
 items:

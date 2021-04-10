@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: positiveIntegerOrZero
-title: Positive Integer or Zero
 documentation: A whole number that is equal to zero or greater.
 examples:
 - value: 21

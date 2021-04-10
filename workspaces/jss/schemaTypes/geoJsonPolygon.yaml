@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: geoJsonPolygon
-title: GeoJSON Polygon
 documentation: |-
   A boundary of connected points that encompasses a region on Earth.  
   The `type` property should be 'Polygon'.
