@@ -11,11 +11,6 @@ export interface SchemaType extends JsonotronBaseType {
   title: string
 
   /**
-   * The documentation for the schema type.
-   */
-  documentation: string
-
-  /**
    * An array of explained examples.
    */
   examples: SchemaTypeExample[]

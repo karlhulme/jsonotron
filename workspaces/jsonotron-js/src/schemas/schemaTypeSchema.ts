@@ -1,62 +1,58 @@
-/**
- * The schema type schema, pulled from https://github.com/karlhulme/jsonotron/schemas, and converted to JSON
- */
 export const schemaTypeSchema = {
-  "$id": "schemaTypeSchema",
-  "title": "Schema Type Schema",
-  "type": "object",
-  "additionalProperties": false,
-  "properties": {
+  $id: 'schemaTypeSchema',
+  title: 'Schema Type Schema',
+  type: 'object',
+  additionalProperties: false,
+  properties: {
     kind: {
       enum: ['schema']
     },
-    "domain": {
-      "type": "string",
-      "pattern": "^https?://[_a-zA-Z][_a-zA-Z0-9.]*$"
+    domain: {
+      type: 'string',
+      pattern: '^https?://[_a-zA-Z][_a-zA-Z0-9.]*$'
     },
-    "system": {
-      "type": "string",
-      "pattern": "^[_a-zA-Z][_a-zA-Z0-9]*$"
+    system: {
+      type: 'string',
+      pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$'
     },
-    "name": {
-      "type": "string",
-      "pattern": "^[_a-zA-Z][_a-zA-Z0-9]*$"
+    name: {
+      type: 'string',
+      pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$'
     },
-    "examples": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-          },
-          "documentation": {
-            "type": "string"
+    examples: {
+      type: 'array',
+      minItems: 1,
+      items: {
+        type: 'object',
+        properties: {
+          value: {},
+          documentation: {
+            type: 'string'
           }
         },
-        "required": [
-          "value",
-          "documentation"
+        required: [
+          'value',
+          'documentation'
         ]
       }
     },
-    "validTestCases": {
-      "type": "array"
+    validTestCases: {
+      type: 'array'
     },
-    "invalidTestCases": {
-      "type": "array"
+    invalidTestCases: {
+      type: 'array'
     },
-    "jsonSchema": {
-      "type": "object"
+    jsonSchema: {
+      type: 'object'
     }
   },
-  "required": [
-    "domain",
-    "system",
-    "name",
-    "jsonSchema",
-    "examples",
-    "validTestCases",
-    "invalidTestCases"
+  required: [
+    'domain',
+    'system',
+    'name',
+    'examples',
+    'validTestCases',
+    'invalidTestCases',
+    'jsonSchema'
   ]
 }

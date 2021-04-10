@@ -2,7 +2,7 @@ import { TypeMapObject } from './TypeMapObject'
 import { TypeMapRef } from './TypeMapRef'
 
 /**
- * Represents a map of a types built from
+ * Represents a map of the types built from
  * one or more Jsonotron type systems.
  */
 export interface TypeMap {
