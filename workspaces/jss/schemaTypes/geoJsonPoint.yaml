@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: geoJsonPoint
-documentation: A point on Earth.
 examples:
 - value:
     type: Point
@@ -42,6 +41,7 @@ invalidTestCases:
   - -98.2
 jsonSchema:
   type: object
+  documentation: A point on Earth.
   additionalProperties: false
   properties:
     type:
@@ -50,6 +50,7 @@ jsonSchema:
       documentation: The value 'Point'.
     coordinates:
       type: array
+      documentation: A 2-element array containing the longitude value first and the latitude value second.
       minItems: 2
       maxItems: 2
       items:
@@ -59,7 +60,6 @@ jsonSchema:
       - type: number
         minimum: -90
         maximum: 90
-      documentation: A 2-element array containing the longitude value first and the latitude value second.
   required:
   - type
   - coordinates

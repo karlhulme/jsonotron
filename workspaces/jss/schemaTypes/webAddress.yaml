@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: webAddress
-documentation: A url that is prefixed with either https or https.
 examples:
 - value: https://www.bbc.co.uk
   documentation: A link to a site using HTTPS.
@@ -25,4 +24,5 @@ invalidTestCases:
 - mailto:person@place.com
 jsonSchema:
   type: string
+  documentation: A url that is prefixed with either https or https.
   pattern: "^http[s]?://[a-zA-Z0-9@:%._+~#=]{2,256}.[a-z]{2,6}([-a-zA-Z0-9@:%_+.~#?&//=]*)$"

@@ -3,12 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: telephoneNo
-documentation: |-
-  A telephone number that comprises of a dialling code and a number.
-  
-  The `isd` property identifies the country that the telephone number resides in.
-  
-  The `number` property optionally describes extension information.
 examples:
 - value:
     isd: '44'
@@ -38,6 +32,7 @@ invalidTestCases:
   number: 1234567
 jsonSchema:
   type: object
+  documentation: A telephone number that comprises of a dialling code and a number.
   additionalProperties: false
   properties:
     isd:

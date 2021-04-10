@@ -3,8 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: timestamp
-documentation: The number of milliseconds that have elapsed since 00:00:00 Thursday,
-  1 January 1970.
 examples:
 - value: 1595354428000
   documentation: An example.
@@ -22,4 +20,6 @@ invalidTestCases:
 - []
 jsonSchema:
   type: integer
+  documentation: The number of milliseconds that have elapsed since 00:00:00 Thursday,
+    1 January 1970.
   minimum: 0

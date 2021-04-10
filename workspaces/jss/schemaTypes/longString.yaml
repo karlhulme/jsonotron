@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: longString
-documentation: A string of 250 characters or less.  An empty string is valid.
 examples:
 - value: A long string that contains a lot of characters
   documentation: An example.
@@ -21,4 +20,5 @@ invalidTestCases:
 - aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeaaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeaaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeaaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeaaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeee1
 jsonSchema:
   type: string
+  documentation: A string of 250 characters or less.  An empty string is valid.
   maxLength: 250

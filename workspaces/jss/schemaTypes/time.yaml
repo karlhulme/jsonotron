@@ -3,9 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: time
-documentation: A string with the time components arranged using the HH:mm:ss pattern.  If
-  the hours, minutes or seconds component is a value less than 10 then a leading zero
-  must be included.  This ensures that all stored times are the same length.
 examples:
 - value: '23:14:56'
   documentation: An example.
@@ -28,4 +25,7 @@ invalidTestCases:
 - '8:00:00'
 jsonSchema:
   type: string
+  documentation: A string with the time components arranged using the HH:mm:ss pattern.  If
+    the hours, minutes or seconds component is a value less than 10 then a leading zero
+    must be included.  This ensures that all stored times are the same length.
   format: time

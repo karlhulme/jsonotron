@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: mediumString
-documentation: A string of 50 characters or less.  An empty string is valid.
 examples:
 - value: A string that contains some characters
   documentation: An example.
@@ -21,4 +20,5 @@ invalidTestCases:
 - aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeee1
 jsonSchema:
   type: string
+  documentation: A string of 50 characters or less.  An empty string is valid.
   maxLength: 50

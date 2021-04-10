@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: positiveIntegerOrZero
-documentation: A whole number that is equal to zero or greater.
 examples:
 - value: 21
   documentation: An example.
@@ -23,4 +22,5 @@ invalidTestCases:
 - -25
 jsonSchema:
   type: integer
+  documentation: A whole number that is equal to zero or greater.
   minimum: 0

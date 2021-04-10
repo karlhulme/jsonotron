@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: ipv4
-documentation: A string of digits that identify a computer on a network in IP v4 format.
 examples:
 - value: 127.0.0.1
   documentation: An example.
@@ -19,4 +18,5 @@ invalidTestCases:
 - 270.0.0.1
 jsonSchema:
   type: string
+  documentation: A string of digits that identify a computer on a network in IP v4 format.
   format: ipv4

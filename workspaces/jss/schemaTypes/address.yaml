@@ -3,14 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: address
-documentation: |-
-  An object that captures an address.
-  
-  The `addressLines` property records the lines that make up the address.
-  
-  The `postalCode` property records the post code or zip code of the address.
-  
-  The `countryCode` property records countryCode value.
 examples:
 - value:
     addressLines: |-
@@ -64,14 +56,16 @@ invalidTestCases:
   countryCode: "--"
 jsonSchema:
   type: object
+  documentation: An object that captures an international address.
   additionalProperties: false
   properties:
     addressLines:
       $ref: hugeString
-      documentation: The lines that make up the address.
+      documentation: The lines that make up the address that includes street names, towns, villages, states and
+        any other descriptors as required.
     postalCode:
       $ref: shortString
-      documentation: The postal code of the address.
+      documentation: The postal code or zip code of the address.
     countryCode:
       $ref: countryCode
       documentation: The country where the address is situated. 

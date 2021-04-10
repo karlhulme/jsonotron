@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: boolean
-documentation: A value of either true or false.
 examples:
 - value: true
   documentation: A value of true.
@@ -21,3 +20,4 @@ invalidTestCases:
 - 'true'
 jsonSchema:
   type: boolean
+  documentation: A value of either true or false.

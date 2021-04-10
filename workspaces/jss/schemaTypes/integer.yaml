@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: integer
-documentation: A whole number.
 examples:
 - value: 365
   documentation: An example.
@@ -20,3 +19,4 @@ invalidTestCases:
 - []
 jsonSchema:
   type: integer
+  documentation: A whole number.

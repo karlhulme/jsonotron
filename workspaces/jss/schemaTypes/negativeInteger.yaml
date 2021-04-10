@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: negativeInteger
-documentation: A whole number that is equal to -1 or less.
 examples:
 - value: -9
   documentation: An example.
@@ -21,4 +20,5 @@ invalidTestCases:
 - 0
 jsonSchema:
   type: integer
+  documentation: A whole number that is equal to -1 or less.
   maximum: -1

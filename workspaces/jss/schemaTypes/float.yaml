@@ -3,7 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: float
-documentation: A number with an integral and decimal part.
 examples:
 - value: 3.14
   documentation: An example.
@@ -22,3 +21,4 @@ invalidTestCases:
 - []
 jsonSchema:
   type: number
+  documentation: A number with an integral and decimal part.

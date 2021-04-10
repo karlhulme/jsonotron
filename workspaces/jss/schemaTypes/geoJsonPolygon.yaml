@@ -3,14 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: jss
 name: geoJsonPolygon
-documentation: |-
-  A boundary of connected points that encompasses a region on Earth.  
-  The `type` property should be 'Polygon'.
-  The `co-ordinates` property should be an array, where each element is a co-ordinate pair that
-  makes up the polygon.  The co-ordinate pairs must be specified in a counter-clockwise direction.  The last co-ordinate
-  should be a duplicate of the first co-ordinate.  This means the minimum number of
-  elements in the co-ordinate array is 4.
-  Each element in the co-ordinate array is 2-element array, longitude first and latitude second.
 examples:
 - value:
     type: Polygon
@@ -61,6 +53,14 @@ invalidTestCases:
   - [31.8, -5]
 jsonSchema:
   type: object
+  documentation: |-
+    A boundary of connected points that encompasses a region on Earth.  
+    The `type` property should be 'Polygon'.
+    The `co-ordinates` property should be an array, where each element is a co-ordinate pair that
+    makes up the polygon.  The co-ordinate pairs must be specified in a counter-clockwise direction.  The last co-ordinate
+    should be a duplicate of the first co-ordinate.  This means the minimum number of
+    elements in the co-ordinate array is 4.
+    Each element in the co-ordinate array is 2-element array, longitude first and latitude second.
   additionalProperties: false
   properties:
     type:
@@ -69,9 +69,11 @@ jsonSchema:
       documentation: The value 'Polygon'
     coordinates:
       type: array
+      documentation: An array of arrays.  The outer array must contain at least 4 elements, with the first one repeated last.  Each inner array should contain 2 elements, longitude first and latitude second.
       minItems: 4
       items:
         type: array
+        documentation: A 2 element "inner" array containing longitude first and latitude second.
         minItems: 2
         maxItems: 2
         items:
@@ -81,7 +83,6 @@ jsonSchema:
         - type: number
           minimum: -90
           maximum: 90
-      documentation: An array of arrays.  The outer array must contain at least 4 elements, with the first one repeated last.  Each inner array should be 2 elements with longitude first and latitude second.
   required:
   - type
   - coordinates
