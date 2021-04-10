@@ -6,11 +6,6 @@ import { SchemaTypeExample } from './SchemaTypeExample'
  */
 export interface SchemaType extends JsonotronBaseType {
   /**
-   * The display name of the type.
-   */
-  title: string
-
-  /**
    * An array of explained examples.
    */
   examples: SchemaTypeExample[]

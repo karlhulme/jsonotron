@@ -6,11 +6,6 @@ import { JsonotronBaseType } from './JsonotronBaseType'
  */
 export interface EnumType extends JsonotronBaseType {
   /**
-   * The display name of the type.
-   */
-  title: string
-
-  /**
    * The documentation for the enum type.
    */
   documentation: string
