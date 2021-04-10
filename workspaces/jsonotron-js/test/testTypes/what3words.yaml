@@ -3,10 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: test
 name: what3words
-title: What 3 Words
-documentation: A 3-element array that captures an address based on the https://what3words.com
-  geocoding system. The system allows you to specify any location on Earth, within
-  a few metres, using just 3 words. Each element in the array is a shortString.
 examples:
 - value:
   - daring
@@ -40,3 +36,6 @@ jsonSchema:
   maxItems: 3
   items:
     $ref: shortString
+    documentation: A 3-element array that captures an address based on the https://what3words.com
+      geocoding system. The system allows you to specify any location on Earth, within
+      a few metres, using just 3 words. Each element in the array is a shortString.

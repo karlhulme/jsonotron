@@ -3,10 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: test
 name: string
-title: String
-documentation: A string of characters of any length.  Care should be taken not to
-  supply a string of such great length that the underlying data store cannot save
-  it.  An empty string is valid.
 examples:
 - value: A string
   documentation: An example.
@@ -23,3 +19,6 @@ invalidTestCases:
 - []
 jsonSchema:
   type: string
+  documentation: A string of characters of any length.  Care should be taken not to
+    supply a string of such great length that the underlying data store cannot save
+    it.  An empty string is valid.

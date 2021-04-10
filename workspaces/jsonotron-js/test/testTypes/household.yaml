@@ -3,8 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: test
 name: household
-title: Household
-documentation: Information about a family living at one address.
 examples:
 - value:
     location: over the rainbow
@@ -31,6 +29,7 @@ invalidTestCases:
   doorColor: PUSE
 jsonSchema:
   type: object
+  documentation: Information about a family living at one address.
   additionalProperties: false
   properties:
     location:

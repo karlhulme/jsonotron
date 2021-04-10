@@ -13,14 +13,6 @@ test('Valid enum value can be validated.', () => {
   expect(jsonotron.validateValue('https://jsonotron.org/test/color', 'RED')).toEqual({ resolved: true, validated: true })
 })
 
-test('Valid enum value array can be validated.', () => {
-  const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
-  const jsonotron = new Jsonotron({ resources: [colorType] })
-  expect(jsonotron.validateValueArray('https://jsonotron.org/test/color', [])).toEqual({ resolved: true, validated: true })
-  expect(jsonotron.validateValueArray('https://jsonotron.org/test/color', ['RED'])).toEqual({ resolved: true, validated: true })
-  expect(jsonotron.validateValueArray('https://jsonotron.org/test/color', ['BLUE', 'YELLOW'])).toEqual({ resolved: true, validated: true })
-})
-
 test('Invalid enum value cannot be validated.', () => {
   const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
   const jsonotron = new Jsonotron({ resources: [colorType] })
@@ -40,14 +32,6 @@ test('Valid schema value that references other schemas can be validated.', () =>
   const stringType = fs.readFileSync('./test/testTypes/string.yaml', 'utf-8')
   const jsonotron = new Jsonotron({ resources: [colorType, householdType, positiveIntegerType, stringType] })
   expect(jsonotron.validateValue('https://jsonotron.org/test/household', { location: 'here', familyMemberCount: 2, doorColor: 'GREEN' })).toEqual({ resolved: true, validated: true })
-})
-
-test('Valid schema value array can be validated.', () => {
-  const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
-  const jsonotron = new Jsonotron({ resources: [positiveIntegerType] })
-  expect(jsonotron.validateValueArray('https://jsonotron.org/test/positiveInteger', [])).toEqual({ resolved: true, validated: true })
-  expect(jsonotron.validateValueArray('https://jsonotron.org/test/positiveInteger', [1])).toEqual({ resolved: true, validated: true })
-  expect(jsonotron.validateValueArray('https://jsonotron.org/test/positiveInteger', [1, 2, 3, 4])).toEqual({ resolved: true, validated: true })
 })
 
 test('Invalid schema value cannot be validated.', () => {

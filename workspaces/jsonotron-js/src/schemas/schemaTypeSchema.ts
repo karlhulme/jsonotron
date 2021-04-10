@@ -5,7 +5,11 @@ export const schemaTypeSchema = {
   "$id": "schemaTypeSchema",
   "title": "Schema Type Schema",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
+    kind: {
+      enum: ['schema']
+    },
     "domain": {
       "type": "string",
       "pattern": "^https?://[_a-zA-Z][_a-zA-Z0-9.]*$"
@@ -17,12 +21,6 @@ export const schemaTypeSchema = {
     "name": {
       "type": "string",
       "pattern": "^[_a-zA-Z][_a-zA-Z0-9]*$"
-    },
-    "title": {
-      "type": "string"
-    },
-    "documentation": {
-      "type": "string"
     },
     "examples": {
       "type": "array",
@@ -57,8 +55,6 @@ export const schemaTypeSchema = {
     "system",
     "name",
     "jsonSchema",
-    "title",
-    "documentation",
     "examples",
     "validTestCases",
     "invalidTestCases"

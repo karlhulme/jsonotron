@@ -2,7 +2,8 @@ import { expect, test } from '@jest/globals'
 import fs from 'fs'
 import { InvalidEnumTypeError, InvalidSchemaTypeError, Jsonotron, ParseYamlError,
   SchemaTypeExampleValidationError, SchemaTypeTestCaseValidationError,
-  SchemaTypeTestCaseInvalidationError, UnrecognisedTypeKindError, EnumTypeItemDataValidationError, InvalidEnumTypeDataSchemaError, InvalidStructureError, StructureFieldsValidationError } from '../src'
+  SchemaTypeTestCaseInvalidationError, UnrecognisedTypeKindError,
+  EnumTypeItemDataValidationError, InvalidEnumTypeDataSchemaError } from '../src'
 
 test('The jsonotron constructor works with no properties.', () => {
   expect(() => new Jsonotron()).not.toThrow()
@@ -15,12 +16,10 @@ test('The jsonotron constructor works with valid types and valid structures.', (
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
   const stringType = fs.readFileSync('./test/testTypes/string.yaml', 'utf-8')
 
-  const paintingStructure = fs.readFileSync('./test/testStructures/painting.yaml', 'utf-8')
-
   expect(() => new Jsonotron({
     resources: [
       colorType, directionType, householdType,
-      positiveIntegerType, stringType, paintingStructure
+      positiveIntegerType, stringType
     ],
     jsonSchemaFormatValidators: {
       testFormatFunc: v => v.length > 5
@@ -90,7 +89,7 @@ test('The jsonotron constructor does not accept invalid schema types.', () => {
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
 
   try {
-    new Jsonotron({ resources: [positiveIntegerType.replace('title: Positive Integer', 'missing: property')] })
+    new Jsonotron({ resources: [positiveIntegerType.replace('invalidTestCases:', 'unknownPropertyName:')] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(InvalidSchemaTypeError)
@@ -135,32 +134,6 @@ test('The jsonotron constructor does not accept schema types with invalid test c
     expect(err).toBeInstanceOf(SchemaTypeTestCaseInvalidationError)
     expect(err.schemaTypeName).toEqual('positiveInteger')
     expect(err.testCaseIndex).toEqual(0)
-  }
-})
-
-test('The jsonotron constructor does not accept invalid structures.', () => {
-  const paintingStructure = fs.readFileSync('./test/testStructures/painting.yaml', 'utf-8')
-
-  try {
-    new Jsonotron({ resources: [paintingStructure.replace('title: Painting', 'title: 123')] })
-    throw new Error('fail')
-  } catch (err) {
-    expect(err).toBeInstanceOf(InvalidStructureError)
-    expect(err.structureName).toEqual('painting')
-  }
-})
-
-test('The jsonotron constructor will reject structures that reference unknown types.', () => {
-  const paintingStructure = fs.readFileSync('./test/testStructures/painting.yaml', 'utf-8')
-
-  try {
-    new Jsonotron({ resources: [paintingStructure] })
-    throw new Error('fail')
-  } catch (err) {
-    expect(err).toBeInstanceOf(StructureFieldsValidationError)
-    expect(err.structureName).toEqual('painting')
-    expect(err.fieldName).toEqual('artist')
-    expect(err.fieldType).toEqual('https://jsonotron.org/test/string')
   }
 })
 

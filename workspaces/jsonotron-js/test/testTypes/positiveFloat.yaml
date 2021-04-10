@@ -3,8 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: test
 name: positiveFloat
-title: Positive Floating Point Number
-documentation: A number with an integral and decimal part that is greater than zero.
 examples:
 - value: 12.34
   documentation: An example.
@@ -24,4 +22,5 @@ invalidTestCases:
 - 0
 jsonSchema:
   type: number
+  documentation: A number with an integral and decimal part that is greater than zero.
   exclusiveMinimum: 0

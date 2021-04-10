@@ -5,7 +5,11 @@ export const enumTypeSchema = {
   "$id": "enumTypeSchema",
   "title": "Enum Type Schema",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
+    kind: {
+      enum: ['enum']
+    },
     "domain": {
       "type": "string",
       "pattern": "^https?://[_a-zA-Z][_a-zA-Z0-9.]*$"
@@ -17,9 +21,6 @@ export const enumTypeSchema = {
     "name": {
       "type": "string",
       "pattern": "^[_a-zA-Z][_a-zA-Z0-9]*$"
-    },
-    "title": {
-      "type": "string"
     },
     "documentation": {
       "type": "string"
@@ -66,7 +67,6 @@ export const enumTypeSchema = {
     "system",
     "name",
     "items",
-    "title",
     "documentation"
   ]
 }

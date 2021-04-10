@@ -3,11 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: test
 name: geoJsonPolygon
-title: GeoJSON Polygon
-documentation: A boundary of connected points that encompasses a region on Earth.  The
-  co-ordinates must be specified in a counter-clockwise direction.  The last co-ordinate
-  should be a duplicate of the first co-ordinate.  This means the minimum number of
-  elements in the co-ordinate array is 4.
 examples:
 - value:
     type: Polygon
@@ -58,6 +53,10 @@ invalidTestCases:
   - [31.8, -5]
 jsonSchema:
   type: object
+  documentation: A boundary of connected points that encompasses a region on Earth.  The
+    co-ordinates must be specified in a counter-clockwise direction.  The last co-ordinate
+    should be a duplicate of the first co-ordinate.  This means the minimum number of
+    elements in the co-ordinate array is 4.
   additionalProperties: false
   properties:
     type:

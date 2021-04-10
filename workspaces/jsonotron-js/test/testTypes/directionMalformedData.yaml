@@ -3,7 +3,6 @@ kind: enum
 domain: https://jsonotron.org
 system: test
 name: direction
-title: Direction
 dataJsonSchema:
   type: 'object'
   additionalProperties: false

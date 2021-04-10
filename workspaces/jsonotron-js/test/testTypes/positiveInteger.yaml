@@ -3,8 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: test
 name: positiveInteger
-title: Positive Integer
-documentation: A whole number that is equal to 1 or greater.
 examples:
 - value: 7
   documentation: An example.
@@ -22,4 +20,5 @@ invalidTestCases:
 - 0
 jsonSchema:
   type: integer
+  documentation: A whole number that is equal to 1 or greater.
   minimum: 1

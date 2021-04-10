@@ -3,7 +3,6 @@ kind: enum
 domain: https://jsonotron.org
 system: test
 name: color
-title: Color
 documentation: A set of colors.
 items:
 - value: RED

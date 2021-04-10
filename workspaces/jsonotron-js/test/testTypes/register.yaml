@@ -3,8 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: test
 name: register
-title: Register
-documentation: Represents a type of register.
 examples:
 - value:
     registerName: test register
@@ -25,6 +23,7 @@ invalidTestCases:
 - []
 jsonSchema:
   type: object
+  documentation: Represents a type of register.
   additionalProperties: false
   properties:
     registerName:

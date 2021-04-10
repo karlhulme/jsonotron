@@ -3,8 +3,6 @@ kind: schema
 domain: https://jsonotron.org
 system: test
 name: chore
-title: Chore
-documentation: A duty to perform.
 examples:
 - value:
     tools:
@@ -26,6 +24,7 @@ invalidTestCases:
 - []
 jsonSchema:
   type: object
+  documentation: A duty to perform.
   additionalProperties: false
   properties:
     priority:
