@@ -76,7 +76,6 @@ An Enum is really just a set of strings.
 Property Name | Description
 ---|---
 kind | Must be the value 'enum'.
-domain | The domain that represents the owner of the type.
 system | The name of the type system that this type belongs to.
 name | A name for the enum type.
 title | A display name for the enum type.
@@ -119,7 +118,6 @@ A schema type is primarily based on a JSON schema.
 Property Name | Description
 ---|---
 kind | Must be the value 'schema'.
-domain | The domain that represents the owner of the type.
 system | The name of the type system that this type belongs to.
 name | A name for the schema type.
 title | A display name for the schema type.
@@ -184,7 +182,7 @@ jsonSchema:
       documentation: Additional documentation here.
 ```
 
-You can include additional documentation for object properties.  An example is shown on the last line of the code listing above.  These additional notes may be used for the conversion to other types systems (e.g. GraphQL) or dropped entirely.  In general, property level documentation is good, but documentation for the overall schema type should 
+You can include additional documentation for object properties.  An example is shown on the last line of the code listing above.
 
 
 ## Format Validators

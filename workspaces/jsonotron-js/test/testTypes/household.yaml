@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: test
 name: household
 examples:
@@ -8,6 +7,8 @@ examples:
     location: over the rainbow
     familyMemberCount: 2
     doorColor: RED
+    firstName: Mickey
+    surname: Mouse
   documentation: An example.
 validTestCases:
 - location: over the rainbow
@@ -59,8 +60,10 @@ jsonSchema:
         veg: 2
       - veg: 1
         fruit: 2
+    firstName: # test relative uri's
+      $ref: ../other/string
     surname: # test-system string type vs JSON schema string type (name clash)
-      $ref: https://jsonotron.org/test/string
+      $ref: https://jsonotron.org/other/string
   required:
   - location
   - familyMemberCount

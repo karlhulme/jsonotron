@@ -6,11 +6,6 @@ import { JsonotronResource } from './JsonotronResource'
  */
 export interface JsonotronBaseType extends JsonotronResource {
   /**
-   * The domain of the owning type system.
-   */
-  domain: string
-
-  /**
   * The name of the type system.
   */
   system: string

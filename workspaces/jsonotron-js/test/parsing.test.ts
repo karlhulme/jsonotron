@@ -1,46 +1,55 @@
 import { expect, test } from '@jest/globals'
 import fs from 'fs'
-import { InvalidEnumTypeError, InvalidSchemaTypeError, Jsonotron, ParseYamlError,
+import {
+  parseResources,
+  InvalidEnumTypeError, InvalidSchemaTypeError, ParseYamlError,
   SchemaTypeExampleValidationError, SchemaTypeTestCaseValidationError,
   SchemaTypeTestCaseInvalidationError, UnrecognisedTypeKindError,
-  EnumTypeItemDataValidationError, InvalidEnumTypeDataSchemaError } from '../src'
+  EnumTypeItemDataValidationError, InvalidEnumTypeDataSchemaError
+} from '../src'
 
-test('The jsonotron constructor works with no properties.', () => {
-  expect(() => new Jsonotron()).not.toThrow()
+test('Parsing is successful when given no resource strings.', () => {
+  expect(parseResources()).toEqual({
+    enumTypes: [],
+    schemaTypes: []
+  })
 })
 
-test('The jsonotron constructor works with valid types and valid structures.', () => {
+test('Parsing is successful with valid types.', () => {
   const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
   const directionType = fs.readFileSync('./test/testTypes/direction.yaml', 'utf-8')
   const householdType = fs.readFileSync('./test/testTypes/household.yaml', 'utf-8')
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
   const stringType = fs.readFileSync('./test/testTypes/string.yaml', 'utf-8')
 
-  expect(() => new Jsonotron({
-    resources: [
+  const resources = parseResources({
+    resourceStrings: [
       colorType, directionType, householdType,
       positiveIntegerType, stringType
     ],
     jsonSchemaFormatValidators: {
       testFormatFunc: v => v.length > 5
     }
-  })).not.toThrow()
+  })
+
+  expect(resources.enumTypes).toHaveLength(2)
+  expect(resources.schemaTypes).toHaveLength(3)
 })
 
-test('The jsonotron constructor does not accept malformed type strings.', () => {
+test('Parsing will fail when given a malformed type string.', () => {
   try {
-    new Jsonotron({ resources: ['!!@@not YAML@@!!'] })
+    parseResources({ resourceStrings: ['!!@@not YAML@@!!'] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(ParseYamlError)
   }
 })
 
-test('The jsonotron constructor does not accept invalid enum types.', () => {
+test('Parsing will fail for an invalid enum type.', () => {
   const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
 
   try {
-    new Jsonotron({ resources: [colorType.replace('text: Purple', 'missing: property')] })
+    parseResources({ resourceStrings: [colorType.replace('text: Purple', 'missing: property')] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(InvalidEnumTypeError)
@@ -48,11 +57,11 @@ test('The jsonotron constructor does not accept invalid enum types.', () => {
   }
 })
 
-test('The jsonotron constructor does not accept enum types with invalid (i.e. non-object) data json schema.', () => {
+test('Parsing will fail when given an enum type with an invalid (i.e. non-object) data json schema.', () => {
   const directionMalformedSchemaType = fs.readFileSync('./test/testTypes/directionMalformedSchema.yaml', 'utf-8')
 
   try {
-    new Jsonotron({ resources: [directionMalformedSchemaType] })
+    parseResources({ resourceStrings: [directionMalformedSchemaType] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(InvalidEnumTypeError)
@@ -60,11 +69,11 @@ test('The jsonotron constructor does not accept enum types with invalid (i.e. no
   }
 })
 
-test('The jsonotron constructor does not accept enum types with data schemas that do not compile.', () => {
+test('Parsing will fail when given an enum type with a data jaon schema that does not compile.', () => {
   const directionUncompileableSchemaType = fs.readFileSync('./test/testTypes/directionUncompileableSchema.yaml', 'utf-8')
 
   try {
-    new Jsonotron({ resources: [directionUncompileableSchemaType] })
+    parseResources({ resourceStrings: [directionUncompileableSchemaType] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(InvalidEnumTypeDataSchemaError)
@@ -72,11 +81,11 @@ test('The jsonotron constructor does not accept enum types with data schemas tha
   }
 })
 
-test('The jsonotron constructor does not accept enum types with items that fail data validation.', () => {
+test('Parsing will fail when given an enum type with an item that fails data validation.', () => {
   const directionMalformedDataType = fs.readFileSync('./test/testTypes/directionMalformedData.yaml', 'utf-8')
 
   try {
-    new Jsonotron({ resources: [directionMalformedDataType] })
+    parseResources({ resourceStrings: [directionMalformedDataType] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(EnumTypeItemDataValidationError)
@@ -85,11 +94,11 @@ test('The jsonotron constructor does not accept enum types with items that fail 
   }
 })
 
-test('The jsonotron constructor does not accept invalid schema types.', () => {
+test('Parsing will fail when given an invalid schema type.', () => {
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
 
   try {
-    new Jsonotron({ resources: [positiveIntegerType.replace('invalidTestCases:', 'unknownPropertyName:')] })
+    parseResources({ resourceStrings: [positiveIntegerType.replace('invalidTestCases:', 'unknownPropertyName:')] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(InvalidSchemaTypeError)
@@ -97,12 +106,12 @@ test('The jsonotron constructor does not accept invalid schema types.', () => {
   }
 })
 
-test('The jsonotron constructor does not accept schema types with examples that fail validation.', () => {
+test('Parsing will fail when given a schema type with an example that does not validate.', () => {
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
   const sample = positiveIntegerType.replace('- value: 7', '- value: will not validate')
 
   try {
-    new Jsonotron({ resources: [sample] })
+    parseResources({ resourceStrings: [sample] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(SchemaTypeExampleValidationError)
@@ -111,11 +120,11 @@ test('The jsonotron constructor does not accept schema types with examples that 
   }
 })
 
-test('The jsonotron constructor does not accept schema types with test cases that fail validation.', () => {
+test('Parsing will fail when given a schema type with a test case that does not validate.', () => {
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
 
   try {
-    new Jsonotron({ resources: [positiveIntegerType.replace('- 25', '- will not validate')] })
+    parseResources({ resourceStrings: [positiveIntegerType.replace('- 25', '- will not validate')] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(SchemaTypeTestCaseValidationError)
@@ -124,11 +133,11 @@ test('The jsonotron constructor does not accept schema types with test cases tha
   }
 })
 
-test('The jsonotron constructor does not accept schema types with invalid test cases that actually pass validation.', () => {
+test('Parsing will fail when given a schema type with an *invalid* test cases that actually passes validation.', () => {
   const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
 
   try {
-    new Jsonotron({ resources: [positiveIntegerType.replace('- a string', '- 901')] })
+    parseResources({ resourceStrings: [positiveIntegerType.replace('- a string', '- 901')] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(SchemaTypeTestCaseInvalidationError)
@@ -137,11 +146,11 @@ test('The jsonotron constructor does not accept schema types with invalid test c
   }
 })
 
-test('The jsonotron constructor does not accept unrecognised type kinds.', () => {
+test('Parsing will fail if a resource has an unrecognised kind. property', () => {
   const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
 
   try {
-    new Jsonotron({ resources: [colorType.replace('kind: enum', 'kind: invalid')] })
+    parseResources({ resourceStrings: [colorType.replace('kind: enum', 'kind: invalid')] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(UnrecognisedTypeKindError)

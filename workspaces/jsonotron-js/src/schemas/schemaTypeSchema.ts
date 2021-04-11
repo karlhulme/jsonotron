@@ -7,10 +7,6 @@ export const schemaTypeSchema = {
     kind: {
       enum: ['schema']
     },
-    domain: {
-      type: 'string',
-      pattern: '^https?://[_a-zA-Z][_a-zA-Z0-9.]*$'
-    },
     system: {
       type: 'string',
       pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$'
@@ -47,7 +43,6 @@ export const schemaTypeSchema = {
     }
   },
   required: [
-    'domain',
     'system',
     'name',
     'examples',

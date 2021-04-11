@@ -3,11 +3,6 @@
  */
 export interface TypeMapRef {
   /**
-   * The domain of the owning type system.
-   */
-  domain: string
-
-  /**
    * The name of the type system.
    */
   system: string

@@ -1,7 +1,6 @@
 ---
 kind: schema
-domain: https://jsonotron.org
-system: test
+system: other # testing links between systems
 name: string
 examples:
 - value: A string

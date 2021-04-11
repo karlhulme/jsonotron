@@ -9,7 +9,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
   return {
     enumTypes: [{
       kind: 'enum',
-      domain: 'https://jsonotron.org',
       system: 'test',
       name: 'color',
       documentation: 'A list of colors',
@@ -29,7 +28,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       ]
     }, {
       kind: 'enum',
-      domain: 'https://jsonotron.org',
       system: 'test',
       name: 'size',
       documentation: 'A list of sizes',
@@ -40,7 +38,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       ]
     }, {
       kind: 'enum',
-      domain: 'https://jsonotron.org',
       system: 'test',
       name: 'numbersList',
       documentation: 'A list of numbers',
@@ -51,7 +48,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       ]
     }, {
       kind: 'enum',
-      domain: 'https://jsonotron.org',
       system: 'alt',
       name: 'direction',
       documentation: 'A list of directions (in an alternative system).',
@@ -63,7 +59,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
     }],
     schemaTypes: [{
       kind: 'schema',
-      domain: 'https://jsonotron.org',
       system: 'test',
       name: 'bed',
       jsonSchema: {
@@ -85,7 +80,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       invalidTestCases: []
     }, {
       kind: 'schema',
-      domain: 'https://jsonotron.org',
       system: 'test',
       name: 'pillow',
       jsonSchema: {
@@ -105,7 +99,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       invalidTestCases: []
     }, {
       kind: 'schema',
-      domain: 'https://jsonotron.org',
       system: 'test',
       name: 'drawer',
       jsonSchema: {
@@ -150,7 +143,6 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       invalidTestCases: []
     }, {
       kind: 'schema',
-      domain: 'https://jsonotron.org',
       system: 'extra',
       name: 'table',
       jsonSchema: {
