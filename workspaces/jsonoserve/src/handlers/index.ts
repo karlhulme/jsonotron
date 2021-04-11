@@ -1,1 +1,2 @@
-export * from './getTypesHandler'
+export * from './markdownHandler'
+export * from './typescriptHandler'

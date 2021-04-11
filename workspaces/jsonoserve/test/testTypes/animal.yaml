@@ -1,10 +1,7 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: test
 name: animal
-title: Animal
-documentation: An animal.
 examples:
 - value:
     name: dog
@@ -26,6 +23,7 @@ invalidTestCases:
 jsonSchema:
   type: object
   additionalProperties: false
+  j-documentation: An animal.
   properties:
     name:
       type: string

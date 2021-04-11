@@ -1,16 +1,14 @@
 ---
 kind: enum
-domain: https://jsonotron.org
 system: test
 name: hairColor
-title: Hair Color
 documentation: The color of a persons hair.
 items:
-- value: AUBURN
+- value: auburn
   text: Auburn
-- value: BRUNETTE
+- value: bruenette
   text: Brunette
-- value: BLONDE
+- value: blonde
   text: Blonde
-- value: SILVER
+- value: silver
   text: Silver

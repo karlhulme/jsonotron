@@ -1,25 +1,25 @@
 import { expect, test } from '@jest/globals'
-import fs from 'fs'
+import { readFile } from 'fs/promises'
 import { createJsonoserveExpress } from '../src'
 
-test('The jsonoserve constructor works with no types supplied.', () => {
-  expect(() => createJsonoserveExpress({ types: [] })).not.toThrow()
+test('The jsonoserve constructor works with no resource strings supplied.', () => {
+  expect(() => createJsonoserveExpress({ resourceStrings: [] })).not.toThrow()
 })
 
-test('The jsonoserve constructor works with valid types.', () => {
-  const animalType = fs.readFileSync('./test/testTypes/animal.yaml', 'utf-8')
-  const hairColorType = fs.readFileSync('./test/testTypes/hairColor.yaml', 'utf-8')
-  const trouserStyle = fs.readFileSync('./test/testTypes/trouserStyle.yaml', 'utf-8')
+test('The jsonoserve constructor works with valid resource strings.', async () => {
+  const animalType = await readFile('./test/testTypes/animal.yaml', 'utf-8')
+  const hairColorType = await readFile('./test/testTypes/hairColor.yaml', 'utf-8')
+  const trouserStyle = await readFile('./test/testTypes/trouserStyle.yaml', 'utf-8')
 
   expect(() => createJsonoserveExpress({
-    types: [animalType, hairColorType, trouserStyle]
+    resourceStrings: [animalType, hairColorType, trouserStyle]
   })).not.toThrow()
 })
 
-test('The jsonoserve constructor fails with invalid types.', () => {
+test('The jsonoserve constructor fails with invalid resource strings.', () => {
   const fakeType = '::here:: error\n@£$%^&*'
 
   expect(() => createJsonoserveExpress({
-    types: [fakeType]
+    resourceStrings: [fakeType]
   })).toThrow()
 })
