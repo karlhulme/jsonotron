@@ -1,6 +1,5 @@
 ---
 kind: enum
-domain: https://jsonotron.org
 system: jss
 name: dayOfWeek
 documentation: A day of the week.

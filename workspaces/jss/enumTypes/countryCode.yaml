@@ -1,6 +1,5 @@
 ---
 kind: enum
-domain: https://jsonotron.org
 system: jss
 name: countryCode
 documentation: A country designator from ISO 3166,

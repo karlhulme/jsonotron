@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: emailAddress
 examples:
@@ -19,5 +18,5 @@ invalidTestCases:
 - person@here.co@
 jsonSchema:
   type: string
-  documentation: An email address.
+  j-documentation: An email address.
   format: email

@@ -30,12 +30,12 @@ invalidTestCases:
   doorColor: PUSE
 jsonSchema:
   type: object
-  documentation: Information about a family living at one address.
+  j-documentation: Information about a family living at one address.
   additionalProperties: false
   properties:
     location:
       type: string
-      documentation: Additional field-level documentation that can optionally be supplied.
+      j-documentation: Additional field-level documentation that can optionally be supplied.
     familyMemberCount:
       $ref: positiveInteger # local reference
     doorColor:

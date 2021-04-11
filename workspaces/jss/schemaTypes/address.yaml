@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: address
 examples:
@@ -56,19 +55,19 @@ invalidTestCases:
   countryCode: "--"
 jsonSchema:
   type: object
-  documentation: An object that captures an international address.
+  j-documentation: An object that captures an international address.
   additionalProperties: false
   properties:
     addressLines:
       $ref: hugeString
-      documentation: The lines that make up the address that includes street names, towns, villages, states and
+      j-documentation: The lines that make up the address that includes street names, towns, villages, states and
         any other descriptors as required.
     postalCode:
       $ref: shortString
-      documentation: The postal code or zip code of the address.
+      j-documentation: The postal code or zip code of the address.
     countryCode:
       $ref: countryCode
-      documentation: The country where the address is situated. 
+      j-documentation: The country where the address is situated. 
   required:
   - addressLines
   - postalCode

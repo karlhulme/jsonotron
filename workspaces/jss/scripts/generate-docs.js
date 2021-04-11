@@ -1,6 +1,6 @@
 const fg = require('fast-glob')
-const { Jsonotron } = require('jsonotron-js')
-const { MarkdownGenerator } = require('jsonotron-codegen')
+const { parseResources } = require('jsonotron-js')
+const { generateMarkdown } = require('jsonotron-codegen')
 const { readFile, writeFile } = require('fs/promises')
 
 async function run () {
@@ -8,19 +8,10 @@ async function run () {
   const schemaTypeFileNames = await fg('./schemaTypes/*.yaml')
   const typeFileNames = enumTypeFileNames.concat(schemaTypeFileNames)
 
-  const types = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
+  const resourceStrings = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
 
-  const jsonotron = new Jsonotron({ types })
-
-  const systems = [
-    'https://jsonotron.org/jss'
-  ]
-
-  const markdownGenerator = new MarkdownGenerator()
-  const markdown = markdownGenerator.generate({
-    enumTypes: jsonotron.getEnumTypes(systems),
-    schemaTypes: jsonotron.getSchemaTypes(systems)
-  })
+  const resources = parseResources({ resourceStrings })
+  const markdown = generateMarkdown({ enumTypes: resources.enumTypes, schemaTypes: resources.schemaTypes })
 
   await writeFile('./typedocs.autogen.md', markdown)
 }

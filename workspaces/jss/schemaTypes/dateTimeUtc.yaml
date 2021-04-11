@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: dateTimeUtc
 examples:
@@ -30,7 +29,7 @@ invalidTestCases:
 - '2014-02-31T13:00:00+01:00'
 jsonSchema:
   type: string
-  documentation: A string with the date and time components arranged using the YYYY-MM-DDTHH:mm:ssZ
+  j-documentation: A string with the date and time components arranged using the YYYY-MM-DDTHH:mm:ssZ
     pattern. Leading zeroes must be used to ensure that all values are the same length.
   pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
   format: jsonotron-dateTimeUtc

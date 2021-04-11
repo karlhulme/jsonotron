@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: positiveFloat
 examples:
@@ -22,5 +21,5 @@ invalidTestCases:
 - 0
 jsonSchema:
   type: number
-  documentation: A number with an integral and decimal part that is greater than zero.
+  j-documentation: A number with an integral and decimal part that is greater than zero.
   exclusiveMinimum: 0

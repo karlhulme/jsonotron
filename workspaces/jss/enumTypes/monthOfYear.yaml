@@ -1,6 +1,5 @@
 ---
 kind: enum
-domain: https://jsonotron.org
 system: jss
 name: monthOfYear
 documentation: A calendar month.

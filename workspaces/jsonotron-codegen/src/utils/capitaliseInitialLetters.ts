@@ -1,8 +1,8 @@
 /**
- * Returns the given string but with the first letter capitalised
- * along with another other characters that appear after an underscore.
- * @param s A string.
+ * Returns the given string having capitalised the first letter, 
+ * or any letter that appears immediately after an underscore.
+ * @param text A string.
  */
-export function capitaliseInitialLetters (s: string): string {
-  return s.replace(/^[a-z]|_[a-z]/g, word => word.toUpperCase())
+export function capitaliseInitialLetters (text: string): string {
+  return text.replace(/^[a-z]|_[a-z]/g, word => word.toUpperCase())
 }

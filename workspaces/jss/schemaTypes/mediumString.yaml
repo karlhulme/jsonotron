@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: mediumString
 examples:
@@ -20,5 +19,5 @@ invalidTestCases:
 - aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeee1
 jsonSchema:
   type: string
-  documentation: A string of 50 characters or less.  An empty string is valid.
+  j-documentation: A string of 50 characters or less.  An empty string is valid.
   maxLength: 50

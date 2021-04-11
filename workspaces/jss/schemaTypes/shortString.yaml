@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: shortString
 examples:
@@ -21,5 +20,5 @@ invalidTestCases:
 - aaaaaaaaaabbbbbbbbbb1
 jsonSchema:
   type: string
-  documentation: A string of 20 characters or less.  An empty string is valid.
+  j-documentation: A string of 20 characters or less.  An empty string is valid.
   maxLength: 20

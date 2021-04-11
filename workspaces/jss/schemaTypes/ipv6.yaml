@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: ipv6
 examples:
@@ -20,5 +19,5 @@ invalidTestCases:
 - ZZZZ:CD00:0000:0CDE:1257:0000:211E:729C
 jsonSchema:
   type: string
-  documentation: A string of digits that identify a computer on a network in IP v6 format.
+  j-documentation: A string of digits that identify a computer on a network in IP v6 format.
   format: ipv6

@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: float
 examples:
@@ -21,4 +20,4 @@ invalidTestCases:
 - []
 jsonSchema:
   type: number
-  documentation: A number with an integral and decimal part.
+  j-documentation: A number with an integral and decimal part.

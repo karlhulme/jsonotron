@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: hugeString
 examples:
@@ -19,5 +18,5 @@ invalidTestCases:
 - []
 jsonSchema:
   type: string
-  documentation: A string of 4000 characters or less.  An empty string is valid.
+  j-documentation: A string of 4000 characters or less.  An empty string is valid.
   maxLength: 4000

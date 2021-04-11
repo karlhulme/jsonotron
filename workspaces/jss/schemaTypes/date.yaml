@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: date
 examples:
@@ -23,7 +22,7 @@ invalidTestCases:
 - 2014-02-31
 jsonSchema:
   type: string
-  documentation: A string with the date components arranged using the YYYY-MM-DD pattern.  If
+  j-documentation: A string with the date components arranged using the YYYY-MM-DD pattern.  If
     the day or month component is a value less than 10 then a leading zero must be included.  This
     ensures that all stored dates are the same length.
   format: date

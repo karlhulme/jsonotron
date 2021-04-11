@@ -1,4 +1,5 @@
-import Ajv from 'ajv'
+import Ajv, { ErrorObject, ValidateFunction } from 'ajv'
+import addFormats from 'ajv-formats'
 import yaml from 'js-yaml'
 import {
   EnumType, JsonotronResource, JsonSchemaFormatValidatorFunc, SchemaType
@@ -20,8 +21,7 @@ import {
   UnrecognisedTypeKindError
 } from '../errors'
 import { enumTypeSchema, schemaTypeSchema } from '../schemas'
-
-const JSON_SCHEMA_DECLARATION = 'http://json-schema.org/draft-07/schema#'
+import { createJsonSchemaForEnumType, createJsonSchemaForSchemaType } from '../jsonSchemaGeneration'
 
 /**
  * The options used when parsing a set of Jsonotron resources.
@@ -73,8 +73,8 @@ export function parseResources (options?: ParseOptions): ParseResult {
 
   // create an AJV with validators for enum and schema types.
   const ajv = createAjv(jsonSchemaFormatValidators)
-  const enumTypeValidator = ajv.getSchema('enumTypeSchema') as Ajv.ValidateFunction
-  const schemaTypeValidator = ajv.getSchema('schemaTypeSchema') as Ajv.ValidateFunction
+  const enumTypeValidator = ajv.getSchema('enumTypeSchema') as ValidateFunction
+  const schemaTypeValidator = ajv.getSchema('schemaTypeSchema') as ValidateFunction
 
   // verify the enum types.
   parsedResources.enumTypes.forEach(enumType => {
@@ -105,7 +105,6 @@ export function parseResources (options?: ParseOptions): ParseResult {
  */
 function createAjv (jsonSchemaFormatValidators?: Record<string, JsonSchemaFormatValidatorFunc>) {
   const ajv = new Ajv({
-    format: 'full', // 'full' mode supports format validators
     ownProperties: true, // only iterate over objects found directly on the object
     schemas: [
       enumTypeSchema,
@@ -119,9 +118,9 @@ function createAjv (jsonSchemaFormatValidators?: Record<string, JsonSchemaFormat
     }
   })
 
-  ajv.addKeyword('documentation', {
-    
-  })
+  ajv.addKeyword('j-documentation') // ajv can safely ignore these
+
+  addFormats(ajv, ['date', 'email', 'ipv4', 'ipv6', 'json-pointer', 'time'])
 
   return ajv
 }
@@ -172,24 +171,11 @@ function sortResources (resources: JsonotronResource[]): ParseResult {
  * @param enumTypeValidator A valiator function created Ajv.
  * @param enumType An enum type.
  */
-function ensureEnumTypeIsValid (enumTypeValidator: Ajv.ValidateFunction, enumType: EnumType): void {
+function ensureEnumTypeIsValid (enumTypeValidator: ValidateFunction, enumType: EnumType): void {
   // check enum type conforms to the schema
+  const enumTypeName = enumType.name
   if (enumTypeValidator && !enumTypeValidator(enumType)) {
-    throw new InvalidEnumTypeError(enumType.name, ajvErrorsToString(enumTypeValidator.errors))
-  }
-}
-
-/**
- * Creates a JSON schema for the given enum type.
- * @param domain The domain for the $id of the schema.
- * @param enumType An enum type.
- */
-function createJsonSchemaForEnumType (domain: string, enumType: EnumType) {
-  return {
-    $id: `${domain}/${enumType.system}/${enumType.name}`,
-    $schema: JSON_SCHEMA_DECLARATION,
-    title: `Enum Type "${enumType.name}"`,
-    enum: enumType.items.map(item => item.value)
+    throw new InvalidEnumTypeError(enumTypeName, ajvErrorsToString(enumTypeValidator.errors))
   }
 }
 
@@ -198,24 +184,11 @@ function createJsonSchemaForEnumType (domain: string, enumType: EnumType) {
  * @param schemaTypeValidator A valiator function created Ajv.
  * @param schemaType A schema type.
  */
-function ensureSchemaTypeIsValid (schemaTypeValidator: Ajv.ValidateFunction, schemaType: SchemaType): void {
+function ensureSchemaTypeIsValid (schemaTypeValidator: ValidateFunction, schemaType: SchemaType): void {
   // check schema type conforms to the schema
+  const schemaTypeName = schemaType.name
   if (schemaTypeValidator && !schemaTypeValidator(schemaType)) {
-    throw new InvalidSchemaTypeError(schemaType.name, ajvErrorsToString(schemaTypeValidator.errors))
-  }
-}
-
-/**
- * Creates a JSON schema for the given schema type.
- * @param domain The domain for the $id of the schema.
- * @param schemaType A schema type.
- */
-function createJsonSchemaForSchemaType (domain: string, schemaType: SchemaType) {
-  return {
-    $id: `${domain}/${schemaType.system}/${schemaType.name}`,
-    $schema: JSON_SCHEMA_DECLARATION,
-    title: `Schema Type "${schemaType.name}"`,
-    ...schemaType.jsonSchema
+    throw new InvalidSchemaTypeError(schemaTypeName, ajvErrorsToString(schemaTypeValidator.errors))
   }
 }
 
@@ -223,7 +196,7 @@ function createJsonSchemaForSchemaType (domain: string, schemaType: SchemaType) 
  * Validate the data properties of the enum type items.
  * @param ajv A json schema validator.
  */
-function ensureEnumTypeItemDataPropertiesAreValid (ajv: Ajv.Ajv, enumType: EnumType): void {
+function ensureEnumTypeItemDataPropertiesAreValid (ajv: Ajv, enumType: EnumType): void {
   // only check data if a schema is provided
   if (enumType.dataJsonSchema) {
     // create a validator
@@ -244,7 +217,7 @@ function ensureEnumTypeItemDataPropertiesAreValid (ajv: Ajv.Ajv, enumType: EnumT
  * @param enumTypeName The name of an enum type.
  * @param enumTypeDataJsonSchema A json schema.
  */
-function compileEnumTypeDataSchema (ajv: Ajv.Ajv, enumTypeName: string, enumTypeDataJsonSchema: Record<string, unknown>) {
+function compileEnumTypeDataSchema (ajv: Ajv, enumTypeName: string, enumTypeDataJsonSchema: Record<string, unknown>) {
   try {
     return ajv.compile(enumTypeDataJsonSchema)
   } catch (err) {
@@ -256,7 +229,7 @@ function compileEnumTypeDataSchema (ajv: Ajv.Ajv, enumTypeName: string, enumType
  * Validate the schema type examples, test cases and invalid test cases.
  * @param domain The domain for the $id of the schemas.
  */
-function ensureSchemaTypeExamplesAndTestCasesAreValid (ajv: Ajv.Ajv, domain: string, schemaType: SchemaType): void {
+function ensureSchemaTypeExamplesAndTestCasesAreValid (ajv: Ajv, domain: string, schemaType: SchemaType): void {
   // get a validator
   const validator = ajv.getSchema(`${domain}/${schemaType.system}/${schemaType.name}`)
 
@@ -286,7 +259,7 @@ function ensureSchemaTypeExamplesAndTestCasesAreValid (ajv: Ajv.Ajv, domain: str
  * Convert AJV errors to a string.
  * @param errors An array of error objects.
  */
-function ajvErrorsToString (errors?: Ajv.ErrorObject[]|null) {
+function ajvErrorsToString (errors?: ErrorObject[]|null) {
   /* istanbul ignore next - errors will never be null/undefined */
   return JSON.stringify(errors || [], null, 2)
 }

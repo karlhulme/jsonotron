@@ -1,6 +1,5 @@
 ---
 kind: enum
-domain: https://jsonotron.org
 system: jss
 name: timeZone
 documentation: A time zone from the IANA tz database.  The data is taken from https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.

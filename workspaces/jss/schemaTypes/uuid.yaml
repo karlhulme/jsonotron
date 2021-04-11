@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: uuid
 examples:
@@ -19,6 +18,6 @@ invalidTestCases:
 - 123E4567-E89B-12D3-A456-426655440000
 jsonSchema:
   type: string
-  documentation: A universally unique 128 bit number formatted as 32 alphanumeric characters
+  j-documentation: A universally unique 128 bit number formatted as 32 alphanumeric characters
     and defined by RFC 4122.
   pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"

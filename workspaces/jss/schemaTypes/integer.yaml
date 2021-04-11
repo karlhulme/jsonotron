@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: integer
 examples:
@@ -19,4 +18,4 @@ invalidTestCases:
 - []
 jsonSchema:
   type: integer
-  documentation: A whole number.
+  j-documentation: A whole number.

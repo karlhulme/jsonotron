@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: geoJsonPolygon
 examples:
@@ -53,7 +52,7 @@ invalidTestCases:
   - [31.8, -5]
 jsonSchema:
   type: object
-  documentation: |-
+  j-documentation: |-
     A boundary of connected points that encompasses a region on Earth.  
     The `type` property should be 'Polygon'.
     The `co-ordinates` property should be an array, where each element is a co-ordinate pair that
@@ -66,14 +65,14 @@ jsonSchema:
     type:
       enum:
       - Polygon
-      documentation: The value 'Polygon'
+      j-documentation: The value 'Polygon'
     coordinates:
       type: array
-      documentation: An array of arrays.  The outer array must contain at least 4 elements, with the first one repeated last.  Each inner array should contain 2 elements, longitude first and latitude second.
+      j-documentation: An array of arrays.  The outer array must contain at least 4 elements, with the first one repeated last.  Each inner array should contain 2 elements, longitude first and latitude second.
       minItems: 4
       items:
         type: array
-        documentation: A 2 element "inner" array containing longitude first and latitude second.
+        j-documentation: A 2 element "inner" array containing longitude first and latitude second.
         minItems: 2
         maxItems: 2
         items:

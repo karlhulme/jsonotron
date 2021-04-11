@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: negativeFloatOrZero
 examples:
@@ -24,6 +23,6 @@ invalidTestCases:
 - 1
 jsonSchema:
   type: number
-  documentation: A number with an integral and decimal part that is less than or equal
+  j-documentation: A number with an integral and decimal part that is less than or equal
     to zero.
   maximum: 0

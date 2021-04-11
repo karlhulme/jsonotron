@@ -1,6 +1,5 @@
 ---
 kind: enum
-domain: https://jsonotron.org
 system: jss
 name: callingCode
 documentation: An international telephone calling code defined by the ITU-T in standards

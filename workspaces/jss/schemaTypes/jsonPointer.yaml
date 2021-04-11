@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: jsonPointer
 examples:
@@ -19,5 +18,5 @@ invalidTestCases:
 - "#/path"
 jsonSchema:
   type: string
-  documentation: A JSON pointer.
+  j-documentation: A JSON pointer.
   format: json-pointer

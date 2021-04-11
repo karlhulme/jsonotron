@@ -1,6 +1,5 @@
 ---
 kind: enum
-domain: https://jsonotron.org
 system: jss
 name: languageCode
 documentation: A language code conforming to the from ISO 639-1 standard.

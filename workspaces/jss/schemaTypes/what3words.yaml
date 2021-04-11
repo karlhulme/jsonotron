@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: what3words
 examples:
@@ -32,7 +31,7 @@ invalidTestCases:
 - ["first", "second", "third", "fourth"]
 jsonSchema:
   type: array
-  documentation: A 3-element array that captures an address based on the https://what3words.com
+  j-documentation: A 3-element array that captures an address based on the https://what3words.com
     geocoding system. The system allows you to specify any location on Earth, within
     a few metres, using just 3 words. Each element in the array is a shortString.
   minItems: 3

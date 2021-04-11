@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: telephoneNo
 examples:
@@ -32,18 +31,18 @@ invalidTestCases:
   number: 1234567
 jsonSchema:
   type: object
-  documentation: A telephone number that comprises of a dialling code and a number.
+  j-documentation: A telephone number that comprises of a dialling code and a number.
   additionalProperties: false
   properties:
     isd:
       $ref: callingCode
-      documentation: An international dialling code.
+      j-documentation: An international dialling code.
     number:
       $ref: shortString
-      documentation: The main number.  It should NOT have a leading zero.
+      j-documentation: The main number.  It should NOT have a leading zero.
     ext:
       $ref: shortString
-      documentation: Optional extension information.
+      j-documentation: Optional extension information.
   required:
   - isd
   - number

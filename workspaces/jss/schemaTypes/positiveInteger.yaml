@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: positiveInteger
 examples:
@@ -20,5 +19,5 @@ invalidTestCases:
 - 0
 jsonSchema:
   type: integer
-  documentation: A whole number that is equal to 1 or greater.
+  j-documentation: A whole number that is equal to 1 or greater.
   minimum: 1

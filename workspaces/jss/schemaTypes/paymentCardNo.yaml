@@ -1,6 +1,5 @@
 ---
 kind: schema
-domain: https://jsonotron.org
 system: jss
 name: paymentCardNo
 examples:
@@ -20,6 +19,6 @@ invalidTestCases:
 - '1234123412341234'
 jsonSchema:
   type: string
-  documentation: A value that uniquely identifies a payment card, such as a credit or
+  j-documentation: A value that uniquely identifies a payment card, such as a credit or
     debit card.  Any stored value will need to satisfy the LUHN algorithm.
   format: jsonotron-luhn
