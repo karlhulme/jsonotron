@@ -4,7 +4,6 @@ import { convertJsonotronTypesToTypeMap } from '../typeMap'
 import { appendArrayIndicators, capitaliseInitialLetters, ensureInitialCharacter, ensureValidCodePropertyCharacters, escapeQuotes } from '../utils'
 import { CodeGenerationParameters } from './CodeGenerationParameters'
 import { CodeGenerator } from './CodeGenerator'
-import { getUniqueSystemRefs } from './getUniqueSystemRefs'
 
 export class TypescriptCodeGenerator implements CodeGenerator {
   generate (params: CodeGenerationParameters): string {
@@ -61,28 +60,37 @@ export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
   private generateTypeNameConstants (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {
     const lines: string[] = []
 
-    const uniqueSystemRefs = getUniqueSystemRefs(enumTypes, schemaTypes)
+    const systems: string[] = []
 
-    for (const uniqueSystemRef of uniqueSystemRefs) {
-      const systemEnumTypes = enumTypes
-        .filter(e => `${e.domain}/${e.system}` === uniqueSystemRef.domainSystem)
+    enumTypes.forEach(enumType => {
+      if (!systems.includes(enumType.system)) {
+        systems.push(enumType.system)
+      }
+    })
 
-      const systemSchemaTypes = schemaTypes
-        .filter(s => `${s.domain}/${s.system}` === uniqueSystemRef.domainSystem)
+    schemaTypes.forEach(schemaType => {
+      if (!systems.includes(schemaType.system)) {
+        systems.push(schemaType.system)
+      }
+    })
+
+    for (const system of systems) {
+      const systemEnumTypes = enumTypes.filter(e => e.system === system)
+      const systemSchemaTypes = schemaTypes.filter(s => s.system === system)
 
       const enumTypeNameConstants = systemEnumTypes
-        .map(e => `  /**\n   * The fully qualified name of the ${e.name} type. \n   */\n  ${e.name}: '${e.domain}/${e.system}/${e.name}'`)
+        .map(e => `  /**\n   * The fully qualified name of the ${e.name} type. \n   */\n  ${e.name}: '${e.system}/${e.name}'`)
 
       const schemaTypeNameConstants = systemSchemaTypes
-        .map(s => `  /**\n   * The fully qualified name of the ${s.name} type. \n   */\n  ${s.name}: '${s.domain}/${s.system}/${s.name}'`)
+        .map(s => `  /**\n   * The fully qualified name of the ${s.name} type. \n   */\n  ${s.name}: '${s.system}/${s.name}'`)
 
       const typeNameConstants = [
         ...enumTypeNameConstants,
         ...schemaTypeNameConstants
       ]
 
-      const docBlock = `/**\n * The types of the ${uniqueSystemRef.domainSystem} system.\n */`
-      const code = `${docBlock}\nexport const ${uniqueSystemRef.system.toUpperCase()} = {\n${typeNameConstants.join(',\n\n')}\n}`
+      const docBlock = `/**\n * The types of the ${system} system.\n */`
+      const code = `${docBlock}\nexport const ${system.toUpperCase()} = {\n${typeNameConstants.join(',\n\n')}\n}`
 
       lines.push(code)
     }
@@ -153,7 +161,7 @@ export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
   }
 
   private resolveJsonotronTypeToTypescriptType (fqn: string, arrayCount: number, map: TypeMap): string {
-    const matchedRefType = map.refTypes.find(t => t.fullyQualifiedName === fqn)
+    const matchedRefType = map.refTypes.find(t => `${t.system}/${t.name}` === fqn)
 
     // we matched a ref type, if it's a scalar we can return that type
     // otherwise we need to repeat the search using the new (resolved) type name.
@@ -165,7 +173,7 @@ export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
       }
     }
   
-    const matchedObjectType = map.objectTypes.find(t => t.fullyQualifiedName === fqn)
+    const matchedObjectType = map.objectTypes.find(t => `${t.system}/${t.name}` === fqn)
 
     // we matched an object type, so we need to return it but apply formatting.
     /* istanbul ignore else */

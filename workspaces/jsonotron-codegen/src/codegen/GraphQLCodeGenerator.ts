@@ -59,7 +59,7 @@ export class GraphQLCodeGenerator implements CodeGenerator {
   }
 
   private resolveJsonotronTypeToGraphQLType (fqnTypeName: string, arrayCount: number, map: TypeMap): string {
-    const matchedRefType = map.refTypes.find(t => t.fullyQualifiedName === fqnTypeName)
+    const matchedRefType = map.refTypes.find(t => `${t.system}/${t.name}` === fqnTypeName)
   
     // we matched a ref type, if it's a scalar we can return that type
     // otherwise we need to repeat the search using the new (resolved) type name.
@@ -73,7 +73,7 @@ export class GraphQLCodeGenerator implements CodeGenerator {
       }
     }
   
-    const matchedObjectType = map.objectTypes.find(t => t.fullyQualifiedName === fqnTypeName)
+    const matchedObjectType = map.objectTypes.find(t => `${t.system}/${t.name}` === fqnTypeName)
 
     // we matched an object type, so we need to return it but apply formatting.
     /* istanbul ignore else */

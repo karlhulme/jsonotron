@@ -22,7 +22,7 @@ test('Generate typescript code.', async () => {
   expect(result).toContain('export const ALT = {')
 
   // the type name consts
-  expect(result).toContain('color: \'https://jsonotron.org/test/color\'')
+  expect(result).toContain('color: \'test/color\'')
 
   // the enum values
   expect(result).toContain('TEST_SIZE_VALUES = {\n  regular: \'regular\',')

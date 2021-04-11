@@ -10,27 +10,27 @@ test('Convert jsonotron types into a type map and check the ref types.', () => {
   // console.log(JSON.stringify(typeMap, null, 2))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { domain: 'https://jsonotron.org', system: 'test', name: 'color', fullyQualifiedName: 'https://jsonotron.org/test/color', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true }
+    { system: 'test', name: 'color', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { domain: 'https://jsonotron.org', system: 'test', name: 'size', fullyQualifiedName: 'https://jsonotron.org/test/size', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true }
+    { system: 'test', name: 'size', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { domain: 'https://jsonotron.org', system: 'alt', name: 'direction', fullyQualifiedName: 'https://jsonotron.org/alt/direction', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true }
+    { system: 'alt', name: 'direction', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { domain: 'https://jsonotron.org', system: 'test', name: 'bed_make', fullyQualifiedName: 'https://jsonotron.org/test/bed_make', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: true, isEnumRef: false }
+    { system: 'test', name: 'bed_make', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: true, isEnumRef: false }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { domain: 'https://jsonotron.org', system: 'test', name: 'bed_pillow', fullyQualifiedName: 'https://jsonotron.org/test/bed_pillow', refTypeName: 'https://jsonotron.org/test/pillow', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: false }
+    { system: 'test', name: 'bed_pillow', refTypeName: 'test/pillow', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: false }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { domain: 'https://jsonotron.org', system: 'test', name: 'bed_direction', fullyQualifiedName: 'https://jsonotron.org/test/bed_direction', refTypeName: 'https://jsonotron.org/alt/direction', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: false }
+    { system: 'test', name: 'bed_direction', refTypeName: 'alt/direction', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: false }
   ]))
 })
 
@@ -43,35 +43,33 @@ test('Convert jsonotron types into a type map and check the object types.', () =
 
   expect(typeMap.objectTypes).toEqual(expect.arrayContaining([
     {
-      domain: 'https://jsonotron.org',
       system: 'test',
       name: 'bed',
-      fullyQualifiedName: 'https://jsonotron.org/test/bed',
       documentation: 'A bed',
       objectTypeArrayCount: 0,
       properties: [
         {
           propertyName: 'make',
           documentation: 'The make of the bed.',
-          refTypeName: 'https://jsonotron.org/test/bed_make',
+          refTypeName: 'test/bed_make',
           isRequired: true
         },
         {
           propertyName: 'thickness',
           documentation: 'The thickness of the bed mattress',
-          refTypeName: 'https://jsonotron.org/test/bed_thickness',
+          refTypeName: 'test/bed_thickness',
           isRequired: false
         },
         {
           propertyName: 'pillow',
           documentation: 'The type of pillow on the bed',
-          refTypeName: 'https://jsonotron.org/test/bed_pillow',
+          refTypeName: 'test/bed_pillow',
           isRequired: false
         },
         {
           propertyName: 'direction',
           documentation: 'The direction the bed is facing.',
-          refTypeName: 'https://jsonotron.org/test/bed_direction',
+          refTypeName: 'test/bed_direction',
           isRequired: false
         }
       ]

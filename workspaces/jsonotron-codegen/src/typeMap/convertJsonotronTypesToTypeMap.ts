@@ -14,13 +14,9 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
 
   // all enums are based on the json schema string type. 
   enumTypes.forEach(enumType => {
-    const fqn = `${enumType.domain}/${enumType.system}/${enumType.name}`
-
     map.refTypes.push({
-      domain: enumType.domain,
       system: enumType.system,
       name: enumType.name,
-      fullyQualifiedName: fqn,
       refTypeName: 'string',
       refTypeArrayCount: 0,
       isScalarRef: false,
@@ -29,7 +25,6 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
 
     if (enumType.dataJsonSchema) {
       addJsonSchemaToTypeMap(
-        enumType.domain,
         enumType.system,
         enumType.name + '_data',
         0,
@@ -43,7 +38,6 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
   // to convert schemaTypes we look at the jsonSchema property.
   schemaTypes.forEach(schemaType => {
     addJsonSchemaToTypeMap(
-      schemaType.domain,
       schemaType.system,
       schemaType.name,
       0,

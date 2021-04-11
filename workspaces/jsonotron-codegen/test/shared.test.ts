@@ -69,7 +69,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
           make: { type: 'string', documentation: 'The make of the bed.' },
           thickness: { type: 'number', documentation: 'The thickness of the bed mattress' },
           pillow: { $ref: 'pillow', documentation: 'The type of pillow on the bed' },
-          direction: { $ref : 'https://jsonotron.org/alt/direction', documentation: 'The direction the bed is facing.' }
+          direction: { $ref : '../alt/direction', documentation: 'The direction the bed is facing.' }
         },
         required: ['make']
       },

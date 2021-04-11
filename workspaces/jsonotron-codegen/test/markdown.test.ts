@@ -1,11 +1,11 @@
 import { expect, test } from '@jest/globals'
-import { MarkdownGenerator } from '../src'
+import { generateMarkdown } from '../src'
 import { getTestTypes } from './shared.test'
 
-test('Generate typescript code.', async () => {
+test('Generate markdown.', async () => {
   const testTypes = getTestTypes()
-  const generator = new MarkdownGenerator()
-  const result = generator.generate({
+
+  const result = generateMarkdown({
     enumTypes: testTypes.enumTypes,
     schemaTypes: testTypes.schemaTypes
   })
@@ -23,4 +23,3 @@ test('Generate typescript code.', async () => {
   expect(result).toContain('#### Example 1')
   expect(result).toContain('#### Schema')
 })
-

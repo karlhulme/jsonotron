@@ -13,12 +13,6 @@ export interface TypeMapRef {
   name: string
 
   /**
-   * The domain and system qualified name of a type.  This may reference
-   * an enum type, a schema type, or a sub-object of a schema type.
-   */
-  fullyQualifiedName: string
-
-  /**
    * The name of another type.
    * If this field is a scalar ref (isScalarRef=true) then this will be
    * the name of json schema type, otherwise it will be a fully qualified name.

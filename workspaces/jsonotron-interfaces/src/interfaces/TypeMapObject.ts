@@ -13,11 +13,6 @@ export interface TypeMapObject {
   name: string
 
   /**
-   * The fully qualified name of a type.
-   */
-  fullyQualifiedName: string
-
-  /**
    * The documentation associated with the type.
    */
   documentation: string
