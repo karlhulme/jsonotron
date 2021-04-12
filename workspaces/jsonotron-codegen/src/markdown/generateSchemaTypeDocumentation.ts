@@ -6,7 +6,7 @@ export function generateSchemaTypeDocumentation (schemaType: SchemaType): string
 
 **kind**: schema\\
 **system**: ${schemaType.system}\\
-**name**: ${schemaType.name}\\
+**name**: ${schemaType.name}
 
 ${schemaType.examples
   .map((example, index) => {

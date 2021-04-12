@@ -6,7 +6,7 @@ export function generateEnumTypeDocumentation (enumType: EnumType): string {
 
 **kind**: enum\\
 **system**: ${enumType.system}\\
-**name**: ${enumType.name}\\
+**name**: ${enumType.name}
 
 ${enumType.documentation}
 
