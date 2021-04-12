@@ -158,6 +158,20 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       ],
       validTestCases: [],
       invalidTestCases: []
+    }, {
+      kind: 'schema',
+      system: 'extra',
+      name: 'hugeString',
+      jsonSchema: {
+        type: 'string',
+        'j-documentation': 'A large string with a defined length.',
+        maxLength: 2000
+      },
+      examples: [
+        { value: 'A really really big string', documentation: 'An example.' }
+      ],
+      validTestCases: [],
+      invalidTestCases: []
     }]
   }
 }
