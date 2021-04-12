@@ -1,2 +1,1 @@
-export * from './clone'
-export * from './codegen'
+export * from './typescript'
