@@ -42,8 +42,8 @@ The types of the `jss` system.
 * [negativeFloatOrZero](#negativeFloatOrZero)
 * [negativeInteger](#negativeInteger)
 * [negativeIntegerOrZero](#negativeIntegerOrZero)
-* [object](#object)
 * [paymentCardNo](#paymentCardNo)
+* [plainObject](#plainObject)
 * [positiveFloat](#positiveFloat)
 * [positiveFloatOrZero](#positiveFloatOrZero)
 * [positiveInteger](#positiveInteger)
@@ -1708,11 +1708,39 @@ An example.
 
 
 
-### object
+### paymentCardNo
 
 **kind**: schema\
 **system**: jss\
-**name**: object
+**name**: paymentCardNo
+
+#### Example 1
+
+An example.
+
+```json
+"4111111111111111"
+```
+
+
+#### Schema
+
+
+```json
+{
+  "type": "string",
+  "j-documentation": "A value that uniquely identifies a payment card, such as a credit or debit card.  Any stored value will need to satisfy the LUHN algorithm.",
+  "format": "jsonotron-luhn"
+}
+```
+
+
+
+### plainObject
+
+**kind**: schema\
+**system**: jss\
+**name**: plainObject
 
 #### Example 1
 
@@ -1742,35 +1770,7 @@ Here we store an empty object.
 ```json
 {
   "type": "object",
-  "j-documentation": "A JSON object.  The underlying data store may impose a limit of the depth of the JSON object.  You cannot store a null value.  Care should be taken not to supply an object of such depth or serialized size that the underlying data store cannot save it."
-}
-```
-
-
-
-### paymentCardNo
-
-**kind**: schema\
-**system**: jss\
-**name**: paymentCardNo
-
-#### Example 1
-
-An example.
-
-```json
-"4111111111111111"
-```
-
-
-#### Schema
-
-
-```json
-{
-  "type": "string",
-  "j-documentation": "A value that uniquely identifies a payment card, such as a credit or debit card.  Any stored value will need to satisfy the LUHN algorithm.",
-  "format": "jsonotron-luhn"
+  "j-documentation": "Any valid JSON object.  The underlying data store may impose a limit on the depth of the JSON object.  You cannot store a null value.  Care should be taken not to supply an object of such depth or serialized size that the underlying data store cannot save it.  Wherever possible, define a set of schemas with a specific shape rather than using this type."
 }
 ```
 
