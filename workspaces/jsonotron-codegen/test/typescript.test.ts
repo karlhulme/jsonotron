@@ -35,10 +35,10 @@ test('Generate typescript code.', async () => {
   expect(result).toContain('_1red: \'1red\'') // insert underscore prefixes if first character is not alpha
 
   // the enum items
-  expect(result).toContain('export const sizeItems = [') // definition line
+  expect(result).toContain('export const sizeItems: EnumTypeItem[] = [') // definition line
   expect(result).toContain('{ value: \'xlarge\', text: \'Extra Large\', deprecated: \'Cannot source anymore.\' }') // deprecated
   expect(result).toContain('{ value: \'2green\', text: \'Green\', data: {"hexCode":"0f0"} }') // custom data
-  expect(result).toContain('] as ExtendedEnumTypeItem<Color_Data>[]') // custom data strongly typed
+  expect(result).toContain('export const colorItems: ExtendedEnumTypeItem<Color_Data>[] = [') // custom data strongly typed
 
   // the enum resolvers
   expect(result).toContain('export const directionResolver = {') // definition line
