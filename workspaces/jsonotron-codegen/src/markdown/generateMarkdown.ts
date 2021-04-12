@@ -10,15 +10,18 @@ interface GenerateOptions {
 export function generateMarkdown (options: GenerateOptions): string {
   const lines: string[] = []
 
+  const enumTypes = options.enumTypes.sort((a, b) => a.name.localeCompare(b.name))
+  const schemaTypes = options.schemaTypes.sort((a, b) => a.name.localeCompare(b.name))
+
   lines.push(`# Type Systems`)
 
-  const uniqueSystems = getUniqueSystems(options.enumTypes, options.schemaTypes)
+  const uniqueSystems = getUniqueSystems(enumTypes, schemaTypes)
 
   lines.push(uniqueSystems.map(system => `* ["${system}" System](#"${system}"-System)`).join('\n'))
 
   for (const system of uniqueSystems) {
-    const systemEnumTypes = options.enumTypes.filter(e => e.system === system)
-    const systemSchemaTypes = options.schemaTypes.filter(s => s.system === system)
+    const systemEnumTypes = enumTypes.filter(e => e.system === system)
+    const systemSchemaTypes = schemaTypes.filter(s => s.system === system)
 
     const systemMarkdown = generateSystemDocumentation(system, systemEnumTypes, systemSchemaTypes)
 
