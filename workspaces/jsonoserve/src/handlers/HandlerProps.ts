@@ -6,6 +6,11 @@ import { EnumType, SchemaType } from 'jsonotron-interfaces'
  */
 export interface HandlerProps {
   /**
+   * The domain to use for any JSON schemas.
+   */
+  domain: string
+
+  /**
    * An express request.
    */
   req: Request

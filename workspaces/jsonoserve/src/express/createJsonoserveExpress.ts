@@ -13,6 +13,11 @@ export interface JsonoserveConstructorProps {
    * An array of resource strings.
    */
   resourceStrings: string[]
+
+  /**
+   * The domain to use for any issued JSON schemas.
+   */
+  domain: string
 }
 
 /**
@@ -24,6 +29,7 @@ export function createJsonoserveExpress (props: JsonoserveConstructorProps): Req
 
   return async (req: Request, res: Response): Promise<void> => {
     const handlerProps: HandlerProps = {
+      domain: props.domain,
       req,
       res,
       enumTypes: resources.enumTypes,

@@ -15,7 +15,8 @@ export async function createTestableApp (): Promise<Express> {
       animalType,
       hairColorType,
       trouserStyle
-    ]
+    ],
+    domain: 'https://testing.org'
   }))
 
   return app

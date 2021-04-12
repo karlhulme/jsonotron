@@ -11,14 +11,10 @@ export async function typescriptHandler (props: HandlerProps): Promise<void> {
     return
   }
 
-  const domain = props.req.query.domain
-    ? decodeURIComponent(props.req.query.domain as string)
-    : 'https://jsonotron.org'
-
   const systems = props.req.query.systems.split(',').filter(s => s)
 
   const typescript = generateTypescript({
-    domain,
+    domain: props.domain,
     enumTypes: props.enumTypes.filter(e => systems.includes(e.system)),
     schemaTypes: props.schemaTypes.filter(s => systems.includes(s.system))
   })

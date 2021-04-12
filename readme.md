@@ -1,114 +1,112 @@
 # Jsonotron
 
-Jsonotron is a software stack and code generation tool, based on JSON schema, for defining and validating **data structures** that are used by cross-language services.
+A NodeJS service implementation for verifying JSON schemas and converting and distributing language-specific wrappers to be used by other micro-services.
 
-Jsonotron is most useful when you have non-trivial data structures that are used by multiple services and you want to avoid duplicating and maintaining the same definitions in multiple places.
+Jsonotron is most useful when you have non-trivial data structures that are used by multiple back-end services and you want to avoid duplicating and maintaining the same definitions (and their accompanying validators and deserialisers) in multiple places.
 
 ![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
 ![npm type definitions](https://img.shields.io/npm/types/typescript)
 
-With Jsonotron data structures are comprised of **schema types** and **enum types**.
+With Jsonotron, you define and host the schemas for your API messages, your NoSQL documents or any other JSON-based structure in one place, in a language independent manner.  Micro-services then import strongly typed validators and deserialisers, along with base data (enums) that needs to be available at compile-time, in the desired programming language.
 
-Schema types are defined primarily using JSON schema.  This gives us the benefit of a wide range of validation checks, including the use of regular expressions.  JSON schema allows us to define new primitives like shortString or longString, whereby you assign a specific maximum length that is then well known (and can be enforced) across the system.  JSON schema also supports complex types, such as GeoJsonPoint, which supports an array with specific constraints applied to each element.  Schema types can be combined using the standard schema referencing syntax that is native to JSON schema.  In addition to the JSON shema, a Jsonotron schema type defines valid and invalid samples, so you can be confident your type is constraining data as expected.  The additional of examples and documentation can be used to produce great help documentation.
 
-Enum types are a set of string values, a text representation and documentation.  If desired, you can also define a JSON schema for meta-data that you want associated with each value of an enumeration.  For example, for each value of a currency enumeration you may also want to know the difference in magnitude between the major and minor denomination.  Jsonotron will check that the required meta-data is supplied for each enumeration value.
+## Examples
 
-A Jsonotron type service makes these type definitions available to other services via a simple RESTful interface.
+A micro-service that needs to process inbound API messages can import language-specific validators and deserialises to check the incoming payloads.
 
-A Jsonotron command line tool offers the following capabilities to a microservice client:
-* Download the schema types and enum types in a JSON schema that can be used for validation.
-* Generate type definitions in a range of languages that can be used to provide a strongly-typed development experience when working with the data structures.
-* Generate code in a range of languages that can be used to interrogate the definition of a data structure at run-time.
+A micro-service that wraps a NoSQL database can import the JSON schemas to verify objects prior to saving them.
+
+A GraphQL service can populate the query and input types that define the graph.
+
+A website can import base data to use for conditional checks with a decent development experience or it can use the data to populate drop-downs.
+
+
+## Benefits
+
+By storing the schemas in one place you avoid a lot of duplication.
+
+A dedicated "type service" offers the following benefits:
+
+
+### Authoring experience (verified on service startup)
+
+* Check all JSON schemas for validity.
+* Check all JSON schemas adhere to valid and invalid test cases.
+* Check all JSON schemas have examples and documentation.
+* Check all base data (enums) for validity.
+* Check all base data meta-data conforms to a defined shape.
+
+
+### Distribution
+
+* All the code generation is kept in one place.  (Otherwise, multiple micro-services using the same programming language would have to implement the same duplicated code generation tool chain.)
+* Micro-service developers can selectively import "systems" of JSON schemas, rather than having to import everything.  This reduces the chance of name collision, although a central service provides opportunities for mapping system names to prefixes.
+* Micro-service developers can dictate the JSON schema domain because the service sets the schema ID.  This also means that individual schemas can use a relative syntax which is easier to maintain.
+* Micro-service developers can import language-specific validators and strongly-typed deserialisers.
+* Micro-service developers can import base data so it's available at compile time.
+* Micro-service developers can view detailed interactive schema documentation. (future)
+
+
+## Defining schemas
+
+Jsonotron manages a set of Jsonotron types.  These types are either **schema types** or **enum types**.
+
+A **schema type** is a thin wrapper around a JSON schema that you can define directly.  This gives us the benefit of a wide range of validation checks, including the use of regular expressions.
+
+A schema type can be used to define new primitives like shortString or longString, whereby you assign a specific maximum length that is then well known (and can be enforced) across the system.  
+
+A schema type can be used to implement a JSON schema for complex types, such as GeoJsonPoint, which supports an array with specific constraints applied to each element.  
+
+In addition to the JSON schema, a Jsonotron schema type defines valid and invalid samples, so you can be confident your type is constraining data as expected.  The addition of examples and documentation can be used to produce great help documentation.
+
+The `j-documentation` keyword can be used on JSON schema nodes with a `type:` property to document the intended usage.  This is used to populate help documentation.
+
+The definition can utilise other schema types and other enum types.  For example, in the `jss` the `money` schema type references the `integer` schema type and the `currencyCode` enum type.
+
+An **enum type** represents data that should be available at compile time rather than stored in a database. For example, `dayOfWeek` defines `monday`, `tuesday`, `wednesday` etc.
+
+An enum type is converted to a JSON schema by Jsonotron at run-time.
+
+These are the values that are used for conditional branching in code or for populating drop-downs on a web-page.  An enum defines a set of values (or keys) which are stable and can be referenced by schema types, and then each enum value defines additional data that can be used as the application requires.
+
+As standard, all enum items support a text, symbol, deprecated and documentation property.  If desired, you can also define a JSON schema for meta-data that you want associated with each value of an enumeration.  For example, each value of the currency enumeration defines the difference in magnitude between the major and minor denomination.  Jsonotron will check that the required meta-data is supplied for each enumeration value.
 
 
 ## Repositories
 
-### JSS
 
-This repo includes a set of commonly required types called the `Jsonotron Standard System` or `JSS` for short.
+### jss
+
+This repo includes a set of commonly required types called the `Jsonotron Standard System` or `jss` for short.
 
 There are numbers and strings of various lengths.  There are dates and times in a fixed-length format.  There is a money type that incorporates currency and ensures any figures are stored as integers and not floats.
 
 You can define your own but the JSS is a good starting point and all the types are [documented here](https://github.com/karlhulme/jsonotron/blob/master/workspaces/jss/readme.md)
 
 
-### Jsonotron-js
+### jsonotron-interfaces
 
-This repo is a typescript implementation of the Jsonotron engine.
-
-
-### Jsonoserve
-
-This repo contains an express handler for sharing Jsonotron types.  This is typically used with the codegen and the command line to pull the latest type definitions from a central service into the individual services that need them.
+The interfaces used by the rest of the workspaces, most importantly `EnumType` and `SchemaType`.
 
 
-## Motivation
+### jsonotron-js
 
-Non-trivial applications will need to process JSON data at some point.  Either on the wire in the form of REST API calls or perhaps in storage via a document-based database such as Mongo, Cosmos or DynamoDB.
-
-Jsonotron provides a language independent way to specify the types that you want to use in a specific microservice.
-
-You can then use Jsonotron-JS to validate against those type.
-
-For the data layer, we have [Sengi](https://github.com/karlhulme/sengi).  Sengi is the foundation of a document-based data service where the table/document definitions are entirely based within code.  Sengi uses the types to define table structures and update messages, to produce documentation and generate downstream formats like GraphQL schema for client library generation.
+Functions for validating and parsing schema and enum type strings.
 
 
-## Implementations
+### jsonotron-codegen
 
-* **NodeJS**: [Jsonotron-JS](https://github.com/karlhulme/jsonotron/workspaces/jsonotron-js)
-
-
-## Types
-
-Each field in a structure has a designated kind, either an **Enum** type or a **Schema** type.
-
-* An **Enum** type is a set of string values.  Most languages have an enum construct of some kind.  For example, `dayOfWeek` defines `monday`, `tuesday`, `wednesday` etc.
-
-* A **Schema** type is a JSON schema definition.  The definition can utilise enum types and other schema types.  For example,  `money` references the `integer` schema type and the `currencyCode` enum type.
-
-Typically you'll need to define your own types for your specific use cases.  However, there are some common types (like currency and date time) that many domains need.  For this, Jsonotron supplies a standard type library.
+Functions for generating a `TypeMap` from a set of `EnumType`'s and `SchemaType`'s.  Additional functions then convert this type map into language-specific validators and deserialisers.
 
 
-## Defining an Enum Type
+### jsonoserve
 
-An Enum is really just a set of strings.
+An express handler for distributing JSON schemas.  `npm install` this library into an express-based service to add jsonotron functionality to it. 
 
-Property Name | Description
----|---
-kind | Must be the value 'enum'.
-system | The name of the type system that this type belongs to.
-name | A name for the enum type.
-title | A display name for the enum type.
-documentation | A commonmark description of the enum.
-dataJsonSchema | A JSON schema that defines the shape of the data property of each item.  If this property is defined, then each item must declare a data property that conforms to it.
-items | An array of objects.
-items.value | A string value that is unique within the array.
-items.text | A string to be used as the display text.
-items.symbol | An optional string that represents the value.
-items.deprecated | If populated, this enum item has been deprecated and this property provides additional information such as which enum item to use instead.
-items.documentation | An optional commonmark description of the enum value.
-items.data | Additional data attached the enum item.  This is required if a dataJsonSchema has been declared.
 
-Here's an example:
+### jsonocli
 
-```yaml
----
-kind: enum
-domain: https://yourdomain.com
-system: system
-name: directions
-title: Directions
-documentation: My commonmark describing the purpose or usage of the enum.
-items:
-- value: up
-  text: Up
-  symbol: "/\\"
-  documentation: The up direction.
-- value: down
-  text: Down
-  symbol: "\\/"
-  documentation: The down direction.
-```
+A command-line tool for requesting JSON schemas and wrappers from a jsonoserve service.  Intended for use with scripting so you can import JSON schemas to micro-services on demand.
 
 
 ## Defining a Schema Type
@@ -120,7 +118,6 @@ Property Name | Description
 kind | Must be the value 'schema'.
 system | The name of the type system that this type belongs to.
 name | A name for the schema type.
-title | A display name for the schema type.
 documentation | A commonmark description of the schema type.
 examples | An array of example values that conform to the json schema and demonstrate how the schema type should typically be used.  At least one example must be provided.
 examples.value | An example value
@@ -156,13 +153,17 @@ jsonSchema:
   properties:
     coordX:
       type: number
+      j-documentation: This is the x co-ordinate.
     coordY:
       type: number
+      j-documentation: This is the y co-ordinate.
 ```
 
 When defining the JSON schema you can use any of the JSON Schema capabilities.  Implementations of Jsontron will use different json schema engines and so support may vary.
 
-A schema type can reference external enum types and schema types using the `{ $ref: '<typeName>' }` expression.  You can use the fully qualified name such as `http://yourdomain.com/system/<typeName>` or the short name if they are both part of the same system.
+Note that you can use the `j-documentation` property to add documentation to any JSON schema nodes that include a `type:` property.
+
+A schema type can reference external enum types and schema types using the `{ $ref: '<typeName>' }` expression.  You should always use a relative uri so that the domain can be dictated by clients at the point of download.  If `targetType` is in the same system use `{ $ref: 'targetType' }`.  If `targetType` is another system use `{ $ref: '../anotherSystem/TargetType' }`.  See the example below.
 
 ```yaml
 ---
@@ -176,18 +177,55 @@ jsonSchema:
     localField:
       type: number
     externalSchemaTypeField:
-      "$ref": https://yourdomain/system/exteralSchemaType
+      "$ref": ../otherSystem/exteralSchemaType
     externalEnumTypeField:
       "$ref": externalEnumType
-      documentation: Additional documentation here.
 ```
 
-You can include additional documentation for object properties.  An example is shown on the last line of the code listing above.
+
+## Defining an Enum Type
+
+An Enum is really just a set of strings.
+
+Property Name | Description
+---|---
+kind | Must be the value 'enum'.
+system | The name of the type system that this type belongs to.
+name | A name for the enum type.
+documentation | A commonmark description of the enum.
+dataJsonSchema | A JSON schema that defines the shape of the data property of each item.  If this property is defined, then each item must declare a data property that conforms to it.
+items | An array of objects.
+items.value | A string value that is unique within the array.
+items.text | A string to be used as the display text.
+items.symbol | An optional string that represents the value.
+items.deprecated | If populated, this enum item has been deprecated and this property provides additional information such as which enum item to use instead.
+items.documentation | An optional commonmark description of the enum value.
+items.data | Additional data attached the enum item.  This is required if a dataJsonSchema has been declared.
+
+Here's an example:
+
+```yaml
+---
+kind: enum
+domain: https://yourdomain.com
+system: system
+name: directions
+documentation: My commonmark describing the purpose or usage of the enum.
+items:
+- value: up
+  text: Up
+  symbol: "/\\"
+  documentation: The up direction.
+- value: down
+  text: Down
+  symbol: "\\/"
+  documentation: The down direction.
+```
 
 
 ## Format Validators
 
-A format validator is a function that tests whether a given string adheres to a known format and returns either true of false, e.g. `(s: string) => boolean`.
+A format validator is a function that tests whether a given string adheres to a known format and returns either true or false, e.g. `(s: string) => boolean`.
 
 For example, a credit card number is a string but it has a specific format known as Luhn.  A JSON schema can use the `format` keyword to reference custom validation.
 
@@ -202,18 +240,15 @@ jsonotron-luhn | Implementation of the luhn alrogithm.
 In addition, a Jsonotron runtime should allow you to provide custom formatters of your own which you can then reference in your own schema types.
 
 
-## Sharing a Type System
-
-The `./workspaces/jss/scripts/jss-download.sh` script downloads a release JSS from this github repo and extracts the enum and schema types into a folder.  You can take the same approach and then abuse this script to achieve the same thing with your own type systems.  Typically you'll want to set this up as a command line you can run when you want to bring in the types.  Those downloaded types should be committed to your repo.  If using a private repo you'll need to create a personal access token as pass that in the header as well.
-
-By creating a type system, typically in a separate repo, it becomes easier to share those types across multiple services within your organisation.  This can lead to time saving when documenting those types and ensures consistency when those services communicate.  This approach works well for small granular types (like those found in the JSS) and small common types that are used repeatedly throughout your services.
-
-Be wary of trying to share every type though.  This will typically lead to services being bound together by types where contextually they should be able to evolve independently.  Assume that you will probably end up with multiple type systems representing different bounded contexts.  Remember a single service can pull types from multiple services.
-
-It is reasonable (possibly optimal) to offer a single unified type system to frontend clients.  The codegen tool includes a GraphQL code generator which will largely ignore `domain` and `system` when writing out the types.  At some point, it would be good if a config object would allow prefixes to be added based on the system.  This would provide an escape hatch in case of name clashes.
+## Using the jss
 
 
-## JSS Change Process
+### Downloading
+
+The `./workspaces/jss/scripts/jss-download.sh` script downloads a release `jss` from this github repo and extracts the enum and schema types into a folder.
+
+
+### Change process
 
 For feature or bug releases, the following rules are applied to proposed changes to the core types:
 
@@ -227,22 +262,29 @@ Any change will always result in a new release.
 
 Any change that violates the rules above will result in a new major release.
 
-
-## Shouldn't each service define its own interface
-
-This often makes sense.
-
-However, if you have complex (non-trivial) data structures that are in use by multiple services then it becomes necessary to identify that the schema itself is now a duplication that needs to be *refactored* out.
-
-Making a change to an interface of a deployed system is always a big deal.  By extracting the data structures that are used by multiple backend services into a single place it becomes more explicit when a breaking change is on the cards.  Schema types and enum types can be placed into namespaces because it's possible (likely) that not all services require the definitions for all namespaces.
+Do not automate the downloading of the `jss` types or your own types.  This should always be done as an explicit action or choice.  It is a similar process (in terms of drivers and consequences) to updating your package dependencies.
 
 
-## Why use JSON schema?
-
-JSON is already used by many (most?) services to exchange data.  JSON is also used by most of the document databases (Cosmos, Mongo, DynamoDB, etc) to store data.  Therefore using the mature and expansive JSON schema for type validation makes more sense than inventing a new type system.
+## Design decisions
 
 
-## Why not use GraphQL?
+### Shouldn't each service define and own it's interface?
+
+This often makes sense. 
+
+However, if you have complex (non-trivial) data structures that are in use by multiple services then it becomes necessary to identify that the schema itself is now a duplication that needs to be *factored* out.
+
+Making a change to an interface of a deployed system is always a big deal.  By extracting the data structures that are used by multiple backend services into a single place it becomes more explicit when a breaking change is on the cards.  Schema types and enum types can be placed into "systems" because it's possible (likely) that not all services require all schemas.
+
+
+### Why use JSON schema?
+
+JSON is already used by many (most?) services to exchange data.  It forms part of the OpenAPI specification.  JSON is supported by most of the document databases (Cosmos, Mongo, DynamoDB, etc) to interact with stored data.  
+
+In short, using the mature and expansive JSON schema for type validation makes more sense than inventing a new type system.
+
+
+### Why not use GraphQL?
 
 GraphQL defines the shape of objects using primitives but not the associated validation.  For example, you cannot define the constraints for `positiveInteger` or `geoJsonPolygon` using the GraphQL format.
 
@@ -251,20 +293,43 @@ It's also worth recognising that GraphQL is aimed at the interface between a fro
 The Jsonotron type system can produce GraphQL definition language constructs for use in your graph.  To improve the GraphQL production, include a `documentation` property on your object property definitions.  This should be short.  If an elaborate description of a property is required, use the `documentation` property of the schema type.
 
 
-## Design Decisions
+### Why use YAML for definitions?
 
-Jsonotron does not dictate the API of a Jsonotron validating engine.  This frees each implementation to conform to the best practices of the language.
+You don't have to, you can use JSON directly and it's strict syntax was hard to let go.
 
-The definitions are stored as YAML (rather than JSON) for two reasons:
+However, YAML offers a few useful advantages:
 
   1. Comments are supported in YAML with a `#` prefix.
-  2. Strings can be spread over multiple lines making the documentation easier to read and write.
+  2. Strings can be spread over multiple lines making the documentation (and j-documentation nodes) easier to read and write.
 
-Jsonotron enforces seperate fields for `domain`, `system` and `name` on each type.  This allows documentation to be built with appropriate headers for the key components of the system.  A single URI could not be unambiguously unpicked. 
 
-The use of namespaces allows different systems to exist.  This is useful because the standard system (JSS) that defines lots of types that you wouldn't want to define manually on every project.  However, the namespacing should not be used within a client project, so the codegen tools discard the namespace as much as possible.  When a name collision exists, the codegen tools should be configured to alias one of the offending types to a new name.
+### Why bother with separate enum types?
 
-The ability to share the types among multiple services is particularly useful when it comes to enum values.  These are often used in multiple services and not having to define them multiple places is a win.  Since enums can be extended with arbitary (but schema-backed) data, much of a solutions static reference data can be defined as enum values.  By serving this data up from a `type server` such as `jsonoserve`, multiple microservices can access the same definitions without having to share a common library which pins you to a particular technology.  (To make this work in practice, more jsonotron implementations will be needed.)
+We want to be able to define static base data associated with each enum item.
+
+The most basic requirement is to be able to associated documentation and a mark of whether a particular enum item has been deprecated.
+
+In single-language systems, it's very convenient to have a text property as well.
+
+Being able to associated additional arbitrary data, and have that data enforced, without ever repeating the key, is a very efficient way of storing this data.
+
+Ultimately, we build a JSON schema containing just the enum definition, so from a client perspective the result is really the same anyway.
+
+
+### Use not JSON Schema IDs?
+
+Jsonotron generates schema ids so that the host part of the URI domain can be generated.
+
+This allows you to reference the jss using `../jss/shortString` rather than `https://jsonotron.org/jss/shortString`.  The former is shorter and doesn't litter your schemas with reference to the jsonotron domain.
+
+The domain can be specified once when starting up a jsonoserve, rather than appearing everywhere.
+
+This also makes it a little easier to validate the name and system fields, and reduces the length of the cli tool statements.
+
+```bash
+jsonocli typescript --systems jss other # short
+jsonocli typescript --systems https://jsonotron.org/jss https://local.org/other # long
+```
 
 
 ## Continuous Deployment
