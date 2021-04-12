@@ -17,6 +17,6 @@ export function generateEnumTypeItems (enumTypes: EnumType[]): string[] {
         ? `ExtendedEnumTypeItem<${capitaliseInitialLetters(e.name)}_Data>[]`
         : `EnumTypeItem[]`
   
-      return `${docBlock}export const ${e.name}Items = [\n${itemLines.join(',\n')}\n] as ${typeCast}`
+      return `${docBlock}export const ${e.name}Items: ${typeCast} = [\n${itemLines.join(',\n')}\n]`
     })
 }
