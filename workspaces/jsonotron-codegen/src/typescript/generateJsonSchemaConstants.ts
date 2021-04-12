@@ -17,9 +17,11 @@ export function generateJsonSchemaConstants (domain: string, enumTypes: EnumType
     result.push(`const ${schemaType.name}JsonSchema = ${JSON.stringify(jsonSchema, null, 2)}`)
     jsonSchemaConstantNames.push(`${schemaType.name}JsonSchema`)
 
-    const partialJsonSchema = createJsonSchemaForSchemaType(domain, makePartialSchemaType(schemaType))
-    result.push(`const ${schemaType.name}PartialJsonSchema = ${JSON.stringify(partialJsonSchema, null, 2)}`)
-    jsonSchemaConstantNames.push(`${schemaType.name}PartialJsonSchema`)
+    if (schemaType.jsonSchema.type === 'object') {
+      const partialJsonSchema = createJsonSchemaForSchemaType(domain, makePartialSchemaType(schemaType))
+      result.push(`const ${schemaType.name}PartialJsonSchema = ${JSON.stringify(partialJsonSchema, null, 2)}`)
+      jsonSchemaConstantNames.push(`${schemaType.name}PartialJsonSchema`)
+    }
   })
 
   result.push(`const allJsonSchemas = [\n${jsonSchemaConstantNames.map(n => `  ${n}`).join(',\n')}\n]`)
