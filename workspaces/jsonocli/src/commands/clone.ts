@@ -23,11 +23,8 @@ export async function clone (serverUrl: string, dir: string, systems: string[]):
 
   // loop over the enums
   for (const enumType of types.enumTypes) {
-    // convert the full type to a shorter name by dropping protocol
-    const shortDomain = enumType.domain.replace('http://', '').replace('https://', '')
-
     // choose a target path for the json file
-    const targetPath = `${normalisedDir}${shortDomain}_${enumType.system}_${enumType.name}.json`
+    const targetPath = `${normalisedDir}${enumType.system}_${enumType.name}.json`
  
     // write out the json file
     await writeFile(targetPath, JSON.stringify(enumType, null, 2), 'utf8')
@@ -35,11 +32,8 @@ export async function clone (serverUrl: string, dir: string, systems: string[]):
 
   // loop over the schemas
   for (const schemaType of types.schemaTypes) {
-    // convert the full type to a shorter name by dropping protocol
-    const shortDomain = schemaType.domain.replace('http://', '').replace('https://', '')
-
     // choose a target path for the json file
-    const targetPath = `${normalisedDir}${shortDomain}_${schemaType.system}_${schemaType.name}.json`
+    const targetPath = `${normalisedDir}${schemaType.system}_${schemaType.name}.json`
  
     // write out the json file
     await writeFile(targetPath, JSON.stringify(schemaType, null, 2), 'utf8')
