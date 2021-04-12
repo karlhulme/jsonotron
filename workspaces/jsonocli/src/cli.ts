@@ -1,5 +1,5 @@
 import * as yargs from 'yargs'
-import { typescript } from './commands'
+import { markdown, typescript } from './commands'
 
 // who needs what...?
 
@@ -29,8 +29,19 @@ function run () {
   // calling `.parse` is the trigger for validating the inputs and executing the commands.
   yargs
     .command(
+      'markdown <server> <path> <systems..>',
+      'Retrieve markdown from jsonotron server',
+      args => {
+        yargs.positional('server', { describe: 'Url of server', type: 'string' })
+        yargs.positional('path', { describe: 'A target file', type: 'string' })
+        yargs.positional('systems', { describe: 'An array of system names', type: 'string', array: true })
+        return args
+      },
+      async (args: Record<string, unknown>) => { markdown(args.server as string, args.path as string, args.systems as string[]) }
+    )
+    .command(
       'typescript <server> <path> <systems..>',
-      'Clone remote systems to local directory',
+      'Retrieve typescript code from jsonotron server',
       args => {
         yargs.positional('server', { describe: 'Url of server', type: 'string' })
         yargs.positional('path', { describe: 'A target file', type: 'string' })
