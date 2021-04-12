@@ -3,7 +3,7 @@ import { getTestTypes } from './shared.test'
 import { generateTypescript } from '../src'
 // import { writeFile } from 'fs/promises' // useful for debug
 
-test('Generate typescript code 2.', async () => {
+test('Generate typescript code.', async () => {
   const testTypes = getTestTypes()
 
   const result = generateTypescript({

@@ -63,13 +63,13 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       name: 'bed',
       jsonSchema: {
         type: 'object',
-        documentation: 'A bed',
+        'j-documentation': 'A bed',
         additionalProperties: false,
         properties: {
-          make: { type: 'string', documentation: 'The make of the bed.' },
-          thickness: { type: 'number', documentation: 'The thickness of the bed mattress' },
-          pillow: { $ref: 'pillow', documentation: 'The type of pillow on the bed' },
-          direction: { $ref : '../alt/direction', documentation: 'The direction the bed is facing.' }
+          make: { type: 'string', 'j-documentation': 'The make of the bed.' },
+          thickness: { type: 'number', 'j-documentation': 'The thickness of the bed mattress' },
+          pillow: { $ref: 'pillow', 'j-documentation': 'The type of pillow on the bed' },
+          direction: { $ref : '../alt/direction', 'j-documentation': 'The direction the bed is facing.' }
         },
         required: ['make']
       },
@@ -84,11 +84,11 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       name: 'pillow',
       jsonSchema: {
         type: 'object',
-        documentation: 'A pillow',
+        'j-documentation': 'A pillow',
         additionalProperties: false,
         properties: {
-          make: { type: 'string', documentation: 'The mame of the pillow.' },
-          color: { type: 'string', documentation: 'The color of the pillow.' }
+          make: { type: 'string', 'j-documentation': 'The mame of the pillow.' },
+          color: { type: 'string', 'j-documentation': 'The color of the pillow.' }
         },
         required: ['make']
       },
@@ -128,7 +128,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
               }
             }
           },
-          age: { type: 'integer', documentation: 'The age in years.' }
+          age: { type: 'integer', 'j-documentation': 'The age in years.' }
         }
       },
       examples: [
@@ -147,7 +147,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       name: 'table',
       jsonSchema: {
         type: 'object',
-        documentation: 'A table.',
+        'j-documentation': 'A table.',
         additionalProperties: false,
         properties: {
           height: { type: 'number' }

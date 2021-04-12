@@ -63,7 +63,7 @@ The types of the `jss` system.
 
 **kind**: schema\
 **system**: jss\
-**name**: address\
+**name**: address
 
 #### Example 1
 
@@ -126,7 +126,7 @@ This example is an address in the United States so it uses a zip code.
 
 **kind**: schema\
 **system**: jss\
-**name**: boolean\
+**name**: boolean
 
 #### Example 1
 
@@ -161,7 +161,7 @@ false
 
 **kind**: enum\
 **system**: jss\
-**name**: callingCode\
+**name**: callingCode
 
 An international telephone calling code defined by the ITU-T in standards E.123 and E.164.  The data is taken from https://en.wikipedia.org/wiki/List_of_country_calling_codes. The key piece of data is the dialling code, which is a number.  This is the data that a user would want to specify when entering a telephone number.  They specify their dialling code, e.g. 44.  Each enum item has a region preperty, denoting the location or locations that it represents. A symbol is not defined, because it would be identical to the text in this case.  It's safe to use the text property for looking up values.  The text property is determined entirely by the value, so it will not change.
 
@@ -383,7 +383,7 @@ Value | Symbol | Text | Data | Documentation
 
 **kind**: enum\
 **system**: jss\
-**name**: countryCode\
+**name**: countryCode
 
 A country designator from ISO 3166, taken from https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes.
 
@@ -642,7 +642,7 @@ zw |  | Zimbabwe |   |
 
 **kind**: enum\
 **system**: jss\
-**name**: currencyCode\
+**name**: currencyCode
 
 A currency designator from ISO 4217.  The data is taken from https://en.wikipedia.org/wiki/ISO_4217.
 
@@ -827,7 +827,7 @@ zwl | ZWL | Zimbabwean Dollar | `{"scaler":2}`  |
 
 **kind**: schema\
 **system**: jss\
-**name**: date\
+**name**: date
 
 #### Example 1
 
@@ -855,7 +855,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: dateTimeLocal\
+**name**: dateTimeLocal
 
 #### Example 1
 
@@ -908,7 +908,7 @@ The europe/london time zone operates at +00:00 during the winter and +01:00 duri
 
 **kind**: schema\
 **system**: jss\
-**name**: dateTimeUtc\
+**name**: dateTimeUtc
 
 #### Example 1
 
@@ -937,7 +937,7 @@ An example.
 
 **kind**: enum\
 **system**: jss\
-**name**: dayOfWeek\
+**name**: dayOfWeek
 
 A day of the week.
 
@@ -957,7 +957,7 @@ sa |  | Saturday |   |
 
 **kind**: schema\
 **system**: jss\
-**name**: emailAddress\
+**name**: emailAddress
 
 #### Example 1
 
@@ -985,7 +985,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: float\
+**name**: float
 
 #### Example 1
 
@@ -1012,7 +1012,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: geoJsonPoint\
+**name**: geoJsonPoint
 
 #### Example 1
 
@@ -1078,7 +1078,7 @@ The `coordinates` property should be a 2-element array consisting of longitude f
 
 **kind**: schema\
 **system**: jss\
-**name**: geoJsonPolygon\
+**name**: geoJsonPolygon
 
 #### Example 1
 
@@ -1165,7 +1165,7 @@ A region on Earth recorded in GeoJSON format expressed as a series of longitude 
 
 **kind**: schema\
 **system**: jss\
-**name**: hugeString\
+**name**: hugeString
 
 #### Example 1
 
@@ -1193,7 +1193,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: integer\
+**name**: integer
 
 #### Example 1
 
@@ -1220,7 +1220,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: ipv4\
+**name**: ipv4
 
 #### Example 1
 
@@ -1248,7 +1248,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: ipv6\
+**name**: ipv6
 
 #### Example 1
 
@@ -1284,7 +1284,7 @@ The shorthand loopback address is also supported.
 
 **kind**: schema\
 **system**: jss\
-**name**: jsonPointer\
+**name**: jsonPointer
 
 #### Example 1
 
@@ -1312,7 +1312,7 @@ An example.
 
 **kind**: enum\
 **system**: jss\
-**name**: languageCode\
+**name**: languageCode
 
 A language code conforming to the from ISO 639-1 standard.
 
@@ -1458,7 +1458,7 @@ zu |  | Zulu |   |
 
 **kind**: schema\
 **system**: jss\
-**name**: longString\
+**name**: longString
 
 #### Example 1
 
@@ -1486,7 +1486,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: mediumString\
+**name**: mediumString
 
 #### Example 1
 
@@ -1514,7 +1514,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: money\
+**name**: money
 
 #### Example 1
 
@@ -1559,7 +1559,7 @@ In this example, the GBP currency defines a scaler of 2, which means that we shi
 
 **kind**: enum\
 **system**: jss\
-**name**: monthOfYear\
+**name**: monthOfYear
 
 A calendar month.
 
@@ -1584,7 +1584,7 @@ dec |  | December |   |
 
 **kind**: schema\
 **system**: jss\
-**name**: negativeFloat\
+**name**: negativeFloat
 
 #### Example 1
 
@@ -1612,7 +1612,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: negativeFloatOrZero\
+**name**: negativeFloatOrZero
 
 #### Example 1
 
@@ -1648,7 +1648,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: negativeInteger\
+**name**: negativeInteger
 
 #### Example 1
 
@@ -1676,7 +1676,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: negativeIntegerOrZero\
+**name**: negativeIntegerOrZero
 
 #### Example 1
 
@@ -1712,7 +1712,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: object\
+**name**: object
 
 #### Example 1
 
@@ -1752,7 +1752,7 @@ Here we store an empty object.
 
 **kind**: schema\
 **system**: jss\
-**name**: paymentCardNo\
+**name**: paymentCardNo
 
 #### Example 1
 
@@ -1780,7 +1780,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: positiveFloat\
+**name**: positiveFloat
 
 #### Example 1
 
@@ -1808,7 +1808,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: positiveFloatOrZero\
+**name**: positiveFloatOrZero
 
 #### Example 1
 
@@ -1844,7 +1844,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: positiveInteger\
+**name**: positiveInteger
 
 #### Example 1
 
@@ -1872,7 +1872,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: positiveIntegerOrZero\
+**name**: positiveIntegerOrZero
 
 #### Example 1
 
@@ -1908,7 +1908,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: shortString\
+**name**: shortString
 
 #### Example 1
 
@@ -1936,7 +1936,7 @@ A short text string.
 
 **kind**: schema\
 **system**: jss\
-**name**: string\
+**name**: string
 
 #### Example 1
 
@@ -1963,7 +1963,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: telephoneNo\
+**name**: telephoneNo
 
 #### Example 1
 
@@ -2024,7 +2024,7 @@ In this example we have a US landline number with an extension.
 
 **kind**: schema\
 **system**: jss\
-**name**: time\
+**name**: time
 
 #### Example 1
 
@@ -2052,7 +2052,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: timestamp\
+**name**: timestamp
 
 #### Example 1
 
@@ -2080,7 +2080,7 @@ An example.
 
 **kind**: enum\
 **system**: jss\
-**name**: timeZone\
+**name**: timeZone
 
 A time zone from the IANA tz database.  The data is taken from https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
 
@@ -2467,7 +2467,7 @@ pacific/wallis |  | Pacific/Wallis (+12:00, DST +12:00) |   |
 
 **kind**: schema\
 **system**: jss\
-**name**: uuid\
+**name**: uuid
 
 #### Example 1
 
@@ -2495,7 +2495,7 @@ An example.
 
 **kind**: schema\
 **system**: jss\
-**name**: webAddress\
+**name**: webAddress
 
 #### Example 1
 
@@ -2531,7 +2531,7 @@ A link to an secured site using HTTP.
 
 **kind**: schema\
 **system**: jss\
-**name**: what3words\
+**name**: what3words
 
 #### Example 1
 
@@ -2579,7 +2579,7 @@ This example is for an embassy in panama.
 
 **kind**: enum\
 **system**: jss\
-**name**: yesNo\
+**name**: yesNo
 
 A binary choice between yes or no.
 This type can be used where a third option may be introduced in the future.  In that scenario a boolean field would be limiting, but a yesNo field could be replaced by a new enum without having to migrate existing data.
