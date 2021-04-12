@@ -51,7 +51,7 @@ export function createJsonoserveExpress (props: JsonoserveConstructorProps): Req
 function chooseHandler (req: Request): HandlerFunction {
   if (req.method === 'GET' && req.path === '/markdown') {
     return markdownHandler
-  } 
+  }
 
   if (req.method === 'GET' && req.path === '/typescript') {
     return typescriptHandler
