@@ -5,7 +5,7 @@ import { createTestableApp } from './shared.test'
 test('The jsonoserve returns typescript for the requested systems.', async () => {
   const app = await createTestableApp()
   const response = await supertest(app)
-    .get(`/typescript?systems=test,test2&domain=${encodeURIComponent('https://testing.org')}`)
+    .get('/typescript?systems=test,test2')
 
   expect(response.status).toEqual(200)
 
