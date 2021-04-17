@@ -1,5 +1,5 @@
 import { JsonotronBaseType } from './JsonotronBaseType'
-import { SchemaTypeExample } from './SchemaTypeExample'
+import { SchemaTypeValidTestCase } from './SchemaTypeValidTestCase'
 import { SchemaTypeVariant } from './SchemaTypeVariant'
 
 /**
@@ -7,14 +7,10 @@ import { SchemaTypeVariant } from './SchemaTypeVariant'
  */
 export interface SchemaType extends JsonotronBaseType {
   /**
-   * An array of explained examples.
-   */
-  examples: SchemaTypeExample[]
-
-  /**
    * An array of values that can be represented by this type.
+   * Some of these cases may also serve as example usages of the type.
    */
-  validTestCases: unknown[]
+  validTestCases: SchemaTypeValidTestCase[]
 
   /**
    * An array of values that cannot be represented by this type. 
