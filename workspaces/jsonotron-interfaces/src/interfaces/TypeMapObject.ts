@@ -18,6 +18,13 @@ export interface TypeMapObject {
   documentation: string
 
   /**
+   * Indicates if this object was originally defined by a schema type.
+   * If this value is false, then the object type was generated as a child
+   * of a schema type.
+   */
+  rootType: boolean
+  
+  /**
    * The properties of the object.
    */
   properties: TypeMapObjectProperty[]

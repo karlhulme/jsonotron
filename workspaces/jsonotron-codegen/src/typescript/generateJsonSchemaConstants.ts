@@ -12,6 +12,9 @@ export function generateJsonSchemaConstants (domain: string, enumTypes: EnumType
     jsonSchemaConstantNames.push(`${enumType.name}JsonSchema`)
   })
 
+  // TODO: use typeMap object-types instead of schema types
+  // TODO: record enumValues in ref-types where appropriate?
+
   schemaTypes.forEach(schemaType => {
     const jsonSchema = createJsonSchemaForSchemaType(domain, schemaType)
     result.push(`const ${schemaType.name}JsonSchema = ${JSON.stringify(jsonSchema, null, 2)}`)

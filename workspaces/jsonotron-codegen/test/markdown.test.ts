@@ -1,6 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { generateMarkdown } from '../src'
 import { getTestTypes } from './shared.test'
+// import { writeFile } from 'fs/promises' // useful for debug
 
 test('Generate markdown.', async () => {
   const testTypes = getTestTypes()
@@ -10,8 +11,7 @@ test('Generate markdown.', async () => {
     schemaTypes: testTypes.schemaTypes
   })
 
-  // useful for debug
-  // console.log(result)
+  // await writeFile('./test/temp.md', result) // useful for debug
 
   expect(result).toContain('# Type Systems')
   expect(result).toContain('## "test" System')

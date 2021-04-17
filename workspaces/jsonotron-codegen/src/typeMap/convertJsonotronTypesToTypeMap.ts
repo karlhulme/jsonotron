@@ -1,4 +1,5 @@
 import { EnumType, TypeMap, SchemaType } from 'jsonotron-interfaces'
+import { clone } from 'lodash'
 import { capitaliseInitialLetters } from '../utils'
 import { addJsonSchemaToTypeMap } from './addJsonSchemaToTypeMap'
 import { buildVariantJsonSchema } from './buildVariantJsonSchema'
@@ -22,13 +23,16 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
       refTypeName: 'string',
       refTypeArrayCount: 0,
       isScalarRef: false,
-      isEnumRef: true
+      isEnumRef: true,
+      enumItems: clone(enumType.items),
+      enumItemDataTypeName: enumType.dataJsonSchema ? enumType.name + 'Data' : undefined
     })
 
     if (enumType.dataJsonSchema) {
       addJsonSchemaToTypeMap(
         enumType.system,
         enumType.name + 'Data',
+        true,
         0,
         enumType.dataJsonSchema,
         map,
@@ -43,6 +47,7 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
     addJsonSchemaToTypeMap(
       schemaType.system,
       schemaType.name,
+      true,
       0,
       schemaType.jsonSchema,
       map,
@@ -54,6 +59,7 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
       addJsonSchemaToTypeMap(
         schemaType.system,
         schemaType.name + capitaliseInitialLetters(variant.name),
+        true,
         0,
         buildVariantJsonSchema(schemaType.jsonSchema, variant),
         map,

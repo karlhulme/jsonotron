@@ -7,15 +7,17 @@ import { EnumType, TypeMap, TypeMapObjectProperty } from 'jsonotron-interfaces'
  * name of the SchemaType from which the jsonSchema is taken, or in the case of
  * an object property, it is the name of the owning SchemaType combined with
  * the chain of property names separated by an underscore.
+ * @param rootType True if the type was defined at the top level of a schema type
+ * or enum type.
  * @param arrayCount The number of array elements the current type has
  * been found to be inside.
  * @param jsonSchema A json schema snippet.
  * @param map A map of types and references.
  * @param enumTypes An array of enum types.
  */
-export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string, arrayCount: number, jsonSchema: Record<string, unknown>, map: TypeMap, enumTypes: EnumType[]): void {
+export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string, rootType: boolean, arrayCount: number, jsonSchema: Record<string, unknown>, map: TypeMap, enumTypes: EnumType[]): void {
   if (Array.isArray(jsonSchema.enum) && jsonSchema.enum.length > 0) {
-    // An json-schema enum
+    // A json-schema enum
     const exampleEnumItem = jsonSchema.enum[0]
     const exampleEnumItemScalarType = typeof exampleEnumItem === 'string'
       ? 'string'
@@ -31,7 +33,7 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
       refTypeName: exampleEnumItemScalarType,
       refTypeArrayCount: arrayCount,
       isScalarRef: true,
-      isEnumRef: false
+      isEnumRef: false // it is not one of our EnumTypes
     })
   } else if (typeof jsonSchema.$ref === 'string') {
     // A json-schema reference to another type
@@ -60,19 +62,21 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
   } else if (jsonSchema.type === 'array' && typeof jsonSchema.items === 'object' && !Array.isArray(jsonSchema.items)) {
     // An array type.
     // Increase the number of array brackets and resolve the 'items' property
-    addJsonSchemaToTypeMap(system, proposedTypeName, arrayCount + 1, jsonSchema.items as Record<string, unknown>, map, enumTypes)
+    addJsonSchemaToTypeMap(system, proposedTypeName, false, arrayCount + 1, jsonSchema.items as Record<string, unknown>, map, enumTypes)
   } else if (jsonSchema.type === 'object' && jsonSchema.additionalProperties === false && typeof jsonSchema.properties === 'object' && jsonSchema.properties !== null) {
-    // A child object, which will require it's own type.
-    // Create types for each of the child properties, as we don't know which will require types vs scalars references.
+    // An object defined by a set of properties - an Object-type.
+    
+    // First, create types for each of the child properties, as we don't know which will require types vs scalars references.
     const objectProperties = jsonSchema.properties as Record<string, unknown>
     const objectRequireds = (jsonSchema.required || []) as string[]
     const objectSubProperties: TypeMapObjectProperty[] = []
     
+    // Second, add those child properties to the type map
     Object.keys(jsonSchema.properties).map(subPropertyName => {
       const isRequired = objectRequireds.includes(subPropertyName)
       const subPropertyTypeName = proposedTypeName + '_' + subPropertyName
       const subProperty = objectProperties[subPropertyName] as Record<string, unknown>
-      addJsonSchemaToTypeMap(system, subPropertyTypeName, 0, subProperty, map, enumTypes)
+      addJsonSchemaToTypeMap(system, subPropertyTypeName, false, 0, subProperty, map, enumTypes)
 
       objectSubProperties.push({
         propertyName: subPropertyName,
@@ -82,10 +86,12 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
       })
     })
 
+    // Finally, add the parent type
     map.objectTypes.push({
       system,
       name: proposedTypeName,
       documentation: (jsonSchema['j-documentation'] || `The ${proposedTypeName} type.`) as string,
+      rootType,
       objectTypeArrayCount: arrayCount,
       properties: objectSubProperties
     })

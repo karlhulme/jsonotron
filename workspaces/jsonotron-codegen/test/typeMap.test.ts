@@ -1,24 +1,24 @@
 import { expect, test } from '@jest/globals'
 import { convertJsonotronTypesToTypeMap } from '../src'
 import { getTestTypes } from './shared.test'
+// import { writeFile } from 'fs/promises' // useful for debug
 
-test('Convert jsonotron types into a type map and check the ref types.', () => {
+test('Convert jsonotron types into a type map and check the ref types.', async () => {
   const testTypes = getTestTypes()
   const typeMap = convertJsonotronTypesToTypeMap(testTypes.enumTypes, testTypes.schemaTypes)
 
-  // output the map - useful when debugging
-  // console.log(JSON.stringify(typeMap, null, 2))
+  // await writeFile('./test/temp.json', JSON.stringify(typeMap, null, 2)) // useful for debug
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { system: 'test', name: 'color', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true }
+    { system: 'test', name: 'color', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true, enumItems: expect.any(Array), enumItemDataTypeName: 'colorData' }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { system: 'test', name: 'size', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true }
+    { system: 'test', name: 'size', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true, enumItems: expect.any(Array) }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { system: 'alt', name: 'direction', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true }
+    { system: 'alt', name: 'direction', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true, enumItems: expect.any(Array) }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
@@ -46,6 +46,7 @@ test('Convert jsonotron types into a type map and check the object types.', () =
       system: 'test',
       name: 'bed',
       documentation: 'A bed',
+      rootType: true,
       objectTypeArrayCount: 0,
       properties: [
         {
