@@ -9,11 +9,11 @@ export const schemaTypeSchema = {
     },
     system: {
       type: 'string',
-      pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$'
+      pattern: '^[a-z][_a-zA-Z0-9]*$'
     },
     name: {
       type: 'string',
-      pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$'
+      pattern: '^[a-z][_a-zA-Z0-9]*$'
     },
     examples: {
       type: 'array',
@@ -40,6 +40,34 @@ export const schemaTypeSchema = {
     },
     jsonSchema: {
       type: 'object'
+    },
+    variants: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          name: {
+            type: 'string',
+            pattern: '^[a-z][_a-zA-Z0-9]*$'
+          },
+          partial: {
+            type: 'boolean'
+          },
+          includeFields: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
+          },
+          excludeFields: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
+          }
+        },
+        required: ['name', 'partial']
+      }
     }
   },
   required: [

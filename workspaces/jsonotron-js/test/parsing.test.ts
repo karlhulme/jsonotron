@@ -1,11 +1,12 @@
 import { expect, test } from '@jest/globals'
-import fs from 'fs'
+import { readFile} from 'fs/promises'
 import {
   parseResources,
   InvalidEnumTypeError, InvalidSchemaTypeError, ParseYamlError,
   SchemaTypeExampleValidationError, SchemaTypeTestCaseValidationError,
   SchemaTypeTestCaseInvalidationError, UnrecognisedTypeKindError,
-  EnumTypeItemDataValidationError, InvalidEnumTypeDataSchemaError
+  EnumTypeItemDataValidationError, InvalidEnumTypeDataSchemaError,
+  SchemaTypeVariantsNotExpectedError, SchemaTypeVariantUnrecognisedFieldError
 } from '../src'
 
 test('Parsing is successful when given no resource strings.', () => {
@@ -15,12 +16,12 @@ test('Parsing is successful when given no resource strings.', () => {
   })
 })
 
-test('Parsing is successful with valid types.', () => {
-  const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
-  const directionType = fs.readFileSync('./test/testTypes/direction.yaml', 'utf-8')
-  const householdType = fs.readFileSync('./test/testTypes/household.yaml', 'utf-8')
-  const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
-  const stringType = fs.readFileSync('./test/testTypes/string.yaml', 'utf-8')
+test('Parsing is successful with valid types.', async () => {
+  const colorType = await readFile('./test/testTypes/color.yaml', 'utf-8')
+  const directionType = await readFile('./test/testTypes/direction.yaml', 'utf-8')
+  const householdType = await readFile('./test/testTypes/household.yaml', 'utf-8')
+  const positiveIntegerType = await readFile('./test/testTypes/positiveInteger.yaml', 'utf-8')
+  const stringType = await readFile('./test/testTypes/string.yaml', 'utf-8')
 
   const resources = parseResources({
     resourceStrings: [
@@ -45,8 +46,8 @@ test('Parsing will fail when given a malformed type string.', () => {
   }
 })
 
-test('Parsing will fail for an invalid enum type.', () => {
-  const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
+test('Parsing will fail for an invalid enum type.', async () => {
+  const colorType = await readFile('./test/testTypes/color.yaml', 'utf-8')
 
   try {
     parseResources({ resourceStrings: [colorType.replace('text: Purple', 'missing: property')] })
@@ -57,8 +58,8 @@ test('Parsing will fail for an invalid enum type.', () => {
   }
 })
 
-test('Parsing will fail when given an enum type with an invalid (i.e. non-object) data json schema.', () => {
-  const directionMalformedSchemaType = fs.readFileSync('./test/testTypes/directionMalformedSchema.yaml', 'utf-8')
+test('Parsing will fail when given an enum type with an invalid (i.e. non-object) data json schema.', async () => {
+  const directionMalformedSchemaType = await readFile('./test/testTypes/directionMalformedSchema.yaml', 'utf-8')
 
   try {
     parseResources({ resourceStrings: [directionMalformedSchemaType] })
@@ -69,8 +70,8 @@ test('Parsing will fail when given an enum type with an invalid (i.e. non-object
   }
 })
 
-test('Parsing will fail when given an enum type with a data jaon schema that does not compile.', () => {
-  const directionUncompileableSchemaType = fs.readFileSync('./test/testTypes/directionUncompileableSchema.yaml', 'utf-8')
+test('Parsing will fail when given an enum type with a data jaon schema that does not compile.', async () => {
+  const directionUncompileableSchemaType = await readFile('./test/testTypes/directionUncompileableSchema.yaml', 'utf-8')
 
   try {
     parseResources({ resourceStrings: [directionUncompileableSchemaType] })
@@ -81,8 +82,8 @@ test('Parsing will fail when given an enum type with a data jaon schema that doe
   }
 })
 
-test('Parsing will fail when given an enum type with an item that fails data validation.', () => {
-  const directionMalformedDataType = fs.readFileSync('./test/testTypes/directionMalformedData.yaml', 'utf-8')
+test('Parsing will fail when given an enum type with an item that fails data validation.', async () => {
+  const directionMalformedDataType = await readFile('./test/testTypes/directionMalformedData.yaml', 'utf-8')
 
   try {
     parseResources({ resourceStrings: [directionMalformedDataType] })
@@ -94,8 +95,8 @@ test('Parsing will fail when given an enum type with an item that fails data val
   }
 })
 
-test('Parsing will fail when given an invalid schema type.', () => {
-  const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
+test('Parsing will fail when given an invalid schema type.', async () => {
+  const positiveIntegerType = await readFile('./test/testTypes/positiveInteger.yaml', 'utf-8')
 
   try {
     parseResources({ resourceStrings: [positiveIntegerType.replace('invalidTestCases:', 'unknownPropertyName:')] })
@@ -106,8 +107,8 @@ test('Parsing will fail when given an invalid schema type.', () => {
   }
 })
 
-test('Parsing will fail when given a schema type with an example that does not validate.', () => {
-  const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
+test('Parsing will fail when given a schema type with an example that does not validate.', async () => {
+  const positiveIntegerType = await readFile('./test/testTypes/positiveInteger.yaml', 'utf-8')
   const sample = positiveIntegerType.replace('- value: 7', '- value: will not validate')
 
   try {
@@ -120,8 +121,8 @@ test('Parsing will fail when given a schema type with an example that does not v
   }
 })
 
-test('Parsing will fail when given a schema type with a test case that does not validate.', () => {
-  const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
+test('Parsing will fail when given a schema type with a test case that does not validate.', async () => {
+  const positiveIntegerType = await readFile('./test/testTypes/positiveInteger.yaml', 'utf-8')
 
   try {
     parseResources({ resourceStrings: [positiveIntegerType.replace('- 25', '- will not validate')] })
@@ -133,8 +134,8 @@ test('Parsing will fail when given a schema type with a test case that does not 
   }
 })
 
-test('Parsing will fail when given a schema type with an *invalid* test cases that actually passes validation.', () => {
-  const positiveIntegerType = fs.readFileSync('./test/testTypes/positiveInteger.yaml', 'utf-8')
+test('Parsing will fail when given a schema type with an *invalid* test case that actually passes validation.', async () => {
+  const positiveIntegerType = await readFile('./test/testTypes/positiveInteger.yaml', 'utf-8')
 
   try {
     parseResources({ resourceStrings: [positiveIntegerType.replace('- a string', '- 901')] })
@@ -146,8 +147,49 @@ test('Parsing will fail when given a schema type with an *invalid* test cases th
   }
 })
 
-test('Parsing will fail if a resource has an unrecognised kind. property', () => {
-  const colorType = fs.readFileSync('./test/testTypes/color.yaml', 'utf-8')
+test('Parsing will fail when given a non-object schema type includes variants.', async () => {
+  const positiveIntegerUnexpectedVariantType = await readFile('./test/testTypes/positiveIntegerUnexpectedVariant.yaml', 'utf-8')
+
+  try {
+    parseResources({ resourceStrings: [positiveIntegerUnexpectedVariantType] })
+    throw new Error('fail')
+  } catch (err) {
+    expect(err).toBeInstanceOf(SchemaTypeVariantsNotExpectedError)
+    expect(err.schemaTypeName).toEqual('positiveIntegerUnexpectedYaml')
+    expect(err.jsonSchemaType).toEqual('integer')
+  }
+})
+
+test('Parsing will fail when given a schema type variant that includes unrecognised include fields.', async () => {
+  const hobbyType = await readFile('./test/testTypes/hobby.yaml', 'utf-8')
+
+  try {
+    parseResources({ resourceStrings: [hobbyType.replace('- rules', '- unknownIncludeField')] })
+    throw new Error('fail')
+  } catch (err) {
+    expect(err).toBeInstanceOf(SchemaTypeVariantUnrecognisedFieldError)
+    expect(err.schemaTypeName).toEqual('hobby')
+    expect(err.variantName).toEqual('variantA')
+    expect(err.fieldName).toEqual('unknownIncludeField')
+  }
+})
+
+test('Parsing will fail when given a schema type variant that includes unrecognised exclude fields.', async () => {
+  const hobbyType = await readFile('./test/testTypes/hobby.yaml', 'utf-8')
+
+  try {
+    parseResources({ resourceStrings: [hobbyType.replace('- inventor', '- unknownExcludeField')] })
+    throw new Error('fail')
+  } catch (err) {
+    expect(err).toBeInstanceOf(SchemaTypeVariantUnrecognisedFieldError)
+    expect(err.schemaTypeName).toEqual('hobby')
+    expect(err.variantName).toEqual('variantB')
+    expect(err.fieldName).toEqual('unknownExcludeField')
+  }
+})
+
+test('Parsing will fail if a resource has an unrecognised kind. property', async () => {
+  const colorType = await readFile('./test/testTypes/color.yaml', 'utf-8')
 
   try {
     parseResources({ resourceStrings: [colorType.replace('kind: enum', 'kind: invalid')] })

@@ -68,3 +68,9 @@ jsonSchema:
   - location
   - familyMemberCount
   - doorColor
+variants:
+- name: partial
+  partial: true
+  excludeFields:
+  - residentInVillage
+  - shoppingPrefs

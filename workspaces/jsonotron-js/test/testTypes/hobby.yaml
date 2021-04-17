@@ -1,0 +1,51 @@
+---
+kind: schema
+system: test
+name: hobby
+examples:
+- value:
+    name: Chess
+    rules: This move, that move, the other move.
+    ageInYears: 2000
+    inventor: Mr Chess
+  documentation: An example.
+validTestCases:
+- name: Chess
+  rules: This move, that move, the other move.
+  ageInYears: 2000
+  inventor: Mr Chess
+invalidTestCases:
+- -1
+- 0
+- 999999
+- 
+- true
+- a house
+- {}
+- []
+jsonSchema:
+  type: object
+  j-documentation: Information about a hobby.
+  additionalProperties: false
+  properties:
+    name:
+      type: string
+    rules:
+      type: string
+    ageInYears:
+      type: number
+    inventor:
+      type: string
+  required:
+  - name
+variants:
+- name: variantA
+  partial: true
+  includeFields:
+  - name
+  - rules
+- name: variantB
+  partial: false
+  excludeFields:
+  - inventor
+ 

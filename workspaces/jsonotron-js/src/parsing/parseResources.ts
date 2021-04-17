@@ -18,6 +18,8 @@ import {
   SchemaTypeExampleValidationError,
   SchemaTypeTestCaseInvalidationError,
   SchemaTypeTestCaseValidationError,
+  SchemaTypeVariantsNotExpectedError,
+  SchemaTypeVariantUnrecognisedFieldError,
   UnrecognisedTypeKindError
 } from '../errors'
 import { enumTypeSchema, schemaTypeSchema } from '../schemas'
@@ -93,6 +95,11 @@ export function parseResources (options?: ParseOptions): ParseResult {
   //  which may reference other schema types.
   parsedResources.schemaTypes.forEach(schemaType => {
     ensureSchemaTypeExamplesAndTestCasesAreValid(ajv, domain, schemaType)
+  })
+
+  // verify the fields on the variants are valid.
+  parsedResources.schemaTypes.forEach(schemaType => {
+    ensureSchemaTypeVariantsAreValid(schemaType)
   })
 
   return parsedResources
@@ -227,7 +234,9 @@ function compileEnumTypeDataSchema (ajv: Ajv, enumTypeName: string, enumTypeData
 
 /**
  * Validate the schema type examples, test cases and invalid test cases.
+ * @param ajv A json schema validator.
  * @param domain The domain for the $id of the schemas.
+ * @param schemaType A schema type to be validated.
  */
 function ensureSchemaTypeExamplesAndTestCasesAreValid (ajv: Ajv, domain: string, schemaType: SchemaType): void {
   // get a validator
@@ -253,6 +262,39 @@ function ensureSchemaTypeExamplesAndTestCasesAreValid (ajv: Ajv, domain: string,
       throw new SchemaTypeTestCaseInvalidationError(schemaType.name, index)
     }
   })
+}
+
+/**
+ * Validate the schema type examples, test cases and invalid test cases.
+ * @param schemaType A schema type to be validated.
+ */
+ function ensureSchemaTypeVariantsAreValid (schemaType: SchemaType): void {
+  if (Array.isArray(schemaType.variants)) {
+    if (schemaType.jsonSchema.type !== 'object') {
+      throw new SchemaTypeVariantsNotExpectedError(schemaType.name, schemaType.jsonSchema.type as string)
+    }
+
+    /* istanbul ignore next - jsonSchema.properties will always be a record */
+    const jsonSchemaProperties = Object.keys(schemaType.jsonSchema.properties as Record<string, unknown> || {})
+
+    schemaType.variants.forEach(variant => {
+      if (Array.isArray(variant.includeFields)) {
+        variant.includeFields.forEach(fieldName => {
+          if (!jsonSchemaProperties.includes(fieldName)) {
+            throw new SchemaTypeVariantUnrecognisedFieldError(schemaType.name, variant.name, fieldName)
+          }
+        })
+      }
+
+      if (Array.isArray(variant.excludeFields)) {
+        variant.excludeFields.forEach(fieldName => {
+          if (!jsonSchemaProperties.includes(fieldName)) {
+            throw new SchemaTypeVariantUnrecognisedFieldError(schemaType.name, variant.name, fieldName)
+          }
+        })
+      }
+    })
+  }
 }
 
 /**

@@ -9,11 +9,11 @@ export const enumTypeSchema = {
     },
     system: {
       type: 'string',
-      pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$'
+      pattern: '^[a-z][_a-zA-Z0-9]*$'
     },
     name: {
       type: 'string',
-      pattern: '^[_a-zA-Z][_a-zA-Z0-9]*$'
+      pattern: '^[a-z][_a-zA-Z0-9]*$'
     },
     documentation: {
       type: 'string'
