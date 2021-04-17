@@ -2,18 +2,13 @@
 kind: schema
 system: test
 name: hobby
-examples:
+validTestCases:
 - value:
     name: Chess
     rules: This move, that move, the other move.
     ageInYears: 2000
     inventor: Mr Chess
   documentation: An example.
-validTestCases:
-- name: Chess
-  rules: This move, that move, the other move.
-  ageInYears: 2000
-  inventor: Mr Chess
 invalidTestCases:
 - -1
 - 0

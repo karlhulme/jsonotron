@@ -15,7 +15,6 @@ import {
   InvalidEnumTypeError,
   InvalidSchemaTypeError,
   ParseYamlError,
-  SchemaTypeExampleValidationError,
   SchemaTypeTestCaseInvalidationError,
   SchemaTypeTestCaseValidationError,
   SchemaTypeVariantsNotExpectedError,
@@ -242,16 +241,9 @@ function ensureSchemaTypeExamplesAndTestCasesAreValid (ajv: Ajv, domain: string,
   // get a validator
   const validator = ajv.getSchema(`${domain}/${schemaType.system}/${schemaType.name}`)
 
-  // check the examples
-  schemaType.examples.forEach((ex, index) => {
-    if (validator && !validator(ex.value)) {
-      throw new SchemaTypeExampleValidationError(schemaType.name, index, ajvErrorsToString(validator.errors))
-    }
-  })
-
   // check the valid test cases
   schemaType.validTestCases.forEach((t, index) => {
-    if (validator && !validator(t)) {
+    if (validator && !validator(t.value)) {
       throw new SchemaTypeTestCaseValidationError(schemaType.name, index, ajvErrorsToString(validator.errors))
     }
   })

@@ -15,7 +15,7 @@ export const schemaTypeSchema = {
       type: 'string',
       pattern: '^[a-z][_a-zA-Z0-9]*$'
     },
-    examples: {
+    validTestCases: {
       type: 'array',
       minItems: 1,
       items: {
@@ -27,13 +27,9 @@ export const schemaTypeSchema = {
           }
         },
         required: [
-          'value',
-          'documentation'
+          'value'
         ]
       }
-    },
-    validTestCases: {
-      type: 'array'
     },
     invalidTestCases: {
       type: 'array'
@@ -73,7 +69,6 @@ export const schemaTypeSchema = {
   required: [
     'system',
     'name',
-    'examples',
     'validTestCases',
     'invalidTestCases',
     'jsonSchema'

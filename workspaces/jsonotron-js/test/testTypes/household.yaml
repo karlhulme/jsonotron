@@ -2,7 +2,7 @@
 kind: schema
 system: test
 name: household
-examples:
+validTestCases:
 - value:
     location: over the rainbow
     familyMemberCount: 2
@@ -10,10 +10,6 @@ examples:
     firstName: Mickey
     surname: Mouse
   documentation: An example.
-validTestCases:
-- location: over the rainbow
-  familyMemberCount: 2
-  doorColor: RED
 invalidTestCases:
 - -1
 - 0

@@ -2,12 +2,9 @@
 kind: schema
 system: test
 name: positiveInteger
-examples:
+validTestCases:
 - value: 7
   documentation: An example.
-validTestCases:
-- 1
-- 25
 invalidTestCases:
 - a string
 - ''

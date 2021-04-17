@@ -3,7 +3,7 @@ import { readFile} from 'fs/promises'
 import {
   parseResources,
   InvalidEnumTypeError, InvalidSchemaTypeError, ParseYamlError,
-  SchemaTypeExampleValidationError, SchemaTypeTestCaseValidationError,
+  SchemaTypeTestCaseValidationError,
   SchemaTypeTestCaseInvalidationError, UnrecognisedTypeKindError,
   EnumTypeItemDataValidationError, InvalidEnumTypeDataSchemaError,
   SchemaTypeVariantsNotExpectedError, SchemaTypeVariantUnrecognisedFieldError
@@ -107,30 +107,16 @@ test('Parsing will fail when given an invalid schema type.', async () => {
   }
 })
 
-test('Parsing will fail when given a schema type with an example that does not validate.', async () => {
-  const positiveIntegerType = await readFile('./test/testTypes/positiveInteger.yaml', 'utf-8')
-  const sample = positiveIntegerType.replace('- value: 7', '- value: will not validate')
-
-  try {
-    parseResources({ resourceStrings: [sample] })
-    throw new Error('fail')
-  } catch (err) {
-    expect(err).toBeInstanceOf(SchemaTypeExampleValidationError)
-    expect(err.schemaTypeName).toEqual('positiveInteger')
-    expect(err.exampleIndex).toEqual(0)
-  }
-})
-
 test('Parsing will fail when given a schema type with a test case that does not validate.', async () => {
   const positiveIntegerType = await readFile('./test/testTypes/positiveInteger.yaml', 'utf-8')
 
   try {
-    parseResources({ resourceStrings: [positiveIntegerType.replace('- 25', '- will not validate')] })
+    parseResources({ resourceStrings: [positiveIntegerType.replace('- value: 7', '- value: will not validate')] })
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(SchemaTypeTestCaseValidationError)
     expect(err.schemaTypeName).toEqual('positiveInteger')
-    expect(err.testCaseIndex).toEqual(1)
+    expect(err.testCaseIndex).toEqual(0)
   }
 })
 
