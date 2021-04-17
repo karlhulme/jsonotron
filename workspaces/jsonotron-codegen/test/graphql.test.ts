@@ -1,11 +1,10 @@
 import { expect, test } from '@jest/globals'
 import { getTestTypes } from './shared.test'
-import { GraphQLCodeGenerator } from '../src'
+import { generateGraphQL } from '../src'
 
-test('Generate graph ql code for enum type item declarations.', async () => {
+test('Generate Graph QL code for enum types and schema types.', async () => {
   const testTypes = getTestTypes()
-  const generator = new GraphQLCodeGenerator()
-  const result = generator.generate({
+  const result = generateGraphQL({
     enumTypes: testTypes.enumTypes,
     schemaTypes: testTypes.schemaTypes
   })
@@ -16,7 +15,7 @@ test('Generate graph ql code for enum type item declarations.', async () => {
   // the enum type item declarations
   expect(result).toContain('type EnumTypeItem {')
   expect(result).toContain('type ColorEnumTypeItem {')
-  expect(result).toContain('data: Color_Data!')
+  expect(result).toContain('data: ColorData!')
 
   // the enum constants
   expect(result).toContain('enum Color {')
@@ -29,7 +28,7 @@ test('Generate graph ql code for enum type item declarations.', async () => {
   expect(result).toContain('  GOING_AROUND')
 
   // the object-type interfaces
-  expect(result).toContain('type Color_Data {')
+  expect(result).toContain('type ColorData {')
   expect(result).toContain('  hexCode: String!')
   expect(result).toContain('  isWarningColor: Boolean')
   expect(result).toContain('type Bed {')
@@ -41,7 +40,7 @@ test('Generate graph ql code for enum type item declarations.', async () => {
   expect(result).toContain('  arrayOfObjects: [Drawer_ArrayOfObjects]')
 
   // the object-type inputs
-  expect(result).toContain('input Color_Data_Input {')
+  expect(result).toContain('input ColorData_Input {')
   expect(result).toContain('input Bed_Input {')
   expect(result).toContain('input Pillow_Input {')
   expect(result).toContain('input Drawer_Input {')

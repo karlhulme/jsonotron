@@ -14,7 +14,7 @@ export function generateEnumTypeItems (enumTypes: EnumType[]): string[] {
 
       const docBlock = `/**\n * ${e.documentation}\n */\n`
       const typeCast = e.dataJsonSchema
-        ? `ExtendedEnumTypeItem<${capitaliseInitialLetters(e.name)}_Data>[]`
+        ? `ExtendedEnumTypeItem<${capitaliseInitialLetters(e.name)}Data>[]`
         : `EnumTypeItem[]`
   
       return `${docBlock}export const ${e.name}Items: ${typeCast} = [\n${itemLines.join(',\n')}\n]`

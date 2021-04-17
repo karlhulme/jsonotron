@@ -26,7 +26,7 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
     if (enumType.dataJsonSchema) {
       addJsonSchemaToTypeMap(
         enumType.system,
-        enumType.name + '_data',
+        enumType.name + 'Data',
         0,
         enumType.dataJsonSchema,
         map,

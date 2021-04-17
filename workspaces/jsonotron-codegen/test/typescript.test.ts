@@ -24,7 +24,7 @@ test('Generate typescript code.', async () => {
   expect(result).toContain('const bedPartialJsonSchema = {') // partial schema
 
   // the interface outputs
-  expect(result).toContain('export interface Color_Data {') // enum custom data interface
+  expect(result).toContain('export interface ColorData {') // enum custom data interface
   expect(result).toContain('export interface Bed {') // schema interface
   expect(result).toContain('export interface Drawer_ArrayOfObjects {') // schema property interface
 
@@ -38,7 +38,7 @@ test('Generate typescript code.', async () => {
   expect(result).toContain('export const sizeItems: EnumTypeItem[] = [') // definition line
   expect(result).toContain('{ value: \'xlarge\', text: \'Extra Large\', deprecated: \'Cannot source anymore.\' }') // deprecated
   expect(result).toContain('{ value: \'2green\', text: \'Green\', data: {"hexCode":"0f0"} }') // custom data
-  expect(result).toContain('export const colorItems: ExtendedEnumTypeItem<Color_Data>[] = [') // custom data strongly typed
+  expect(result).toContain('export const colorItems: ExtendedEnumTypeItem<ColorData>[] = [') // custom data strongly typed
 
   // the enum resolvers
   expect(result).toContain('export const directionResolver = {') // definition line

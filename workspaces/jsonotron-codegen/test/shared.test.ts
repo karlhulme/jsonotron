@@ -136,6 +136,18 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
           },
           documentation: 'An example.'
         }
+      ],
+      variants: [
+        {
+          name: 'basedOnIncludes',
+          partial: true,
+          includeFields: ['instructions', 'compact', 'fabrics']
+        },
+        {
+          name: 'basedOnExcludes',
+          partial: false,
+          excludeFields: ['arrayOfStrings', 'arrayOfObjects', 'age']
+        }
       ]
     }, {
       kind: 'schema',
