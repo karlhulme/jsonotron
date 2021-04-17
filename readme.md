@@ -341,6 +341,7 @@ jsonocli typescript --systems jss other # short
 jsonocli typescript --systems https://jsonotron.org/jss https://local.org/other # long
 ```
 
+Seperate ID generation also makes sense when handling variants.  The variant name can be attached to the schema type name before it is modified to be a JSON schema compliant ID.
 
 ## Continuous Deployment
 

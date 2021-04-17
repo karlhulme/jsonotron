@@ -1,5 +1,7 @@
 import { EnumType, TypeMap, SchemaType } from 'jsonotron-interfaces'
+import { capitaliseInitialLetters } from '../utils'
 import { addJsonSchemaToTypeMap } from './addJsonSchemaToTypeMap'
+import { buildVariantJsonSchema } from './buildVariantJsonSchema'
 
 /**
  * Returns a TypeMap built from the given enum and schema types.
@@ -37,6 +39,7 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
 
   // to convert schemaTypes we look at the jsonSchema property.
   schemaTypes.forEach(schemaType => {
+    // add the primary definition
     addJsonSchemaToTypeMap(
       schemaType.system,
       schemaType.name,
@@ -45,7 +48,19 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
       map,
       enumTypes
     )
-  })
+
+    // add any variants
+    schemaType.variants?.map(variant => {
+      addJsonSchemaToTypeMap(
+        schemaType.system,
+        schemaType.name + capitaliseInitialLetters(variant.name),
+        0,
+        buildVariantJsonSchema(schemaType.jsonSchema, variant),
+        map,
+        enumTypes
+      )
+    })
+  })  
 
   return map
 }
