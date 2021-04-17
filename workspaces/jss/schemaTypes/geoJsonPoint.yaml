@@ -2,7 +2,7 @@
 kind: schema
 system: jss
 name: geoJsonPoint
-examples:
+validTestCases:
 - value:
     type: Point
     coordinates:
@@ -12,11 +12,6 @@ examples:
     A position on Earth recorded in GeoJSON format expressed as a longitude and latitude pair.
     The `type` value should be 'Point'.
     The `coordinates` property should be a 2-element array consisting of longitude first and latitude second.
-validTestCases:
-- type: Point
-  coordinates:
-  - 31.9
-  - -4.8
 invalidTestCases:
 - 123
 - 

@@ -2,12 +2,9 @@
 kind: schema
 system: jss
 name: dateTimeUtc
-examples:
+validTestCases:
 - value: '2014-09-15T23:59:25Z'
   documentation: An example.
-validTestCases:
-- '2014-09-15T23:14:25Z'
-- '2025-10-30T02:59:10Z'
 invalidTestCases:
 - -1
 - 0

@@ -2,14 +2,11 @@
 kind: schema
 system: jss
 name: webAddress
-examples:
+validTestCases:
 - value: https://www.bbc.co.uk
   documentation: A link to a site using HTTPS.
 - value: http://www.simple.com
   documentation: A link to an secured site using HTTP.
-validTestCases:
-- https://www.bbc.co.uk
-- http://www.unsecured.com
 invalidTestCases:
 - -1
 - 0

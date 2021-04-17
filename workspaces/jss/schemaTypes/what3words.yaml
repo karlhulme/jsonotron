@@ -2,7 +2,7 @@
 kind: schema
 system: jss
 name: what3words
-examples:
+validTestCases:
 - value:
   - daring
   - lion
@@ -13,9 +13,6 @@ examples:
   - touted
   - uplifted
   documentation: This example is for an embassy in panama.
-validTestCases:
-- ["trumpet", "teapot", "umbrella"]
-- ["vase", "flowers", "road"]
 invalidTestCases:
 - -1
 - 0

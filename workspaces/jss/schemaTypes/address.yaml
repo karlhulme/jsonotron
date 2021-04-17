@@ -2,7 +2,7 @@
 kind: schema
 system: jss
 name: address
-examples:
+validTestCases:
 - value:
     addressLines: |-
       1 Acacia Avenue
@@ -19,18 +19,6 @@ examples:
     countryCode: gb
   documentation: This example is an address in the United States so it uses a zip
     code.
-validTestCases:
-- addressLines: |-
-    1 Acacia Avenue
-    Portsmouth
-  postalCode: PO125LP
-  countryCode: gb
-- addressLines: |-
-    1 Mansion Street
-    Beverley Hills
-    Los Angeles
-  postalCode: '90210'
-  countryCode: us
 invalidTestCases:
 - -1
 - 0

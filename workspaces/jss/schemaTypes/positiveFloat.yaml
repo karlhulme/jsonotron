@@ -2,13 +2,9 @@
 kind: schema
 system: jss
 name: positiveFloat
-examples:
+validTestCases:
 - value: 12.34
   documentation: An example.
-validTestCases:
-- 0.001
-- 1
-- 1456.24
 invalidTestCases:
 - a string
 - ''

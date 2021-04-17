@@ -2,14 +2,11 @@
 kind: schema
 system: jss
 name: boolean
-examples:
+validTestCases:
 - value: true
   documentation: A value of true.
 - value: false
   documentation: A value of false.
-validTestCases:
-- true
-- false
 invalidTestCases:
 - a string
 - ''

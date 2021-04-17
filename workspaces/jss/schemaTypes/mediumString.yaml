@@ -2,14 +2,13 @@
 kind: schema
 system: jss
 name: mediumString
-examples:
+validTestCases:
 - value: A string that contains some characters
   documentation: An example.
-validTestCases:
-- aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeee
-- ''
-- " "
-- "!!"
+- value: aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeee
+- value: ''
+- value: " "
+- value: "!!"
 invalidTestCases:
 - 123
 - 

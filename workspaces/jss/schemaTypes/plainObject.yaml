@@ -2,7 +2,7 @@
 kind: schema
 system: jss
 name: plainObject
-examples:
+validTestCases:
 - value:
     hello: world
     foo:
@@ -10,9 +10,6 @@ examples:
   documentation: In this example we store an object with nested objects.
 - value: {}
   documentation: Here we store an empty object.
-validTestCases:
-- {}
-- hello: world
 invalidTestCases:
 - -1
 - 0

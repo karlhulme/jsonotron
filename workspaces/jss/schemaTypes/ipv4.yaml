@@ -2,12 +2,10 @@
 kind: schema
 system: jss
 name: ipv4
-examples:
+validTestCases:
 - value: 127.0.0.1
   documentation: An example.
-validTestCases:
-- 192.168.0.1
-- 10.25.1.100
+- value: 10.25.1.100
 invalidTestCases:
 - 123
 - 

@@ -2,16 +2,11 @@
 kind: schema
 system: jss
 name: positiveFloatOrZero
-examples:
-- value: 12.34
-  documentation: An example.
-- value: 0
-  documentation: An example.
 validTestCases:
-- 0
-- 0.001
-- 1
-- 1456.24
+- value: 12.34
+  documentation: An example positive value.
+- value: 0
+  documentation: An example zero value.
 invalidTestCases:
 - a string
 - ''

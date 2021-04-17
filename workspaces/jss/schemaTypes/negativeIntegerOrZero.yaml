@@ -2,15 +2,11 @@
 kind: schema
 system: jss
 name: negativeIntegerOrZero
-examples:
+validTestCases:
 - value: -15
   documentation: An example.
 - value: 0
   documentation: An example.
-validTestCases:
-- 0
-- -1
-- -25
 invalidTestCases:
 - a string
 - ''

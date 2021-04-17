@@ -2,15 +2,13 @@
 kind: schema
 system: jss
 name: shortString
-examples:
+validTestCases:
 - value: A terse string
   documentation: A short text string.
-validTestCases:
-- my short string
-- aaaaaaaaaabbbbbbbbbb
-- ''
-- " "
-- "!!"
+- value: aaaaaaaaaabbbbbbbbbb
+- value: ''
+- value: " "
+- value: "!!"
 invalidTestCases:
 - 123
 -

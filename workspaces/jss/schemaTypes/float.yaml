@@ -2,15 +2,14 @@
 kind: schema
 system: jss
 name: float
-examples:
+validTestCases:
 - value: 3.14
   documentation: An example.
-validTestCases:
-- -34.56
-- -1
-- 0
-- 1
-- 1456.24
+- value: -34.56
+- value: -1
+- value: 0
+- value: 1
+- value: 1456.24
 invalidTestCases:
 - a string
 - ''

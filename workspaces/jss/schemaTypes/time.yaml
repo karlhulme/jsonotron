@@ -2,12 +2,9 @@
 kind: schema
 system: jss
 name: time
-examples:
+validTestCases:
 - value: '23:14:56'
   documentation: An example.
-validTestCases:
-- '23:14:25'
-- '02:59:10'
 invalidTestCases:
 - -1
 - 0

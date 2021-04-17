@@ -2,12 +2,10 @@
 kind: schema
 system: jss
 name: emailAddress
-examples:
+validTestCases:
 - value: anon@gmail.com
   documentation: An example.
-validTestCases:
-- a.person@hostname.top.com
-- short_@hi.org
+- value: short_@hi.org
 invalidTestCases:
 - 123
 - 

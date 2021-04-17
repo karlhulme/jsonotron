@@ -2,12 +2,9 @@
 kind: schema
 system: jss
 name: jsonPointer
-examples:
+validTestCases:
 - value: "/root/tree/branch/leaf"
   documentation: An example.
-validTestCases:
-- "/root/tree/leaf"
-- "/root/tree/1/leaf"
 invalidTestCases:
 - 123
 - 

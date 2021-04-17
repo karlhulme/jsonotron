@@ -2,11 +2,9 @@
 kind: schema
 system: jss
 name: uuid
-examples:
+validTestCases:
 - value: 1ff9a681-092e-48ad-8d5a-1b0919ddb33b
   documentation: An example.
-validTestCases:
-- 123e4567-e89b-12d3-a456-426655440000
 invalidTestCases:
 - 123
 - 

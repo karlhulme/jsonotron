@@ -2,7 +2,7 @@
 kind: schema
 system: jss
 name: geoJsonPolygon
-examples:
+validTestCases:
 - value:
     type: Polygon
     coordinates:
@@ -13,14 +13,6 @@ examples:
     - [31.8, -5]
   documentation: A region on Earth recorded in GeoJSON format expressed as a series of longitude
     and latitude pairs.
-validTestCases:
-- type: Polygon
-  coordinates:
-  - [31.8, -5]
-  - [31.8, -4.7]
-  - [32, -4.7]
-  - [32, -5]
-  - [31.8, -5]
 invalidTestCases:
 - 123
 - 

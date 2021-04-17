@@ -2,7 +2,7 @@
 kind: schema
 system: jss
 name: dateTimeLocal
-examples:
+validTestCases:
 - value:
     dateTime: '2010-06-08T05:30:12+01:00'
     timeZone: europe/london
@@ -10,13 +10,6 @@ examples:
   documentation: The europe/london time zone operates at +00:00 during the winter
     and +01:00 during the summer.  In this example we can see the value is in the
     summer because of the +01:00 suffix.
-validTestCases:
-- dateTime: '2010-02-04T05:30:12+01:00'
-  timeZone: europe/london
-  captured: 1563119540628
-- dateTime: '2011-04-30T16:41:00+00:00'
-  timeZone: europe/london
-  captured: 1563119547583
 invalidTestCases:
 - 
 - true

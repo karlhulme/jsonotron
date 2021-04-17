@@ -2,12 +2,10 @@
 kind: schema
 system: jss
 name: date
-examples:
+validTestCases:
 - value: '2007-09-25'
   documentation: An example.
-validTestCases:
-- '2014-09-15'
-- '2025-10-30'
+- value: '2025-10-30'
 invalidTestCases:
 - -1
 - 0

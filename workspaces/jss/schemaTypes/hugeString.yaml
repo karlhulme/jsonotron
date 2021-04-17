@@ -2,14 +2,13 @@
 kind: schema
 system: jss
 name: hugeString
-examples:
+validTestCases:
 - value: A very long paragraph about an interesting subject...
   documentation: An example.
-validTestCases:
-- aaaaaaaaaaa
-- ''
-- " "
-- "!!"
+- value: aaaaaaaaaaa
+- value: ''
+- value: " "
+- value: "!!"
 invalidTestCases:
 - 123
 - 

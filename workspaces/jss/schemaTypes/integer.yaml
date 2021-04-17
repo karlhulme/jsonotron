@@ -2,13 +2,11 @@
 kind: schema
 system: jss
 name: integer
-examples:
+validTestCases:
 - value: 365
   documentation: An example.
-validTestCases:
-- -25
-- 0
-- 25
+- value: -25
+- value: 0
 invalidTestCases:
 - a string
 - ''

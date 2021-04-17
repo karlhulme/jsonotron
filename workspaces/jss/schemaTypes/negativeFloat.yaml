@@ -2,13 +2,12 @@
 kind: schema
 system: jss
 name: negativeFloat
-examples:
+validTestCases:
 - value: -21.09
   documentation: An example.
-validTestCases:
-- -0.001
-- -1
-- -1456.24
+- value: -0.001
+- value: -1
+- value: -1456.24
 invalidTestCases:
 - a string
 - ''

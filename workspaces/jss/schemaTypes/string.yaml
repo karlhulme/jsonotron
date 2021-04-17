@@ -2,14 +2,12 @@
 kind: schema
 system: jss
 name: string
-examples:
+validTestCases:
 - value: A string
   documentation: An example.
-validTestCases:
-- any string
-- ''
-- " "
-- "!!"
+- value: ''
+- value: " "
+- value: "!!"
 invalidTestCases:
 - 123
 - 
