@@ -1,5 +1,6 @@
 import { JsonotronBaseType } from './JsonotronBaseType'
 import { SchemaTypeExample } from './SchemaTypeExample'
+import { SchemaTypeVariant } from './SchemaTypeVariant'
 
 /**
  * Represents a type based on a JSON schema.
@@ -24,4 +25,9 @@ export interface SchemaType extends JsonotronBaseType {
    * A JSON schema.
    */
   jsonSchema: Record<string, unknown>
+
+  /**
+   * An array of variants to this type.
+   */
+  variants: SchemaTypeVariant[]
 }
