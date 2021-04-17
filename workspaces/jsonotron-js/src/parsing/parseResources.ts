@@ -249,7 +249,7 @@ function ensureSchemaTypeExamplesAndTestCasesAreValid (ajv: Ajv, domain: string,
   })
 
   // check the invalid test cases
-  schemaType.invalidTestCases.forEach((t, index) => {
+  schemaType.invalidTestCases?.forEach((t, index) => {
     if (validator && validator(t)) {
       throw new SchemaTypeTestCaseInvalidationError(schemaType.name, index)
     }

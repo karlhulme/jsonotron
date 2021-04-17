@@ -9,15 +9,6 @@ validTestCases:
     ageInYears: 2000
     inventor: Mr Chess
   documentation: An example.
-invalidTestCases:
-- -1
-- 0
-- 999999
-- 
-- true
-- a house
-- {}
-- []
 jsonSchema:
   type: object
   j-documentation: Information about a hobby.

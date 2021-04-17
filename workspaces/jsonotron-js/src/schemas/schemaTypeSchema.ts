@@ -70,7 +70,6 @@ export const schemaTypeSchema = {
     'system',
     'name',
     'validTestCases',
-    'invalidTestCases',
     'jsonSchema'
   ]
 }
