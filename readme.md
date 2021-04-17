@@ -129,12 +129,16 @@ Property Name | Description
 kind | Must be the value 'schema'.
 system | The name of the type system that this type belongs to.
 name | A name for the schema type.
-examples | An array of example values that conform to the json schema and demonstrate how the schema type should typically be used.  At least one example must be provided.
-examples.value | An example value
-examples.documentation | A commonmark description of the example.
-validTestCases | An array of values that should be accepted as valid.
-invalidTestCases | An array of values that should be rejected as invalid.
-jsonSchema | A JSON schema object following the JSON schema specification.
+validTestCases | An array of values that conform to the json schema and demonstrate how the schema type should typically be used.  At least one valid test case must be provided and it should be documented.
+validTestCases.value | An example value
+validTestCases.documentation | A commonmark description of the example.
+invalidTestCases | An optional array of values that should be rejected as invalid.
+jsonSchema | An optional JSON schema object following the JSON schema specification.
+variants | An optional array of variations of this schema type, which is only applicable for schema types based on 'object'.
+variants.name | The name of this variant which will be used as a suffix to the schema type name.
+variants.partial | Indicates if the fields should all be treated as optional, thus ignoring the 'required' property.
+variants.includeFields | An array of strings that represent the names of the only fields (object properties in the jsonSchema) that should be included in the variant.  This takes priority over the excludeFields property.
+variants.excludeFields | An array of strings that represent the name of the fields that should be excluded from the variant, whereas all others will be included.
 
 ```yaml
 ---
@@ -143,14 +147,11 @@ domain: https://yourdomain.com
 system: system
 name: coordinate
 title: Co-ordinate
-examples:
+validTestCases:
 - value:
     coordX: 3
     coordY: 4
   documentation: This example shows...
-validTestCases:
-- coordX: 5
-  coordY: 6
 invalidTestCases:
 - 0
 - invalid
@@ -167,20 +168,21 @@ jsonSchema:
     coordY:
       type: number
       j-documentation: This is the y co-ordinate.
+variants:
+- name: oneDimensional
+  partial: false
+  includeFields:
+  - coordX
 ```
 
 When defining the JSON schema you can use any of the JSON Schema capabilities although be aware that language specific validators will have varying degrees of support.
 
 Note that you can use the `j-documentation` property to add documentation to any JSON schema nodes that include a `type:` property.
 
-A schema type can reference external enum types and schema types using the `{ $ref: '<typeName>' }` expression.  You should always use a relative uri so that the domain can be dictated by clients at the point of download.  If `targetType` is in the same system use `{ $ref: 'targetType' }`.  If `targetType` is another system use `{ $ref: '../anotherSystem/TargetType' }`.  See the example below.
+A schema type can reference external enum types and schema types using the `{ $ref: '<typeName>' }` expression.  You should always use a relative uri so that the domain can be dictated by clients at the point of download.  If `targetType` is in the same system use `{ $ref: 'targetType' }`.  If `targetType` is another system use `{ $ref: '../anotherSystem/TargetType' }`.  See the example snippet below.
 
 ```yaml
 ---
-kind: schema
-domain: https://yourdomain.com
-system: system
-name: typeWithExternalRef
 jsonSchema:
   type: object
   properties:

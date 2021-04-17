@@ -8,12 +8,13 @@ export function generateSchemaTypeDocumentation (schemaType: SchemaType): string
 **system**: ${schemaType.system}\\
 **name**: ${schemaType.name}
 
-${schemaType.examples
-  .map((example, index) => {
+${schemaType.validTestCases
+  .filter(testCase => testCase.documentation)
+  .map((testCase, index) => {
     return `#### Example ${index + 1}\n\n` +
-      example.documentation + '\n\n' +
+      testCase.documentation + '\n\n' +
       '```json\n' +
-      JSON.stringify(example.value, null, 2) + '\n' +
+      JSON.stringify(testCase.value, null, 2) + '\n' +
       '```\n'
     })
   .join('\n')

@@ -1616,7 +1616,7 @@ An example.
 
 #### Example 1
 
-An example.
+An example negative value.
 
 ```json
 -6.16
@@ -1624,7 +1624,7 @@ An example.
 
 #### Example 2
 
-An example.
+An example zero value.
 
 ```json
 0
@@ -1812,7 +1812,7 @@ An example.
 
 #### Example 1
 
-An example.
+An example positive value.
 
 ```json
 12.34
@@ -1820,7 +1820,7 @@ An example.
 
 #### Example 2
 
-An example.
+An example zero value.
 
 ```json
 0
@@ -1876,7 +1876,7 @@ An example.
 
 #### Example 1
 
-An example.
+An example positive value.
 
 ```json
 21
@@ -1884,7 +1884,7 @@ An example.
 
 #### Example 2
 
-An example.
+An example zero value.
 
 ```json
 0

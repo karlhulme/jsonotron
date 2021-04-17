@@ -15,7 +15,7 @@ export interface SchemaType extends JsonotronBaseType {
   /**
    * An array of values that cannot be represented by this type. 
    */
-  invalidTestCases: unknown[]
+  invalidTestCases?: unknown[]
 
   /**
    * A JSON schema.
@@ -25,5 +25,5 @@ export interface SchemaType extends JsonotronBaseType {
   /**
    * An array of variants to this type.
    */
-  variants: SchemaTypeVariant[]
+  variants?: SchemaTypeVariant[]
 }

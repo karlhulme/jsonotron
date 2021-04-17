@@ -73,10 +73,9 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         },
         required: ['make']
       },
-      examples: [
+      validTestCases: [
         { value: { make: 'SleepTight', thickness: 25 }, documentation: 'An example.' }
       ],
-      validTestCases: [],
       invalidTestCases: []
     }, {
       kind: 'schema',
@@ -92,10 +91,9 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         },
         required: ['make']
       },
-      examples: [
+      validTestCases: [
         { value: { make: 'SleepTight', color: 'blue' }, documentation: 'An example.' }
       ],
-      validTestCases: [],
       invalidTestCases: []
     }, {
       kind: 'schema',
@@ -131,16 +129,14 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
           age: { type: 'integer', 'j-documentation': 'The age in years.' }
         }
       },
-      examples: [
+      validTestCases: [
         {
           value: {
             instructions: { any: 'thing' }, compact: true, fabrics: 'plaid', contents: ['batteries', 'clothes']
           },
           documentation: 'An example.'
         }
-      ],
-      validTestCases: [],
-      invalidTestCases: []
+      ]
     }, {
       kind: 'schema',
       system: 'extra',
@@ -153,11 +149,9 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
           height: { type: 'number' }
         }
       },
-      examples: [
+      validTestCases: [
         { value: { height: 123 }, documentation: 'An example.' }
       ],
-      validTestCases: [],
-      invalidTestCases: []
     }, {
       kind: 'schema',
       system: 'extra',
@@ -167,10 +161,9 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         'j-documentation': 'A large string with a defined length.',
         maxLength: 2000
       },
-      examples: [
+      validTestCases: [
         { value: 'A really really big string', documentation: 'An example.' }
       ],
-      validTestCases: [],
       invalidTestCases: []
     }]
   }
