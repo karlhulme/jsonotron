@@ -10,6 +10,8 @@ This type library is based on the following systems:
 
 * [hugeString *[extra]*](#hugeString)
 
+* [mediumString *[extra]*](#mediumString)
+
 **Root Object Types:**
 
 * [bed *[test]*](#bed)
@@ -50,6 +52,20 @@ An example.
 
 ```json
 "A really really big string"
+```
+
+### `mediumString`
+
+A medium string with a defined length.
+
+This type is defined in the extra system.
+
+#### Example 1
+
+An example.
+
+```json
+"A medium length string"
 ```
 
 ## Object Types

@@ -8,6 +8,7 @@ export function generateRootObjectTypeDocumentation (rootObjectType: TypeMapObje
 
   lines.push(`### \`${rootObjectType.name}\``)
 
+  /* istanbul ignore next - there will always be documentation for a root object type. */
   lines.push(rootObjectType.documentation || `The ${rootObjectType.name} object type.`)
   lines.push(`This type is defined in the ${rootObjectType.system} system.`)
 
@@ -31,7 +32,9 @@ function refTypeToString (fqn: string, typeMap: TypeMap) {
   switch (resolved.resolutionType) {
     case 'jsonotronType': return appendArrayIndicators(resolved.arrayCount, `${resolved.system}/${resolved.name}`)
     case 'jsonSchemaType': return appendArrayIndicators(resolved.arrayCount, resolved.name)
+    /* istanbul ignore next */
     default:
+    /* istanbul ignore next */
     case 'unknown': return 'Unresolved'
   }
 }

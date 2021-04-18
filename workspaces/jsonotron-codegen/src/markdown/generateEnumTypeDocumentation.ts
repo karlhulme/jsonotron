@@ -5,6 +5,7 @@ export function generateEnumTypeDocumentation (enumType: TypeMapRef): string[] {
 
   lines.push(`### \`${enumType.name}\``)
 
+  /* istanbul ignore next - there will always be documentation for an enum type */
   lines.push(enumType.documentation || `The ${enumType.name} enum type.`)
   lines.push(`This type is defined in the ${enumType.system} system.`)
 
@@ -12,6 +13,7 @@ export function generateEnumTypeDocumentation (enumType: TypeMapRef): string[] {
     lines.push(`Each item has additional data based on the [${enumType.enumItemDataTypeName}}](#${enumType.enumItemDataTypeName} object type.`)
   }
 
+  /* istanbul ignore next - there will always be enum items for an enum type */
   lines.push(`
 Value | Symbol | Text | Data | Description
 --- | --- | --- | --- | ---

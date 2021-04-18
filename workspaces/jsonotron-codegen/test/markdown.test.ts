@@ -3,7 +3,16 @@ import { generateMarkdown } from '../src'
 import { getTestTypes } from './shared.test'
 import { writeFile } from 'fs/promises' // useful for debug
 
-test('Generate markdown.', async () => {
+test('Generate markdown for an empty type system.', async () => {
+  const result = generateMarkdown({
+    enumTypes: [],
+    schemaTypes: []
+  })
+
+  expect(result).toContain('# Type Library')
+})
+
+test('Generate markdown for a type system.', async () => {
   const testTypes = getTestTypes()
 
   const result = generateMarkdown({

@@ -725,6 +725,22 @@
       "refTypeArrayCount": 0,
       "isScalarRef": true,
       "isEnumRef": false
+    },
+    {
+      "system": "extra",
+      "name": "mediumString",
+      "documentation": "A medium string with a defined length.",
+      "rootType": true,
+      "examples": [
+        {
+          "value": "A medium length string",
+          "documentation": "An example."
+        }
+      ],
+      "refTypeName": "string",
+      "refTypeArrayCount": 0,
+      "isScalarRef": true,
+      "isEnumRef": false
     }
   ]
 }
