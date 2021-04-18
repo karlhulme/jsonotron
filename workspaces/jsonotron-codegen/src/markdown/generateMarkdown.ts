@@ -1,6 +1,10 @@
 import { EnumType, SchemaType } from 'jsonotron-interfaces'
-import { generateSystemDocumentation } from './generateSystemDocumentation'
-import { getUniqueSystems } from './getUniqueSystems'
+import { convertJsonotronTypesToTypeMap } from '../typeMap'
+import { generateContents } from './generateContents'
+import { generateEnumTypeDocumentation } from './generateEnumTypeDocumentation'
+import { generateHeader } from './generateHeader'
+import { generateRootObjectTypeDocumentation } from './generateRootObjectTypeDocumentation'
+import { generateScalarTypeDocumentation } from './generateScalarTypeDocumentation'
 
 interface GenerateOptions {
   enumTypes: EnumType[]
@@ -8,31 +12,37 @@ interface GenerateOptions {
 }
 
 export function generateMarkdown (options: GenerateOptions): string {
+  const typeMap = convertJsonotronTypesToTypeMap({
+    enumTypes: options.enumTypes,
+    schemaTypes: options.schemaTypes
+  })
+
+  const scalarTypes = typeMap.refTypes
+    .filter(refType => refType.rootType && refType.isScalarRef)
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  const rootObjectTypes = typeMap.objectTypes
+    .filter(objectType => objectType.rootType)
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  const enumTypes = typeMap.refTypes
+    .filter(refType => refType.rootType && refType.isEnumRef)
+    .sort((a, b) => a.name.localeCompare(b.name))
+
   const lines: string[] = []
 
-  const enumTypes = options.enumTypes.sort((a, b) => a.name.localeCompare(b.name))
-  const schemaTypes = options.schemaTypes.sort((a, b) => a.name.localeCompare(b.name))
+  lines.push(`# Type Library`)
+  lines.push(...generateHeader(typeMap))
+  lines.push(...generateContents(scalarTypes, rootObjectTypes, enumTypes))
 
-  lines.push(`# Type Systems`)
+  lines.push('## Scalar Types')
+  scalarTypes.forEach(scalarType => lines.push(...generateScalarTypeDocumentation(scalarType)))
 
-  const uniqueSystems = getUniqueSystems(enumTypes, schemaTypes)
+  lines.push('## Object Types')
+  rootObjectTypes.forEach(rootObjectType => lines.push(...generateRootObjectTypeDocumentation(rootObjectType, typeMap)))
 
-  lines.push(uniqueSystems.map(system => `* ["${system}" System](#"${system}"-System)`).join('\n'))
-
-  for (const system of uniqueSystems) {
-    const systemEnumTypes = enumTypes.filter(e => e.system === system)
-    const systemSchemaTypes = schemaTypes.filter(s => s.system === system)
-
-    const systemMarkdown = generateSystemDocumentation(system, systemEnumTypes, systemSchemaTypes)
-
-    lines.push(systemMarkdown)
-  }
+  lines.push('## Enum Types')
+  enumTypes.forEach(enumType => lines.push(...generateEnumTypeDocumentation(enumType)))
 
   return lines.join('\n\n')
 }
-
-
-
-
-
-

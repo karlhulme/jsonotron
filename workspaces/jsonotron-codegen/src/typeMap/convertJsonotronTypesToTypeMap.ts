@@ -5,21 +5,32 @@ import { addJsonSchemaToTypeMap } from './addJsonSchemaToTypeMap'
 import { buildVariantJsonSchema } from './buildVariantJsonSchema'
 
 /**
+ * The jsonotron types to convert to a type map.
+ */
+interface ConversionParams {
+  enumTypes: EnumType[]
+  schemaTypes: SchemaType[]
+}
+
+/**
  * Returns a TypeMap built from the given enum and schema types.
  * @param enumTypes An array of enum types.
  * @param schemaTypes An array of schema types.
  */
-export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTypes: SchemaType[]): TypeMap {
+export function convertJsonotronTypesToTypeMap (params: ConversionParams): TypeMap {
   const map: TypeMap = {
     objectTypes: [],
     refTypes: []
   }
 
   // all enums are based on the json schema string type. 
-  enumTypes.forEach(enumType => {
+  params.enumTypes.forEach(enumType => {
     map.refTypes.push({
       system: enumType.system,
       name: enumType.name,
+      documentation: enumType.documentation,
+      rootType: true,
+      examples: [],
       refTypeName: 'string',
       refTypeArrayCount: 0,
       isScalarRef: false,
@@ -33,6 +44,7 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
         enumType.system,
         enumType.name + 'Data',
         true,
+        [],
         0,
         enumType.dataJsonSchema,
         map,
@@ -42,16 +54,17 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
   })
 
   // to convert schemaTypes we look at the jsonSchema property.
-  schemaTypes.forEach(schemaType => {
+  params.schemaTypes.forEach(schemaType => {
     // add the primary definition
     addJsonSchemaToTypeMap(
       schemaType.system,
       schemaType.name,
       true,
+      schemaType.validTestCases.filter(testCase => testCase.documentation),
       0,
       schemaType.jsonSchema,
       map,
-      enumTypes
+      params.enumTypes
     )
 
     // add any variants
@@ -60,13 +73,14 @@ export function convertJsonotronTypesToTypeMap (enumTypes: EnumType[], schemaTyp
         schemaType.system,
         schemaType.name + capitaliseInitialLetters(variant.name),
         true,
+        [],
         0,
         buildVariantJsonSchema(schemaType.jsonSchema, variant),
         map,
-        enumTypes
+        params.enumTypes
       )
     })
-  })  
+  })
 
   return map
 }

@@ -41,7 +41,7 @@ function generateEnumDeclarations (enumTypes: EnumType[]): string[] {
 }
 
 function generateTypesForSchemaTypeObjects (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {
-  const typeMap = convertJsonotronTypesToTypeMap(enumTypes, schemaTypes)
+  const typeMap = convertJsonotronTypesToTypeMap({ enumTypes, schemaTypes })
 
   return typeMap.objectTypes
     .map(t => {

@@ -1,3 +1,5 @@
+import { TypeMapExample } from './TypeMapExample'
+
 /**
  * Represents an object, that contains properties of its own, in a type map.
  */
@@ -16,6 +18,13 @@ export interface TypeMapObject {
    * The documentation associated with the type.
    */
   documentation: string
+
+  /**
+   * The example values showing the usage of this object type.
+   * This array will usually be populated if this is a non-variant,
+   * non-enum-data-schema, root type.
+   */
+   examples: TypeMapExample[]
 
   /**
    * Indicates if this object was originally defined by a schema type.

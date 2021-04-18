@@ -3,7 +3,7 @@ import { convertJsonotronTypesToTypeMap } from '../typeMap'
 import { appendArrayIndicators, capitaliseInitialLetters } from '../utils'
 
 export function generateSchemaTypeInterfaces (enumTypes: EnumType[], schemaTypes: SchemaType[]): string[] {
-  const typeMap = convertJsonotronTypesToTypeMap(enumTypes, schemaTypes)
+  const typeMap = convertJsonotronTypesToTypeMap({ enumTypes, schemaTypes })
 
   return typeMap.objectTypes
     .map(t => {

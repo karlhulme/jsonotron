@@ -1,3 +1,4 @@
+import { TypeMapExample } from './TypeMapExample'
 import { TypeMapRefEnumItem } from './TypeMapRefEnumItem'
 
 /**
@@ -13,6 +14,25 @@ export interface TypeMapRef {
    * The short name of the type.
    */
   name: string
+
+  /**
+   * The documentation associated with the type.
+   * This will be populated if this is a scalar ref or an enum ref.
+   */
+  documentation?: string
+
+  /**
+   * The example values showing the usage of this ref type.
+   * This array will usually be populated for scalar refs.
+   */
+  examples: TypeMapExample[]
+
+  /**
+   * Indicates if this scalar was originally defined by a schema type.
+   * If this value is false, then the ref type was generated as an
+   * interim pointer.
+   */
+  rootType: boolean
 
   /**
    * The name of another type.

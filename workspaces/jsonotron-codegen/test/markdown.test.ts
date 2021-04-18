@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { generateMarkdown } from '../src'
 import { getTestTypes } from './shared.test'
-// import { writeFile } from 'fs/promises' // useful for debug
+import { writeFile } from 'fs/promises' // useful for debug
 
 test('Generate markdown.', async () => {
   const testTypes = getTestTypes()
@@ -11,15 +11,16 @@ test('Generate markdown.', async () => {
     schemaTypes: testTypes.schemaTypes
   })
 
-  // await writeFile('./test/temp.md', result) // useful for debug
+  await writeFile('./test/temp.md', result) // useful for debug
 
-  expect(result).toContain('# Type Systems')
-  expect(result).toContain('## "test" System')
-  expect(result).toContain('## "extra" System')
-  expect(result).toContain('### color')
-  expect(result).toContain('### direction')
-  expect(result).toContain('### bed')
-  expect(result).toContain('### pillow')
+  expect(result).toContain('# Type Library')
+  expect(result).toContain('**Scalar Types:**')
+  expect(result).toContain('**Root Object Types:**')
+  expect(result).toContain('**Enum Types:**')
+  expect(result).toContain('## Scalar Types')
+  expect(result).toContain('### `color`')
+  expect(result).toContain('### `direction`')
+  expect(result).toContain('### `bed`')
+  expect(result).toContain('### `pillow`')
   expect(result).toContain('#### Example 1')
-  expect(result).toContain('#### Schema')
 })

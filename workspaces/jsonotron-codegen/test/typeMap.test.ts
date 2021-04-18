@@ -1,45 +1,48 @@
 import { expect, test } from '@jest/globals'
 import { convertJsonotronTypesToTypeMap } from '../src'
 import { getTestTypes } from './shared.test'
-// import { writeFile } from 'fs/promises' // useful for debug
+import { writeFile } from 'fs/promises' // useful for debug
 
 test('Convert jsonotron types into a type map and check the ref types.', async () => {
   const testTypes = getTestTypes()
-  const typeMap = convertJsonotronTypesToTypeMap(testTypes.enumTypes, testTypes.schemaTypes)
+  const typeMap = convertJsonotronTypesToTypeMap({
+    enumTypes: testTypes.enumTypes,
+    schemaTypes: testTypes.schemaTypes
+  })
 
-  // await writeFile('./test/temp.json', JSON.stringify(typeMap, null, 2)) // useful for debug
+  await writeFile('./test/temp.json', JSON.stringify(typeMap, null, 2)) // useful for debug
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { system: 'test', name: 'color', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true, enumItems: expect.any(Array), enumItemDataTypeName: 'colorData' }
+    { system: 'test', name: 'color', documentation: 'A list of colors', rootType: true, examples: [], refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true, enumItems: expect.any(Array), enumItemDataTypeName: 'colorData' }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { system: 'test', name: 'size', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true, enumItems: expect.any(Array) }
+    { system: 'test', name: 'size', documentation: expect.any(String), rootType: true, examples: [], refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true, enumItems: expect.any(Array) }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { system: 'alt', name: 'direction', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true, enumItems: expect.any(Array) }
+    { system: 'alt', name: 'direction', documentation: expect.any(String), rootType: true, examples: [], refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: true, enumItems: expect.any(Array) }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { system: 'test', name: 'bed_make', refTypeName: 'string', refTypeArrayCount: 0, isScalarRef: true, isEnumRef: false }
+    { system: 'test', name: 'bed_make', documentation: expect.any(String), rootType: false, examples: [], refTypeName: 'extra/hugeString', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: false }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { system: 'test', name: 'bed_pillow', refTypeName: 'test/pillow', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: false }
+    { system: 'test', name: 'bed_pillow', documentation: expect.any(String), rootType: false, examples: [], refTypeName: 'test/pillow', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: false }
   ]))
 
   expect(typeMap.refTypes).toEqual(expect.arrayContaining([
-    { system: 'test', name: 'bed_direction', refTypeName: 'alt/direction', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: false }
+    { system: 'test', name: 'bed_direction', documentation: expect.any(String), rootType: false, examples: [], refTypeName: 'alt/direction', refTypeArrayCount: 0, isScalarRef: false, isEnumRef: false }
   ]))
 })
 
 test('Convert jsonotron types into a type map and check the object types.', () => {
   const testTypes = getTestTypes()
-  const typeMap = convertJsonotronTypesToTypeMap(testTypes.enumTypes, testTypes.schemaTypes)
-
-  // output the map - useful when debugging
-  // console.log(JSON.stringify(typeMap, null, 2))
+  const typeMap = convertJsonotronTypesToTypeMap({
+    enumTypes: testTypes.enumTypes,
+    schemaTypes: testTypes.schemaTypes
+  })
 
   expect(typeMap.objectTypes).toEqual(expect.arrayContaining([
     {
@@ -47,6 +50,13 @@ test('Convert jsonotron types into a type map and check the object types.', () =
       name: 'bed',
       documentation: 'A bed',
       rootType: true,
+      examples: [{
+        value: {
+          make: 'SleepTight',
+          thickness: 25
+        },
+        documentation: 'An example.'
+      }],
       objectTypeArrayCount: 0,
       properties: [
         {

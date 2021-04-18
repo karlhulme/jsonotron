@@ -14,7 +14,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
       documentation: 'A list of colors',
       dataJsonSchema: {
         type: 'object',
-        documentation: 'Custom data that is attached to each color enum item.',
+        ['j-documentation']: 'Custom data that is attached to each color enum item.',
         additionalProperties: false,
         properties: {
           hexCode: { type: 'string' },
@@ -66,7 +66,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         'j-documentation': 'A bed',
         additionalProperties: false,
         properties: {
-          make: { type: 'string', 'j-documentation': 'The make of the bed.' },
+          make: { $ref: '../extra/hugeString', 'j-documentation': 'The make of the bed.' },
           thickness: { type: 'number', 'j-documentation': 'The thickness of the bed mattress' },
           pillow: { $ref: 'pillow', 'j-documentation': 'The type of pillow on the bed' },
           direction: { $ref : '../alt/direction', 'j-documentation': 'The direction the bed is facing.' }
@@ -86,7 +86,7 @@ export function getTestTypes (): { enumTypes: EnumType[], schemaTypes: SchemaTyp
         'j-documentation': 'A pillow',
         additionalProperties: false,
         properties: {
-          make: { type: 'string', 'j-documentation': 'The mame of the pillow.' },
+          make: { type: 'string', 'j-documentation': 'The make of the pillow.' },
           color: { type: 'string', 'j-documentation': 'The color of the pillow.' }
         },
         required: ['make']

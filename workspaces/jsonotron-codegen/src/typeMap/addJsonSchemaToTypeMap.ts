@@ -1,4 +1,5 @@
 import { EnumType, TypeMap, TypeMapObjectProperty } from 'jsonotron-interfaces'
+import { TypeMapExample } from 'jsonotron-interfaces/types/interfaces/TypeMapExample'
 
 /**
  * Adds the types found in the given JSON schema to the given type map.
@@ -9,13 +10,14 @@ import { EnumType, TypeMap, TypeMapObjectProperty } from 'jsonotron-interfaces'
  * the chain of property names separated by an underscore.
  * @param rootType True if the type was defined at the top level of a schema type
  * or enum type.
+ * @param examples An array of documented examples of the uage of the type.
  * @param arrayCount The number of array elements the current type has
  * been found to be inside.
  * @param jsonSchema A json schema snippet.
  * @param map A map of types and references.
  * @param enumTypes An array of enum types.
  */
-export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string, rootType: boolean, arrayCount: number, jsonSchema: Record<string, unknown>, map: TypeMap, enumTypes: EnumType[]): void {
+export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string, rootType: boolean, examples: TypeMapExample[], arrayCount: number, jsonSchema: Record<string, unknown>, map: TypeMap, enumTypes: EnumType[]): void {
   if (Array.isArray(jsonSchema.enum) && jsonSchema.enum.length > 0) {
     // A json-schema enum
     const exampleEnumItem = jsonSchema.enum[0]
@@ -30,6 +32,9 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
     map.refTypes.push({
       system,
       name: proposedTypeName,
+      documentation: jsonSchema['j-documentation'] as string || 'A bespoke enum type',
+      rootType,
+      examples: [],
       refTypeName: exampleEnumItemScalarType,
       refTypeArrayCount: arrayCount,
       isScalarRef: true,
@@ -44,6 +49,9 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
     map.refTypes.push({
       system,
       name: proposedTypeName,
+      documentation: `A reference to the ${refTypeName} type.`,
+      rootType,
+      examples: [],
       refTypeName,
       refTypeArrayCount: arrayCount,
       isScalarRef: false,
@@ -54,6 +62,9 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
     map.refTypes.push({
       system,
       name: proposedTypeName,
+      documentation: jsonSchema['j-documentation'] as string || `A scalar type based on ${jsonSchema.type}.`,
+      rootType,
+      examples,
       refTypeName: jsonSchema.type as string,
       refTypeArrayCount: arrayCount,
       isScalarRef: true,
@@ -62,7 +73,7 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
   } else if (jsonSchema.type === 'array' && typeof jsonSchema.items === 'object' && !Array.isArray(jsonSchema.items)) {
     // An array type.
     // Increase the number of array brackets and resolve the 'items' property
-    addJsonSchemaToTypeMap(system, proposedTypeName, false, arrayCount + 1, jsonSchema.items as Record<string, unknown>, map, enumTypes)
+    addJsonSchemaToTypeMap(system, proposedTypeName, false, [], arrayCount + 1, jsonSchema.items as Record<string, unknown>, map, enumTypes)
   } else if (jsonSchema.type === 'object' && jsonSchema.additionalProperties === false && typeof jsonSchema.properties === 'object' && jsonSchema.properties !== null) {
     // An object defined by a set of properties - an Object-type.
     
@@ -76,7 +87,7 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
       const isRequired = objectRequireds.includes(subPropertyName)
       const subPropertyTypeName = proposedTypeName + '_' + subPropertyName
       const subProperty = objectProperties[subPropertyName] as Record<string, unknown>
-      addJsonSchemaToTypeMap(system, subPropertyTypeName, false, 0, subProperty, map, enumTypes)
+      addJsonSchemaToTypeMap(system, subPropertyTypeName, false, [], 0, subProperty, map, enumTypes)
 
       objectSubProperties.push({
         propertyName: subPropertyName,
@@ -92,6 +103,7 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
       name: proposedTypeName,
       documentation: (jsonSchema['j-documentation'] || `The ${proposedTypeName} type.`) as string,
       rootType,
+      examples,
       objectTypeArrayCount: arrayCount,
       properties: objectSubProperties
     })
@@ -101,6 +113,9 @@ export function addJsonSchemaToTypeMap (system: string, proposedTypeName: string
     map.refTypes.push({
       system,
       name: proposedTypeName,
+      documentation: `The fallback type because the JSON schema was not understood.`,
+      rootType,
+      examples,
       refTypeName: 'object',
       refTypeArrayCount: arrayCount,
       isScalarRef: true,
