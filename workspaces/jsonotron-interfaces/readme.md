@@ -1,10 +1,11 @@
 # Jsonotron-interfaces
 
-The interfaces used by the Jsonotron-js implementation.
+The interfaces of the `jsonotron` system.
 
 ![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
 [![npm](https://img.shields.io/npm/v/jsonotron-interfaces.svg)](https://www.npmjs.com/package/jsonotron-interfaces)
 ![npm type definitions](https://img.shields.io/npm/types/typescript)
+
 
 ## Installation
 
@@ -14,7 +15,6 @@ npm install jsonotron-interfaces
 
 
 ## Development
-
 
 To publish an ES6 transpiled version (with typescript definitions) to npm:
 

@@ -1,10 +1,10 @@
 /**
- * Every Jsonotron resource must define a 'kind' property
- * and this interface exposes that.
+ * Represents the base jsonotron resource.
  */
-export interface JsonotronResource {
+ export interface JsonotronResource {
   /**
-   * The type.
+   * The kind of type.
    */
   kind: 'enum'|'schema'
-}
+ }
+ 

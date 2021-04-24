@@ -1,6 +1,6 @@
 {
   "name": "jsonotron-interfaces",
-  "description": "The interfaces used by the jsonotron-js implementation.",
+  "description": "The interfaces of the jsonotron system.",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "files": [
