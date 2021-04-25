@@ -5,7 +5,7 @@ import { identifierRegex } from './commonRegex'
  */
 export const commonProperties = {
   kind: {
-    enum: ['enumScalar', 'intScalar', 'floatScalar', 'boolScalar', 'stringScalar', 'array', 'record', 'object']
+    enum: ['enum', 'int', 'float', 'bool', 'string', 'array', 'record', 'object']
   },
   system: {
     type: 'string',

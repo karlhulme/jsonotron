@@ -1,0 +1,10 @@
+---
+kind: string
+system: jss
+name: paymentCardNo
+summary: A value that uniquely identifies a payment card, such as a credit or debit card.
+  The regex will check for the exclusive use of numbers but will not check for adherence to
+  the Luhn algorithm.
+minimumLength: 13
+maximumLength: 19
+regex: ^[0-9]{13,19}$

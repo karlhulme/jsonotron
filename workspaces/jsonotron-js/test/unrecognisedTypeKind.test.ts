@@ -5,7 +5,7 @@ import { reindentYaml } from './shared.test'
 test('A type with an unrecognised kind cannot be parsed.', async () => {
   const invalidResource = reindentYaml(`
     ---
-    kind: unknownScalar
+    kind: unknown
     system: test
     name: testScalar
     summary: A test scalar.
@@ -16,6 +16,6 @@ test('A type with an unrecognised kind cannot be parsed.', async () => {
     throw new Error('fail')
   } catch (err) {
     expect(err).toBeInstanceOf(UnrecognisedTypeKindError)
-    expect(err).toHaveProperty('kind', 'unknownScalar')
+    expect(err).toHaveProperty('kind', 'unknown')
   }
 })

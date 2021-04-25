@@ -1,7 +1,7 @@
 import {
-  ArrayType, EnumScalarType, FloatScalarType,
-  IntScalarType, JsonotronType, RecordType,
-  StringScalarType
+  ArrayType, EnumType, FloatType,
+  IntType, JsonotronType, RecordType,
+  StringType
 } from 'jsonotron-interfaces'
 
 /**
@@ -22,17 +22,17 @@ export interface TypeLibrary {
   /**
    * An array of verified enum scalar types.
    */
-  enumScalarTypes: EnumScalarType[]
+  enumScalarTypes: EnumType[]
 
   /**
    * An array of verified float scalar types.
    */
-  floatScalarTypes: FloatScalarType[]
+  floatScalarTypes: FloatType[]
 
   /**
    * An array of verified int scalar types.
    */
-  intScalarTypes: IntScalarType[]
+  intScalarTypes: IntType[]
 
   /**
    * An array of verified object types.
@@ -47,5 +47,5 @@ export interface TypeLibrary {
   /**
    * An array of verified string scalar types.
    */
-  stringScalarTypes: StringScalarType[]
+  stringScalarTypes: StringType[]
 }

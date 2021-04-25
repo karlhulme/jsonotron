@@ -8,10 +8,10 @@ export const TEST_DOMAIN = 'https://jsonotron-testing.org'
 
 export const otherType = reindentYaml(`
   ---
-  kind: intScalar
+  kind: int
   system: test
   name: other
-  summary: A simple type that can be referenced by other types for testing purposes.
+  summary: A simple int type that can be referenced by other types for testing purposes.
   minimum: -128
   maximum: 128
 `)

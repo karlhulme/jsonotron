@@ -1,6 +1,0 @@
----
-kind: stringScalar
-system: jss
-name: mediumString
-summary: A string with up to 50 unicode characters.
-maximumLength: 50

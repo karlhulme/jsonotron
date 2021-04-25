@@ -5,7 +5,7 @@ import { reindentYaml } from './shared.test'
 test('An invalid type cannot be parsed.', async () => {
   const invalidType = reindentYaml(`
     ---
-    kind: floatScalar
+    kind: float
     system: test
     name: invalidType
     summary: A malformed float type.
@@ -19,6 +19,6 @@ test('An invalid type cannot be parsed.', async () => {
   } catch (err) {
     expect(err).toBeInstanceOf(InvalidTypeError)
     expect(err).toHaveProperty('typeName', 'invalidType')
-    expect(err).toHaveProperty('typeKind', 'floatScalar')
+    expect(err).toHaveProperty('typeKind', 'float')
   }
 })

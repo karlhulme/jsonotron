@@ -1,6 +1,0 @@
----
-kind: stringScalar
-system: jss
-name: hugeString
-summary: A string with up to 4000 unicode characters.
-maximumLength: 4000

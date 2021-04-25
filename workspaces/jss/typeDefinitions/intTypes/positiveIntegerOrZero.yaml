@@ -1,0 +1,7 @@
+---
+kind: int
+system: jss
+name: positiveIntegerOrZero
+summary: A positive integer, or zero, represented as a 32-bit signed integer.
+minimum: 0
+maximum: 2147483647

@@ -1,19 +1,19 @@
 import { AnySchema } from 'ajv'
-import { IntScalarType } from 'jsonotron-interfaces'
+import { IntType } from 'jsonotron-interfaces'
 import { JSON_SCHEMA_DECLARATION } from './consts'
 
 /**
  * Creates a JSON schema for the given int scalar type.
  * @param domain The domain for the $id of the schema.
- * @param intScalarType An int scalar type.
+ * @param intType An int scalar type.
  */
-export function createJsonSchemaForIntScalarType (domain: string, intScalarType: IntScalarType): AnySchema {
+export function createJsonSchemaForIntScalarType (domain: string, intType: IntType): AnySchema {
   return {
-    $id: `${domain}/${intScalarType.system}/${intScalarType.name}`,
+    $id: `${domain}/${intType.system}/${intType.name}`,
     $schema: JSON_SCHEMA_DECLARATION,
-    title: `Int Scalar Type "${intScalarType.name}"`,
+    title: `Int Type "${intType.name}"`,
     type: 'integer',
-    minimum: intScalarType.minimum,
-    maximum: intScalarType.maximum
+    minimum: intType.minimum,
+    maximum: intType.maximum
   }
 }

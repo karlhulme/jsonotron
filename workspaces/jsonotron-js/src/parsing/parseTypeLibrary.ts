@@ -1,9 +1,8 @@
 import Ajv, { ErrorObject, ValidateFunction } from 'ajv'
 import yaml from 'js-yaml'
 import {
-  ArrayType, EnumScalarType, FloatScalarType,
-  IntScalarType, JsonotronType, RecordType,
-  StringScalarType
+  ArrayType, EnumType, FloatType,
+  IntType, JsonotronType, RecordType, StringType
 } from 'jsonotron-interfaces'
 import {
   DuplicateTypeNameError,
@@ -159,24 +158,24 @@ function sortResources (resources: JsonotronType[], validators: TypeValidators):
         result.arrayTypes.push(res as ArrayType)
         break
       }
-      case 'boolScalar': {
+      case 'bool': {
         ensureTypeIsValid(res, validators.boolScalarTypeValidator)
         result.boolScalarTypes.push(res)
         break
       }
-      case 'enumScalar': {
+      case 'enum': {
         ensureTypeIsValid(res, validators.enumScalarTypeValidator)
-        result.enumScalarTypes.push(res as EnumScalarType)
+        result.enumScalarTypes.push(res as EnumType)
         break
       }
-      case 'floatScalar': {
+      case 'float': {
         ensureTypeIsValid(res, validators.floatScalarTypeValidator)
-        result.floatScalarTypes.push(res as FloatScalarType)
+        result.floatScalarTypes.push(res as FloatType)
         break
       }
-      case 'intScalar': {
+      case 'int': {
         ensureTypeIsValid(res, validators.intScalarTypeValidator)
-        result.intScalarTypes.push(res as IntScalarType)
+        result.intScalarTypes.push(res as IntType)
         break
       }
       case 'object': {
@@ -189,9 +188,9 @@ function sortResources (resources: JsonotronType[], validators: TypeValidators):
         result.recordTypes.push(res as RecordType)
         break
       }
-      case 'stringScalar': {
+      case 'string': {
         ensureTypeIsValid(res, validators.stringScalarTypeValidator)
-        result.stringScalarTypes.push(res as StringScalarType)
+        result.stringScalarTypes.push(res as StringType)
         break
       }
       default: {
@@ -254,7 +253,7 @@ function ensureArrayTypeElementTypeIsValid (arrayType: ArrayType, systemQualifie
  * @param enumScalarType An enum scalar type.
  * @param systemQualifiedTypeNames An array of system qualified type names.
  */
-function ensureEnumScalarTypeDataTypeIsValid (enumScalarType: EnumScalarType, systemQualifiedTypeNames: string[]): void {
+function ensureEnumScalarTypeDataTypeIsValid (enumScalarType: EnumType, systemQualifiedTypeNames: string[]): void {
   if (enumScalarType.dataType && !systemQualifiedTypeNames.includes(getSystemQualifiedTypeName(enumScalarType.system, enumScalarType.dataType))) {
     throw new UnrecognisedTypeError(enumScalarType.dataType)
   }
@@ -301,7 +300,7 @@ function ajvErrorsToString (errors?: ErrorObject[]|null) {
  * @param jsonSchemaValidator A json schema validator.
  * @param enumScalarType An enum scalar type.
  */
-function ensureEnumScalarTypeItemsDataIsValid (jsonSchemaValidator: Ajv, enumScalarType: EnumScalarType): void {
+function ensureEnumScalarTypeItemsDataIsValid (jsonSchemaValidator: Ajv, enumScalarType: EnumType): void {
   // only check data if a schema is provided
   if (enumScalarType.dataType) {
     // get the validator

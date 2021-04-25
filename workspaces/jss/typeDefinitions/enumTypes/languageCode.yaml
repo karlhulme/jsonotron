@@ -1,0 +1,272 @@
+---
+kind: enum
+system: jss
+name: languageCode
+summary: A language code conforming to the from ISO 639-1 standard.
+items:
+- value: af
+  text: Afrikaans
+- value: ar
+  text: Arabic
+- value: ar-dz
+  text: Arabic (Algeria)
+- value: ar-bh
+  text: Arabic (Bahrain)
+- value: ar-eg
+  text: Arabic (Egypt)
+- value: ar-iq
+  text: Arabic (Iraq)
+- value: ar-jo
+  text: Arabic (Jordan)
+- value: ar-kw
+  text: Arabic (Kuwait)
+- value: ar-lb
+  text: Arabic (Lebanon)
+- value: ar-ly
+  text: Arabic (Libya)
+- value: ar-ma
+  text: Arabic (Morocco)
+- value: ar-om
+  text: Arabic (Oman)
+- value: ar-qa
+  text: Arabic (Qatar)
+- value: ar-sa
+  text: Arabic (Saudi Arabia)
+- value: ar-sy
+  text: Arabic (Syria)
+- value: ar-tn
+  text: Arabic (Tunisia)
+- value: ar-ae
+  text: Arabic (U.A.E.)
+- value: ar-ye
+  text: Arabic (Yemen)
+- value: be
+  text: Belarusian
+- value: bg
+  text: Bulgarian
+- value: ca
+  text: Catalan
+- value: cy
+  text: Welsh
+- value: cs
+  text: Czech
+- value: da
+  text: Danish
+- value: de
+  text: German
+- value: de-at
+  text: German (Austria)
+- value: de-ch
+  text: German (Switzerland)
+- value: de-de
+  text: German (Germany)
+- value: de-li
+  text: German (Liechtenstein)
+- value: de-lu
+  text: German (Luxembourg)
+- value: el
+  text: Greek
+- value: en
+  text: English
+- value: en-au
+  text: English (Australia)
+- value: en-bz
+  text: English (Belize)
+- value: en-ca
+  text: English (Canada)
+- value: en-gb
+  text: English (United Kingdom)
+- value: en-ie
+  text: English (Ireland)
+- value: en-jm
+  text: English (Jamaica)
+- value: en-nz
+  text: English (New Zealand)
+- value: en-za
+  text: English (South Africa)
+- value: en-tt
+  text: English (Trinidad)
+- value: en-us
+  text: English (United States)
+- value: es
+  text: Spanish
+- value: es-ar
+  text: Spanish (Argentina)
+- value: es-bo
+  text: Spanish (Bolivia)
+- value: es-cl
+  text: Spanish (Chile)
+- value: es-co
+  text: Spanish (Colombia)
+- value: es-cr
+  text: Spanish (Costa Rica)
+- value: es-do
+  text: Spanish (Dominican Republic)
+- value: es-ec
+  text: Spanish (Ecuador)
+- value: es-es
+  text: Spanish (Spain)
+- value: es-gt
+  text: Spanish (Guatemala)
+- value: es-hn
+  text: Spanish (Honduras)
+- value: es-mx
+  text: Spanish (Mexico)
+- value: es-ni
+  text: Spanish (Nicaragua)
+- value: es-pa
+  text: Spanish (Panama)
+- value: es-py
+  text: Spanish (Paraguay)
+- value: es-pe
+  text: Spanish (Peru)
+- value: es-pr
+  text: Spanish (Puerto Rico)
+- value: es-sv
+  text: Spanish (El Salvador)
+- value: es-uy
+  text: Spanish (Uruguay)
+- value: es-ve
+  text: Spanish (Venezuela)
+- value: et
+  text: Estonian
+- value: eu
+  text: Basque
+- value: fa
+  text: Farsi
+- value: fi
+  text: Finnish
+- value: fo
+  text: Faeroese
+- value: fr
+  text: French
+- value: fr-be
+  text: French (Belgium)
+- value: fr-ca
+  text: French (Canada)
+- value: fr-ch
+  text: French (Switzerland)
+- value: fr-fr
+  text: French (France)
+- value: fr-lu
+  text: French (Luxembourg)
+- value: ga
+  text: Irish
+- value: gd
+  text: Gaelic
+- value: he
+  text: Hebrew
+- value: hi
+  text: Hindi
+- value: hr
+  text: Croatian
+- value: hu
+  text: Hungarian
+- value: is
+  text: Icelandic
+- value: id
+  text: Indonesian
+- value: it
+  text: Italian
+- value: it-ch
+  text: Italian (Switzerland)
+- value: it-it
+  text: Italian (Italy)
+- value: ja
+  text: Japanese
+- value: ko
+  text: Korean
+- value: ku
+  text: Kurdish
+- value: lv
+  text: Latvian
+- value: lt
+  text: Lithuanian
+- value: mk
+  text: Macedonian (FYROM)
+- value: ml
+  text: Malayalam
+- value: ms
+  text: Malaysian
+- value: mt
+  text: Maltese
+- value: nb
+  text: Norwegian (Bokmål)
+- value: nl
+  text: Dutch
+- value: nl-be
+  text: Dutch (Belgium)
+- value: nn
+  text: Norwegian (Nynorsk)
+- value: 'no'
+  text: Norwegian
+- value: pl
+  text: Polish
+- value: pa
+  text: Punjabi
+- value: pt
+  text: Portuguese
+- value: pt-pt
+  text: Portuguese (Portugal)
+- value: pt-br
+  text: Portuguese (Brazil)
+- value: rm
+  text: Rhaeto-Romanic
+- value: ro
+  text: Romanian
+- value: ro-ro
+  text: Romanian (Romania)
+- value: ro-md
+  text: Romanian (Republic of Moldova)
+- value: ru
+  text: Russian
+- value: ru-ru
+  text: Russian (Russia)
+- value: ru-md
+  text: Russian (Republic of Moldova)
+- value: sb
+  text: Sorbian
+- value: sk
+  text: Slovak
+- value: sl
+  text: Slovenian
+- value: sq
+  text: Albanian
+- value: sr
+  text: Serbian
+- value: sv
+  text: Swedish
+- value: sv-sv
+  text: Swedish (Sweden)
+- value: sv-fi
+  text: Swedish (Finland)
+- value: th
+  text: Thai
+- value: ts
+  text: Tsonga
+- value: tn
+  text: Tswana
+- value: tr
+  text: Turkish
+- value: uk
+  text: Ukrainian
+- value: ur
+  text: Urdu
+- value: ve
+  text: Venda
+- value: vi
+  text: Vietnamese
+- value: xh
+  text: Xhosa
+- value: yi
+  text: Yiddish
+- value: zh-hk
+  text: Chinese (Hong Kong)
+- value: zh-cn
+  text: Chinese (PRC)
+- value: zh-sg
+  text: Chinese (Singapore)
+- value: zh-tw
+  text: Chinese (Taiwan)
+- value: zu
+  text: Zulu

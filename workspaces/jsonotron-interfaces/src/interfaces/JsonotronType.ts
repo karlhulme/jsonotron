@@ -5,7 +5,7 @@ export interface JsonotronType {
   /**
    * The kind of type.
    */
-  kind: 'enumScalar'|'intScalar'|'floatScalar'|'boolScalar'|'stringScalar'|'array'|'record'|'object'
+  kind: 'enum'|'int'|'float'|'bool'|'string'|'array'|'record'|'object'
 
   /**
    * The name of the system to which this type belongs.

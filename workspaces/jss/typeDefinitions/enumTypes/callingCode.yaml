@@ -1,0 +1,849 @@
+---
+kind: enum
+system: jss
+name: callingCode
+summary: An international telephone calling code defined by the ITU-T in standards
+  E.123 and E.164.  The data is taken from https://en.wikipedia.org/wiki/List_of_country_calling_codes.
+  The key piece of data is the dialling code, which is a number.  This is the data that a user would want
+  to specify when entering a telephone number.  They specify their dialling code, e.g. 44.
+  A symbol is not defined, because it would be identical to the text in this case.  It's safe to use
+  the text property for looking up values.  The text property is determined entirely by the value, so it
+  will not change.
+dataType: callingCodeData
+items:
+- value: '1'
+  text: '1' # Zone 1: North American Numbering Plan
+  data:
+    region: Canada, United States and North American Numbering Plan (NANP)
+- value: '20'
+  text: '20' # Zone 2: Mostly Africa
+  data:
+    region: Egypt
+- value: '211'
+  text: '211'
+  data:
+    region: South Sudan
+- value: '212'
+  text: '212'
+  data:
+    region: Morocco
+- value: '213'
+  text: '213'
+  data:
+    region: Algeria
+- value: '216'
+  text: '216'
+  data:
+    region: Tunisia
+- value: '218'
+  text: '218'
+  data:
+    region: Libya
+- value: '220'
+  text: '220'
+  data:
+    region: Gambia
+- value: '221'
+  text: '221'
+  data:
+    region: Senegal
+- value: '222'
+  text: '222'
+  data:
+    region: Mauritania
+- value: '223'
+  text: '223'
+  data:
+    region: Mali
+- value: '224'
+  text: '224'
+  data:
+    region: Guinea
+- value: '225'
+  text: '225'
+  data:
+    region: Ivory Coast
+- value: '226'
+  text: '226'
+  data:
+    region: Burkina Faso
+- value: '227'
+  text: '227'
+  data:
+    region: Niger
+- value: '228'
+  text: '228'
+  data:
+    region: Togo
+- value: '229'
+  text: '229'
+  data:
+    region: Benin
+- value: '230'
+  text: '230'
+  data:
+    region: Mauritius
+- value: '231'
+  text: '231'
+  data:
+    region: Liberia
+- value: '232'
+  text: '232'
+  data:
+    region: Sierra Leone
+- value: '233'
+  text: '233'
+  data:
+    region: Ghana
+- value: '234'
+  text: '234'
+  data:
+    region: Nigeria
+- value: '235'
+  text: '235'
+  data:
+    region: Chad
+- value: '236'
+  text: '236'
+  data:
+    region: Central African Republic
+- value: '237'
+  text: '237'
+  data:
+    region: Cameroon
+- value: '238'
+  text: '238'
+  data:
+    region: Cape Verde
+- value: '239'
+  text: '239'
+  data:
+    region: São Tomé and Príncipe
+- value: '240'
+  text: '240'
+  data:
+    region: Equatorial Guinea
+- value: '241'
+  text: '241'
+  data:
+    region: Gabon
+- value: '242'
+  text: '242'
+  data:
+    region: Republic of the Congo
+- value: '243'
+  text: '243'
+  data:
+    region: Democratic Republic of the Congo
+- value: '244'
+  text: '244'
+  data:
+    region: Angola
+- value: '245'
+  text: '245'
+  data:
+    region: Guinea-Bissau
+- value: '246'
+  text: '246'
+  data:
+    region: British Indian Ocean Territory
+- value: '247'
+  text: '247'
+  data:
+    region: Ascension Island
+- value: '248'
+  text: '248'
+  data:
+    region: Seychelles
+- value: '249'
+  text: '249'
+  data:
+    region: Sudan
+- value: '250'
+  text: '250'
+  data:
+    region: Rwanda
+- value: '251'
+  text: '251'
+  data:
+    region: Ethiopia
+- value: '252'
+  text: '252'
+  data:
+    region: Somalia
+- value: '253'
+  text: '253'
+  data:
+    region: Djibouti
+- value: '254'
+  text: '254'
+  data:
+    region: Kenya
+- value: '255'
+  text: '255'
+  data:
+    region: Tanzania and Zanzibar
+- value: '256'
+  text: '256'
+  data:
+    region: Uganda
+- value: '257'
+  text: '257'
+  data:
+    region: Burundi
+- value: '258'
+  text: '258'
+  data:
+    region: Mozambique
+- value: '260'
+  text: '260'
+  data:
+    region: Zambia
+- value: '261'
+  text: '261'
+  data:
+    region: Madagascar
+- value: '262'
+  text: '262'
+  data:
+    region: Réunion and Moyette
+- value: '263'
+  text: '263'
+  data:
+    region: Zimbabwe
+- value: '264'
+  text: '264'
+  data:
+    region: Namibia
+- value: '265'
+  text: '265'
+  data:
+    region: Malawi
+- value: '266'
+  text: '266'
+  data:
+    region: Lesotho
+- value: '267'
+  text: '267'
+  data:
+    region: Botswana
+- value: '268'
+  text: '268'
+  data:
+    region: Eswatini
+- value: '269'
+  text: '269'
+  data:
+    region: Comoros
+- value: '27'
+  text: '27'
+  data:
+    region: South Africa
+- value: '290'
+  text: '290'
+  data:
+    region: Saint Helena and Tristan da Cunha
+- value: '291'
+  text: '291'
+  data:
+    region: Eritrea
+- value: '297'
+  text: '297'
+  data:
+    region: Aruba
+- value: '298'
+  text: '298'
+  data:
+    region: Faroe Islands
+- value: '299'
+  text: '299'
+  data:
+    region: Greenland
+- value: '30' # Zones 3-4: Europe
+  text: '30' 
+  data:
+    region: Greece
+- value: '31'
+  text: '31'
+  data:
+    region: Netherlands
+- value: '32'
+  text: '32'
+  data:
+    region: Belgium
+- value: '33'
+  text: '33'
+  data:
+    region: France
+- value: '34'
+  text: '34'
+  data:
+    region: Spain
+- value: '350'
+  text: '350'
+  data:
+    region: Gibraltar
+- value: '351'
+  text: '351'
+  data:
+    region: Portugal
+- value: '352'
+  text: '352'
+  data:
+    region: Luxembourg
+- value: '353'
+  text: '353'
+  data:
+    region: Ireland
+- value: '354'
+  text: '354'
+  data:
+    region: Iceland
+- value: '355'
+  text: '355'
+  data:
+    region: Albania
+- value: '356'
+  text: '356'
+  data:
+    region: Malta
+- value: '357'
+  text: '357'
+  data:
+    region: Cyprus
+- value: '358'
+  text: '358'
+  data:
+    region: Finland and Åland Islands
+- value: '359'
+  text: '359'
+  data:
+    region: Bulgaria
+- value: '36'
+  text: '36'
+  data:
+    region: Hungary
+- value: '370'
+  text: '370'
+  data:
+    region: Lithuania
+- value: '371'
+  text: '371'
+  data:
+    region: Latvia
+- value: '372'
+  text: '372'
+  data:
+    region: Estonia
+- value: '373'
+  text: '373'
+  data:
+    region: Moldova
+- value: '374'
+  text: '374'
+  data:
+    region: Armenia and Artsakh
+- value: '375'
+  text: '375'
+  data:
+    region: Belarus
+- value: '376'
+  text: '376'
+  data:
+    region: Andorra
+- value: '377'
+  text: '377'
+  data:
+    region: Monaco
+- value: '378'
+  text: '378'
+  data:
+    region: San Marino
+- value: '388'
+  text: '380'
+  data:
+    region: Ukraine
+- value: '381'
+  text: '381'
+  data:
+    region: Serbia
+- value: '382'
+  text: '382'
+  data:
+    region: Montenegro
+- value: '383'
+  text: '383'
+  data:
+    region: Kosovo
+- value: '385'
+  text: '385'
+  data:
+    region: Croatia
+- value: '386'
+  text: '386'
+  data:
+    region: Slovenia
+- value: '387'
+  text: '387'
+  data:
+    region: Bosnia and Herzegovina
+- value: '389'
+  text: '389'
+  data:
+    region: North Macedonia
+- value: '39'
+  text: '39'
+  data:
+    region: Italy and Vatican City
+- value: '40'
+  text: '40'
+  data:
+    region: Romania
+- value: '41'
+  text: '41'
+  data:
+    region: Switzerland
+- value: '420'
+  text: '420'
+  data:
+    region: Czech Republic
+- value: '421'
+  text: '421'
+  data:
+    region: Slovakia
+- value: '423'
+  text: '423'
+  data:
+    region: Liechtenstein
+- value: '43'
+  text: '43'
+  data:
+    region: Austria
+- value: '44'
+  text: '44'
+  data:
+    region: United Kingdom, Guernsey, Jersey and Isle of Man
+- value: '45'
+  text: '45'
+  data:
+    region: Denmark
+- value: '46'
+  text: '46'
+  data:
+    region: Sweden
+- value: '47'
+  text: '47'
+  data:
+    region: Norway and Svalbard
+- value: '48'
+  text: '48'
+  data:
+    region: Poland
+- value: '49'
+  text: '49'
+  data:
+    region: Germany
+- value: '500'
+  text: '500' # Zone 5: Americas outside the NANP
+  data:
+    region: Falkland Islands, South Georgia and the South Sandwich Islands
+- value: '501'
+  text: '501'
+  data:
+    region: Belize
+- value: '502'
+  text: '502'
+  data:
+    region: Guatemala
+- value: '503'
+  text: '503'
+  data:
+    region: El Salvador
+- value: '504'
+  text: '504'
+  data:
+    region: Honduras
+- value: '505'
+  text: '505'
+  data:
+    region: Nicaragua
+- value: '506'
+  text: '506'
+  data:
+    region: Costa Rica
+- value: '507'
+  text: '507'
+  data:
+    region: Panama
+- value: '508'
+  text: '508'
+  data:
+    region: Saint-Pierre and Miquelon
+- value: '509'
+  text: '509'
+  data:
+    region: Haiti
+- value: '51'
+  text: '51'
+  data:
+    region: Peru
+- value: '52'
+  text: '52'
+  data:
+    region: Mexico
+- value: '53'
+  text: '53'
+  data:
+    region: Cuba
+- value: '54'
+  text: '54'
+  data:
+    region: Argentina
+- value: '55'
+  text: '55'
+  data:
+    region: Brazil
+- value: '56'
+  text: '56'
+  data:
+    region: Chile
+- value: '57'
+  text: '57'
+  data:
+    region: Colombia
+- value: '58'
+  text: '58'
+  data:
+    region: Venezuela
+- value: '590'
+  text: '590'
+  data:
+    region: Guadeloupe, Saint Barthélemy and Saint Martin
+- value: '591'
+  text: '591'
+  data:
+    region: Bolivia
+- value: '592'
+  text: '592'
+  data:
+    region: Guyana
+- value: '593'
+  text: '593'
+  data:
+    region: Ecuador
+- value: '594'
+  text: '594'
+  data:
+    region: French Guiana
+- value: '595'
+  text: '595'
+  data:
+    region: Paraguay
+- value: '596'
+  text: '596'
+  data:
+    region: Martinique
+- value: '597'
+  text: '597'
+  data:
+    region: Suriname
+- value: '598'
+  text: '598'
+  data:
+    region: Uruguay
+- value: '599'
+  text: '599'
+  data:
+    region: Sint Eustatius, Saba, Bonaire, Curaçao
+- value: '60'
+  text: '60' # Zone 6: Southeast Asia and Oceania
+  data:
+    region: Malaysia
+- value: '61'
+  text: '61'
+  data:
+    region: Australia, Cocos Islands and Christmas Island
+- value: '62'
+  text: '62'
+  data:
+    region: Indonesia
+- value: '63'
+  text: '63'
+  data:
+    region: Philippines
+- value: '64'
+  text: '64'
+  data:
+    region: New Zealand and Pitcairn Islands
+- value: '65'
+  text: '65'
+  data:
+    region: Singapore
+- value: '66'
+  text: '66'
+  data:
+    region: Thailand
+- value: '670'
+  text: '670'
+  data:
+    region: East Timor
+- value: '672'
+  text: '672'
+  data:
+    region: Australian External Territories, Australian Antarctic Territory and Norfolk Island
+- value: '673'
+  text: '673'
+  data:
+    region: Brunei
+- value: '674'
+  text: '674'
+  data:
+    region: Nauru
+- value: '675'
+  text: '675'
+  data:
+    region: Papua New Guinea
+- value: '676'
+  text: '676'
+  data:
+    region: Tonga
+- value: '677'
+  text: '677'
+  data:
+    region: Solomon Islands
+- value: '678'
+  text: '678'
+  data:
+    region: Vanuatu
+- value: '679'
+  text: '679'
+  data:
+    region: Fiji
+- value: '680'
+  text: '680'
+  data:
+    region: Palau
+- value: '681'
+  text: '681'
+  data:
+    region: Wallis and Futuna
+- value: '682'
+  text: '682'
+  data:
+    region: Cook Islands
+- value: '683'
+  text: '683'
+  data:
+    region: Niue
+- value: '685'
+  text: '685'
+  data:
+    region: Samoa
+- value: '686'
+  text: '686'
+  data:
+    region: Kiribati
+- value: '687'
+  text: '687'
+  data:
+    region: New Caledonia
+- value: '688'
+  text: '688'
+  data:
+    region: Tuvalu
+- value: '689'
+  text: '689'
+  data:
+    region: French Polynesia
+- value: '690'
+  text: '690'
+  data:
+    region: Tokelau
+- value: '691'
+  text: '691'
+  data:
+    region: Federated States of Micronesia
+- value: '692'
+  text: '692'
+  data:
+    region: Marshall Islands
+- value: '7'
+  text: '7' # Zone 7: Parts of the former Soviet Union
+  data:
+    region: Russia, Kazakhstan and Abkhazia
+- value: '800'
+  text: '800' # Zone 8: East Asia and special services
+  data:
+    region: International Freephone (UIFN)
+- value: '808'
+  text: '808'
+  data:
+    region: Shared Cost Services
+- value: '81'
+  text: '81'
+  data:
+    region: Japan
+- value: '82'
+  text: '82'
+  data:
+    region: South Korea
+- value: '84'
+  text: '84'
+  data:
+    region: Vietnam
+- value: '850'
+  text: '850'
+  data:
+    region: North Korea
+- value: '852'
+  text: '852'
+  data:
+    region: Hong Kong
+- value: '853'
+  text: '853'
+  data:
+    region: Macau
+- value: '855'
+  text: '855'
+  data:
+    region: Cambodia
+- value: '856'
+  text: '856'
+  data:
+    region: Laos
+- value: '86'
+  text: '86'
+  data:
+    region: China
+- value: '880'
+  text: '880'
+  data:
+    region: Bangladesh
+- value: '886'
+  text: '886'
+  data:
+    region: Taiwan
+- value: '90'
+  text: '90' # Zone 9: Mostly Middle East and parts of southern Asia
+  data:
+    region: Turkey and Northern Cyprus
+- value: '91'
+  text: '91'
+  data:
+    region: India
+- value: '92'
+  text: '92'
+  data:
+    region: Pakistan, Azad Kashmir and Gilgit Baltistan
+- value: '93'
+  text: '93'
+  data:
+    region: Afghanistan
+- value: '94'
+  text: '94'
+  data:
+    region: Sri Lanka
+- value: '95'
+  text: '95'
+  data:
+    region: Myanmar
+- value: '960'
+  text: '960'
+  data:
+    region: Maldives
+- value: '961'
+  text: '961'
+  data:
+    region: Lebanon
+- value: '962'
+  text: '962'
+  data:
+    region: Jordan
+- value: '963'
+  text: '963'
+  data:
+    region: Syria
+- value: '964'
+  text: '964'
+  data:
+    region: Iraq
+- value: '965'
+  text: '965'
+  data:
+    region: Kuwait
+- value: '966'
+  text: '966'
+  data:
+    region: Saudi Arabia
+- value: '967'
+  text: '967'
+  data:
+    region: Yemen
+- value: '968'
+  text: '968'
+  data:
+    region: Oman
+- value: '970'
+  text: '970'
+  data:
+    region: Palestine
+- value: '971'
+  text: '971'
+  data:
+    region: United Arab Emirates
+- value: '972'
+  text: '972'
+  data:
+    region: Israel
+- value: '973'
+  text: '973'
+  data:
+    region: Bahrain
+- value: '974'
+  text: '974'
+  data:
+    region: Qatar
+- value: '975'
+  text: '975'
+  data:
+    region: Bhutan
+- value: '976'
+  text: '976'
+  data:
+    region: Mongolia
+- value: '977'
+  text: '977'
+  data:
+    region: Nepal
+- value: '979'
+  text: '979'
+  data:
+    region: International Premium Rate Service
+- value: '98'
+  text: '98'
+  data:
+    region: Iran
+- value: '992'
+  text: '992'
+  data:
+    region: Tajikistan
+- value: '993'
+  text: '993'
+  data:
+    region: Turkmenistan
+- value: '994'
+  text: '994'
+  data:
+    region: Azerbaijan
+- value: '995'
+  text: '995'
+  data:
+    region: Georgia, South Ossetia and Abkhazia
+- value: '996'
+  text: '996'
+  data:
+    region: Kyrgyzstan
+- value: '998'
+  text: '998'
+  data:
+    region: Uzbekistan

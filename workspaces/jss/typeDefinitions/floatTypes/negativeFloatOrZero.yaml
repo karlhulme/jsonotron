@@ -1,5 +1,5 @@
 ---
-kind: floatScalar
+kind: float
 system: jss
 name: negativeFloatOrZero
 summary: A single precision floating point number in the range -1.1*10^38 to 0.

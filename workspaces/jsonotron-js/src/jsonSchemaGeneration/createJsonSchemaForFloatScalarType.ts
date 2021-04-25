@@ -1,21 +1,21 @@
 import { AnySchema } from 'ajv'
-import { FloatScalarType } from 'jsonotron-interfaces'
+import { FloatType } from 'jsonotron-interfaces'
 import { JSON_SCHEMA_DECLARATION } from './consts'
 
 /**
  * Creates a JSON schema for the given float scalar type.
  * @param domain The domain for the $id of the schema.
- * @param floatScalarType A float scalar type.
+ * @param floatType A float scalar type.
  */
-export function createJsonSchemaForFloatScalarType (domain: string, floatScalarType: FloatScalarType): AnySchema {
+export function createJsonSchemaForFloatScalarType (domain: string, floatType: FloatType): AnySchema {
   return {
-    $id: `${domain}/${floatScalarType.system}/${floatScalarType.name}`,
+    $id: `${domain}/${floatType.system}/${floatType.name}`,
     $schema: JSON_SCHEMA_DECLARATION,
-    title: `Float Scalar Type "${floatScalarType.name}"`,
+    title: `Float Type "${floatType.name}"`,
     type: 'number',
-    minimum: !floatScalarType.isMinimumExclusive ? floatScalarType.minimum : undefined,
-    exclusiveMinimum: floatScalarType.isMinimumExclusive ? floatScalarType.minimum : undefined,
-    maximum: !floatScalarType.isMaximumExclusive ? floatScalarType.maximum : undefined,
-    exclusiveMaximum: floatScalarType.isMaximumExclusive ? floatScalarType.maximum : undefined
+    minimum: !floatType.isMinimumExclusive ? floatType.minimum : undefined,
+    exclusiveMinimum: floatType.isMinimumExclusive ? floatType.minimum : undefined,
+    maximum: !floatType.isMaximumExclusive ? floatType.maximum : undefined,
+    exclusiveMaximum: floatType.isMaximumExclusive ? floatType.maximum : undefined
   }
 }

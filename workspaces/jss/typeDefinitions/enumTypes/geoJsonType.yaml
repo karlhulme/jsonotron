@@ -1,0 +1,10 @@
+---
+kind: enum
+system: jss
+name: geoJsonType
+summary: A type of GeoJSON object.
+items:
+- value: Point
+  text: Point
+- value: Polygon
+  text: Polygon

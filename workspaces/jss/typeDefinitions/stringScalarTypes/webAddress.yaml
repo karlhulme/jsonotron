@@ -1,7 +1,0 @@
----
-kind: stringScalar
-system: jss
-name: webAddress
-summary: A url that is prefixed with either https or https.
-maximumLength: 2048
-regex: ^http[s]?://[a-zA-Z0-9@:%._+~#=.?&/-]+$

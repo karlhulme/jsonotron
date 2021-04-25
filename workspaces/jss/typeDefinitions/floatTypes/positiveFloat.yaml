@@ -1,5 +1,5 @@
 ---
-kind: floatScalar
+kind: float
 system: jss
 name: positiveFloat
 summary: A single precision floating point number in the range just over 0 to 3.4*10^38.

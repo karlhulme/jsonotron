@@ -1,5 +1,5 @@
 ---
-kind: floatScalar
+kind: float
 system: jss
 name: longitudeFloat
 summary: A value that represents a longitudinal position.

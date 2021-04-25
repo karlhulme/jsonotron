@@ -1,8 +1,0 @@
----
-kind: stringScalar
-system: jss
-name: emailAddress
-summary: An email address.  
-  The regex will check that a recipient part and a domain part is separated by a @ symbol.
-maximumLength: 320
-regex: ^[^\s]{1,64}@[^\s]{1,255}$

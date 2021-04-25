@@ -4,7 +4,7 @@ import { asError, reindentYaml } from './shared.test'
 
 const testTypeA = reindentYaml(`
   ---
-  kind: intScalar
+  kind: int
   system: test
   name: testType
   summary: A test int.
@@ -14,7 +14,7 @@ const testTypeA = reindentYaml(`
 
 const testTypeB = reindentYaml(`
   ---
-  kind: floatScalar
+  kind: float
   system: test
   name: testType
   summary: A test float.
