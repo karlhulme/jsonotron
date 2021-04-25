@@ -6,6 +6,7 @@ import {
   StringScalarType
 } from 'jsonotron-interfaces'
 import {
+  DuplicateTypeNameError,
   EnumScalarTypeItemDataValidationError,
   InvalidTypeError,
   ParseYamlError,
@@ -51,6 +52,7 @@ export function parseTypeLibrary (options?: ParseOptions): TypeLibrary {
 
   // get all the type names that have been loaded.
   const systemQualifiedTypeNames = extractSystemQualifiedTypeNames(typeLibrary)
+  ensureSystemQualifiedTypeNamesAreUnique(systemQualifiedTypeNames)
 
   // verify the element types of arrays.
   typeLibrary.arrayTypes.forEach(arrayType => {
@@ -218,6 +220,22 @@ function extractSystemQualifiedTypeNames (typeLibrary: TypeLibrary): string[] {
   result.push(...typeLibrary.stringScalarTypes.map(type => `${type.system}/${type.name}`))
 
   return result
+}
+
+/**
+ * Raises an error if the qualified type names are not unique.
+ * @param systemQualifiedTypeNames An array of system-qualified type names.
+ */
+function ensureSystemQualifiedTypeNamesAreUnique (systemQualifiedTypeNames: string[]): void {
+  const pool: string[] = []
+
+  systemQualifiedTypeNames.forEach(systemQualifiedTypeName => {
+    if (pool.includes(systemQualifiedTypeName)) {
+      throw new DuplicateTypeNameError(systemQualifiedTypeName)
+    } else {
+      pool.push(systemQualifiedTypeName)
+    }
+  })
 }
 
 /**

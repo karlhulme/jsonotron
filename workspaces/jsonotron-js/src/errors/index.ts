@@ -1,3 +1,4 @@
+export * from './DuplicateTypeNameError'
 export * from './EnumScalarTypeItemDataValidationError'
 export * from './InvalidTypeError'
 export * from './ParseYamlError'
