@@ -1,0 +1,12 @@
+---
+kind: stringScalar
+system: jss
+name: ipv6
+summary: A string of digits that identify a computer on a network in IP v6 format.
+  It will match values such as ::1 and 2a00:23c5:1ab0:3001:1776:5ae:499f:114a.
+  The regex is an approximation and further validation may be desired.
+  A standard ipv6 address is at most 45 chars but an ipv6 address can also include
+  an ending % followed by a "scope" or "zone" string such as "eth0", "eth1", "wlan0".  For this
+  reason the maximum length is extended to 55.
+maximumLength: 55
+regex: ^([0-9A-Fa-f]{0,4}:){2,7}([0-9A-Fa-f]{1,4}$|((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4})$

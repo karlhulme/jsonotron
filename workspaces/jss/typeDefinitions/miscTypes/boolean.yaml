@@ -1,0 +1,5 @@
+---
+kind: boolScalar
+system: jss
+name: boolean
+summary: A value of either true or false.

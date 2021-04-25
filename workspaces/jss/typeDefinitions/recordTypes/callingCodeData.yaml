@@ -1,0 +1,14 @@
+---
+kind: record
+system: jss
+name: callingCodeData
+summary: The data that should be stored for each item of the callingCode enum.
+properties:
+- name: region
+  summary: The name of the location or locations that a enum item represents.
+  propertyType: longString
+  isRequired: true
+validTestCases:
+- value:
+    region: United kingdom
+  summary: An example calling code data record.

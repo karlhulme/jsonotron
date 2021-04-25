@@ -104,6 +104,18 @@ function convertYamlStringToObject (contents: string): JsonotronType {
 }
 
 /**
+ * Returns the given typeName with the system name prepended if one
+ * is not already included.
+ * @param system A system name.
+ * @param typeName A type name that may or may not be system qualified.
+ */
+function getSystemQualifiedTypeName (system: string, typeName: string) {
+  return typeName.includes('/')
+    ? typeName
+    : `${system}/${typeName}`
+}
+
+/**
  * Returns a set of validators for the various types.
  */
 function createTypeValidators (): TypeValidators {
@@ -214,7 +226,7 @@ function extractSystemQualifiedTypeNames (typeLibrary: TypeLibrary): string[] {
  * @param systemQualifiedTypeNames An array of system qualified type names.
  */
 function ensureArrayTypeElementTypeIsValid (arrayType: ArrayType, systemQualifiedTypeNames: string[]): void {
-  if (!systemQualifiedTypeNames.includes(arrayType.elementType)) {
+  if (!systemQualifiedTypeNames.includes(getSystemQualifiedTypeName(arrayType.system, arrayType.elementType))) {
     throw new UnrecognisedTypeError(arrayType.elementType)
   }
 }
@@ -225,7 +237,7 @@ function ensureArrayTypeElementTypeIsValid (arrayType: ArrayType, systemQualifie
  * @param systemQualifiedTypeNames An array of system qualified type names.
  */
 function ensureEnumScalarTypeDataTypeIsValid (enumScalarType: EnumScalarType, systemQualifiedTypeNames: string[]): void {
-  if (enumScalarType.dataType && !systemQualifiedTypeNames.includes(enumScalarType.dataType)) {
+  if (enumScalarType.dataType && !systemQualifiedTypeNames.includes(getSystemQualifiedTypeName(enumScalarType.system, enumScalarType.dataType))) {
     throw new UnrecognisedTypeError(enumScalarType.dataType)
   }
 }
@@ -237,7 +249,7 @@ function ensureEnumScalarTypeDataTypeIsValid (enumScalarType: EnumScalarType, sy
  */
 function ensureRecordTypePropertiesPropertyTypeAreValid (recordType: RecordType, systemQualifiedTypeNames: string[]): void {
   recordType.properties.forEach(property => {
-    if (!systemQualifiedTypeNames.includes(property.propertyType)) {
+    if (!systemQualifiedTypeNames.includes(getSystemQualifiedTypeName(recordType.system, property.propertyType))) {
       throw new UnrecognisedTypeError(property.propertyType)
     }
   })

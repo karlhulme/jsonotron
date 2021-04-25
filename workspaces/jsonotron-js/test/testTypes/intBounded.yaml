@@ -1,7 +1,0 @@
----
-kind: intScalar
-system: test
-name: intBounded
-summary: A test integer.
-minimum: 2
-maximum: 5

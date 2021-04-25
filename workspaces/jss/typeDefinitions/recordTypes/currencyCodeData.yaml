@@ -1,0 +1,16 @@
+---
+kind: record
+system: jss
+name: currencyCodeData
+summary: The data that should be stored for each item of the currencyCode enum.
+properties:
+- name: scaler
+  summary: The magnitude of difference between the minor and major denomination
+    of a currency.
+  propertyType: positiveIntegerOrZero
+  isRequired: true
+validTestCases:
+- value:
+    scaler: 2
+  summary: An example showing that each major denomination is worth 100 of
+    the minor denomination.

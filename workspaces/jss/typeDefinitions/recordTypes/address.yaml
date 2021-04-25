@@ -1,0 +1,50 @@
+---
+kind: record
+system: jss
+name: address
+summary: An international address.
+properties:
+- name: addressLines
+  summary: The lines that make up the address that includes street names, towns, villages, states and
+    any other descriptors as required.
+  propertyType: hugeString
+  isRequired: true
+- name: postalCode
+  summary: The postal code or zip code of the address.
+  propertyType: shortString
+  isRequired: true
+- name: countryCode
+  summary: The country where the address is situated.
+  propertyType: countryCode
+  isRequired: true
+validTestCases:
+- value:
+    addressLines: |-
+      1 Acacia Avenue
+      Portsmouth
+    postalCode: PO125LP
+    countryCode: gb
+  documentation: This example is an address in England so it uses a UK post code.
+- value:
+    addressLines: |-
+      1 Mansion Street
+      Beverley Hills
+      Los Angeles
+    postalCode: '90210'
+    countryCode: gb
+  documentation: This example is an address in the United States so it uses a zip
+    code.
+invalidTestCases:
+- addressLines: 123 # invalid address lines
+  postalCode: PO125LP
+  countryCode: gb
+- addressLines: |- # invalid postal code
+    1 Acacia Avenue
+    Portsmouth
+  postalCode: 234
+  countryCode: gb
+- addressLines: |- # invalid country code
+    1 Acacia Avenue
+    Portsmouth
+  postalCode: PO125LP
+  countryCode: "--"

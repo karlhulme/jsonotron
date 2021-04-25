@@ -26,7 +26,7 @@ const enumScalarTypeWithData = reindentYaml(`
   system: test
   name: testEnumWithData
   summary: A test enum.
-  dataType: test/other
+  dataType: other
   items:
   - value: apple
     text: Apple

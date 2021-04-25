@@ -1,0 +1,9 @@
+---
+kind: object
+system: jss
+name: plainObject
+summary: Any valid JSON object.  The underlying data store may impose a limit on the
+  depth of the JSON object.  You cannot store a null value.  Care should be taken
+  not to supply an object of such depth or serialized size that the underlying data
+  store cannot save it.  Wherever possible, define a set of types with a specific shape
+  rather than using this type.

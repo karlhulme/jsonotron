@@ -1,0 +1,7 @@
+---
+kind: floatScalar
+system: jss
+name: longitudeFloat
+summary: A value that represents a longitudinal position.
+minimum: -180
+maximum: 180

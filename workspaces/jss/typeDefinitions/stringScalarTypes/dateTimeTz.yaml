@@ -1,0 +1,12 @@
+---
+kind: stringScalar
+system: jss
+name: dateTimeTz
+summary: A string with the date and time components arranged using the YYYY-MM-DDTHH:mm:ss+00:00
+  pattern. Leading zeroes must be used to ensure that all values are the same length.
+  The string must always end with a time zone offset.
+  The regex checks that numbers appear in the correct location but will not pickup invalid
+  date/times like 2020-02-31T12:00:00+00:00.
+minimumLength: 25
+maximumLength: 25
+regex: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[+][0-9]{2}:[0-9]{2}$

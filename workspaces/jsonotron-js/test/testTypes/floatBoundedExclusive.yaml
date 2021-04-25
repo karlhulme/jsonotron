@@ -1,9 +1,0 @@
----
-kind: floatScalar
-system: test
-name: floatBounded
-summary: A test float.
-minimum: 2.5
-isMinimumExclusive: true
-maximum: 5.75
-isMaximumExclusive: true

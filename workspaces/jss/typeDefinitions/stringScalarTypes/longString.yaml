@@ -1,0 +1,6 @@
+---
+kind: stringScalar
+system: jss
+name: longString
+summary: A string with up to 250 unicode characters.
+maximumLength: 250

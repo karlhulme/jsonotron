@@ -1,0 +1,25 @@
+---
+kind: record
+system: jss
+name: longLat
+summary: A GPS co-ordinate representing as a longitudinal and latitudinal position.
+properties:
+- name: longitude
+  summary: The longitudinal position.
+  propertyType: longitudeFloat
+  isRequired: true
+- name: latitude
+  summary: The latitudinal position.
+  propertyType: latitudeFloat
+  isRequired: true
+validTestCases:
+- value:
+    longitude: 1.45764854
+    latitude: 50.43859748
+  summary: A position described using longitude and latitude.
+invalidTestCases:
+- longitude: 181
+  latitude: 90
+- longitude: 180
+  latitude: 91
+  

@@ -1,0 +1,7 @@
+---
+kind: floatScalar
+system: jss
+name: latitudeFloat
+summary: A value that represents a longitudinal position.
+minimum: -90
+maximum: 90

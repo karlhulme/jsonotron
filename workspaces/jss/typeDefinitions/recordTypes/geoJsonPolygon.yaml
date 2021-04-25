@@ -1,0 +1,20 @@
+---
+kind: record
+system: jss
+name: geoJsonPolygon
+summary: A GeoJSON polygon.
+properties:
+- name: type
+  summary: This value should always be set to 'Polygon'.
+  propertyType: geoJsonType
+  isRequired: true
+- name: coordinates
+  summary: An array of points with longitude first and latitude second.
+  propertyType: geoJsonCoordinates
+  isArray: true
+  isRequired: true
+validTestCases:
+- value:
+    type: Polygon
+    coordinates: [[1.4567859, -50.3459879], [2.4567859, -50.3459879], [3.4567859, -25.3459879], [1.4567859, -50.3459879]]
+  documentation: A GeoJSON polygon.
