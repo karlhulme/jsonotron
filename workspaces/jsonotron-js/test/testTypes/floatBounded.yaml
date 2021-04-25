@@ -1,0 +1,7 @@
+---
+kind: floatScalar
+system: test
+name: floatBounded
+summary: A test float.
+minimum: 2.5
+maximum: 5.75

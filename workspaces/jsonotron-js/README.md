@@ -1,6 +1,6 @@
 # jsonotron-js
 
-A library for validating a set of Jsonotron enum and schema type resources.
+A library for parsing a set of Jsonotron types.
 
 ![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
 [![npm](https://img.shields.io/npm/v/jsonotron-js.svg)](https://www.npmjs.com/package/jsonotron-js)
@@ -16,42 +16,29 @@ npm install jsonotron-js
 
 ## Validating a set of resources
 
-To validate a set of resources use the `parseResources` function as shown below.
+To validate a set of resources use the `parseTypeLibrary` function as shown below.
 
 ```javascript
-import { parseResources } from 'jsonotron-js'
+import { parseTypeLibrary } from 'jsonotron-js'
 
 const colorType = fs.readFileSync('./typeSystem/example/color.yaml', 'utf-8')
 
 try {
-  const resources = parseResources({
-    resourceStrings: [colorType],
-    jsonSchemaFormatValidators: {
-      'mycompany-testFormatFunc': v => v.length > 5
-    }
+  const typeLibrary = parseTypeLibrary({
+    resourceStrings: [colorType]
   })
 
-  console.log(`Parsed ${resources.enumTypes.length} enum types.`)
-  console.log(`Parsed ${resources.schemaTypes.length} schema types.`)
+  console.log(`Parsed ${typeLibrary.arrayTypes.length} array types.`)
 } catch (err) {
   // oops - validation failed!
 }
 ```
 
-If you have schema types that require bespoke formatters then these can be loaded by passing the format functions as keys on the `jsonSchemaFormatValidators` function.
+You can pass the following options to the `parseTypeLibrary` function:
 
-
-You can pass the following options to the `parseResources` function:
-
-* **resourceStrings** An array of YAML or JSON strings.  Each string represents a Jsonotron enum or schema type.
-* **jsonSchemaFormatValidators** An object where each key is the name of a json schema format validator and each corresponding value is the validator function. 
+* **resourceStrings** An array of YAML or JSON strings.  Each string represents a Jsonotron type.
 
 **If validation fails** then an exception is thrown with details of the problem.
-
-**If validation succeeds** then an object is returned with the following properties:
-
-* **enumTypes** An array of parsed and validated enum types.
-* **schemaTypes** An array of parsed and validated schema types.
 
 
 ## Development

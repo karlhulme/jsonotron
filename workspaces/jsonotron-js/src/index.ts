@@ -1,4 +1,4 @@
-export { parseResources } from './parsing'
+export { parseTypeLibrary, ValueValidator } from './parsing'
 export * from './jsonSchemaFormatValidators'
-export { createJsonSchemaForEnumType, createJsonSchemaForSchemaType } from './jsonSchemaGeneration'
+export { getDomainQualifiedTypeReference } from './jsonSchemaGeneration'
 export * from './errors'
