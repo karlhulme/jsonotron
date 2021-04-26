@@ -10,3 +10,8 @@ summary: A string with the date and time components arranged using the YYYY-MM-D
 minimumLength: 25
 maximumLength: 25
 regex: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}[+][0-9]{2}:[0-9]{2}$
+validTestCases:
+- value: "2020-01-01T12:00:00+00:00"
+invalidTestCases:
+- "2020-01-01T12:00:00Z"
+- "2020-01-01T12:00:00+1:00"

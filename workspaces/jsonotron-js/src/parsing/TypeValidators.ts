@@ -11,24 +11,24 @@ export interface TypeValidators {
   arrayTypeValidator: ValidateFunction
 
   /**
-   * A validator that returns true if the given resource is a valid bool scalar type.
+   * A validator that returns true if the given resource is a valid bool type.
    */
-  boolScalarTypeValidator: ValidateFunction
+  boolTypeValidator: ValidateFunction
 
   /**
-   * A validator that returns true if the given resource is a valid enum scalar type.
+   * A validator that returns true if the given resource is a valid enum type.
    */
-  enumScalarTypeValidator: ValidateFunction
+  enumTypeValidator: ValidateFunction
 
   /**
-   * A validator that returns true if the given resource is a valid float scalar type.
+   * A validator that returns true if the given resource is a valid float type.
    */
-  floatScalarTypeValidator: ValidateFunction
+  floatTypeValidator: ValidateFunction
 
   /**
-   * A validator that returns true if the given resource is a valid int scalar type.
+   * A validator that returns true if the given resource is a valid int type.
    */
-  intScalarTypeValidator: ValidateFunction
+  intTypeValidator: ValidateFunction
 
   /**
    * A validator that returns true if the given resource is a valid object type.
@@ -41,7 +41,7 @@ export interface TypeValidators {
   recordTypeValidator: ValidateFunction
 
   /**
-   * A validator that returns true if the given resource is a valid string scalar type.
+   * A validator that returns true if the given resource is a valid string type.
    */
-  stringScalarTypeValidator: ValidateFunction
+  stringTypeValidator: ValidateFunction
 }

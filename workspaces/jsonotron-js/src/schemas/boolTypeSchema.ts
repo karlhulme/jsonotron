@@ -4,7 +4,7 @@ import { commonRequires } from './commonRequires'
 /**
  * Describes the bool scalar type.
  */
-export const boolScalarTypeSchema = {
+export const boolTypeSchema = {
   $id: 'boolScalarTypeSchema',
   title: 'Boolean Scalar Type Schema',
   type: 'object',

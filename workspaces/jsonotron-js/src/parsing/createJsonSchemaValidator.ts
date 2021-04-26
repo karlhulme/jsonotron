@@ -14,10 +14,10 @@ import Ajv, { AnySchema } from 'ajv'
 export function createJsonSchemaValidator (domain: string, typeLibrary: TypeLibrary): Ajv {
   const schemas = [
     ...typeLibrary.arrayTypes.map(arrayType => createJsonSchemaForArrayType(domain, arrayType)),
-    ...typeLibrary.boolScalarTypes.map(boolScalarType => createJsonSchemaForBoolScalarType(domain, boolScalarType)),
-    ...typeLibrary.enumScalarTypes.map(enumScalarType => createJsonSchemaForEnumScalarType(domain, enumScalarType)),
-    ...typeLibrary.floatScalarTypes.map(floatScalarType => createJsonSchemaForFloatScalarType(domain, floatScalarType)),
-    ...typeLibrary.intScalarTypes.map(intScalarType => createJsonSchemaForIntScalarType(domain, intScalarType)),
+    ...typeLibrary.boolTypes.map(boolType => createJsonSchemaForBoolScalarType(domain, boolType)),
+    ...typeLibrary.enumTypes.map(enumType => createJsonSchemaForEnumScalarType(domain, enumType)),
+    ...typeLibrary.floatTypes.map(floatType => createJsonSchemaForFloatScalarType(domain, floatType)),
+    ...typeLibrary.intTypes.map(intType => createJsonSchemaForIntScalarType(domain, intType)),
     ...typeLibrary.objectTypes.map(objectType => createJsonSchemaForObjectType(domain, objectType)),
     ...typeLibrary.recordTypes.map(recordType => createJsonSchemaForRecordType(domain, recordType)),
     ...typeLibrary.recordTypes.reduce((agg, recordType) => {
@@ -26,7 +26,7 @@ export function createJsonSchemaValidator (domain: string, typeLibrary: TypeLibr
       agg.push(...variantSchemas)
       return agg
     }, [] as AnySchema[]),
-    ...typeLibrary.stringScalarTypes.map(stringScalarType => createJsonSchemaForStringScalarType(domain, stringScalarType))
+    ...typeLibrary.stringTypes.map(stringType => createJsonSchemaForStringScalarType(domain, stringType))
   ]
 
   return new Ajv({

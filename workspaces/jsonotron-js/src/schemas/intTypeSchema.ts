@@ -2,27 +2,21 @@ import { commonProperties } from './commonProperties'
 import { commonRequires } from './commonRequires'
 
 /**
- * Describes the float scalar type.
+ * Describes the int scalar type.
  */
-export const floatScalarTypeSchema = {
-  $id: 'floatScalarTypeSchema',
-  title: 'Float Scalar Type Schema',
+export const intTypeSchema = {
+  $id: 'intScalarTypeSchema',
+  title: 'Int Scalar Type Schema',
   type: 'object',
   additionalProperties: false,
   properties: {
     ...commonProperties,
     minimum: {
-      type: 'number'
-    },
-    isMinimumExclusive: {
-      type: 'boolean'
+      type: 'integer'
     },
     maximum: {
-      type: 'number'
+      type: 'integer'
     },
-    isMaximumExclusive: {
-      type: 'boolean'
-    }
   },
   required: [
     ...commonRequires,

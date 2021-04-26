@@ -9,16 +9,16 @@ import {
   EnumScalarTypeItemDataValidationError,
   InvalidTypeError,
   ParseYamlError,
-  RecordTypeTestCaseInvalidationError,
-  RecordTypeTestCaseValidationError,
+  TestCaseInvalidationError,
+  TestCaseValidationError,
   RecordTypeVariantUnrecognisedPropertyError,
   UnrecognisedTypeError,
   UnrecognisedTypeKindError
 } from '../errors'
 import {
-  arrayTypeSchema, boolScalarTypeSchema, enumScalarTypeSchema,
-  floatScalarTypeSchema, intScalarTypeSchema,
-  recordTypeSchema, stringScalarTypeSchema
+  arrayTypeSchema, boolTypeSchema, enumTypeSchema,
+  floatTypeSchema, intTypeSchema,
+  recordTypeSchema, stringTypeSchema
 } from '../schemas'
 import { ParseOptions } from './ParseOptions'
 import { TypeLibrary } from './TypeLibrary'
@@ -40,51 +40,55 @@ const INTERNAL_DOMAIN = 'https://jsonotron.org'
 export function parseTypeLibrary (options?: ParseOptions): TypeLibrary {
   const resourceStrings = options?.resourceStrings || []
 
-  // convert strings to JsonotronTypes with a 'kind' property.
+  // Convert strings to JsonotronTypes with a 'kind' property.
   const resourceObjects = resourceStrings.map(t => convertYamlStringToObject(t))
 
-  // create a set of validators for the various types.
+  // Create a set of validators for the various types.
   const typeValidators = createTypeValidators()
 
-  // validate and sort the resources into specific types.
+  // Validate and sort the resources into specific types.
   const typeLibrary = sortResources(resourceObjects, typeValidators)
 
-  // get all the type names that have been loaded.
+  // Get all the type names that have been loaded.
   const systemQualifiedTypeNames = extractSystemQualifiedTypeNames(typeLibrary)
   ensureSystemQualifiedTypeNamesAreUnique(systemQualifiedTypeNames)
 
-  // verify the element types of arrays.
+  // Verify the element types of arrays.
   typeLibrary.arrayTypes.forEach(arrayType => {
     ensureArrayTypeElementTypeIsValid(arrayType, systemQualifiedTypeNames)
   })
 
-  // verify the data types of enums.
-  typeLibrary.enumScalarTypes.forEach(enumScalarType => {
+  // Verify the data types of enums.
+  typeLibrary.enumTypes.forEach(enumScalarType => {
     ensureEnumScalarTypeDataTypeIsValid(enumScalarType, systemQualifiedTypeNames)
   })
 
-  // verify the property types of records.
+  // Verify the property types of records.
   typeLibrary.recordTypes.forEach(recordType => {
     ensureRecordTypePropertiesPropertyTypeAreValid(recordType, systemQualifiedTypeNames)
   })
 
-  // create a JSON schema validator that we can use to validate
+  // Create a JSON schema validator that we can use to validate
   // the example, test case and enum data values that are expressed
   // directly in the type definitions using JSON.
   const jsonSchemaValidator = createJsonSchemaValidator(INTERNAL_DOMAIN, typeLibrary)
 
-  // verify the enum item data items.
-  typeLibrary.enumScalarTypes.forEach(enumScalarType => {
+  // Verify the enum item data items.
+  typeLibrary.enumTypes.forEach(enumScalarType => {
     ensureEnumScalarTypeItemsDataIsValid(jsonSchemaValidator, enumScalarType)
   })
 
-  // verify the examples/test cases on all the schema types
-  //  which may reference other schema types.
-  typeLibrary.recordTypes.forEach(recordType => {
-    ensureRecordTypeExamplesAndTestCasesAreValid(jsonSchemaValidator, recordType)
+  // Verify the test cases on all the string types
+  typeLibrary.stringTypes.forEach(stringType => {
+    ensureStringTypeTestCasesAreValid(jsonSchemaValidator, stringType)
   })
 
-  // verify the fields on the variants are valid.
+  // Verify the test cases on all the record types
+  typeLibrary.recordTypes.forEach(recordType => {
+    ensureRecordTypeTestCasesAreValid(jsonSchemaValidator, recordType)
+  })
+
+  // Verify the fields on the variants are valid.
   typeLibrary.recordTypes.forEach(recordType => {
     ensureRecordTypeVariantsAreValid(recordType)
   })
@@ -124,13 +128,13 @@ function createTypeValidators (): TypeValidators {
 
   return {
     arrayTypeValidator: ajv.compile(arrayTypeSchema),
-    boolScalarTypeValidator: ajv.compile(boolScalarTypeSchema),
-    enumScalarTypeValidator: ajv.compile(enumScalarTypeSchema),
-    floatScalarTypeValidator: ajv.compile(floatScalarTypeSchema),
-    intScalarTypeValidator: ajv.compile(intScalarTypeSchema),
+    boolTypeValidator: ajv.compile(boolTypeSchema),
+    enumTypeValidator: ajv.compile(enumTypeSchema),
+    floatTypeValidator: ajv.compile(floatTypeSchema),
+    intTypeValidator: ajv.compile(intTypeSchema),
     objectTypeValidator: ajv.compile(objectTypeSchema),
     recordTypeValidator: ajv.compile(recordTypeSchema),
-    stringScalarTypeValidator: ajv.compile(stringScalarTypeSchema)
+    stringTypeValidator: ajv.compile(stringTypeSchema)
   }
 }
 
@@ -142,13 +146,13 @@ function createTypeValidators (): TypeValidators {
 function sortResources (resources: JsonotronType[], validators: TypeValidators): TypeLibrary {
   const result: TypeLibrary = {
     arrayTypes: [],
-    boolScalarTypes: [],
-    enumScalarTypes: [],
-    floatScalarTypes: [],
-    intScalarTypes: [],
+    boolTypes: [],
+    enumTypes: [],
+    floatTypes: [],
+    intTypes: [],
     objectTypes: [],
     recordTypes: [],
-    stringScalarTypes: []
+    stringTypes: []
   }
 
   resources.forEach(res => {
@@ -159,23 +163,23 @@ function sortResources (resources: JsonotronType[], validators: TypeValidators):
         break
       }
       case 'bool': {
-        ensureTypeIsValid(res, validators.boolScalarTypeValidator)
-        result.boolScalarTypes.push(res)
+        ensureTypeIsValid(res, validators.boolTypeValidator)
+        result.boolTypes.push(res)
         break
       }
       case 'enum': {
-        ensureTypeIsValid(res, validators.enumScalarTypeValidator)
-        result.enumScalarTypes.push(res as EnumType)
+        ensureTypeIsValid(res, validators.enumTypeValidator)
+        result.enumTypes.push(res as EnumType)
         break
       }
       case 'float': {
-        ensureTypeIsValid(res, validators.floatScalarTypeValidator)
-        result.floatScalarTypes.push(res as FloatType)
+        ensureTypeIsValid(res, validators.floatTypeValidator)
+        result.floatTypes.push(res as FloatType)
         break
       }
       case 'int': {
-        ensureTypeIsValid(res, validators.intScalarTypeValidator)
-        result.intScalarTypes.push(res as IntType)
+        ensureTypeIsValid(res, validators.intTypeValidator)
+        result.intTypes.push(res as IntType)
         break
       }
       case 'object': {
@@ -189,8 +193,8 @@ function sortResources (resources: JsonotronType[], validators: TypeValidators):
         break
       }
       case 'string': {
-        ensureTypeIsValid(res, validators.stringScalarTypeValidator)
-        result.stringScalarTypes.push(res as StringType)
+        ensureTypeIsValid(res, validators.stringTypeValidator)
+        result.stringTypes.push(res as StringType)
         break
       }
       default: {
@@ -210,13 +214,13 @@ function extractSystemQualifiedTypeNames (typeLibrary: TypeLibrary): string[] {
   const result: string[] = []
 
   result.push(...typeLibrary.arrayTypes.map(type => `${type.system}/${type.name}`))
-  result.push(...typeLibrary.boolScalarTypes.map(type => `${type.system}/${type.name}`))
-  result.push(...typeLibrary.enumScalarTypes.map(type => `${type.system}/${type.name}`))
-  result.push(...typeLibrary.floatScalarTypes.map(type => `${type.system}/${type.name}`))
-  result.push(...typeLibrary.intScalarTypes.map(type => `${type.system}/${type.name}`))
+  result.push(...typeLibrary.boolTypes.map(type => `${type.system}/${type.name}`))
+  result.push(...typeLibrary.enumTypes.map(type => `${type.system}/${type.name}`))
+  result.push(...typeLibrary.floatTypes.map(type => `${type.system}/${type.name}`))
+  result.push(...typeLibrary.intTypes.map(type => `${type.system}/${type.name}`))
   result.push(...typeLibrary.objectTypes.map(type => `${type.system}/${type.name}`))
   result.push(...typeLibrary.recordTypes.map(type => `${type.system}/${type.name}`))
-  result.push(...typeLibrary.stringScalarTypes.map(type => `${type.system}/${type.name}`))
+  result.push(...typeLibrary.stringTypes.map(type => `${type.system}/${type.name}`))
 
   return result
 }
@@ -301,13 +305,13 @@ function ajvErrorsToString (errors?: ErrorObject[]|null) {
  * @param enumScalarType An enum scalar type.
  */
 function ensureEnumScalarTypeItemsDataIsValid (jsonSchemaValidator: Ajv, enumScalarType: EnumType): void {
-  // only check data if a schema is provided
+  // Only check data if a schema is provided.
   if (enumScalarType.dataType) {
-    // get the validator
+    // Get the validator.
     const qualifiedDataType = getDomainQualifiedTypeReference(INTERNAL_DOMAIN, enumScalarType.system, enumScalarType.dataType)
     const validator = jsonSchemaValidator.getSchema(qualifiedDataType) as ValidateFunction
 
-    // check the data attached to each item
+    // Check the data attached to each item.
     enumScalarType.items.forEach(item => {
       if (!validator(item.data)) {
         throw new EnumScalarTypeItemDataValidationError(enumScalarType.name, item.value, ajvErrorsToString(validator.errors))
@@ -317,25 +321,49 @@ function ensureEnumScalarTypeItemsDataIsValid (jsonSchemaValidator: Ajv, enumSca
 }
 
 /**
- * Validate the record type examples, test cases and invalid test cases.
+ * Validate the record type test cases and invalid test cases.
  * @param jsonSchemaValidator A json schema validator.
  * @param recordType A record type.
  */
-function ensureRecordTypeExamplesAndTestCasesAreValid(jsonSchemaValidator: Ajv, recordType: RecordType): void {
-  // get a validator (assume it will be found because they are generated automatically)
+function ensureRecordTypeTestCasesAreValid(jsonSchemaValidator: Ajv, recordType: RecordType): void {
+  // Get a validator (assume it will be found because they are generated automatically).
   const validator = jsonSchemaValidator.getSchema(`${INTERNAL_DOMAIN}/${recordType.system}/${recordType.name}`) as ValidateFunction
 
-  // check the valid test cases
+  // Check the valid test cases.
   recordType.validTestCases.forEach((t, index) => {
     if (validator && !validator(t.value)) {
-      throw new RecordTypeTestCaseValidationError(recordType.name, index, ajvErrorsToString(validator.errors))
+      throw new TestCaseValidationError(recordType.name, index, ajvErrorsToString(validator.errors))
     }
   })
 
-  // check the invalid test cases
+  // Check the invalid test cases.
   recordType.invalidTestCases?.forEach((t, index) => {
     if (validator && validator(t)) {
-      throw new RecordTypeTestCaseInvalidationError(recordType.name, index)
+      throw new TestCaseInvalidationError(recordType.name, index)
+    }
+  })
+}
+
+/**
+ * Validate the string type test cases and invalid test cases.
+ * @param jsonSchemaValidator A json schema validator.
+ * @param recordType A record type.
+ */
+ function ensureStringTypeTestCasesAreValid(jsonSchemaValidator: Ajv, stringType: StringType): void {
+  // Get a validator (assume it will be found because they are generated automatically).
+  const validator = jsonSchemaValidator.getSchema(`${INTERNAL_DOMAIN}/${stringType.system}/${stringType.name}`) as ValidateFunction
+
+  // Check the valid test cases.
+  stringType.validTestCases?.forEach((t, index) => {
+    if (validator && !validator(t.value)) {
+      throw new TestCaseValidationError(stringType.name, index, ajvErrorsToString(validator.errors))
+    }
+  })
+
+  // Check the invalid test cases.
+  stringType.invalidTestCases?.forEach((t, index) => {
+    if (validator && validator(t)) {
+      throw new TestCaseInvalidationError(stringType.name, index)
     }
   })
 }

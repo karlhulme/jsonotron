@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import {
-  parseTypeLibrary, RecordTypeTestCaseInvalidationError, RecordTypeTestCaseValidationError,
+  parseTypeLibrary, TestCaseInvalidationError, TestCaseValidationError,
   RecordTypeVariantUnrecognisedPropertyError, UnrecognisedTypeError, ValueValidationError,
   ValueValidator
 } from '../src'
@@ -108,7 +108,7 @@ test('A record type with a property that does not conform to its assigned type i
 })
 
 test('A record type that describes a variant with an unrecognised include property is rejected.', async () => {
-  const recordTypeWithInvalidPropertyType = reindentYaml(`
+  const recordTypeWithUnrecognisedInclude = reindentYaml(`
     ---
     kind: record
     system: test
@@ -129,11 +129,11 @@ test('A record type that describes a variant with an unrecognised include proper
       - unrecognised
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidPropertyType, otherType] })).toThrow(asError(RecordTypeVariantUnrecognisedPropertyError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithUnrecognisedInclude, otherType] })).toThrow(asError(RecordTypeVariantUnrecognisedPropertyError))
 })
 
 test('A record type that describes a variant with an unrecognised exclude property is rejected.', async () => {
-  const recordTypeWithInvalidPropertyType = reindentYaml(`
+  const recordTypeWitUnrecognisedExclude = reindentYaml(`
     ---
     kind: record
     system: test
@@ -154,11 +154,11 @@ test('A record type that describes a variant with an unrecognised exclude proper
       - unrecognised
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidPropertyType, otherType] })).toThrow(asError(RecordTypeVariantUnrecognisedPropertyError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedExclude, otherType] })).toThrow(asError(RecordTypeVariantUnrecognisedPropertyError))
 })
 
 test('A record type that describes a valid test cases that is actually not valid is rejected.', async () => {
-  const recordTypeWithInvalidPropertyType = reindentYaml(`
+  const recordTypeWithWrongTestCase = reindentYaml(`
     ---
     kind: record
     system: test
@@ -174,11 +174,11 @@ test('A record type that describes a valid test cases that is actually not valid
       summary: This is a valid test case.
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidPropertyType, otherType] })).toThrow(asError(RecordTypeTestCaseValidationError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithWrongTestCase, otherType] })).toThrow(asError(TestCaseValidationError))
 })
 
 test('A record type that describes an invalid test cases that is actually valid is rejected.', async () => {
-  const recordTypeWithInvalidPropertyType = reindentYaml(`
+  const recordTypeWithWrongInvalidTestCase = reindentYaml(`
     ---
     kind: record
     system: test
@@ -196,5 +196,5 @@ test('A record type that describes an invalid test cases that is actually valid 
     - one: 1
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidPropertyType, otherType] })).toThrow(asError(RecordTypeTestCaseInvalidationError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithWrongInvalidTestCase, otherType] })).toThrow(asError(TestCaseInvalidationError))
 })

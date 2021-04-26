@@ -15,24 +15,24 @@ export interface TypeLibrary {
   arrayTypes: ArrayType[]
 
   /**
-   * An array of verified bool scalar types.
+   * An array of verified bool types.
    */
-  boolScalarTypes: JsonotronType[]
+  boolTypes: JsonotronType[]
 
   /**
-   * An array of verified enum scalar types.
+   * An array of verified enum types.
    */
-  enumScalarTypes: EnumType[]
+  enumTypes: EnumType[]
 
   /**
-   * An array of verified float scalar types.
+   * An array of verified float types.
    */
-  floatScalarTypes: FloatType[]
+  floatTypes: FloatType[]
 
   /**
-   * An array of verified int scalar types.
+   * An array of verified int types.
    */
-  intScalarTypes: IntType[]
+  intTypes: IntType[]
 
   /**
    * An array of verified object types.
@@ -45,7 +45,7 @@ export interface TypeLibrary {
   recordTypes: RecordType[]
 
   /**
-   * An array of verified string scalar types.
+   * An array of verified string types.
    */
-  stringScalarTypes: StringType[]
+  stringTypes: StringType[]
 }

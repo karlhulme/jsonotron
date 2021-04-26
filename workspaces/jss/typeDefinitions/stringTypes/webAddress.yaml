@@ -5,3 +5,9 @@ name: webAddress
 summary: A url that is prefixed with either https or https.
 maximumLength: 2048
 regex: ^http[s]?://[a-zA-Z0-9@:%._+~#=.?&/-]+$
+validTestCases:
+- value: https://www.bbc.co.uk
+- value: http://localhost
+invalidTestCases:
+- ftp://some-server.com
+- mailto:recipient@domain.com

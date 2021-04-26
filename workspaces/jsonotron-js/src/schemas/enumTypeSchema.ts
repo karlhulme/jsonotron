@@ -5,7 +5,7 @@ import { commonRequires } from './commonRequires'
 /**
  * Describes the enum scalar type.
  */
-export const enumScalarTypeSchema = {
+export const enumTypeSchema = {
   $id: 'enumScalarTypeSchema',
   title: 'Enum Scalar Type Schema',
   type: 'object',

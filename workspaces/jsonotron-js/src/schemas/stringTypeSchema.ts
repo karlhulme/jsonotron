@@ -4,7 +4,7 @@ import { commonRequires } from './commonRequires'
 /**
  * Describes the string scalar type.
  */
-export const stringScalarTypeSchema = {
+export const stringTypeSchema = {
   $id: 'stringScalarTypeSchema',
   title: 'String Scalar Type Schema',
   type: 'object',
@@ -22,6 +22,29 @@ export const stringScalarTypeSchema = {
     regex: {
       type: 'string'
     },
+    validTestCases: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          value: {
+            type: 'string'
+          },
+          summary: {
+            type: 'string'
+          }
+        },
+        required: [
+          'value'
+        ]
+      }
+    },
+    invalidTestCases: {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    }
   },
   required: [
     ...commonRequires,
