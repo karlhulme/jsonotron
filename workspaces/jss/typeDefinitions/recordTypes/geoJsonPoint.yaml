@@ -16,4 +16,4 @@ validTestCases:
 - value:
     type: Point
     coordinates: [1.4567859, -50.3459879]
-  documentation: A GeoJSON point.
+  summary: A GeoJSON point.

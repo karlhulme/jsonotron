@@ -17,4 +17,4 @@ validTestCases:
 - value:
     type: Polygon
     coordinates: [[1.4567859, -50.3459879], [2.4567859, -50.3459879], [3.4567859, -25.3459879], [1.4567859, -50.3459879]]
-  documentation: A GeoJSON polygon.
+  summary: A GeoJSON polygon.

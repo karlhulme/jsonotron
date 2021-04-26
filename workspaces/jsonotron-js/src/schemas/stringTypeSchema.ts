@@ -5,8 +5,8 @@ import { commonRequires } from './commonRequires'
  * Describes the string scalar type.
  */
 export const stringTypeSchema = {
-  $id: 'stringScalarTypeSchema',
-  title: 'String Scalar Type Schema',
+  $id: 'stringTypeSchema',
+  title: 'String Type Schema',
   type: 'object',
   additionalProperties: false,
   properties: {
@@ -26,6 +26,7 @@ export const stringTypeSchema = {
       type: 'array',
       items: {
         type: 'object',
+        additionalProperties: false,
         properties: {
           value: {
             type: 'string'
@@ -42,7 +43,19 @@ export const stringTypeSchema = {
     invalidTestCases: {
       type: 'array',
       items: {
-        type: 'string'
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          value: {
+            type: 'string'
+          },
+          summary: {
+            type: 'string'
+          }
+        },
+        required: [
+          'value'
+        ]
       }
     }
   },

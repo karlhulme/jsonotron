@@ -338,7 +338,7 @@ function ensureRecordTypeTestCasesAreValid(jsonSchemaValidator: Ajv, recordType:
 
   // Check the invalid test cases.
   recordType.invalidTestCases?.forEach((t, index) => {
-    if (validator && validator(t)) {
+    if (validator && validator(t.value)) {
       throw new TestCaseInvalidationError(recordType.name, index)
     }
   })
@@ -362,7 +362,7 @@ function ensureRecordTypeTestCasesAreValid(jsonSchemaValidator: Ajv, recordType:
 
   // Check the invalid test cases.
   stringType.invalidTestCases?.forEach((t, index) => {
-    if (validator && validator(t)) {
+    if (validator && validator(t.value)) {
       throw new TestCaseInvalidationError(stringType.name, index)
     }
   })

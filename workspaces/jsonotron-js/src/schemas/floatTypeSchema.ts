@@ -5,8 +5,8 @@ import { commonRequires } from './commonRequires'
  * Describes the float scalar type.
  */
 export const floatTypeSchema = {
-  $id: 'floatScalarTypeSchema',
-  title: 'Float Scalar Type Schema',
+  $id: 'floatTypeSchema',
+  title: 'Float Type Schema',
   type: 'object',
   additionalProperties: false,
   properties: {

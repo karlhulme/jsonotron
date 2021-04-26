@@ -5,8 +5,8 @@ import { commonRequires } from './commonRequires'
  * Describes the int scalar type.
  */
 export const intTypeSchema = {
-  $id: 'intScalarTypeSchema',
-  title: 'Int Scalar Type Schema',
+  $id: 'intTypeSchema',
+  title: 'Int Type Schema',
   type: 'object',
   additionalProperties: false,
   properties: {

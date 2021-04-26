@@ -33,15 +33,19 @@ validTestCases:
     and +01:00 during the summer.  In this example we can see the value is in the
     summer because of the +01:00 suffix.
 invalidTestCases:
-- dateTime: '19500101123456'
-  timeZone: europe/london
-  captured: 1563119540628
-- dateTime: '2010-02-04T05:30:12+01:00'
-  timeZone: madeup
-  captured: 1563119540628
-- dateTime: '2010-02-04T05:30:12+0:00'
-  timeZone: europe/london
-  captured: 1563119540628
-- dateTime: '2010-02-04T05:30:12Z'
-  timeZone: europe/london
-  captured: 1563119540628
+- value:
+    dateTime: '19500101123456'
+    timeZone: europe/london
+    captured: 1563119540628
+- value:
+    dateTime: '2010-02-04T05:30:12+01:00'
+    timeZone: madeup
+    captured: 1563119540628
+- value:
+    dateTime: '2010-02-04T05:30:12+0:00'
+    timeZone: europe/london
+    captured: 1563119540628
+- value:
+    dateTime: '2010-02-04T05:30:12Z'
+    timeZone: europe/london
+    captured: 1563119540628

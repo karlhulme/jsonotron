@@ -193,7 +193,8 @@ test('A record type that describes an invalid test cases that is actually valid 
         one: 1
       summary: This is a valid test case.
     invalidTestCases:
-    - one: 1
+    - value:
+        one: 1
   `)
 
   expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithWrongInvalidTestCase, otherType] })).toThrow(asError(TestCaseInvalidationError))

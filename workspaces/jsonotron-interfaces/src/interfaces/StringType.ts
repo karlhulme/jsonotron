@@ -1,5 +1,5 @@
 import { JsonotronType } from './JsonotronType'
-import { StringTypeValidTestCase } from './StringTypeValidTestCase'
+import { TestCase } from './TestCase'
 
 /**
  * Represents a string.
@@ -23,12 +23,11 @@ export interface StringType extends JsonotronType {
 
   /**
    * An array of values that can be represented by this type.
-   * Some of these cases may also serve as example usages of the type.
    */
-  validTestCases?: StringTypeValidTestCase[]
+  validTestCases?: TestCase<string>[]
 
   /**
   * An array of values that cannot be represented by this type. 
   */
-  invalidTestCases?: string[]
+  invalidTestCases?: TestCase<string>[]
 }

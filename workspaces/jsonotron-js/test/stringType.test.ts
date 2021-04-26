@@ -26,7 +26,7 @@ const stringTypeWithTestCases = reindentYaml(`
   - value: abcdefgh
     summary: An example value
   invalidTestCases:
-  - abCDEfgh
+  - value: abCDEfgh
 `)
 
 function setupValidator () {
@@ -66,7 +66,7 @@ test('A string type that describes an invalid test case that is actually valid i
     regex: ^[a-z]*$
     maximumLength: 10
     invalidTestCases:
-    - abcdef # this is actually fine
+    - value: abcdef # this is actually fine
   `)
 
   expect(() => parseTypeLibrary({ resourceStrings: [stringTypeWithWrongInvalidTestCase] })).toThrow(asError(TestCaseInvalidationError))
@@ -87,7 +87,7 @@ test('A string that is above the maximum length is rejected.', async () => {
   expect(() => validator.validateValue('test/testString', 'hello_world_foo_bar')).toThrow(asError(ValueValidationError))
 })
 
-test('A string that does not conform the regex is rejected.', async () => {
+test('A string that does not conform to the regex is rejected.', async () => {
   const validator = setupValidator()
   expect(() => validator.validateValue('test/testString', 'hello_WORLD')).toThrow(asError(ValueValidationError))
 })

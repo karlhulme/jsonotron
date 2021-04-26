@@ -18,8 +18,10 @@ validTestCases:
     latitude: 50.43859748
   summary: A position described using longitude and latitude.
 invalidTestCases:
-- longitude: 181
-  latitude: 90
-- longitude: 180
-  latitude: 91
+- value:
+    longitude: 181
+    latitude: 90
+- value:
+    longitude: 180
+    latitude: 91
   

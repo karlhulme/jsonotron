@@ -11,4 +11,4 @@ validTestCases:
 - value: "2a00:23c5:1ab0:3001:1776:5ae:499f:114a"
 - value: "::1"
 invalidTestCases:
-- "2a00:23c5"
+- value: "2a00:23c5"

@@ -6,8 +6,8 @@ import { commonRequires } from './commonRequires'
  * Describes the enum scalar type.
  */
 export const enumTypeSchema = {
-  $id: 'enumScalarTypeSchema',
-  title: 'Enum Scalar Type Schema',
+  $id: 'enumTypeSchema',
+  title: 'Enum Type Schema',
   type: 'object',
   additionalProperties: false,
   properties: {
@@ -17,6 +17,7 @@ export const enumTypeSchema = {
       minItems: 1,
       items: {
         type: 'object',
+        additionalProperties: false,
         properties: {
           value: {
             type: 'string',

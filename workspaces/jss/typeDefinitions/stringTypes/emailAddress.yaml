@@ -10,5 +10,5 @@ validTestCases:
 - value: recipient@domain
 - value: recipient@domain.com
 invalidTestCases:
-- recipient # no domain component
-- recipient domain # multiple words
+- value: recipient # no domain component
+- value: recipient domain # multiple words

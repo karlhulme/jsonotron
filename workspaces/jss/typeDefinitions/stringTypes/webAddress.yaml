@@ -9,5 +9,5 @@ validTestCases:
 - value: https://www.bbc.co.uk
 - value: http://localhost
 invalidTestCases:
-- ftp://some-server.com
-- mailto:recipient@domain.com
+- value: ftp://some-server.com
+- value: mailto:recipient@domain.com

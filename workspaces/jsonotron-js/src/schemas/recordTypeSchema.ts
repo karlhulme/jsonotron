@@ -17,6 +17,7 @@ export const recordTypeSchema = {
       minItems: 1,
       items: {
         type: 'object',
+        additionalProperties: false,
         properties: {
           name: { 
             type: 'string',
@@ -76,9 +77,9 @@ export const recordTypeSchema = {
     },
     validTestCases: {
       type: 'array',
-      minItems: 1,
       items: {
         type: 'object',
+        additionalProperties: false,
         properties: {
           value: {},
           summary: {
@@ -93,7 +94,17 @@ export const recordTypeSchema = {
     invalidTestCases: {
       type: 'array',
       items: {
-        type: 'object'
+        type: 'object',
+        additionalProperties: false,
+        properties: {
+          value: {},
+          summary: {
+            type: 'string'
+          }
+        },
+        required: [
+          'value'
+        ]
       }
     }
   },
