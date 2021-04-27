@@ -4,7 +4,5 @@ import { noConflict } from 'handlebars'
 noConflict()
 
 export * from './createTemplateProcessor'
-export * from './TemplatePartial'
 export * from './TemplateProcessorContext'
 export * from './TemplateProcessorFunc'
-export * from './TemplateProcessorParameters'

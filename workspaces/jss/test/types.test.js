@@ -4,7 +4,7 @@ const fg = require('fast-glob')
 const { readFile } = require('fs/promises')
 
 test('The types of the jsonotron standard library are valid.', async () => {
-  const typeFileNames = await fg('./typeDefinitions/**/*.yaml')
+  const typeFileNames = await fg('./typeLibrary/**/*.yaml')
 
   const resourceStrings = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
 

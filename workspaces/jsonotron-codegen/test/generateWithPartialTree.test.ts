@@ -1,5 +1,6 @@
 import { expect, test } from '@jest/globals'
-import { createTemplateProcessor, TemplateProcessorContext, TemplatePartial } from '../src'
+import { TemplatePartial } from 'jsonotron-interfaces'
+import { createTemplateProcessor, TemplateProcessorContext } from '../src'
 import { createEmptyTypeLibrary } from './shared.test'
 
 test('Generate code using a template with a tree of multiple downstream partials.', async () => {
@@ -18,7 +19,7 @@ test('Generate code using a template with a tree of multiple downstream partials
     typeLibrary: createEmptyTypeLibrary()
   }
 
-  const templateProcessor = createTemplateProcessor({ template, partials })
+  const templateProcessor = createTemplateProcessor({ name: 'test', content: template, partials })
 
   const result = templateProcessor(context)
 

@@ -1,0 +1,10 @@
+/* istanbul ignore file */
+/* Generated: {{generatedDateTime}} */
+
+{{#each typeLibrary.recordTypes}}
+export interface {{identToPascalCase name}} {
+  {{#each properties}}
+    {{name}}: {{propertyType}}
+  {{/each}}
+}
+{{/each}}

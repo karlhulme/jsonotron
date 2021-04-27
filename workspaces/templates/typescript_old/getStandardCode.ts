@@ -90,7 +90,7 @@ export function validateValue (value: unknown, schemaId: string): void {
  * Convert AJV errors to a string.
  * @param errors An array of error objects.
  */
-  function ajvErrorsToString (errors?: Ajv.ErrorObject[]|null) {
+function ajvErrorsToString (errors?: Ajv.ErrorObject[]|null) {
   /* istanbul ignore next - errors will never be null/undefined */
   return JSON.stringify(errors || [], null, 2)
 }

@@ -1,18 +1,21 @@
 import { Request, RequestHandler, Response } from 'express'
-import { parseResources } from 'jsonotron-js'
+import { parseTypeLibrary } from 'jsonotron-js'
+import {  } from 'jsonotron-codegen'
 import { markdownHandler, typescriptHandler } from '../handlers'
 import { HandlerFunction } from '../handlers/HandlerFunction'
 import { HandlerProps } from '../handlers/HandlerProps'
 import { notFoundHandler } from '../handlers/notFoundHandler'
 
 /**
- * Represents the properties of a sengi express constructor.
+ * Represents the properties of a jsonoserve express constructor.
  */
 export interface JsonoserveConstructorProps {
   /**
    * An array of resource strings.
    */
   resourceStrings: string[]
+
+  
 
   /**
    * The domain to use for any issued JSON schemas.
@@ -25,7 +28,7 @@ export interface JsonoserveConstructorProps {
  * @param props The constructor properties.
  */
 export function createJsonoserveExpress (props: JsonoserveConstructorProps): RequestHandler {
-  const resources = parseResources({ resourceStrings: props.resourceStrings })
+  const resources = parseTypeLibrary({ resourceStrings: props.resourceStrings })
 
   return async (req: Request, res: Response): Promise<void> => {
     const handlerProps: HandlerProps = {
@@ -33,7 +36,7 @@ export function createJsonoserveExpress (props: JsonoserveConstructorProps): Req
       req,
       res,
       enumTypes: resources.enumTypes,
-      schemaTypes: resources.schemaTypes
+      schemaTypes: []
     }
 
     const handler = chooseHandler(req)

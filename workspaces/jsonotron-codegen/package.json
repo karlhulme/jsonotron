@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@types/lodash": "4.14.108",
+    "fast-glob": "3.2.5",
     "handlebars": "^4.7.7",
     "lodash": "4.17.21"
   },

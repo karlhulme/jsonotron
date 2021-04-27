@@ -10,7 +10,7 @@ test('Generate code using a template.', async () => {
     typeLibrary: createEmptyTypeLibrary()
   }
 
-  const templateProcessor = createTemplateProcessor({ template })
+  const templateProcessor = createTemplateProcessor({ name: 'test', content: template })
 
   const result = templateProcessor(context)
 
