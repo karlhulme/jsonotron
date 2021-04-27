@@ -13,7 +13,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/karlhulme/jsonotron.git",
-    "directory": "workspaces/jsonoserve"
+    "directory": "workspaces/jsonotron-interfaces"
   },
   "author": "Karl Hulme <karlhulme@hotmail.com>",
   "license": "MIT",

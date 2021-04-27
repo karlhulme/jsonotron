@@ -2,7 +2,7 @@ import Ajv, { ErrorObject, ValidateFunction } from 'ajv'
 import yaml from 'js-yaml'
 import {
   ArrayType, EnumType, FloatType,
-  IntType, JsonotronType, RecordType, StringType
+  IntType, JsonotronType, RecordType, StringType, TypeLibrary
 } from 'jsonotron-interfaces'
 import {
   DuplicateTypeNameError,
@@ -21,7 +21,6 @@ import {
   recordTypeSchema, stringTypeSchema
 } from '../schemas'
 import { ParseOptions } from './ParseOptions'
-import { TypeLibrary } from './TypeLibrary'
 import { TypeValidators } from './TypeValidators'
 import { objectTypeSchema } from '../schemas/objectTypeSchema'
 import { createJsonSchemaValidator } from './createJsonSchemaValidator'

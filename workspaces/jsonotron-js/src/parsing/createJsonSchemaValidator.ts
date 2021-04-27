@@ -1,4 +1,4 @@
-import { TypeLibrary } from './TypeLibrary'
+import { TypeLibrary } from 'jsonotron-interfaces'
 import {
   createJsonSchemaForArrayType, createJsonSchemaForBoolScalarType, createJsonSchemaForEnumScalarType,
   createJsonSchemaForFloatScalarType, createJsonSchemaForIntScalarType, createJsonSchemaForObjectType,

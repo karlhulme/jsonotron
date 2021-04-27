@@ -1,8 +1,10 @@
-import {
-  ArrayType, EnumType, FloatType,
-  IntType, JsonotronType, RecordType,
-  StringType
-} from 'jsonotron-interfaces'
+import { ArrayType } from './ArrayType'
+import { EnumType } from './EnumType'
+import { FloatType } from './FloatType'
+import { IntType } from './IntType'
+import { JsonotronType } from './JsonotronType'
+import { RecordType } from './RecordType'
+import { StringType } from './StringType'
 
 /**
  * The result of parsing a set of resources.
