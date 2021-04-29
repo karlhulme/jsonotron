@@ -18,16 +18,6 @@ export interface RecordTypeProperty {
   propertyType: string
 
   /**
-   * The system part of the property type.
-   */
-  propertyTypeSystem: string
-
-  /**
-   * The short name of the property type.
-   */
-  propertyTypeName: string
-
-  /**
    * Specifies if the value is to be treated as an array.
    */
   isArray?: boolean
@@ -42,4 +32,60 @@ export interface RecordTypeProperty {
    * and/or which property to use instead.
    */
   deprecated?: string
+
+
+  /**
+   * The properties defined below are set by the parsing process.
+   */
+
+
+  /**
+   * The system part of the property type.
+   */
+  propertyTypeSystem: string
+
+  /**
+   * The short name of the property type.
+   */
+  propertyTypeName: string
+
+  /**
+   * Indicates if this property is optional.
+   */
+  isOptional?: boolean
+
+  /**
+   * Indicates if this property is a boolean.
+   */
+  isBool?: boolean
+
+  /**
+   * Indicates if this property is an enumeration.
+   */
+  isEnum?: boolean
+
+  /**
+   * Indicates if this property is a float.
+   */
+  isFloat?: boolean
+
+  /**
+   * Indicates if this property is an integer.
+   */
+  isInt?: boolean
+
+  /**
+   * Indicates if this property is an object.
+   */
+  isObject?: boolean
+
+  /**
+   * Indicates if this property is a record.
+   */
+  isRecord?: boolean
+
+  /**
+   * Indicates if this property is a string.
+   */
+  isString?: boolean
 }

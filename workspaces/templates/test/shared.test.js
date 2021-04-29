@@ -8,7 +8,25 @@ function createSampleTypeLibrary () {
   return {
     arrayTypes: [],
     boolTypes: [],
-    enumTypes: [],
+    enumTypes: [{
+      kind: 'record',
+      system: 'test',
+      name: 'colors',
+      summary: 'A set of colors.',
+      items: [{
+        value: 'red',
+        text: 'Red',
+        summary: 'The color red.',
+        isFirst: true
+      }, {
+        value: 'blue',
+        text: 'Blue',
+        summary: 'The color blue.',
+        symbol: 'BLU',
+        deprecated: 'Use green instead of blue.',
+        isLast: true
+      }]
+    }],
     floatTypes: [],
     objectTypes: [],
     intTypes: [{
@@ -22,20 +40,39 @@ function createSampleTypeLibrary () {
     recordTypes: [{
       kind: 'record',
       system: 'test',
+      name: 'room',
+      summary: 'A room.',
+      properties: [{
+        name: 'tables',
+        propertyType: 'test/table',
+        propertyTypeSystem: 'test',
+        propertyTypeName: 'table',
+        summary: 'The tables in the room.',
+        isOptional: true,
+        isArray: true,
+        isRecord: true
+      }, {
+        name: 'color',
+        propertyType: 'test/colors',
+        propertyTypeSystem: 'test',
+        propertyTypeName: 'colors',
+        summary: 'The color of the room.',
+        isOptional: true,
+        isEnum: true,
+      }]
+    }, {
+      kind: 'record',
+      system: 'test',
       name: 'table',
       summary: 'A table.',
       properties: [{
         name: 'numberOfLegs',
-        propertyType: 'jss/positiveInteger',
+        propertyType: 'test/positiveInteger',
         propertyTypeSystem: 'test',
         propertyTypeName: 'positiveInteger',
         summary: 'The number of legs under the table.',
-        isRequired: true
-      }],
-      validTestCases: [{
-        value: {
-          numberOfLegs: 5
-        }
+        isRequired: true,
+        isInt: true
       }]
     }],
     stringTypes: []

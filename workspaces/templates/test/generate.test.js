@@ -3,6 +3,13 @@ const { writeFile } = require('fs/promises')
 const { loadTemplatesFromFolder, createTemplateProcessor } = require('jsonotron-codegen')
 const { createSampleTypeLibrary } = require('./shared.test.js')
 
+function chooseOutputName (templateName) {
+  switch (templateName) {
+    case 'typescript': return 'typescript.ts'
+    default: return `${templateName}.txt`
+  }
+}
+
 test('Generate output for each language.', async () => {
   const templates = await loadTemplatesFromFolder('./langs')
 
@@ -16,6 +23,6 @@ test('Generate output for each language.', async () => {
 
     const result = processor(context)
 
-    await writeFile(`./output/${template.name}.txt`, result, 'utf-8')
+    await writeFile(`./output/${chooseOutputName(template.name)}`, result, 'utf-8')
   }))
 })

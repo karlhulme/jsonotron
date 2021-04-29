@@ -1,16 +1,13 @@
 /* istanbul ignore file */
 /* Generated: {{generatedDateTime}} */
 
+{{>enumBoilerplate}}
+
+{{#each typeLibrary.enumTypes}}
+{{>enumItems .}}
+{{>enumValues .}}
+{{/each}}
+
 {{#each typeLibrary.recordTypes}}
-/**
- * {{summary}}
- */
-export interface {{identToPascalCase name}} {
-  {{#each properties}}
-  /**
-   * {{summary}}
-   */
-  {{name}}: {{identToPascalCase propertyTypeSystem}}{{identToPascalCase propertyTypeName}}
-  {{/each}}
-}
+{{>recordInterface .}}
 {{/each}}

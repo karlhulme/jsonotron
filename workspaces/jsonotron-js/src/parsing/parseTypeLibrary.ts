@@ -57,9 +57,11 @@ export function parseTypeLibrary (options?: ParseOptions): TypeLibrary {
     ensureEnumTypeDataTypeIsValid(enumScalarType, systemQualifiedTypeNames)
   })
 
-  // Verify the property types of records.
+  // Verify the property types of records and expand the record properties with
+  // useful additional values that are used for code generation.
   typeLibrary.recordTypes.forEach(recordType => {
     ensureRecordTypePropertiesPropertyTypeAreValid(recordType, systemQualifiedTypeNames)
+    expandRecordTypeProperties(recordType, typeLibrary)
   })
 
   // Create a JSON schema validator that we can use to validate
@@ -268,8 +270,30 @@ function ensureRecordTypePropertiesPropertyTypeAreValid (recordType: RecordType,
     }
 
     property.propertyType = qualifiedPropertyType
-    property.propertyTypeSystem = getSystemPartOfSystemQualifiedType(qualifiedPropertyType)
-    property.propertyTypeName = getNamePartOfSystemQualifiedType(qualifiedPropertyType)
+  })
+}
+
+/**
+ * Expands the given record type by setting additional values on each of the record type properties.
+ * @param recordType A record type.
+ */
+function expandRecordTypeProperties (recordType: RecordType, typeLibrary: TypeLibrary): void {
+  recordType.properties.forEach(property => {
+    property.propertyTypeSystem = getSystemPartOfSystemQualifiedType(property.propertyType)
+    property.propertyTypeName = getNamePartOfSystemQualifiedType(property.propertyType)
+    property.isOptional = !property.isRequired
+
+    const doesArrayContainType = (array: JsonotronType[], system: string, name: string) => {
+      return array.findIndex(type => type.system === system && type.name === name) > -1
+    }
+    
+    property.isBool = doesArrayContainType(typeLibrary.boolTypes, property.propertyTypeSystem, property.propertyTypeName)
+    property.isEnum = doesArrayContainType(typeLibrary.enumTypes, property.propertyTypeSystem, property.propertyTypeName)
+    property.isFloat = doesArrayContainType(typeLibrary.floatTypes, property.propertyTypeSystem, property.propertyTypeName)
+    property.isInt = doesArrayContainType(typeLibrary.intTypes, property.propertyTypeSystem, property.propertyTypeName)
+    property.isObject = doesArrayContainType(typeLibrary.objectTypes, property.propertyTypeSystem, property.propertyTypeName)
+    property.isRecord = doesArrayContainType(typeLibrary.recordTypes, property.propertyTypeSystem, property.propertyTypeName)
+    property.isString = doesArrayContainType(typeLibrary.stringTypes, property.propertyTypeSystem, property.propertyTypeName)
   })
 }
 
