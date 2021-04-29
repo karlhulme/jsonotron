@@ -11,8 +11,8 @@ const boolType = reindentYaml(`
 `)
 
 function setupValidator () {
-  const typeLibrary = parseTypeLibrary({ resourceStrings: [boolType] })
-  const validator = new ValueValidator(typeLibrary, TEST_DOMAIN)
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [boolType], domain: TEST_DOMAIN })
+  const validator = new ValueValidator(typeLibrary)
   return validator
 }
 

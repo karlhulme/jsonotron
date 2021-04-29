@@ -67,8 +67,8 @@ const recordTypeWithVariants = reindentYaml(`
 `)
 
 function setupValidator () {
-  const typeLibrary = parseTypeLibrary({ resourceStrings: [recordType, recordTypeWithVariants, otherType] })
-  const validator = new ValueValidator(typeLibrary, TEST_DOMAIN)
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [recordType, recordTypeWithVariants, otherType], domain: TEST_DOMAIN })
+  const validator = new ValueValidator(typeLibrary)
   return validator
 }
 

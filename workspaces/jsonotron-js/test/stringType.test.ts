@@ -30,8 +30,8 @@ const stringTypeWithTestCases = reindentYaml(`
 `)
 
 function setupValidator () {
-  const typeLibrary = parseTypeLibrary({ resourceStrings: [stringType, stringTypeWithTestCases] })
-  const validator = new ValueValidator(typeLibrary, TEST_DOMAIN)
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [stringType, stringTypeWithTestCases], domain: TEST_DOMAIN })
+  const validator = new ValueValidator(typeLibrary)
   return validator
 }
 

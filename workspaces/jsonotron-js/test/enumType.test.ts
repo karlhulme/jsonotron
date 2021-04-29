@@ -42,8 +42,8 @@ const enumTypeWithData = reindentYaml(`
 `)
 
 function setupValidator () {
-  const typeLibrary = parseTypeLibrary({ resourceStrings: [enumType, enumTypeWithData, otherType] })
-  const validator = new ValueValidator(typeLibrary, TEST_DOMAIN)
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [enumType, enumTypeWithData, otherType], domain: TEST_DOMAIN })
+  const validator = new ValueValidator(typeLibrary)
   return validator
 }
 

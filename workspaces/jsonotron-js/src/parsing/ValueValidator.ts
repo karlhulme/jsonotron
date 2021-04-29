@@ -1,13 +1,7 @@
 import Ajv, { ErrorObject } from 'ajv'
 import { TypeLibrary } from 'jsonotron-interfaces'
 import { UnrecognisedTypeError, ValueValidationError } from '../errors'
-import { createJsonSchemaValidator } from './createJsonSchemaValidator'
-
-/**
- * The domain used for the JSON schemas that are generated for
- * the purpose of validation.
- */
- const INTERNAL_DOMAIN = 'https://jsonotron.org'
+import { createAjvFromTypeLibrary } from '../typeDefValueSchemas'
 
  /**
   * Provides methods for validating objects against Jsonotron types
@@ -15,17 +9,15 @@ import { createJsonSchemaValidator } from './createJsonSchemaValidator'
   */
 export class ValueValidator {
   jsonSchemaValidator: Ajv
-  domain: string
+  jsonSchemaDomain: string
 
   /**
    * Constructs a new instance of the class.
    * @param typeLibrary A type library.
-   * @param domain A domain to use for the JSON schemas.
    */
-  constructor (typeLibrary: TypeLibrary, domain: string) {
-    /* istanbul ignore next */
-    this.domain = domain || INTERNAL_DOMAIN
-    this.jsonSchemaValidator = createJsonSchemaValidator(this.domain, typeLibrary)
+  constructor (typeLibrary: TypeLibrary) {
+    this.jsonSchemaValidator = createAjvFromTypeLibrary(typeLibrary)
+    this.jsonSchemaDomain = typeLibrary.jsonSchemaDomain
   }
 
   /**
@@ -44,7 +36,7 @@ export class ValueValidator {
    * @param value Any object.
    */
   validateValue (systemQualifiedType: string, value: unknown): void {
-    const domainQualifiedType = `${this.domain}/${systemQualifiedType}`
+    const domainQualifiedType = `${this.jsonSchemaDomain}/${systemQualifiedType}`
 
     const validator = this.jsonSchemaValidator.getSchema(domainQualifiedType)
 

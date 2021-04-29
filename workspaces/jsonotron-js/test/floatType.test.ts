@@ -25,8 +25,8 @@ const floatTypeWithExclusives = reindentYaml(`
 `)
 
 function setupValidator () {
-  const typeLibrary = parseTypeLibrary({ resourceStrings: [floatType, floatTypeWithExclusives] })
-  const validator = new ValueValidator(typeLibrary, TEST_DOMAIN)
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [floatType, floatTypeWithExclusives], domain: TEST_DOMAIN })
+  const validator = new ValueValidator(typeLibrary)
   return validator
 }
 
