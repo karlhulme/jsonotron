@@ -1,8 +1,8 @@
 import { TypeLibrary } from 'jsonotron-interfaces'
 import {
-  createJsonSchemaForArrayType, createJsonSchemaForBoolScalarType, createJsonSchemaForEnumScalarType,
-  createJsonSchemaForFloatScalarType, createJsonSchemaForIntScalarType, createJsonSchemaForObjectType,
-  createJsonSchemaForRecordType, createJsonSchemaForRecordTypeVariant, createJsonSchemaForStringScalarType,
+  createJsonSchemaForBoolType, createJsonSchemaForEnumType,
+  createJsonSchemaForFloatType, createJsonSchemaForIntType, createJsonSchemaForObjectType,
+  createJsonSchemaForRecordType, createJsonSchemaForRecordTypeVariant, createJsonSchemaForStringType,
 } from '../jsonSchemaGeneration'
 import Ajv, { AnySchema } from 'ajv'
 
@@ -13,11 +13,10 @@ import Ajv, { AnySchema } from 'ajv'
  */
 export function createJsonSchemaValidator (domain: string, typeLibrary: TypeLibrary): Ajv {
   const schemas = [
-    ...typeLibrary.arrayTypes.map(arrayType => createJsonSchemaForArrayType(domain, arrayType)),
-    ...typeLibrary.boolTypes.map(boolType => createJsonSchemaForBoolScalarType(domain, boolType)),
-    ...typeLibrary.enumTypes.map(enumType => createJsonSchemaForEnumScalarType(domain, enumType)),
-    ...typeLibrary.floatTypes.map(floatType => createJsonSchemaForFloatScalarType(domain, floatType)),
-    ...typeLibrary.intTypes.map(intType => createJsonSchemaForIntScalarType(domain, intType)),
+    ...typeLibrary.boolTypes.map(boolType => createJsonSchemaForBoolType(domain, boolType)),
+    ...typeLibrary.enumTypes.map(enumType => createJsonSchemaForEnumType(domain, enumType)),
+    ...typeLibrary.floatTypes.map(floatType => createJsonSchemaForFloatType(domain, floatType)),
+    ...typeLibrary.intTypes.map(intType => createJsonSchemaForIntType(domain, intType)),
     ...typeLibrary.objectTypes.map(objectType => createJsonSchemaForObjectType(domain, objectType)),
     ...typeLibrary.recordTypes.map(recordType => createJsonSchemaForRecordType(domain, recordType)),
     ...typeLibrary.recordTypes.reduce((agg, recordType) => {
@@ -26,7 +25,7 @@ export function createJsonSchemaValidator (domain: string, typeLibrary: TypeLibr
       agg.push(...variantSchemas)
       return agg
     }, [] as AnySchema[]),
-    ...typeLibrary.stringTypes.map(stringType => createJsonSchemaForStringScalarType(domain, stringType))
+    ...typeLibrary.stringTypes.map(stringType => createJsonSchemaForStringType(domain, stringType))
   ]
 
   return new Ajv({

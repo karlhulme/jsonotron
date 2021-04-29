@@ -7,7 +7,7 @@ import { JSON_SCHEMA_DECLARATION } from './consts'
  * @param domain The domain for the $id of the schema.
  * @param floatType A float scalar type.
  */
-export function createJsonSchemaForFloatScalarType (domain: string, floatType: FloatType): AnySchema {
+export function createJsonSchemaForFloatType (domain: string, floatType: FloatType): AnySchema {
   return {
     $id: `${domain}/${floatType.system}/${floatType.name}`,
     $schema: JSON_SCHEMA_DECLARATION,

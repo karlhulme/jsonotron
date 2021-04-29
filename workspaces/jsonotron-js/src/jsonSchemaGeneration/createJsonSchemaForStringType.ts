@@ -7,7 +7,7 @@ import { JSON_SCHEMA_DECLARATION } from './consts'
  * @param domain The domain for the $id of the schema.
  * @param stringType A string scalar type.
  */
-export function createJsonSchemaForStringScalarType (domain: string, stringType: StringType): AnySchema {
+export function createJsonSchemaForStringType (domain: string, stringType: StringType): AnySchema {
   return {
     $id: `${domain}/${stringType.system}/${stringType.name}`,
     $schema: JSON_SCHEMA_DECLARATION,

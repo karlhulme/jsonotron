@@ -7,7 +7,7 @@ import { JSON_SCHEMA_DECLARATION } from './consts'
  * @param domain The domain for the $id of the schema.
  * @param enumType An enum scalar type.
  */
-export function createJsonSchemaForEnumScalarType (domain: string, enumType: EnumType): AnySchema {
+export function createJsonSchemaForEnumType (domain: string, enumType: EnumType): AnySchema {
   return {
     $id: `${domain}/${enumType.system}/${enumType.name}`,
     $schema: JSON_SCHEMA_DECLARATION,

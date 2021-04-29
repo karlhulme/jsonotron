@@ -1,4 +1,4 @@
-# jss
+# std
 
 A set of Jsonotron types that serves as a good starting point for a type library.
 

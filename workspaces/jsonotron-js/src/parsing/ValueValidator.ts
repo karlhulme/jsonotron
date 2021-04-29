@@ -1,7 +1,7 @@
 import Ajv, { ErrorObject } from 'ajv'
+import { TypeLibrary } from 'jsonotron-interfaces'
 import { UnrecognisedTypeError, ValueValidationError } from '../errors'
 import { createJsonSchemaValidator } from './createJsonSchemaValidator'
-import { TypeLibrary } from './TypeLibrary'
 
 /**
  * The domain used for the JSON schemas that are generated for

@@ -1,4 +1,3 @@
-export * from './ArrayType'
 export * from './EnumType'
 export * from './EnumTypeItem'
 export * from './FloatType'

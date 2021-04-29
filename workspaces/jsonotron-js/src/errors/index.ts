@@ -1,5 +1,5 @@
 export * from './DuplicateTypeNameError'
-export * from './EnumScalarTypeItemDataValidationError'
+export * from './EnumTypeItemDataValidationError'
 export * from './InvalidTypeError'
 export * from './ParseYamlError'
 export * from './RecordTypeVariantUnrecognisedPropertyError'

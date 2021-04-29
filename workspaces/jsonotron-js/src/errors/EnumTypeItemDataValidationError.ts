@@ -1,7 +1,7 @@
 /**
  * Raised if an enum type item has a data object that fails validation.
  */
- export class EnumScalarTypeItemDataValidationError extends Error {
+ export class EnumTypeItemDataValidationError extends Error {
   enumTypeName: string
   itemValue: string
   details: string

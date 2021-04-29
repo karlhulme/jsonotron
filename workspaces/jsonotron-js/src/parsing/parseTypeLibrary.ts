@@ -1,12 +1,12 @@
 import Ajv, { ErrorObject, ValidateFunction } from 'ajv'
 import yaml from 'js-yaml'
 import {
-  ArrayType, EnumType, FloatType,
-  IntType, JsonotronType, RecordType, StringType, TypeLibrary
+  EnumType, FloatType, IntType, JsonotronType,
+  RecordType, StringType, TypeLibrary
 } from 'jsonotron-interfaces'
 import {
   DuplicateTypeNameError,
-  EnumScalarTypeItemDataValidationError,
+  EnumTypeItemDataValidationError,
   InvalidTypeError,
   ParseYamlError,
   TestCaseInvalidationError,
@@ -16,7 +16,7 @@ import {
   UnrecognisedTypeKindError
 } from '../errors'
 import {
-  arrayTypeSchema, boolTypeSchema, enumTypeSchema,
+  boolTypeSchema, enumTypeSchema,
   floatTypeSchema, intTypeSchema,
   recordTypeSchema, stringTypeSchema
 } from '../schemas'
@@ -52,14 +52,9 @@ export function parseTypeLibrary (options?: ParseOptions): TypeLibrary {
   const systemQualifiedTypeNames = extractSystemQualifiedTypeNames(typeLibrary)
   ensureSystemQualifiedTypeNamesAreUnique(systemQualifiedTypeNames)
 
-  // Verify the element types of arrays.
-  typeLibrary.arrayTypes.forEach(arrayType => {
-    ensureArrayTypeElementTypeIsValid(arrayType, systemQualifiedTypeNames)
-  })
-
   // Verify the data types of enums.
   typeLibrary.enumTypes.forEach(enumScalarType => {
-    ensureEnumScalarTypeDataTypeIsValid(enumScalarType, systemQualifiedTypeNames)
+    ensureEnumTypeDataTypeIsValid(enumScalarType, systemQualifiedTypeNames)
   })
 
   // Verify the property types of records.
@@ -74,7 +69,7 @@ export function parseTypeLibrary (options?: ParseOptions): TypeLibrary {
 
   // Verify the enum item data items.
   typeLibrary.enumTypes.forEach(enumScalarType => {
-    ensureEnumScalarTypeItemsDataIsValid(jsonSchemaValidator, enumScalarType)
+    ensureEnumTypeItemsDataIsValid(jsonSchemaValidator, enumScalarType)
   })
 
   // Verify the test cases on all the string types
@@ -126,7 +121,6 @@ function createTypeValidators (): TypeValidators {
   const ajv = new Ajv({ ownProperties: true })
 
   return {
-    arrayTypeValidator: ajv.compile(arrayTypeSchema),
     boolTypeValidator: ajv.compile(boolTypeSchema),
     enumTypeValidator: ajv.compile(enumTypeSchema),
     floatTypeValidator: ajv.compile(floatTypeSchema),
@@ -144,7 +138,6 @@ function createTypeValidators (): TypeValidators {
  */
 function sortResources (resources: JsonotronType[], validators: TypeValidators): TypeLibrary {
   const result: TypeLibrary = {
-    arrayTypes: [],
     boolTypes: [],
     enumTypes: [],
     floatTypes: [],
@@ -156,11 +149,6 @@ function sortResources (resources: JsonotronType[], validators: TypeValidators):
 
   resources.forEach(res => {
     switch(res.kind) {
-      case 'array': {
-        ensureTypeIsValid(res, validators.arrayTypeValidator)
-        result.arrayTypes.push(res as ArrayType)
-        break
-      }
       case 'bool': {
         ensureTypeIsValid(res, validators.boolTypeValidator)
         result.boolTypes.push(res)
@@ -212,7 +200,6 @@ function sortResources (resources: JsonotronType[], validators: TypeValidators):
 function extractSystemQualifiedTypeNames (typeLibrary: TypeLibrary): string[] {
   const result: string[] = []
 
-  result.push(...typeLibrary.arrayTypes.map(type => `${type.system}/${type.name}`))
   result.push(...typeLibrary.boolTypes.map(type => `${type.system}/${type.name}`))
   result.push(...typeLibrary.enumTypes.map(type => `${type.system}/${type.name}`))
   result.push(...typeLibrary.floatTypes.map(type => `${type.system}/${type.name}`))
@@ -241,22 +228,11 @@ function ensureSystemQualifiedTypeNamesAreUnique (systemQualifiedTypeNames: stri
 }
 
 /**
- * Raises an error if the given array type describes elements of an unrecognised type.
- * @param arrayType An array type.
- * @param systemQualifiedTypeNames An array of system qualified type names.
- */
-function ensureArrayTypeElementTypeIsValid (arrayType: ArrayType, systemQualifiedTypeNames: string[]): void {
-  if (!systemQualifiedTypeNames.includes(getSystemQualifiedTypeName(arrayType.system, arrayType.elementType))) {
-    throw new UnrecognisedTypeError(arrayType.elementType)
-  }
-}
-
-/**
  * Raises an error if the given enum scalar type describes data of an unrecognised type.
  * @param enumScalarType An enum scalar type.
  * @param systemQualifiedTypeNames An array of system qualified type names.
  */
-function ensureEnumScalarTypeDataTypeIsValid (enumScalarType: EnumType, systemQualifiedTypeNames: string[]): void {
+function ensureEnumTypeDataTypeIsValid (enumScalarType: EnumType, systemQualifiedTypeNames: string[]): void {
   if (enumScalarType.dataType && !systemQualifiedTypeNames.includes(getSystemQualifiedTypeName(enumScalarType.system, enumScalarType.dataType))) {
     throw new UnrecognisedTypeError(enumScalarType.dataType)
   }
@@ -303,7 +279,7 @@ function ajvErrorsToString (errors?: ErrorObject[]|null) {
  * @param jsonSchemaValidator A json schema validator.
  * @param enumScalarType An enum scalar type.
  */
-function ensureEnumScalarTypeItemsDataIsValid (jsonSchemaValidator: Ajv, enumScalarType: EnumType): void {
+function ensureEnumTypeItemsDataIsValid (jsonSchemaValidator: Ajv, enumScalarType: EnumType): void {
   // Only check data if a schema is provided.
   if (enumScalarType.dataType) {
     // Get the validator.
@@ -313,7 +289,7 @@ function ensureEnumScalarTypeItemsDataIsValid (jsonSchemaValidator: Ajv, enumSca
     // Check the data attached to each item.
     enumScalarType.items.forEach(item => {
       if (!validator(item.data)) {
-        throw new EnumScalarTypeItemDataValidationError(enumScalarType.name, item.value, ajvErrorsToString(validator.errors))
+        throw new EnumTypeItemDataValidationError(enumScalarType.name, item.value, ajvErrorsToString(validator.errors))
       }
     })
   }

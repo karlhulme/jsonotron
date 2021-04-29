@@ -6,11 +6,6 @@ import { ValidateFunction } from 'ajv'
  */
 export interface TypeValidators {
   /**
-   * A validator that returns true if the given resource is a valid array type.
-   */
-  arrayTypeValidator: ValidateFunction
-
-  /**
    * A validator that returns true if the given resource is a valid bool type.
    */
   boolTypeValidator: ValidateFunction

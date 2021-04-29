@@ -280,6 +280,13 @@ Do not automate the downloading of the `jss` types or your own types.  This shou
 ## Design Decisions
 
 
+### Why generate code using templates and not dedicated libraries?
+
+The specific requirements of each application will vary.  For example, in C# you might want to create types based on the System.Test.Json namespace or based on the NewtonSoft.Json namespace or even the Amazon.DynamoDB.
+
+In consequence, the best approach is to build solution specific templates.
+
+
 ### Shouldn't each service define and own it's interface?
 
 This often makes sense. 
@@ -326,6 +333,13 @@ In single-language systems, it's very convenient to have a text property as well
 Being able to associated additional arbitrary data, and have that data validated, without ever repeating the key, is a very efficient way of storing this data.
 
 Ultimately, we build a JSON schema containing just the enum definition, so from a client perspective the result is really the same anyway.
+
+
+### Why is there not an array type?
+
+Very few languages allow us to define constraints on an array type directly, for example, specifying the minimum or maximum number of items.
+
+The availability of array types overlaps with the ability to specify record properties as arrays, which results in a higher burden on the templates used to generate code.
 
 
 ### Why generate JSON Schema IDs?

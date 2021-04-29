@@ -1,4 +1,3 @@
-import { ArrayType } from './ArrayType'
 import { EnumType } from './EnumType'
 import { FloatType } from './FloatType'
 import { IntType } from './IntType'
@@ -11,11 +10,6 @@ import { StringType } from './StringType'
  * A type library may contain types from multiple type systems.
  */
 export interface TypeLibrary {
-  /**
-   * An array of verified array types.
-   */
-  arrayTypes: ArrayType[]
-
   /**
    * An array of verified bool types.
    */
