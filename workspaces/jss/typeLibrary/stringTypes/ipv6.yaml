@@ -1,6 +1,6 @@
 ---
 kind: string
-system: jss
+system: std
 name: ipv6
 summary: A string of digits that identify a computer on a network in IP v6 format.
   It will match values such as ::1 and 2a00:23c5:1ab0:3001:1776:5ae:499f:114a.

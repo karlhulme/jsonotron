@@ -1,5 +1,5 @@
 ---
 kind: bool
-system: jss
+system: std
 name: boolean
 summary: A value of either true or false.

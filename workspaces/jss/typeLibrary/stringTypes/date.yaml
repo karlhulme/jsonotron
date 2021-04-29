@@ -1,6 +1,6 @@
 ---
 kind: string
-system: jss
+system: std
 name: date
 summary: A string with the date components arranged using the YYYY-MM-DD pattern.  If
   the day or month component is a value less than 10 then a leading zero must be included.  This

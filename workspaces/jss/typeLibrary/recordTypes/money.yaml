@@ -1,6 +1,6 @@
 ---
 kind: record
-system: jss
+system: std
 name: money
 summary: An amount of money designated in a specific currency.
 properties:

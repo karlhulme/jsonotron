@@ -1,6 +1,6 @@
 ---
 kind: enum
-system: jss
+system: std
 name: callingCode
 summary: An international telephone calling code defined by the ITU-T in standards
   E.123 and E.164.  The data is taken from https://en.wikipedia.org/wiki/List_of_country_calling_codes.

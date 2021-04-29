@@ -1,6 +1,6 @@
 ---
 kind: int
-system: jss
+system: std
 name: integer
 summary: A 32-bit signed integer.
 minimum: -2147483648

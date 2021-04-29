@@ -1,6 +1,6 @@
 ---
 kind: record
-system: jss
+system: std
 name: address
 summary: An international address.
 properties:

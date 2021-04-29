@@ -1,6 +1,6 @@
 ---
 kind: record
-system: jss
+system: std
 name: longLat
 summary: A GPS co-ordinate representing as a longitudinal and latitudinal position.
 properties:

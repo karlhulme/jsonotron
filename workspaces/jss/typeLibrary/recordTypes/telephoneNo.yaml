@@ -1,6 +1,6 @@
 ---
 kind: record
-system: jss
+system: std
 name: telephoneNo
 summary: A telephone number that comprises of a dialling code and a number.
 properties:

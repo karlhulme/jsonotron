@@ -1,6 +1,6 @@
 ---
 kind: string
-system: jss
+system: std
 name: webAddress
 summary: A url that is prefixed with either https or https.
 maximumLength: 2048

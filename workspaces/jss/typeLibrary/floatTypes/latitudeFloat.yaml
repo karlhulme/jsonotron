@@ -1,6 +1,6 @@
 ---
 kind: float
-system: jss
+system: std
 name: latitudeFloat
 summary: A value that represents a longitudinal position.
 minimum: -90

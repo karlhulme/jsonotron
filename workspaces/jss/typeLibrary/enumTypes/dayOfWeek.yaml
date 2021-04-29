@@ -1,6 +1,6 @@
 ---
 kind: enum
-system: jss
+system: std
 name: dayOfWeek
 summary: A day of the week.
 items:

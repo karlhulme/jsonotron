@@ -1,6 +1,6 @@
 ---
 kind: string
-system: jss
+system: std
 name: emailAddress
 summary: An email address.  
   The regex will check that a recipient part and a domain part is separated by a @ symbol.

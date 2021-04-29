@@ -1,6 +1,6 @@
 ---
 kind: string
-system: jss
+system: std
 name: mediumString
 summary: A string with up to 50 unicode characters.
 maximumLength: 50

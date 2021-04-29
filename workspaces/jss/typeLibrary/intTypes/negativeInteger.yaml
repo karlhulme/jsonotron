@@ -1,6 +1,6 @@
 ---
 kind: int
-system: jss
+system: std
 name: negativeInteger
 summary: A negative integer represented as a 32-bit signed integer.
 minimum: -2147483648

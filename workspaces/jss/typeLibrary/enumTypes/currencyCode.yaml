@@ -1,6 +1,6 @@
 ---
 kind: enum
-system: jss
+system: std
 name: currencyCode
 summary: A currency designator from ISO 4217.  The data is taken from https://en.wikipedia.org/wiki/ISO_4217.
 dataType: currencyCodeData

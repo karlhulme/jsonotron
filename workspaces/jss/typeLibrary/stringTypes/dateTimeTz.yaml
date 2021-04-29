@@ -1,6 +1,6 @@
 ---
 kind: string
-system: jss
+system: std
 name: dateTimeTz
 summary: A string with the date and time components arranged using the YYYY-MM-DDTHH:mm:ss+00:00
   pattern. Leading zeroes must be used to ensure that all values are the same length.

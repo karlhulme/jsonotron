@@ -1,6 +1,6 @@
 ---
 kind: int
-system: jss
+system: std
 name: timestamp
 summary: The number of milliseconds that have elapsed since 00:00:00 Thursday, 1 January 1970.
 minimum: 0

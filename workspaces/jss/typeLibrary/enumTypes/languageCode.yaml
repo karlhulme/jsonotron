@@ -1,6 +1,6 @@
 ---
 kind: enum
-system: jss
+system: std
 name: languageCode
 summary: A language code conforming to the from ISO 639-1 standard.
 items:

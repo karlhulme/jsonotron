@@ -1,6 +1,6 @@
 ---
 kind: int
-system: jss
+system: std
 name: positiveIntegerOrZero
 summary: A positive integer, or zero, represented as a 32-bit signed integer.
 minimum: 0

@@ -1,6 +1,6 @@
 ---
 kind: enum
-system: jss
+system: std
 name: timeZone
 summary: A time zone from the IANA tz database.  The data is taken from https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
 items:

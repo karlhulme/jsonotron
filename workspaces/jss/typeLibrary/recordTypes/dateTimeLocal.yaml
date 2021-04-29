@@ -1,6 +1,6 @@
 ---
 kind: record
-system: jss
+system: std
 name: dateTimeLocal
 summary: A date and time in a specific time zone.  This type also captures
  the location where the value was recorded.

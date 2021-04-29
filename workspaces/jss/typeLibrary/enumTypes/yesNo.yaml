@@ -1,6 +1,6 @@
 ---
 kind: enum
-system: jss
+system: std
 name: yesNo
 summary: |-
   A binary choice between yes or no. This type can be used where a third option may be introduced in the future.

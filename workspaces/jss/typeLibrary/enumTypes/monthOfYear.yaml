@@ -1,6 +1,6 @@
 ---
 kind: enum
-system: jss
+system: std
 name: monthOfYear
 summary: A calendar month.
 items:

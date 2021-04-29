@@ -1,6 +1,6 @@
 ---
 kind: int
-system: jss
+system: std
 name: positiveInteger
 summary: A positive integer represented as a 32-bit signed integer.
 minimum: 1

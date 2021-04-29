@@ -1,6 +1,6 @@
 ---
 kind: record
-system: jss
+system: std
 name: currencyCodeData
 summary: The data that should be stored for each item of the currencyCode enum.
 properties:

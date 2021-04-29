@@ -1,0 +1,27 @@
+---
+kind: record
+system: std
+name: what3Words
+summary: A value that captures an address based on the https://what3words.com
+  geocoding system. The system allows you to specify any location on Earth, within
+  a few metres, using just 3 words.
+properties:
+- name: word1
+  summary: The first of the three words.
+  propertyType: shortString
+  isRequired: true
+- name: word2
+  summary: The second of the three words.
+  propertyType: shortString
+  isRequired: true
+- name: word3
+  summary: The third of the three words.
+  propertyType: shortString
+  isRequired: true
+validTestCases:
+- value:
+    word1: umbrella
+    word2: computer
+    word3: strategy
+  summary: A position described using three words.
+  

@@ -1,6 +1,6 @@
 ---
 kind: string
-system: jss
+system: std
 name: ipv4
 summary: A string of digits that identify a computer on a network in IP v4 format.
   The regex is an approximation and further validation may be desired.

@@ -1,6 +1,6 @@
 ---
 kind: string
-system: jss
+system: std
 name: shortString
 summary: A string with up to 20 unicode characters.
 maximumLength: 20
