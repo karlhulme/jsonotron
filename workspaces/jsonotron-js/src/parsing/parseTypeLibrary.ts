@@ -115,6 +115,22 @@ function getSystemQualifiedTypeName (system: string, typeName: string) {
 }
 
 /**
+ * Returns the system part of the given system qualified type.
+ * @param systemQualifiedType A system qualified type in the form sys/name.
+ */
+function getSystemPartOfSystemQualifiedType (systemQualifiedType: string) {
+  return systemQualifiedType.substring(0, systemQualifiedType.indexOf('/'))
+}
+
+/**
+ * Returns the name part of the given system qualified type.
+ * @param systemQualifiedType A system qualified type in the form sys/name.
+ */
+function getNamePartOfSystemQualifiedType (systemQualifiedType: string) {
+  return systemQualifiedType.substring(systemQualifiedType.indexOf('/') + 1)
+}
+
+/**
  * Returns a set of validators for the various types.
  */
 function createTypeValidators (): TypeValidators {
@@ -245,9 +261,15 @@ function ensureEnumTypeDataTypeIsValid (enumScalarType: EnumType, systemQualifie
  */
 function ensureRecordTypePropertiesPropertyTypeAreValid (recordType: RecordType, systemQualifiedTypeNames: string[]): void {
   recordType.properties.forEach(property => {
-    if (!systemQualifiedTypeNames.includes(getSystemQualifiedTypeName(recordType.system, property.propertyType))) {
+    const qualifiedPropertyType = getSystemQualifiedTypeName(recordType.system, property.propertyType)
+
+    if (!systemQualifiedTypeNames.includes(qualifiedPropertyType)) {
       throw new UnrecognisedTypeError(property.propertyType)
     }
+
+    property.propertyType = qualifiedPropertyType
+    property.propertyTypeSystem = getSystemPartOfSystemQualifiedType(qualifiedPropertyType)
+    property.propertyTypeName = getNamePartOfSystemQualifiedType(qualifiedPropertyType)
   })
 }
 

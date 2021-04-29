@@ -73,7 +73,12 @@ function setupValidator () {
 }
 
 test('A valid record type can be parsed.', async () => {
-  expect(() => parseTypeLibrary({ resourceStrings: [recordType, otherType] })).not.toThrow()
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [recordType, otherType] })
+  expect(typeLibrary.recordTypes).toHaveLength(1)
+  expect(typeLibrary.recordTypes[0].properties).toHaveLength(1)
+  expect(typeLibrary.recordTypes[0].properties[0]).toHaveProperty('propertyTypeSystem', 'test')
+  expect(typeLibrary.recordTypes[0].properties[0]).toHaveProperty('propertyTypeName', 'other')
+
   expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithVariants, otherType] })).not.toThrow()
 })
 

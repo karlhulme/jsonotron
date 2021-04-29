@@ -2,9 +2,15 @@
 /* Generated: {{generatedDateTime}} */
 
 {{#each typeLibrary.recordTypes}}
+/**
+ * {{summary}}
+ */
 export interface {{identToPascalCase name}} {
   {{#each properties}}
-    {{name}}: {{propertyType}}
+  /**
+   * {{summary}}
+   */
+  {{name}}: {{identToPascalCase propertyTypeSystem}}{{identToPascalCase propertyTypeName}}
   {{/each}}
 }
 {{/each}}

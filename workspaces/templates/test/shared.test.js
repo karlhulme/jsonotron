@@ -27,6 +27,8 @@ function createSampleTypeLibrary () {
       properties: [{
         name: 'numberOfLegs',
         propertyType: 'jss/positiveInteger',
+        propertyTypeSystem: 'test',
+        propertyTypeName: 'positiveInteger',
         summary: 'The number of legs under the table.',
         isRequired: true
       }],

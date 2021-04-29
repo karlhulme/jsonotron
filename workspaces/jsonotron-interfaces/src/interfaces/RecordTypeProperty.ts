@@ -13,9 +13,19 @@ export interface RecordTypeProperty {
   summary: string
 
   /**
-   * The type of the property.
+   * The fully qualified type of the property.
    */
   propertyType: string
+
+  /**
+   * The system part of the property type.
+   */
+  propertyTypeSystem: string
+
+  /**
+   * The short name of the property type.
+   */
+  propertyTypeName: string
 
   /**
    * Specifies if the value is to be treated as an array.
