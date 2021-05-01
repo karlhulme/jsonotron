@@ -1,7 +1,6 @@
-# std
+# Examples
 
-A set of Jsonotron types that serves as a good starting point for a type library.
-
+A set of Jsonotron types and language templates that serves as a good starting point for a type library.
 ![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
 
 

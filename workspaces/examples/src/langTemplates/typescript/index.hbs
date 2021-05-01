@@ -1,0 +1,15 @@
+/* istanbul ignore file */
+/* Generated: {{generatedDateTime}} */
+
+{{>jsonSchemas .}}
+
+{{>enumBoilerplate}}
+
+{{#each typeLibrary.enumTypes}}
+{{>enumItems .}}
+{{>enumValues .}}
+{{/each}}
+
+{{#each typeLibrary.recordTypes}}
+{{>recordInterface .}}
+{{/each}}

@@ -1,0 +1,13 @@
+{{#each typeLibrary.enumTypes}}
+export const {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA = '{{stringify jsonSchema}}'
+{{/each}}
+
+export const allEnumTypeJsonSchemas = [
+  {{#each typeLibrary.enumTypes}}
+  {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA{{#unless @last}},{{/unless}}
+  {{/each}}
+]
+
+export const allJsonSchemas = [
+  ...allEnumTypeJsonSchemas
+]

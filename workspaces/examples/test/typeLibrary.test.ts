@@ -1,10 +1,10 @@
-const { expect, test } = require('@jest/globals')
-const fg = require('fast-glob')
-const { readFile } = require('fs/promises')
-const { parseTypeLibrary } = require('jsonotron-js')
+import { expect, test } from '@jest/globals'
+import fg from 'fast-glob'
+import { readFile } from 'fs/promises'
+import { parseTypeLibrary } from 'jsonotron-js'
 
-test('The types of the jsonotron standard library are valid.', async () => {
-  const typeFileNames = await fg('./typeLibrary/**/*.yaml')
+test('The example types of the library are valid.', async () => {
+  const typeFileNames = await fg('./src/typeLibrary/**/*.yaml')
 
   const resourceStrings = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
 

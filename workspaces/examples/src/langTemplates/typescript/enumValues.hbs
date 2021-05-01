@@ -1,0 +1,15 @@
+
+/**
+ * {{summary}}
+ */
+export const {{identToConstCase system}}_{{identToConstCase name}}_VALUES = {
+  {{#each items}}
+  /**
+   * {{summary}}
+   */
+  {{valueToIdent value}}: '{{value}}'{{#unless @last}},{{/unless}}
+  {{#unless @last}}
+
+  {{/unless}}
+  {{/each}}
+}

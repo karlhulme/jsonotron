@@ -1,0 +1,15 @@
+
+/**
+ * {{summary}}
+ */
+export const {{identToConstCase system}}_{{identToConstCase name}}_ITEMS: EnumTypeItem[] = [
+  {{#each items}}
+  /**
+   * {{summary}}
+   */
+  { value: '{{value}}', text: '{{text}}' }{{#unless @last}},{{/unless}}
+  {{#unless @last}}
+
+  {{/unless}}
+  {{/each}}
+]

@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+		// Target latest version of ECMAScript.
+		"target": "es6",
+		// The module system expected to load it.
+		"module": "CommonJS",
+		// Search under node_modules for non-relative imports.
+		"moduleResolution": "node",
+		// Process & infer types from .js files.
+		"allowJs": true,
+		// emit something
+		"noEmit": false,
+		// Generates corresponding '.d.ts' file.
+		"emitDeclarationOnly": false,
+		// Emit the declarations
+    "declaration": true,
+    // Output directory for generated declaration files.
+		"declarationDir": "./types",
+		// Output directory for the transpiled js files.
+		"outDir": "./lib",
+		// Enable strictest settings like strictNullChecks & noImplicitAny.
+		"strict": true,
+		// Disallow features that require cross-file information for emit.
+		"isolatedModules": true,
+		// Import non-ES modules as default imports.
+		"esModuleInterop": true,
+		// Speed up build.
+		"skipLibCheck": true,
+		// Ignore error when there is no default import.
+		"allowSyntheticDefaultImports": true
+	},
+	"include": [
+		"src"
+	],
+	"exclude": [
+		"**/*.test.ts"
+	]
+}

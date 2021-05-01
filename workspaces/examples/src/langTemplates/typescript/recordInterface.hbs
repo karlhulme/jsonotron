@@ -1,0 +1,18 @@
+
+/**
+ * {{summary}}
+{{#isTagged tags with='special'}}
+ * This record type was marked with the "special" tag.
+{{/isTagged}}
+ */
+export interface {{identToPascalCase system}}{{identToPascalCase name}} {
+  {{#each properties}}
+  /**
+   * {{summary}}
+   */
+  {{name}}{{#if isOptional}}?{{/if}}: {{>propertyType .}}{{#if isArray}}[]{{/if}}
+  {{#unless @last}}
+
+  {{/unless}}
+  {{/each}}
+}
