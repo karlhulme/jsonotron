@@ -1,0 +1,5 @@
+Property name | type | req? | summary
+--- | --- | --- | ---
+{{#each properties}}
+{{name}} | [{{identToPascalCase propertyTypeSystem}}{{identToPascalCase propertyTypeName}}](#{{identToPascalCase propertyTypeSystem}}{{identToPascalCase propertyTypeName}}){{#if isArray}}[]{{/if}} | {{#if isRequired}}Y{{/if}} | {{summary}}{{#if deprecated}} **DEPRECATED:** {{deprecated}}{{/if}}
+{{/each}}

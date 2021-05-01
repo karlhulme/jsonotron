@@ -1,0 +1,19 @@
+## {{identToPascalCase system}}{{identToPascalCase name}}
+
+kind: **{{kind}}**\
+system: **{{system}}**\
+name: **{{name}}**
+
+{{summary}}
+
+{{#if deprecated}}
+**DEPRECATED**: {{deprecated}}
+{{/if}}
+
+{{#if tags}}
+Tags:
+
+{{#each tags}}
+* {{.}}
+{{/each}}
+{{/if}}

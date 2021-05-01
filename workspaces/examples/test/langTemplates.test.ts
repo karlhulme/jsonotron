@@ -7,6 +7,7 @@ import { loadTemplatesFromFolder, createTemplateProcessor, TemplateProcessorCont
 
 function chooseOutputName (templateName: string): string {
   switch (templateName) {
+    case 'markdown': return 'markdown.md'
     case 'typescript': return 'typescript.ts'
     default: return `${templateName}.txt`
   }

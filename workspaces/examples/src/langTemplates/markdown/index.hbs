@@ -1,0 +1,41 @@
+# Type Library
+
+This documentation was generated at {{generatedDateTime}}
+
+{{>contents .}}
+
+{{#each typeLibrary.boolTypes}}
+{{> typeHeader .}}
+{{> typeJsonSchema .}}
+{{/each}}
+
+{{#each typeLibrary.enumTypes}}
+{{> typeHeader .}}
+{{> enumType .}}
+{{/each}}
+
+{{#each typeLibrary.floatTypes}}
+{{> typeHeader .}}
+{{> typeJsonSchema .}}
+{{/each}}
+
+{{#each typeLibrary.intTypes}}
+{{> typeHeader .}}
+{{> typeJsonSchema .}}
+{{/each}}
+
+{{#each typeLibrary.objectTypes}}
+{{> typeHeader .}}
+{{> typeJsonSchema .}}
+{{/each}}
+
+{{#each typeLibrary.recordTypes}}
+{{> typeHeader .}}
+{{> recordType .}}
+{{> typeJsonSchema .}}
+{{/each}}
+
+{{#each typeLibrary.stringTypes}}
+{{> typeHeader .}}
+{{> typeJsonSchema .}}
+{{/each}}

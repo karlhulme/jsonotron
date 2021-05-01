@@ -1,3 +1,13 @@
+{{#each typeLibrary.boolTypes}}
+export const {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA = '{{stringify jsonSchema}}'
+{{/each}}
+
+export const allBoolTypeJsonSchemas = [
+  {{#each typeLibrary.boolTypes}}
+  {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA{{#unless @last}},{{/unless}}
+  {{/each}}
+]
+
 {{#each typeLibrary.enumTypes}}
 export const {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA = '{{stringify jsonSchema}}'
 {{/each}}
@@ -8,6 +18,62 @@ export const allEnumTypeJsonSchemas = [
   {{/each}}
 ]
 
+{{#each typeLibrary.floatTypes}}
+export const {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA = '{{stringify jsonSchema}}'
+{{/each}}
+
+export const allFloatTypeJsonSchemas = [
+  {{#each typeLibrary.floatTypes}}
+  {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA{{#unless @last}},{{/unless}}
+  {{/each}}
+]
+
+{{#each typeLibrary.intTypes}}
+export const {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA = '{{stringify jsonSchema}}'
+{{/each}}
+
+export const allIntTypeJsonSchemas = [
+  {{#each typeLibrary.intTypes}}
+  {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA{{#unless @last}},{{/unless}}
+  {{/each}}
+]
+
+{{#each typeLibrary.objectTypes}}
+export const {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA = '{{stringify jsonSchema}}'
+{{/each}}
+
+export const allObjectTypeJsonSchemas = [
+  {{#each typeLibrary.objectTypes}}
+  {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA{{#unless @last}},{{/unless}}
+  {{/each}}
+]
+
+{{#each typeLibrary.recordTypes}}
+export const {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA = '{{stringify jsonSchema}}'
+{{/each}}
+
+export const allRecordTypeJsonSchemas = [
+  {{#each typeLibrary.recordTypes}}
+  {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA{{#unless @last}},{{/unless}}
+  {{/each}}
+]
+
+{{#each typeLibrary.stringTypes}}
+export const {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA = '{{stringify jsonSchema}}'
+{{/each}}
+
+export const allStringTypeJsonSchemas = [
+  {{#each typeLibrary.stringTypes}}
+  {{identToConstCase system}}_{{identToConstCase name}}_JSON_SCHEMA{{#unless @last}},{{/unless}}
+  {{/each}}
+]
+
 export const allJsonSchemas = [
-  ...allEnumTypeJsonSchemas
+  ...allBoolTypeJsonSchemas,
+  ...allEnumTypeJsonSchemas,
+  ...allFloatTypeJsonSchemas,
+  ...allIntTypeJsonSchemas,
+  ...allObjectTypeJsonSchemas,
+  ...allRecordTypeJsonSchemas,
+  ...allStringTypeJsonSchemas
 ]
