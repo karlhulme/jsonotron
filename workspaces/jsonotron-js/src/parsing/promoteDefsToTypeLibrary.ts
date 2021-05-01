@@ -1,7 +1,7 @@
 import {
   EnumType, EnumTypeDef, JsonotronTypeDef,
   RecordType, RecordTypeDef, RecordTypeDefProperty,
-  RecordTypeDefVariant, TypeLibrary, TypeLibraryDef
+  RecordTypeDefVariant, StringType, StringTypeDef, TypeLibrary, TypeLibraryDef
 } from 'jsonotron-interfaces'
 import {
   createJsonSchemaForBoolTypeDef, createJsonSchemaForEnumTypeDef,
@@ -26,7 +26,7 @@ export function promoteDefsToTypeLibrary (domain: string, typeLibraryDef: TypeLi
     intTypes: typeLibraryDef.intTypeDefs.map(t => ({ ...t, jsonSchema: createJsonSchemaForIntTypeDef(domain, t) as Record<string, unknown> })),
     objectTypes: typeLibraryDef.objectTypeDefs.map(t => ({ ...t, jsonSchema: createJsonSchemaForObjectTypeDef(domain, t) as Record<string, unknown> })),
     recordTypes: convertRecordTypeDefsToRecordTypes(domain, typeLibraryDef.recordTypeDefs, typeLibraryDef),
-    stringTypes: typeLibraryDef.stringTypeDefs.map(t => ({ ...t, jsonSchema: createJsonSchemaForStringTypeDef(domain, t) as Record<string, unknown> }))  
+    stringTypes: typeLibraryDef.stringTypeDefs.map(t => convertStringTypeDefToStringType(domain, t)) 
   }
 
   return typeLibrary
@@ -119,7 +119,8 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
         isRecord: doesArrayContainType(typeLibraryDef.recordTypeDefs, propertyTypeSystem, propertyTypeName),
         isString: doesArrayContainType(typeLibraryDef.stringTypeDefs, propertyTypeSystem, propertyTypeName)    
       }
-    })
+    }),
+    examples: recordTypeDef.validTestCases.filter(tc => tc.summary)
   }
 
   result.push(recordType)
@@ -167,7 +168,8 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
           isRecord: doesArrayContainType(typeLibraryDef.recordTypeDefs, propertyTypeSystem, propertyTypeName),
           isString: doesArrayContainType(typeLibraryDef.stringTypeDefs, propertyTypeSystem, propertyTypeName)    
         }
-      })
+      }),
+      examples: []
     }
 
     result.push(variantRecordType)
@@ -190,4 +192,25 @@ function getSystemPartOfSystemQualifiedType (systemQualifiedType: string) {
  */
 function getNamePartOfSystemQualifiedType (systemQualifiedType: string) {
   return systemQualifiedType.substring(systemQualifiedType.indexOf('/') + 1)
+}
+
+/**
+ * Returns a StringType based on the given StringTypeDef.
+ * @param domain A domain for JSON schemas.
+ * @param stringTypeDef A string type definition.
+ */
+function convertStringTypeDefToStringType (domain: string, stringTypeDef: StringTypeDef): StringType {
+  return {
+    kind: stringTypeDef.kind,
+    system: stringTypeDef.system,
+    name: stringTypeDef.name,
+    summary: stringTypeDef.summary,
+    deprecated: stringTypeDef.deprecated,
+    maximumLength: stringTypeDef.maximumLength,
+    minimumLength: stringTypeDef.minimumLength,
+    regex: stringTypeDef.regex,
+    tags: stringTypeDef.tags,
+    jsonSchema: createJsonSchemaForStringTypeDef(domain, stringTypeDef) as Record<string, unknown>,
+    examples: stringTypeDef.validTestCases?.filter(tc => tc.summary) || []
+  }
 }

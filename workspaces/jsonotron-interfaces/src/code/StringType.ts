@@ -1,3 +1,4 @@
+import { Example } from './Example'
 import { JsonotronType } from './JsonotronType'
 
 /**
@@ -19,4 +20,9 @@ export interface StringType extends JsonotronType {
    * Specifies the maximum length of the string.
    */
   maximumLength: number
+
+  /**
+   * An array of examples.
+   */
+  examples: Example<string>[]
 }
