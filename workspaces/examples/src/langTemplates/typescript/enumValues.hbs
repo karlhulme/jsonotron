@@ -8,7 +8,10 @@
 export const {{identToConstCase system}}_{{identToConstCase name}}_VALUES = {
   {{#each items}}
   /**
+   * {{text}}.
+     {{#if summary}}
    * {{summary}}
+     {{/if}}
      {{#if deprecated}}
    * @deprecated {{deprecated}}
      {{/if}}
