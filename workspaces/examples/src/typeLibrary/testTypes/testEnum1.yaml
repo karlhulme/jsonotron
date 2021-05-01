@@ -1,0 +1,14 @@
+---
+kind: enum
+system: std
+name: testEnum1
+summary: A test enum to show deprecations.
+deprecated: This is not used, it's only for testing.
+items:
+- value: theFirst
+  text: First
+- value: theSecond
+  text: Second
+- value: theThird
+  text: Third
+  deprecated: This third value is not used, use theSecond instead.

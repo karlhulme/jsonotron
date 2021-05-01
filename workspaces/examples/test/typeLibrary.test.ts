@@ -12,10 +12,10 @@ test('The example types of the library are valid.', async () => {
 
   const typeLibrary = parseTypeLibrary({ resourceStrings })
   expect(typeLibrary.boolTypes).toHaveLength(1)
-  expect(typeLibrary.enumTypes).toHaveLength(8)
+  expect(typeLibrary.enumTypes).toHaveLength(9)
   expect(typeLibrary.floatTypes).toHaveLength(7)
   expect(typeLibrary.intTypes).toHaveLength(6)
   expect(typeLibrary.objectTypes).toHaveLength(1)
-  expect(typeLibrary.recordTypes).toHaveLength(8)
+  expect(typeLibrary.recordTypes).toHaveLength(10)
   expect(typeLibrary.stringTypes).toHaveLength(13)
 })

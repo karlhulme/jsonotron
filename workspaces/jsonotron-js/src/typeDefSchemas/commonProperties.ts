@@ -19,7 +19,7 @@ export const commonProperties = {
     type: 'string'
   },
   deprecated: {
-    type: 'object'
+    type: 'string'
   },
   tags: {
     type: 'array',

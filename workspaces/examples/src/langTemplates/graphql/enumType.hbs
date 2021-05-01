@@ -9,7 +9,7 @@ enum {{identToPascalCase system}}{{identToPascalCase name}} {
   {{summary~}}
   Represents an underlying value of '{{value}}'.
   """
-  {{valueToConstCase value}}{{#if deprecated}} @deprecated(reason: {{deprecated}}){{/if}}
+  {{valueToConstCase value}}{{#if deprecated}} @deprecated(reason: "{{deprecated}}"){{/if}}
   {{#unless @last}}
 
   {{/unless}}

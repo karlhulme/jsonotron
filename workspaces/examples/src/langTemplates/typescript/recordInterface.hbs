@@ -1,18 +1,22 @@
 
 /**
  * {{summary}}
- * {{#if deprecated}}@deprecated {{deprecated}}{{/if}}
-{{#isTagged tags with='special'}}
+   {{#if deprecated}}
+ * @deprecated {{deprecated}}
+   {{/if}}
+   {{#isTagged tags with='special'}}
  * This record type was marked with the "special" tag.
-{{/isTagged}}
+   {{/isTagged}}
  */
 export interface {{identToPascalCase system}}{{identToPascalCase name}} {
   {{#each properties}}
   /**
    * {{summary}}
-   * {{#if deprecated}}@deprecated {{deprecated}}{{/if}}
+     {{#if deprecated}}
+   * @deprecated {{deprecated}}
+     {{/if}}
    */
-  {{name}}{{#if isOptional}}?{{/if}}: {{>propertyType .}}{{#if isArray}}[]{{/if}}
+  {{name}}{{#if isOptional}}?{{/if}}: {{> propertyType .}}{{#if isArray}}[]{{/if}}
   {{#unless @last}}
 
   {{/unless}}
