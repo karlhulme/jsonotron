@@ -10,6 +10,7 @@ properties:
   propertyType: positiveIntegerOrZero
 required:
 - scaler
+direction: output
 validTestCases:
 - value:
     scaler: 2

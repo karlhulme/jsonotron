@@ -9,6 +9,7 @@ properties:
   propertyType: longString
 required:
 - region
+direction: output
 validTestCases:
 - value:
     region: United kingdom

@@ -16,6 +16,6 @@ test('The example types of the library are valid.', async () => {
   expect(typeLibrary.floatTypes).toHaveLength(7)
   expect(typeLibrary.intTypes).toHaveLength(6)
   expect(typeLibrary.objectTypes).toHaveLength(1)
-  expect(typeLibrary.recordTypes).toHaveLength(10)
+  expect(typeLibrary.recordTypes).toHaveLength(11)
   expect(typeLibrary.stringTypes).toHaveLength(13)
 })

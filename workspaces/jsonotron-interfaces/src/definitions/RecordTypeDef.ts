@@ -18,6 +18,13 @@ export interface RecordTypeDef extends JsonotronTypeDef {
   required?: string[]
 
   /**
+   * Indicates whether the record is used exclusively for input,
+   * exclusively for output, or for either.  If not specified, a
+   * direction of 'both' is assumed.
+   */
+  direction?: 'input'|'output'|'both'
+
+  /**
    * An array of types that are derived by selecting or excluding 
    * specific properties of the type.
    */

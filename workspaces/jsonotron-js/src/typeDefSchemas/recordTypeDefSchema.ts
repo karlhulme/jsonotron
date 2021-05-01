@@ -46,6 +46,9 @@ export const recordTypeDefSchema = {
         type: 'string'
       }
     },
+    direction: {
+      enum: ['input', 'output', 'both']
+    },
     variants: {
       type: 'array',
       items: {
@@ -58,12 +61,6 @@ export const recordTypeDefSchema = {
           },
           summary: {
             type: 'string'
-          },
-          required: {
-            type: 'array',
-            items: {
-              type: 'string'
-            }
           },
           includeProperties: {
             type: 'array',
@@ -78,6 +75,15 @@ export const recordTypeDefSchema = {
             items: {
               type: 'string'
             }
+          },
+          required: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
+          },
+          direction: {
+            enum: ['input', 'output', 'both']
           },
           deprecated: {
             type: 'string'

@@ -9,6 +9,16 @@ export interface RecordType extends JsonotronType {
   properties: RecordTypeProperty[]
 
   /**
+   * Indicates if the record serves as an input type.
+   */
+  isInput: boolean
+
+  /**
+   * Indicates if the record serves as an output type.
+   */
+  isOutput: boolean
+
+  /**
    * An array of examples.
    */
   examples: Example<unknown>[]

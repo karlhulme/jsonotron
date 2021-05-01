@@ -13,11 +13,6 @@ export interface RecordTypeDefVariant {
   summary: string
 
   /**
-   * Indicates which of the properties on this variant are mandatory.
-   */
-  required?: string[]
-
-  /**
    * If present, it lists the only properties that are included in this
    * variant of the record.
    */
@@ -28,6 +23,18 @@ export interface RecordTypeDefVariant {
    * include all the properties except the ones specified.
    */
   excludeProperties?: string[]
+
+  /**
+   * Indicates which of the properties on this variant are mandatory.
+   */
+  required?: string[]
+
+  /**
+   * Indicates whether the record is used exclusively for input,
+   * exclusively for output, or for either.  If not specified, a
+   * direction of 'both' is assumed.
+   */
+  direction?: 'input'|'output'|'both'
 
   /**
    * If populated, this value explains why the variant was deprecated

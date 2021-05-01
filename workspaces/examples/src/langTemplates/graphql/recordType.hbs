@@ -1,4 +1,5 @@
 
+{{#if isOutput}}
 """
 {{summary}}
 {{#if deprecated}}This type has been deprecated: {{deprecated}}{{/if}}
@@ -11,7 +12,9 @@ type {{identToPascalCase system}}{{identToPascalCase name}} {
   {{/unless}}
   {{/each}}
 }
+{{/if}}
 
+{{#if isInput}}
 """
 {{summary}}
 """
@@ -23,3 +26,4 @@ input {{identToPascalCase system}}{{identToPascalCase name}}Input {
   {{/unless}}
   {{/each}}
 }
+{{/if}}

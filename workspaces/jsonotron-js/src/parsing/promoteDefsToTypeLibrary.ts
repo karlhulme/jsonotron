@@ -120,7 +120,9 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
         isString: doesArrayContainType(typeLibraryDef.stringTypeDefs, propertyTypeSystem, propertyTypeName)    
       }
     }),
-    examples: recordTypeDef.validTestCases.filter(tc => tc.summary)
+    examples: recordTypeDef.validTestCases.filter(tc => tc.summary),
+    isInput: recordTypeDef.direction === 'input' || recordTypeDef.direction === 'both' || !recordTypeDef.direction,
+    isOutput: recordTypeDef.direction === 'output' || recordTypeDef.direction === 'both' || !recordTypeDef.direction
   }
 
   result.push(recordType)
@@ -169,7 +171,9 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
           isString: doesArrayContainType(typeLibraryDef.stringTypeDefs, propertyTypeSystem, propertyTypeName)    
         }
       }),
-      examples: []
+      examples: [],
+      isInput: variantDef.direction === 'input' || variantDef.direction === 'both' || !variantDef.direction,
+      isOutput: variantDef.direction === 'output' || variantDef.direction === 'both' || !variantDef.direction
     }
 
     result.push(variantRecordType)

@@ -24,6 +24,13 @@ validTestCases:
     theSecond: two
 variants:
 - name: testRecord1Variant1
-  summary: The first variant defined against testRecord1.
+  summary: A variant that is only an input. 
+  direction: input
   excludeProperties:
   - theSecond
+- name: testRecord1Variant2
+  summary: A variant that is only an output. 
+  direction: output
+  includeProperties:
+  - theSecond
+  - theThird
