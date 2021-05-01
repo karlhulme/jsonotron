@@ -9,15 +9,16 @@ properties:
 - name: word1
   summary: The first of the three words.
   propertyType: shortString
-  isRequired: true
 - name: word2
   summary: The second of the three words.
   propertyType: shortString
-  isRequired: true
 - name: word3
   summary: The third of the three words.
   propertyType: shortString
-  isRequired: true
+required:
+- word1
+- word2
+- word3
 validTestCases:
 - value:
     word1: umbrella

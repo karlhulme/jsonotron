@@ -7,14 +7,15 @@ properties:
 - name: isd
   summary: An international dialling code.
   propertyType: callingCode
-  isRequired: true
 - name: number
   summary: The main number.  It should NOT have a leading zero.
   propertyType: shortString
-  isRequired: true
 - name: ext
   summary: Optional extension information.
   propertyType: shortString
+required:
+- isd
+- number
 validTestCases:
 - value:
     isd: '44'

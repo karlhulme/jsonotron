@@ -1,4 +1,8 @@
-import { EnumType, EnumTypeDef, JsonotronTypeDef, RecordType, RecordTypeDef, RecordTypeDefProperty, RecordTypeDefVariant, TypeLibrary, TypeLibraryDef } from 'jsonotron-interfaces'
+import {
+  EnumType, EnumTypeDef, JsonotronTypeDef,
+  RecordType, RecordTypeDef, RecordTypeDefProperty,
+  RecordTypeDefVariant, TypeLibrary, TypeLibraryDef
+} from 'jsonotron-interfaces'
 import {
   createJsonSchemaForBoolTypeDef, createJsonSchemaForEnumTypeDef,
   createJsonSchemaForFloatTypeDef, createJsonSchemaForIntTypeDef,
@@ -97,13 +101,14 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
     properties: recordTypeDef.properties.map((property, index) => {
       const propertyTypeSystem = getSystemPartOfSystemQualifiedType(property.propertyType)
       const propertyTypeName = getNamePartOfSystemQualifiedType(property.propertyType)
+      const isRequired = recordTypeDef.required?.includes(property.name)
 
       return {
         name: property.name,
         summary: property.summary,
         deprecated: property.deprecated,
-        isRequired: property.isRequired,
-        isOptional: !property.isRequired,
+        isRequired,
+        isOptional: !isRequired,
         isArray: property.isArray,
         propertyType: property.propertyType,
         propertyTypeSystem,

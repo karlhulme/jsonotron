@@ -8,7 +8,8 @@ properties:
   summary: The magnitude of difference between the minor and major denomination
     of a currency.
   propertyType: positiveIntegerOrZero
-  isRequired: true
+required:
+- scaler
 validTestCases:
 - value:
     scaler: 2

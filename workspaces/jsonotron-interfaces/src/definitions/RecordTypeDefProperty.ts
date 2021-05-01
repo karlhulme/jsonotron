@@ -23,11 +23,6 @@ export interface RecordTypeDefProperty {
   isArray?: boolean
 
   /**
-   * Specifies if this property is required and must be specified.
-   */
-  isRequired?: boolean
-
-  /**
    * If populated, this value explains why the property was deprecated
    * and/or which property to use instead.
    */

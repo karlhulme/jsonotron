@@ -13,6 +13,11 @@ export interface RecordTypeDef extends JsonotronTypeDef {
   properties: RecordTypeDefProperty[]
 
   /**
+   * Indicates which of the properties on this record type are mandatory.
+   */
+  required?: string[]
+
+  /**
    * An array of types that are derived by selecting or excluding 
    * specific properties of the type.
    */

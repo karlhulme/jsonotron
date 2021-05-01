@@ -40,7 +40,6 @@ const recordTypeWithVariants = reindentYaml(`
     summary: The second property.
     propertyType: test/other
     isArray: true
-    isRequired: true
   - name: three
     summary: The third property.
     propertyType: test/other
@@ -48,13 +47,15 @@ const recordTypeWithVariants = reindentYaml(`
   - name: four
     summary: The fourth property.
     propertyType: test/other
+  required:
+  - twos
   variants:
   - name: testRecordWithIncludes
     summary: The first variant using includeProperties.
-    required:
+    includeProperties:
     - one
     - twos
-    includeProperties:
+    required:
     - one
     - twos
   - name: testRecordWithExcludes

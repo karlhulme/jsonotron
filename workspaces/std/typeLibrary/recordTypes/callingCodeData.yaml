@@ -7,7 +7,8 @@ properties:
 - name: region
   summary: The name of the location or locations that a enum item represents.
   propertyType: longString
-  isRequired: true
+required:
+- region
 validTestCases:
 - value:
     region: United kingdom

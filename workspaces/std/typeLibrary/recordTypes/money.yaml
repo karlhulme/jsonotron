@@ -11,11 +11,12 @@ properties:
     minor denomination ensures that most currency manipulation and equality checks can be performed
     using integers rather than floating point numbers.
   propertyType: integer
-  isRequired: true
 - name: currency
   summary: This value indicates which currency has been used to express this monetary amount.
   propertyType: currencyCode
-  isRequired: true
+required:
+- amount
+- currency
 validTestCases:
 - value:
     amount: 9999

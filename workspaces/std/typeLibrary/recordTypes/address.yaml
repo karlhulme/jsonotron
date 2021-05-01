@@ -8,15 +8,16 @@ properties:
   summary: The lines that make up the address that includes street names, towns, villages, states and
     any other descriptors as required.
   propertyType: hugeString
-  isRequired: true
 - name: postalCode
   summary: The postal code or zip code of the address.
   propertyType: shortString
-  isRequired: true
 - name: countryCode
   summary: The country where the address is situated.
   propertyType: countryCode
-  isRequired: true
+required:
+- addressLines
+- postalCode
+- countryCode
 validTestCases:
 - value:
     addressLines: |-

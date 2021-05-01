@@ -11,11 +11,9 @@ properties:
     time zone is always expressed with 2 digits for hours and 2 digits for minutes.
     Leading zeroes must be used to ensure that all values are the same length.
   propertyType: dateTimeTz
-  isRequired: true
 - name: timeZone
   summary:  A value that records where in the world the time applies.  It is a timeZone value.
   propertyType: timeZone
-  isRequired: true
 - name: captured
   summary: A value that indicates when the date and time was captured.  It
     is a timestamp value.  This is useful for advanced scenarios where the behaviour
@@ -23,7 +21,10 @@ properties:
     was made allows you to pinpoint the rules at the point and then convert to the prevailing
     rules.
   propertyType: timestamp
-  isRequired: true
+required:
+- dateTime
+- timeZone
+- captured
 validTestCases:
 - value:
     dateTime: '2010-06-08T05:30:12+01:00'

@@ -32,6 +32,6 @@ export function createJsonSchemaForRecordTypeDef (domain: string, recordTypeDef:
     title: `Record Type "${recordTypeDef.name}"`,
     type: 'object',
     properties,
-    required: recordTypeDef.properties.filter(property => property.isRequired).map(property => property.name)
+    required: recordTypeDef.required
   }
 }

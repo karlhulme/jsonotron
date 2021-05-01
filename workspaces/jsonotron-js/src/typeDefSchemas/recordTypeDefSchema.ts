@@ -33,14 +33,17 @@ export const recordTypeDefSchema = {
           isArray: {
             type: 'boolean'
           },
-          isRequired: {
-            type: 'boolean'
-          },
           deprecated: {
             type: 'string'
           }
         },
         required: ['name', 'summary', 'propertyType']
+      }
+    },
+    required: {
+      type: 'array',
+      items: {
+        type: 'string'
       }
     },
     variants: {
