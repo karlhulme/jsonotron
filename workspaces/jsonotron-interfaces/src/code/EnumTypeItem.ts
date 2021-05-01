@@ -32,14 +32,4 @@ export interface EnumTypeItem {
    * The documentation associated with this item.
    */
   summary?: string
-
-  /**
-   * Indicates if this is the first enum item.
-   */
-  isFirst?: boolean
-
-  /**
-   * Indicates if this is the last enum item.
-   */
-  isLast?: boolean
 }

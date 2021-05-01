@@ -47,15 +47,13 @@ function convertEnumTypeDefToEnumType (domain: string, enumTypeDef: EnumTypeDef)
     tags: enumTypeDef.tags,
     dataType: enumTypeDef.dataType,
     jsonSchema: createJsonSchemaForEnumTypeDef(domain, enumTypeDef) as Record<string, unknown>,
-    items: enumTypeDef.items.map((itemDef, index) => ({
+    items: enumTypeDef.items.map(itemDef => ({
       value: itemDef.value,
       text: itemDef.text,
       summary: itemDef.summary,
       symbol: itemDef.symbol,
       deprecated: itemDef.deprecated,
-      data: itemDef.data,
-      isFirst: index === 0,
-      isLast: index === enumTypeDef.items.length - 1
+      data: itemDef.data
     }))
   }
 }
@@ -98,7 +96,7 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
     jsonSchema: createJsonSchemaForRecordTypeDef(domain, recordTypeDef) as Record<string, unknown>,
     deprecated: recordTypeDef.deprecated,
     tags: recordTypeDef.tags,
-    properties: recordTypeDef.properties.map((property, index) => {
+    properties: recordTypeDef.properties.map(property => {
       const propertyTypeSystem = getSystemPartOfSystemQualifiedType(property.propertyType)
       const propertyTypeName = getNamePartOfSystemQualifiedType(property.propertyType)
       const isRequired = recordTypeDef.required?.includes(property.name)
@@ -113,8 +111,6 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
         propertyType: property.propertyType,
         propertyTypeSystem,
         propertyTypeName,
-        isFirst: index === 0,
-        isLast: index === recordTypeDef.properties.length - 1,
         isBool: doesArrayContainType(typeLibraryDef.boolTypeDefs, propertyTypeSystem, propertyTypeName),
         isEnum: doesArrayContainType(typeLibraryDef.enumTypeDefs, propertyTypeSystem, propertyTypeName),
         isFloat: doesArrayContainType(typeLibraryDef.floatTypeDefs, propertyTypeSystem, propertyTypeName),
@@ -148,7 +144,7 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
       jsonSchema: createJsonSchemaForRecordTypeDefVariant(domain, recordTypeDef, variantDef) as Record<string, unknown>,
       deprecated: variantDef.deprecated,
       tags: variantDef.tags,
-      properties: recordTypeDef.properties.filter(prop => includeVariantProp(variantDef, prop)).map((property, index) => {
+      properties: recordTypeDef.properties.filter(prop => includeVariantProp(variantDef, prop)).map(property => {
         const propertyTypeSystem = getSystemPartOfSystemQualifiedType(property.propertyType)
         const propertyTypeName = getNamePartOfSystemQualifiedType(property.propertyType)
         const isRequired = variantDef.required?.includes(property.name)
@@ -163,8 +159,6 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
           propertyType: property.propertyType,
           propertyTypeSystem,
           propertyTypeName,
-          isFirst: index === 0,
-          isLast: index === recordTypeDef.properties.length - 1,
           isBool: doesArrayContainType(typeLibraryDef.boolTypeDefs, propertyTypeSystem, propertyTypeName),
           isEnum: doesArrayContainType(typeLibraryDef.enumTypeDefs, propertyTypeSystem, propertyTypeName),
           isFloat: doesArrayContainType(typeLibraryDef.floatTypeDefs, propertyTypeSystem, propertyTypeName),

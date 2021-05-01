@@ -14,7 +14,8 @@ import {
   RecordTypeVariantUnrecognisedPropertyError,
   UnrecognisedTypeError,
   UnrecognisedTypeKindError,
-  RecordTypeVariantMissingPropertyArrayError
+  RecordTypeVariantMissingPropertyArrayError,
+  RecordTypeUnrecognisedPropertyError
 } from '../errors'
 import { createTypeDefValidators, TypeDefValidators } from '../typeDefSchemas'
 import { createAjvFromTypeLibraryDef, getDomainQualifiedTypeReference } from '../typeDefValueSchemas'
@@ -67,6 +68,11 @@ export function parseTypeLibraryDef (resourceStrings: string[]): TypeLibraryDef 
   // Verify the test cases on all the string types
   typeLibraryDef.stringTypeDefs.forEach(stringTypeDef => {
     ensureStringTypeTestCasesAreValid(jsonSchemaValidator, stringTypeDef)
+  })
+
+  // Verify the required fields on all the record types
+  typeLibraryDef.recordTypeDefs.forEach(recordTypeDef => {
+    ensureRecordTypeRequiredFieldsAreValid(recordTypeDef)
   })
 
   // Verify the test cases on all the record types
@@ -272,6 +278,19 @@ function ensureEnumTypeItemsDataIsValid (jsonSchemaValidator: Ajv, enumTypeDef: 
       }
     })
   }
+}
+
+/**
+ * Validate the record type required field names.
+ * @param recordTypeDef A record type definition.
+ */
+ function ensureRecordTypeRequiredFieldsAreValid(recordTypeDef: RecordTypeDef): void {
+  // Check the required field names.
+  recordTypeDef.required?.forEach(propertyName => {
+    if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
+      throw new RecordTypeUnrecognisedPropertyError(recordTypeDef.name, propertyName)
+    }
+  })
 }
 
 /**

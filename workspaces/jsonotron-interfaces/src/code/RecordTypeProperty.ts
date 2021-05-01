@@ -49,16 +49,6 @@ export interface RecordTypeProperty {
   deprecated?: string
 
   /**
-   * Indicates if this is the first property defined on a record.
-   */
-  isFirst?: boolean
-
-  /**
-   * Indicates if this is the last property defined on a record.
-   */
-  isLast?: boolean
-
-  /**
    * Indicates if this property is a boolean.
    */
   isBool?: boolean

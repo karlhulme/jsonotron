@@ -7,7 +7,7 @@ export const {{identToConstCase system}}_{{identToConstCase name}}_ITEMS: EnumTy
   /**
    * {{summary}}
    */
-  { value: '{{value}}', text: '{{text}}' }{{#unless isLast}},{{/unless}}
+  { value: '{{value}}', text: '{{text}}' }{{#unless @last}},{{/unless}}
 
   {{/each}}
 ]

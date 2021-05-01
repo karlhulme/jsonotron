@@ -3,7 +3,8 @@ import {
   parseTypeLibrary, TestCaseInvalidationError, TestCaseValidationError,
   RecordTypeVariantUnrecognisedPropertyError, UnrecognisedTypeError, ValueValidationError,
   ValueValidator,
-  RecordTypeVariantMissingPropertyArrayError
+  RecordTypeVariantMissingPropertyArrayError,
+  RecordTypeUnrecognisedPropertyError
 } from '../src'
 import { reindentYaml, TEST_DOMAIN, otherType, asError } from './shared.test'
 
@@ -111,6 +112,28 @@ test('A record type that describes a property of an unknown type cannot be parse
   `)
 
   expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidPropertyType] })).toThrow(asError(UnrecognisedTypeError))
+})
+
+test('A record type that describes an unknown property as required cannot be parsed.', async () => {
+  const recordTypeWithInvalidRequiredProperty = reindentYaml(`
+    ---
+    kind: record
+    system: test
+    name: testRecord
+    summary: A test record.
+    properties:
+    - name: one
+      summary: The first property.
+      propertyType: test/other
+    required:
+    - unrecognisedProperty
+    validTestCases:
+    - value:
+        one: 1
+      summary: This is a valid test case.
+  `)
+
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidRequiredProperty, otherType] })).toThrow(asError(RecordTypeUnrecognisedPropertyError))
 })
 
 test('A valid record type value passes validation for the main record and its variants.', async () => {
