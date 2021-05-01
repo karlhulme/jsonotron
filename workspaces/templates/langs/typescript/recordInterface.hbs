@@ -11,6 +11,8 @@ export interface {{identToPascalCase system}}{{identToPascalCase name}} {
    * {{summary}}
    */
   {{name}}{{#if isOptional}}?{{/if}}: {{>propertyType .}}{{#if isArray}}[]{{/if}}
+  {{#unless @last}}
 
+  {{/unless}}
   {{/each}}
 }

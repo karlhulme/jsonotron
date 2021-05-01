@@ -23,7 +23,13 @@ function createSampleTypeLibrary () {
         summary: 'The color blue.',
         symbol: 'BLU',
         deprecated: 'Use green instead of blue.'
-      }]
+      }],
+      jsonSchema: {
+        $id: 'myschema',
+        title: 'Some title',
+        type: 'string',
+        enum: ['red', 'blue']
+      }
     }],
     floatTypes: [],
     objectTypes: [],

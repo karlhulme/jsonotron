@@ -8,6 +8,8 @@ export const {{identToConstCase system}}_{{identToConstCase name}}_VALUES = {
    * {{summary}}
    */
   {{valueToIdent value}}: '{{value}}'{{#unless @last}},{{/unless}}
+  {{#unless @last}}
 
+  {{/unless}}
   {{/each}}
 }
