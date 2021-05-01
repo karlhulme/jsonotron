@@ -1,13 +1,11 @@
 
 """
 {{summary}}
+{{#if deprecated}}This type has been deprecated: {{deprecated}}{{/if}}
 """
 type {{identToPascalCase system}}{{identToPascalCase name}} {
   {{#each properties}}
-  """
-  {{summary}}
-  """
-  {{name}}: {{#if isArray}}[{{/if}}{{>propertyType .}}{{#if isArray}}]{{/if}}{{#if isRequired}}!{{/if}}
+  {{>recordTypeProperty .}}
   {{#unless @last}}
 
   {{/unless}}
@@ -19,10 +17,7 @@ type {{identToPascalCase system}}{{identToPascalCase name}} {
 """
 input {{identToPascalCase system}}{{identToPascalCase name}}Input {
   {{#each properties}}
-  """
-  {{summary}}
-  """
-  {{name}}: {{#if isArray}}[{{/if}}{{>propertyType .}}{{#if isArray}}]{{/if}}{{#if isRequired}}!{{/if}}
+  {{>recordTypeProperty .}}
   {{#unless @last}}
 
   {{/unless}}

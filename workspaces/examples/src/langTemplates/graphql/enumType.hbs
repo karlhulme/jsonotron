@@ -1,6 +1,7 @@
 
 """
 {{summary}}
+{{#if deprecated}}This type has been deprecated: {{deprecated}}{{/if}}
 """
 enum {{identToPascalCase system}}{{identToPascalCase name}} {
   {{#each items}}
@@ -8,7 +9,7 @@ enum {{identToPascalCase system}}{{identToPascalCase name}} {
   {{summary~}}
   Represents an underlying value of '{{value}}'.
   """
-  {{valueToConstCase value}}
+  {{valueToConstCase value}}{{#if deprecated}} @deprecated(reason: {{deprecated}}){{/if}}
   {{#unless @last}}
 
   {{/unless}}
