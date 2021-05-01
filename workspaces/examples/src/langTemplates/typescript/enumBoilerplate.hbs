@@ -33,5 +33,8 @@ export interface EnumTypeItem {
  * for each enum type item that conforms to type T.
  */
 export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
+  /**
+   * The data associated with a single enum item of type T.
+   */
   data: T
 }

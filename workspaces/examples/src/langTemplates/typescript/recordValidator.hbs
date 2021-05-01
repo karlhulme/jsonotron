@@ -1,0 +1,9 @@
+
+/**
+ * Validates the given value and returns a {{identToPascalCase system}}{{identToPascalCase name}} object.
+ * If the validation fails then an Error is raised with details of the underlying causes.
+ */ 
+export function validate{{identToPascalCase system}}{{identToPascalCase name}} (value: unknown): {{identToPascalCase system}}{{identToPascalCase name}} {
+  validateValue(value, '{{jsonSchema.$id}}')
+  return value as {{identToPascalCase system}}{{identToPascalCase name}}
+}

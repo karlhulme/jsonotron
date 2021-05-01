@@ -1,10 +1,15 @@
 /* istanbul ignore file */
 /* Generated: {{generatedDateTime}} */
 
+import Ajv from 'ajv'
+
 {{>jsonSchemas .}}
+
+{{>ajvBoilerplate}}
 
 {{#each typeLibrary.recordTypes}}
 {{>recordInterface .}}
+{{>recordValidator .}}
 {{/each}}
 
 {{>enumBoilerplate}}

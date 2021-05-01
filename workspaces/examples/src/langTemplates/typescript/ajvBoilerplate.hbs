@@ -1,0 +1,28 @@
+
+let ajv: Ajv.Ajv
+
+/**
+ * Raises an error if the given value cannot
+ * be validated against the schema stored for the given schema id.
+ * If necessary, this function will initialise the singleton ajv instance.
+ * @param value The value to validate.
+ * @param schemaId The id of a schema.
+ */
+export function validateValue (value: unknown, schemaId: string): void {
+  if (!ajv) {
+    ajv = new Ajv({
+      ownProperties: true, // only iterate over objects found directly on the object
+      schemas: allJsonSchemas
+    })
+  }
+
+  const validator = ajv.getSchema(schemaId) as Ajv.ValidateFunction
+
+  if (!validator) {
+    throw new Error(`Unable to find validator with given schema id ${schemaId}.`)
+  }
+
+  if (!validator(value)) {
+    throw new Error(JSON.stringify(validator.errors || [], null, 2))
+  }
+} 
