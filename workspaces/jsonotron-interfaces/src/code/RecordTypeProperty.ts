@@ -38,15 +38,15 @@ export interface RecordTypeProperty {
   isRequired?: boolean
 
   /**
+   * Indicates if this property is optional.
+   */
+  isOptional?: boolean
+
+  /**
    * If populated, this value explains why the property was deprecated
    * and/or which property to use instead.
    */
   deprecated?: string
-
-  /**
-   * Indicates if this property is optional.
-   */
-  isOptional?: boolean
 
   /**
    * Indicates if this is the first property defined on a record.

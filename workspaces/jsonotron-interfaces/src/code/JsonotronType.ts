@@ -29,6 +29,11 @@ export interface JsonotronType {
   deprecated?: string
 
   /**
+   * An array of arbritary tags.
+   */
+  tags?: string[]
+
+  /**
    * The JSON schema created for this type.
    */
   jsonSchema: Record<string, unknown>

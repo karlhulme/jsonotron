@@ -1,5 +1,5 @@
 import { AnySchema } from 'ajv'
-import { RecordTypeDef, RecordTypeDefVariant } from 'jsonotron-interfaces'
+import { RecordTypeDef, RecordTypeDefProperty, RecordTypeDefVariant } from 'jsonotron-interfaces'
 import { JSON_SCHEMA_DECLARATION } from './consts'
 import { getDomainQualifiedTypeReference } from './getDomainQualifiedTypeReference'
 
@@ -12,11 +12,17 @@ import { getDomainQualifiedTypeReference } from './getDomainQualifiedTypeReferen
 export function createJsonSchemaForRecordTypeDefVariant (domain: string, recordTypeDef: RecordTypeDef, variantDef: RecordTypeDefVariant): AnySchema {
   const properties: Record<string, unknown> = {}
 
-  const recordTypeProperties = variantDef.includeProperties
-    ? recordTypeDef.properties.filter(property => (variantDef.includeProperties as string[]).includes(property.name))
-    : recordTypeDef.properties.filter(property => !(variantDef.excludeProperties as string[]).includes(property.name))
+  const recordTypeProperties: RecordTypeDefProperty[] = []
+  
+  if (variantDef.includeProperties) {
+    recordTypeProperties.push(...recordTypeDef.properties.filter(property => (variantDef.includeProperties as string[]).includes(property.name)))
+  }
 
-    recordTypeProperties.forEach(property => {
+  if (variantDef.excludeProperties) {
+    recordTypeProperties.push(...recordTypeDef.properties.filter(property => !(variantDef.excludeProperties as string[]).includes(property.name)))
+  }
+
+  recordTypeProperties.forEach(property => {
     if (property.isArray) {
       properties[property.name] = {
         type: 'array',
@@ -37,8 +43,6 @@ export function createJsonSchemaForRecordTypeDefVariant (domain: string, recordT
     title: `Record Type (Variant) "${variantDef.name}"`,
     type: 'object',
     properties,
-    required: variantDef.partial
-      ? []
-      : recordTypeDef.properties.filter(property => property.isRequired).map(property => property.name)
+    required: variantDef.required
   }
 }

@@ -8,9 +8,14 @@ export interface RecordTypeDefVariant {
   name: string
 
   /**
-   * Indicates if all the properties should be treated as optional.
+   * Documents the usage of the variant.
    */
-  partial: boolean
+  summary: string
+
+  /**
+   * Indicates which of the properties on this variant are mandatory.
+   */
+  required?: string[]
 
   /**
    * If present, it lists the only properties that are included in this
@@ -29,4 +34,10 @@ export interface RecordTypeDefVariant {
    * and/or which variant to use instead.
    */
   deprecated?: string
+
+  /**
+   * An array of tags that can be used by the code generator
+   * to discriminate between the types.
+   */
+  tags?: string[]
 }

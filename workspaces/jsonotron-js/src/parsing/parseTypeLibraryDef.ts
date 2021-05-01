@@ -13,7 +13,8 @@ import {
   TestCaseValidationError,
   RecordTypeVariantUnrecognisedPropertyError,
   UnrecognisedTypeError,
-  UnrecognisedTypeKindError
+  UnrecognisedTypeKindError,
+  RecordTypeVariantMissingPropertyArrayError
 } from '../errors'
 import { createTypeDefValidators, TypeDefValidators } from '../typeDefSchemas'
 import { createAjvFromTypeLibraryDef, getDomainQualifiedTypeReference } from '../typeDefValueSchemas'
@@ -327,6 +328,10 @@ function ensureRecordTypeTestCasesAreValid(jsonSchemaValidator: Ajv, recordTypeD
  */
 function ensureRecordTypeVariantsAreValid (recordTypeDef: RecordTypeDef): void {
   recordTypeDef.variants?.forEach(variant => {
+    if (!Array.isArray(variant.includeProperties) && !Array.isArray(variant.excludeProperties)) {
+      throw new RecordTypeVariantMissingPropertyArrayError(recordTypeDef.name, variant.name)
+    }
+
     if (Array.isArray(variant.includeProperties)) {
       variant.includeProperties.forEach(propertyName => {
         if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
@@ -337,6 +342,14 @@ function ensureRecordTypeVariantsAreValid (recordTypeDef: RecordTypeDef): void {
 
     if (Array.isArray(variant.excludeProperties)) {
       variant.excludeProperties.forEach(propertyName => {
+        if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
+          throw new RecordTypeVariantUnrecognisedPropertyError(recordTypeDef.name, variant.name, propertyName)
+        }
+      })
+    }
+
+    if (Array.isArray(variant.required)) {
+      variant.required.forEach(propertyName => {
         if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
           throw new RecordTypeVariantUnrecognisedPropertyError(recordTypeDef.name, variant.name, propertyName)
         }

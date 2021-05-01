@@ -2,7 +2,8 @@ import { expect, test } from '@jest/globals'
 import {
   parseTypeLibrary, TestCaseInvalidationError, TestCaseValidationError,
   RecordTypeVariantUnrecognisedPropertyError, UnrecognisedTypeError, ValueValidationError,
-  ValueValidator
+  ValueValidator,
+  RecordTypeVariantMissingPropertyArrayError
 } from '../src'
 import { reindentYaml, TEST_DOMAIN, otherType, asError } from './shared.test'
 
@@ -20,6 +21,9 @@ const recordType = reindentYaml(`
   - value:
       one: 1
     summary: This is an example as well as a test case.
+  tags:
+  - tag1
+  - tag2
 `)
 
 const recordTypeWithVariants = reindentYaml(`
@@ -46,12 +50,15 @@ const recordTypeWithVariants = reindentYaml(`
     propertyType: test/other
   variants:
   - name: testRecordWithIncludes
-    partial: false
+    summary: The first variant using includeProperties.
+    required:
+    - one
+    - twos
     includeProperties:
     - one
     - twos
   - name: testRecordWithExcludes
-    partial: true
+    summary: The second variant using excludeProperties.
     excludeProperties:
     - four
   validTestCases:
@@ -78,8 +85,11 @@ test('A valid record type can be parsed.', async () => {
   expect(typeLibrary.recordTypes[0].properties).toHaveLength(1)
   expect(typeLibrary.recordTypes[0].properties[0]).toHaveProperty('propertyTypeSystem', 'test')
   expect(typeLibrary.recordTypes[0].properties[0]).toHaveProperty('propertyTypeName', 'other')
+})
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithVariants, otherType] })).not.toThrow()
+test('A valid record type with variants can be parsed.', async () => {
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [recordTypeWithVariants, otherType] })
+  expect(typeLibrary.recordTypes).toHaveLength(3)
 })
 
 test('A record type that describes a property of an unknown type cannot be parsed.', async () => {
@@ -102,9 +112,11 @@ test('A record type that describes a property of an unknown type cannot be parse
   expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidPropertyType] })).toThrow(asError(UnrecognisedTypeError))
 })
 
-test('A valid record type value passes validation.', async () => {
+test('A valid record type value passes validation for the main record and its variants.', async () => {
   const validator = setupValidator()
   expect(() => validator.validateValue('test/recordTypeWithVariants', { one: 1, twos: [2, 2, 2], three: 3, four: 4 })).not.toThrow()
+  expect(() => validator.validateValue('test/testRecordWithIncludes', { one: 1, twos: [2, 2, 2] })).not.toThrow()
+  expect(() => validator.validateValue('test/testRecordWithExcludes', { one: 1, twos: [2, 2, 2], three: 3 })).not.toThrow()
 })
 
 test('A record type with a property that does not conform to its assigned type is rejected.', async () => {
@@ -129,7 +141,7 @@ test('A record type that describes a variant with an unrecognised include proper
       summary: This is a valid test case.
     variants:
     - name: failingVariant
-      partial: false
+      summary: A failing variant due to invalid include properties.
       includeProperties:
       - unrecognised
   `)
@@ -154,12 +166,62 @@ test('A record type that describes a variant with an unrecognised exclude proper
       summary: This is a valid test case.
     variants:
     - name: failingVariant
-      partial: false
+      summary: An invalid variant due to invalid properties.
       excludeProperties:
       - unrecognised
   `)
 
   expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedExclude, otherType] })).toThrow(asError(RecordTypeVariantUnrecognisedPropertyError))
+})
+
+test('A record type that describes a variant with neither includeProperties nor excludeProperties is rejected.', async () => {
+  const recordTypeWitUnrecognisedExclude = reindentYaml(`
+    ---
+    kind: record
+    system: test
+    name: testRecord
+    summary: A test record.
+    properties:
+    - name: one
+      summary: The first property.
+      propertyType: test/other
+    validTestCases:
+    - value:
+        one: 1
+      summary: This is a valid test case.
+    variants:
+    - name: failingVariant
+      summary: An invalid variant due to no include/exclude property arrays.
+  `)
+
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedExclude, otherType] })).toThrow(asError(RecordTypeVariantMissingPropertyArrayError))
+})
+
+test('A record type that describes a variant with an unrecognised required property is rejected.', async () => {
+  const recordTypeWitUnrecognisedRequired = reindentYaml(`
+    ---
+    kind: record
+    system: test
+    name: testRecord
+    summary: A test record.
+    properties:
+    - name: one
+      summary: The first property.
+      propertyType: test/other
+    validTestCases:
+    - value:
+        one: 1
+      summary: This is a valid test case.
+    variants:
+    - name: failingVariant
+      summary: An invalid variant due to invalid required values.
+      includeProperties:
+      - one
+      required:
+      - unrecognisedProperty
+  `)
+
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedRequired, otherType] })).toThrow(asError(RecordTypeVariantUnrecognisedPropertyError))
 })
 
 test('A record type that describes a valid test cases that is actually not valid is rejected.', async () => {

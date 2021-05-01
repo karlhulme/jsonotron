@@ -27,5 +27,10 @@ export interface JsonotronTypeDef {
    * and/or which type to use instead.
    */
   deprecated?: string
+
+  /**
+   * An array of arbritary tags.
+   */
+  tags?: string[]
 }
 

@@ -20,5 +20,11 @@ export const commonProperties = {
   },
   deprecated: {
     type: 'object'
+  },
+  tags: {
+    type: 'array',
+    items: {
+      type: 'string'
+    }
   }
 }

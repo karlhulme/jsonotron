@@ -1,8 +1,9 @@
-import { EnumType, EnumTypeDef, JsonotronTypeDef, RecordType, RecordTypeDef, TypeLibrary, TypeLibraryDef } from 'jsonotron-interfaces'
+import { EnumType, EnumTypeDef, JsonotronTypeDef, RecordType, RecordTypeDef, RecordTypeDefProperty, RecordTypeDefVariant, TypeLibrary, TypeLibraryDef } from 'jsonotron-interfaces'
 import {
   createJsonSchemaForBoolTypeDef, createJsonSchemaForEnumTypeDef,
   createJsonSchemaForFloatTypeDef, createJsonSchemaForIntTypeDef,
   createJsonSchemaForObjectTypeDef, createJsonSchemaForRecordTypeDef,
+  createJsonSchemaForRecordTypeDefVariant,
   createJsonSchemaForStringTypeDef
 } from '../typeDefValueSchemas'
 
@@ -39,6 +40,7 @@ function convertEnumTypeDefToEnumType (domain: string, enumTypeDef: EnumTypeDef)
     name: enumTypeDef.name,
     summary: enumTypeDef.summary,
     deprecated: enumTypeDef.deprecated,
+    tags: enumTypeDef.tags,
     dataType: enumTypeDef.dataType,
     jsonSchema: createJsonSchemaForEnumTypeDef(domain, enumTypeDef) as Record<string, unknown>,
     items: enumTypeDef.items.map((itemDef, index) => ({
@@ -91,6 +93,7 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
     summary: recordTypeDef.summary,
     jsonSchema: createJsonSchemaForRecordTypeDef(domain, recordTypeDef) as Record<string, unknown>,
     deprecated: recordTypeDef.deprecated,
+    tags: recordTypeDef.tags,
     properties: recordTypeDef.properties.map((property, index) => {
       const propertyTypeSystem = getSystemPartOfSystemQualifiedType(property.propertyType)
       const propertyTypeName = getNamePartOfSystemQualifiedType(property.propertyType)
@@ -120,7 +123,56 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
 
   result.push(recordType)
 
-  // TODO: build the variants
+  const includeVariantProp = function (variantDef: RecordTypeDefVariant, prop: RecordTypeDefProperty) {
+    /* istanbul ignore else - either includes or excludes will always be specified */
+    if (Array.isArray(variantDef.includeProperties)) {
+      return variantDef.includeProperties.includes(prop.name)
+    } else if (Array.isArray(variantDef.excludeProperties)) {
+      return !variantDef.excludeProperties.includes(prop.name)
+    } else {
+      return false
+    }
+  }
+
+  recordTypeDef.variants?.forEach(variantDef => {
+    const variantRecordType: RecordType = {
+      kind: recordTypeDef.kind,
+      system: recordTypeDef.system,
+      name: variantDef.name,
+      summary: variantDef.summary,
+      jsonSchema: createJsonSchemaForRecordTypeDefVariant(domain, recordTypeDef, variantDef) as Record<string, unknown>,
+      deprecated: variantDef.deprecated,
+      tags: variantDef.tags,
+      properties: recordTypeDef.properties.filter(prop => includeVariantProp(variantDef, prop)).map((property, index) => {
+        const propertyTypeSystem = getSystemPartOfSystemQualifiedType(property.propertyType)
+        const propertyTypeName = getNamePartOfSystemQualifiedType(property.propertyType)
+        const isRequired = variantDef.required?.includes(property.name)
+
+        return {
+          name: property.name,
+          summary: property.summary,
+          deprecated: property.deprecated,
+          isRequired,
+          isOptional: !isRequired,
+          isArray: property.isArray,
+          propertyType: property.propertyType,
+          propertyTypeSystem,
+          propertyTypeName,
+          isFirst: index === 0,
+          isLast: index === recordTypeDef.properties.length - 1,
+          isBool: doesArrayContainType(typeLibraryDef.boolTypeDefs, propertyTypeSystem, propertyTypeName),
+          isEnum: doesArrayContainType(typeLibraryDef.enumTypeDefs, propertyTypeSystem, propertyTypeName),
+          isFloat: doesArrayContainType(typeLibraryDef.floatTypeDefs, propertyTypeSystem, propertyTypeName),
+          isInt: doesArrayContainType(typeLibraryDef.intTypeDefs, propertyTypeSystem, propertyTypeName),
+          isObject: doesArrayContainType(typeLibraryDef.objectTypeDefs, propertyTypeSystem, propertyTypeName),
+          isRecord: doesArrayContainType(typeLibraryDef.recordTypeDefs, propertyTypeSystem, propertyTypeName),
+          isString: doesArrayContainType(typeLibraryDef.stringTypeDefs, propertyTypeSystem, propertyTypeName)    
+        }
+      })
+    }
+
+    result.push(variantRecordType)
+  })
 
   return result
 }

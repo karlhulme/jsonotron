@@ -53,8 +53,14 @@ export const recordTypeDefSchema = {
             type: 'string',
             pattern: identifierRegex
           },
-          partial: {
-            type: 'boolean'
+          summary: {
+            type: 'string'
+          },
+          required: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
           },
           includeProperties: {
             type: 'array',
@@ -70,9 +76,15 @@ export const recordTypeDefSchema = {
           },
           deprecated: {
             type: 'string'
+          },
+          tags: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
           }
         },
-        required: ['name', 'partial']
+        required: ['name', 'summary']
       }
     },
     validTestCases: {
