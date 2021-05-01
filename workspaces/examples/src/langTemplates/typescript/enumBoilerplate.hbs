@@ -13,14 +13,14 @@ export interface EnumTypeItem {
   text: string
 
   /**
-   * If populated, this value explains why the value was deprecated and/or which item to use instead.
-   */
-  deprecated?: string
-
-  /**
    * A symbol associated with the item.
    */
   symbol?: string
+
+  /**
+   * Provides information about the deprecation of this enum item.
+   */
+  deprecated?: string
 }
 
 /**

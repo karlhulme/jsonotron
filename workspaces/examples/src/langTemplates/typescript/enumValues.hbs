@@ -1,11 +1,17 @@
 
 /**
  * {{summary}}
+   {{#if deprecated}}
+ * @deprecated {{deprecated}}
+   {{/if}}
  */
 export const {{identToConstCase system}}_{{identToConstCase name}}_VALUES = {
   {{#each items}}
   /**
    * {{summary}}
+     {{#if deprecated}}
+   * @deprecated {{deprecated}}
+     {{/if}}
    */
   {{valueToIdent value}}: '{{value}}'{{#unless @last}},{{/unless}}
   {{#unless @last}}
