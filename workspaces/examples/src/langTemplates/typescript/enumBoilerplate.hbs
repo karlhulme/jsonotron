@@ -22,3 +22,11 @@ export interface EnumTypeItem {
    */
   symbol?: string
 }
+
+/**
+ * Represents an enum type that provides additional data
+ * for each enum type item that conforms to type T.
+ */
+export interface ExtendedEnumTypeItem<T> extends EnumTypeItem {
+  data: T
+}
