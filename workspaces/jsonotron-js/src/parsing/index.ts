@@ -1,3 +1,4 @@
+export * from './filterTypeLibrary'
 export * from './parseTypeLibrary'
 export * from './parseTypeLibraryDef'
 export * from './promoteDefsToTypeLibrary'

@@ -1,0 +1,7 @@
+---
+kind: int
+system: test2
+name: tinyInt
+summary: An integer from 0 to 5.
+minimum: 0
+maximum: 5

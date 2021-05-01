@@ -1,6 +1,6 @@
 import { Request, RequestHandler, Response } from 'express'
-import { parseTypeLibrary } from 'jsonotron-js'
 import { Template } from 'jsonotron-interfaces'
+import { parseTypeLibrary, filterTypeLibrary } from 'jsonotron-js'
 import { createTemplateProcessor, TemplateProcessorContext, TemplateProcessorFunc } from 'jsonotron-codegen'
 
 /**
@@ -56,8 +56,17 @@ export function createJsonoserveExpress (props?: JsonoserveConstructorProps): Re
       return
     }
 
+    const systemsParam = req.query.systems as string
+
+    if (typeof systemsParam !== 'string') {
+      res.status(400).send('Must specify a systems query parameter.')
+      return
+    }
+
+    const systems = systemsParam.split(',')
+
     const context: TemplateProcessorContext = {
-      typeLibrary,
+      typeLibrary: filterTypeLibrary(typeLibrary, systems),
       generatedDateTime: new Date().toISOString()
     }
   
