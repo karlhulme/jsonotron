@@ -16,15 +16,13 @@ function createSampleTypeLibrary () {
       items: [{
         value: 'red',
         text: 'Red',
-        summary: 'The color red.',
-        isFirst: true
+        summary: 'The color red.'
       }, {
         value: 'blue',
         text: 'Blue',
         summary: 'The color blue.',
         symbol: 'BLU',
-        deprecated: 'Use green instead of blue.',
-        isLast: true
+        deprecated: 'Use green instead of blue.'
       }]
     }],
     floatTypes: [],
@@ -73,7 +71,8 @@ function createSampleTypeLibrary () {
         summary: 'The number of legs under the table.',
         isRequired: true,
         isInt: true
-      }]
+      }],
+      tags: ['special']
     }],
     stringTypes: []
   }

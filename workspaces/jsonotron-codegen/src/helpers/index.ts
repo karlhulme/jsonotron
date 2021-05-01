@@ -1,5 +1,6 @@
 export * from './identToConstCase'
 export * from './identToPascalCase'
 export * from './identToSnakeCase'
+export * from './isTagged'
 export * from './valueToConstCase'
 export * from './valueToIdent'
