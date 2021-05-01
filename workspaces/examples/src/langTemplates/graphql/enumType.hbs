@@ -1,0 +1,16 @@
+
+"""
+{{summary}}
+"""
+enum {{identToPascalCase system}}{{identToPascalCase name}} {
+  {{#each items}}
+  """
+  {{summary~}}
+  Represents an underlying value of '{{value}}'.
+  """
+  {{valueToConstCase value}}
+  {{#unless @last}}
+
+  {{/unless}}
+  {{/each}}
+}

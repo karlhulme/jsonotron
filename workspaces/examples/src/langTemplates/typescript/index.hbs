@@ -3,13 +3,13 @@
 
 {{>jsonSchemas .}}
 
+{{#each typeLibrary.recordTypes}}
+{{>recordInterface .}}
+{{/each}}
+
 {{>enumBoilerplate}}
 
 {{#each typeLibrary.enumTypes}}
 {{>enumItems .}}
 {{>enumValues .}}
-{{/each}}
-
-{{#each typeLibrary.recordTypes}}
-{{>recordInterface .}}
 {{/each}}

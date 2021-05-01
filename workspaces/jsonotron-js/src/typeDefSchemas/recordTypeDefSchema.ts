@@ -67,12 +67,14 @@ export const recordTypeDefSchema = {
           },
           includeProperties: {
             type: 'array',
+            minItems: 1,
             items: {
               type: 'string'
             }
           },
           excludeProperties: {
             type: 'array',
+            minItems: 0,
             items: {
               type: 'string'
             }

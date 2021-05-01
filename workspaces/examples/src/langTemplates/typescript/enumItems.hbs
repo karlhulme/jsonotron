@@ -7,6 +7,6 @@
  */
 export const {{identToConstCase system}}_{{identToConstCase name}}_ITEMS: {{#if dataType}}ExtendedEnumTypeItem<{{identToPascalCase system}}{{identToPascalCase name}}Data>[]{{else}}EnumTypeItem[]{{/if}} = [
   {{#each items}}
-  { value: '{{value}}', text: '{{text}}'{{#if symbol}}, symbol: '{{symbol}}'{{/if}}{{#if deprecated}}, deprecated: '{{deprecated}}'{{/if}}{{#if data}}, data: {{stringify data}}{{/if}} }{{#unless @last}},{{/unless}}
+  { value: '{{value}}', text: '{{text}}', constant: '{{valueToConstCase value}}'{{#if symbol}}, symbol: '{{symbol}}'{{/if}}{{#if deprecated}}, deprecated: '{{deprecated}}'{{/if}}{{#if data}}, data: {{stringify data}}{{/if}} }{{#unless @last}},{{/unless}}
   {{/each}}
 ]

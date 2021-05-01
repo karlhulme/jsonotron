@@ -1,0 +1,30 @@
+
+"""
+{{summary}}
+"""
+type {{identToPascalCase system}}{{identToPascalCase name}} {
+  {{#each properties}}
+  """
+  {{summary}}
+  """
+  {{name}}: {{#if isArray}}[{{/if}}{{>propertyType .}}{{#if isArray}}]{{/if}}{{#if isRequired}}!{{/if}}
+  {{#unless @last}}
+
+  {{/unless}}
+  {{/each}}
+}
+
+"""
+{{summary}}
+"""
+input {{identToPascalCase system}}{{identToPascalCase name}}Input {
+  {{#each properties}}
+  """
+  {{summary}}
+  """
+  {{name}}: {{#if isArray}}[{{/if}}{{>propertyType .}}{{#if isArray}}]{{/if}}{{#if isRequired}}!{{/if}}
+  {{#unless @last}}
+
+  {{/unless}}
+  {{/each}}
+}
