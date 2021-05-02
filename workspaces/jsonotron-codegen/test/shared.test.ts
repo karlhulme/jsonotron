@@ -7,7 +7,7 @@ test('Prevent warnings on shared.test about missing tests.', async () => {
 
 export function createEmptyTypeLibrary (): TypeLibrary {
   return {
-    arrayTypes: [],
+    jsonSchemaDomain: '',
     boolTypes: [],
     enumTypes: [],
     floatTypes: [],
