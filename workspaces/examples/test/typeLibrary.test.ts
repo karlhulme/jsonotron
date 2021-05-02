@@ -4,7 +4,7 @@ import { readFile } from 'fs/promises'
 import { parseTypeLibrary } from 'jsonotron-js'
 
 test('The example types of the library are valid.', async () => {
-  const typeFileNames = await fg('./src/typeLibrary/**/*.yaml')
+  const typeFileNames = await fg('./assets/typeLibrary/**/*.yaml')
 
   const resourceStrings = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
 

@@ -6,7 +6,7 @@ import { parseTypeLibrary } from 'jsonotron-js'
 import { loadTemplatesFromFolder, createTemplateProcessor, TemplateProcessorContext } from 'jsonotron-codegen'
 
 test('Generate output for each language.', async () => {
-  const typeFileNames = await fg('./src/typeLibrary/**/*.yaml')
+  const typeFileNames = await fg('./assets/typeLibrary/**/*.yaml')
 
   const resourceStrings = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
 
@@ -15,7 +15,7 @@ test('Generate output for each language.', async () => {
     generatedDateTime: new Date().toISOString()
   }
 
-  const templates = await loadTemplatesFromFolder('./src/langTemplates')
+  const templates = await loadTemplatesFromFolder('./assets/langTemplates')
 
   await Promise.all(templates.map(async template => {
     const processor = createTemplateProcessor(template)
