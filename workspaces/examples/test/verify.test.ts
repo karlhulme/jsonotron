@@ -1,4 +1,4 @@
-import { test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
 import fg from 'fast-glob'
 import { mkdir, readFile } from 'fs/promises'
 import { writeFile } from 'fs/promises'
@@ -9,6 +9,16 @@ test('Generate output for each language.', async () => {
   const typeFileNames = await fg('./assets/typeLibrary/**/*.yaml')
 
   const resourceStrings = await Promise.all(typeFileNames.map(fileName => readFile(fileName, 'utf8')))
+
+  const typeLibrary = parseTypeLibrary({ resourceStrings })
+
+  expect(typeLibrary.boolTypes).toHaveLength(1)
+  expect(typeLibrary.enumTypes).toHaveLength(9)
+  expect(typeLibrary.floatTypes).toHaveLength(7)
+  expect(typeLibrary.intTypes).toHaveLength(6)
+  expect(typeLibrary.objectTypes).toHaveLength(1)
+  expect(typeLibrary.recordTypes).toHaveLength(11)
+  expect(typeLibrary.stringTypes).toHaveLength(13)
 
   const context: TemplateProcessorContext = {
     typeLibrary: parseTypeLibrary({ resourceStrings }),
