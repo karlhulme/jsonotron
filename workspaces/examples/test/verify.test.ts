@@ -21,7 +21,7 @@ test('Generate output for each language.', async () => {
   expect(typeLibrary.stringTypes).toHaveLength(13)
 
   const context: TemplateProcessorContext = {
-    typeLibrary: parseTypeLibrary({ resourceStrings }),
+    typeLibrary,
     generatedDateTime: new Date().toISOString()
   }
 
