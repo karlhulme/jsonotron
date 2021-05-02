@@ -31,19 +31,15 @@ jobs:
         cd workspaces/jsonotron-codegen
         npm test
         npm run build
-    - name: Test jss
-      run: |
-        cd workspaces/jss
-        npm test
     - name: Test jsonoserve
       run: |
         cd workspaces/jsonoserve
         npm test
         npm run build
-    - name: Test jsonocli
+    - name: Test examples
       run: |
-        cd workspaces/jsonocli
-        npm run build
+        cd workspaces/examples
+        npm test
         
   release:
     runs-on: ubuntu-latest
@@ -110,15 +106,6 @@ jobs:
       if: steps.prepare.outputs.canRelease == 'yes'
       run: |
         cd workspaces/jsonoserve
-        npm version ${{ steps.prepare.outputs.releaseVersion }}
-        npm run build
-        npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-    - name: Publish jsonocli
-      if: steps.prepare.outputs.canRelease == 'yes'
-      run: |
-        cd workspaces/jsonocli
         npm version ${{ steps.prepare.outputs.releaseVersion }}
         npm run build
         npm publish

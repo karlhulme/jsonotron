@@ -31,16 +31,12 @@ jobs:
         cd workspaces/jsonotron-codegen
         npm test
         npm run build
-    - name: Test jss
-      run: |
-        cd workspaces/jss
-        npm test
     - name: Test jsonoserve
       run: |
         cd workspaces/jsonoserve
         npm test
         npm run build
-    - name: Test jsonocli
+    - name: Test examples
       run: |
-        cd workspaces/jsonocli
-        npm run build
+        cd workspaces/examples
+        npm test
