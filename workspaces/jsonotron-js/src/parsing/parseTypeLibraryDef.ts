@@ -11,11 +11,12 @@ import {
   ParseYamlError,
   TestCaseInvalidationError,
   TestCaseValidationError,
-  RecordTypeVariantUnrecognisedPropertyError,
+  UnrecognisedPropertyNameOnRecordTypeVariantError,
   UnrecognisedTypeError,
   UnrecognisedTypeKindError,
-  RecordTypeVariantMissingPropertyArrayError,
-  RecordTypeUnrecognisedPropertyError
+  InvalidRecordTypeVariantDefinitionError,
+  UnrecognisedPropertyNameOnRecordTypeError,
+  DuplicatePropertyNameOnRecordTypeError
 } from '../errors'
 import { createTypeDefValidators, TypeDefValidators } from '../typeDefSchemas'
 import { createAjvFromTypeLibraryDef, getDomainQualifiedTypeReference } from '../typeDefValueSchemas'
@@ -47,6 +48,11 @@ export function parseTypeLibraryDef (resourceStrings: string[]): TypeLibraryDef 
   // Verify the data types of enums.
   typeLibraryDef.enumTypeDefs.forEach(enumTypeDef => {
     ensureEnumTypeDataTypeIsValid(enumTypeDef, systemQualifiedTypeNames)
+  })
+
+  // Verify the property names of records are unique.
+  typeLibraryDef.recordTypeDefs.forEach(recordTypeDef => {
+    ensureRecordTypePropertiesAreUnique(recordTypeDef)
   })
 
   // Verify the property types of records and ensure the property type
@@ -220,6 +226,22 @@ function ensureEnumTypeDataTypeIsValid (enumTypeDef: EnumTypeDef, systemQualifie
 }
 
 /**
+ * Raises an error if the given record type contains multiple properties with the same name.
+ * @param recordTypeDef A record type definition.
+ */
+function ensureRecordTypePropertiesAreUnique (recordTypeDef: RecordTypeDef): void {
+  const propertyNames: string[] = []
+
+  recordTypeDef.properties.forEach(property => {
+    if (propertyNames.includes(property.name)) {
+      throw new DuplicatePropertyNameOnRecordTypeError(recordTypeDef.name, property.name)
+    } else {
+      propertyNames.push(property.name)
+    }
+  })
+}
+
+/**
  * Raises an error if the given record type describe a property of an unrecognised type.
  * @param recordTypeDef A record type definition.
  * @param systemQualifiedTypeNames An array of system qualified type names.
@@ -288,7 +310,7 @@ function ensureEnumTypeItemsDataIsValid (jsonSchemaValidator: Ajv, enumTypeDef: 
   // Check the required field names.
   recordTypeDef.required?.forEach(propertyName => {
     if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
-      throw new RecordTypeUnrecognisedPropertyError(recordTypeDef.name, propertyName)
+      throw new UnrecognisedPropertyNameOnRecordTypeError(recordTypeDef.name, propertyName)
     }
   })
 }
@@ -348,13 +370,13 @@ function ensureRecordTypeTestCasesAreValid(jsonSchemaValidator: Ajv, recordTypeD
 function ensureRecordTypeVariantsAreValid (recordTypeDef: RecordTypeDef): void {
   recordTypeDef.variants?.forEach(variant => {
     if (!Array.isArray(variant.includeProperties) && !Array.isArray(variant.excludeProperties)) {
-      throw new RecordTypeVariantMissingPropertyArrayError(recordTypeDef.name, variant.name)
+      throw new InvalidRecordTypeVariantDefinitionError(recordTypeDef.name, variant.name)
     }
 
     if (Array.isArray(variant.includeProperties)) {
       variant.includeProperties.forEach(propertyName => {
         if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
-          throw new RecordTypeVariantUnrecognisedPropertyError(recordTypeDef.name, variant.name, propertyName)
+          throw new UnrecognisedPropertyNameOnRecordTypeVariantError(recordTypeDef.name, variant.name, propertyName)
         }
       })
     }
@@ -362,7 +384,7 @@ function ensureRecordTypeVariantsAreValid (recordTypeDef: RecordTypeDef): void {
     if (Array.isArray(variant.excludeProperties)) {
       variant.excludeProperties.forEach(propertyName => {
         if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
-          throw new RecordTypeVariantUnrecognisedPropertyError(recordTypeDef.name, variant.name, propertyName)
+          throw new UnrecognisedPropertyNameOnRecordTypeVariantError(recordTypeDef.name, variant.name, propertyName)
         }
       })
     }
@@ -370,7 +392,7 @@ function ensureRecordTypeVariantsAreValid (recordTypeDef: RecordTypeDef): void {
     if (Array.isArray(variant.required)) {
       variant.required.forEach(propertyName => {
         if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
-          throw new RecordTypeVariantUnrecognisedPropertyError(recordTypeDef.name, variant.name, propertyName)
+          throw new UnrecognisedPropertyNameOnRecordTypeVariantError(recordTypeDef.name, variant.name, propertyName)
         }
       })
     }

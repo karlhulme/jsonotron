@@ -1,10 +1,11 @@
 import { expect, test } from '@jest/globals'
 import {
   parseTypeLibrary, TestCaseInvalidationError, TestCaseValidationError,
-  RecordTypeVariantUnrecognisedPropertyError, UnrecognisedTypeError, ValueValidationError,
+  UnrecognisedPropertyNameOnRecordTypeVariantError, UnrecognisedTypeError, ValueValidationError,
   ValueValidator,
-  RecordTypeVariantMissingPropertyArrayError,
-  RecordTypeUnrecognisedPropertyError
+  InvalidRecordTypeVariantDefinitionError,
+  UnrecognisedPropertyNameOnRecordTypeError,
+  DuplicatePropertyNameOnRecordTypeError
 } from '../src'
 import { reindentYaml, TEST_DOMAIN, otherType, asError } from './shared.test'
 
@@ -133,7 +134,7 @@ test('A record type that describes an unknown property as required cannot be par
       summary: This is a valid test case.
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidRequiredProperty, otherType] })).toThrow(asError(RecordTypeUnrecognisedPropertyError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidRequiredProperty, otherType] })).toThrow(asError(UnrecognisedPropertyNameOnRecordTypeError))
 })
 
 test('A valid record type value passes validation for the main record and its variants.', async () => {
@@ -170,7 +171,7 @@ test('A record type that describes a variant with an unrecognised include proper
       - unrecognised
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithUnrecognisedInclude, otherType] })).toThrow(asError(RecordTypeVariantUnrecognisedPropertyError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithUnrecognisedInclude, otherType] })).toThrow(asError(UnrecognisedPropertyNameOnRecordTypeVariantError))
 })
 
 test('A record type that describes a variant with an unrecognised exclude property is rejected.', async () => {
@@ -195,7 +196,7 @@ test('A record type that describes a variant with an unrecognised exclude proper
       - unrecognised
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedExclude, otherType] })).toThrow(asError(RecordTypeVariantUnrecognisedPropertyError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedExclude, otherType] })).toThrow(asError(UnrecognisedPropertyNameOnRecordTypeVariantError))
 })
 
 test('A record type that describes a variant with neither includeProperties nor excludeProperties is rejected.', async () => {
@@ -218,7 +219,7 @@ test('A record type that describes a variant with neither includeProperties nor 
       summary: An invalid variant due to no include/exclude property arrays.
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedExclude, otherType] })).toThrow(asError(RecordTypeVariantMissingPropertyArrayError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedExclude, otherType] })).toThrow(asError(InvalidRecordTypeVariantDefinitionError))
 })
 
 test('A record type that describes a variant with an unrecognised required property is rejected.', async () => {
@@ -245,7 +246,7 @@ test('A record type that describes a variant with an unrecognised required prope
       - unrecognisedProperty
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedRequired, otherType] })).toThrow(asError(RecordTypeVariantUnrecognisedPropertyError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedRequired, otherType] })).toThrow(asError(UnrecognisedPropertyNameOnRecordTypeVariantError))
 })
 
 test('A record type that describes a valid test cases that is actually not valid is rejected.', async () => {
@@ -289,4 +290,27 @@ test('A record type that describes an invalid test cases that is actually valid 
   `)
 
   expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithWrongInvalidTestCase, otherType] })).toThrow(asError(TestCaseInvalidationError))
+})
+
+test('A record type that declares the same property multiple times is rejected.', async () => {
+  const recordTypeWitUnrecognisedRequired = reindentYaml(`
+    ---
+    kind: record
+    system: test
+    name: testRecord
+    summary: A test record.
+    properties:
+    - name: one
+      summary: The first property.
+      propertyType: test/other
+    - name: one
+      summary: This is a duplicate property.
+      propertyType: test/other
+    validTestCases:
+    - value:
+        one: 1
+      summary: This is a valid test case.
+  `)
+
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWitUnrecognisedRequired, otherType] })).toThrow(asError(DuplicatePropertyNameOnRecordTypeError))
 })

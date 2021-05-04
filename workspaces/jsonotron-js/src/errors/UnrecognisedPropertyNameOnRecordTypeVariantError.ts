@@ -1,7 +1,7 @@
 /**
  * Raised if a record type variant refers to a property not found on the record type.
  */
- export class RecordTypeVariantUnrecognisedPropertyError extends Error {
+ export class UnrecognisedPropertyNameOnRecordTypeVariantError extends Error {
   recordTypeName: string
   variantName: string
   propertyName: string

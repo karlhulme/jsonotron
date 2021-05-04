@@ -1,7 +1,7 @@
 /**
  * Raised if a record type variant does not specify an include or exclude list.
  */
- export class RecordTypeVariantMissingPropertyArrayError extends Error {
+ export class InvalidRecordTypeVariantDefinitionError extends Error {
   recordTypeName: string
   variantName: string
 
