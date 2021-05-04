@@ -11,7 +11,7 @@ export function createJsonSchemaForObjectTypeDef (domain: string, objectTypeDef:
   return {
     $id: `${domain}/${objectTypeDef.system}/${objectTypeDef.name}`,
     $schema: JSON_SCHEMA_DECLARATION,
-    title: `Object Type "${objectTypeDef.name}"`,
+    title: `Object Type: ${objectTypeDef.name}`,
     type: 'object',
     additionalProperties: true
   }

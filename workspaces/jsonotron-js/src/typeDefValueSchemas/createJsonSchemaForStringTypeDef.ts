@@ -11,7 +11,7 @@ export function createJsonSchemaForStringTypeDef (domain: string, stringTypeDef:
   return {
     $id: `${domain}/${stringTypeDef.system}/${stringTypeDef.name}`,
     $schema: JSON_SCHEMA_DECLARATION,
-    title: `String Type "${stringTypeDef.name}"`,
+    title: `String Type: ${stringTypeDef.name}`,
     type: 'string',
     minLength: stringTypeDef.minimumLength,
     maxLength: stringTypeDef.maximumLength,

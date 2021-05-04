@@ -11,7 +11,7 @@ export function createJsonSchemaForIntTypeDef (domain: string, intTypeDef: IntTy
   return {
     $id: `${domain}/${intTypeDef.system}/${intTypeDef.name}`,
     $schema: JSON_SCHEMA_DECLARATION,
-    title: `Int Type "${intTypeDef.name}"`,
+    title: `Int Type: ${intTypeDef.name}`,
     type: 'integer',
     minimum: intTypeDef.minimum,
     maximum: intTypeDef.maximum

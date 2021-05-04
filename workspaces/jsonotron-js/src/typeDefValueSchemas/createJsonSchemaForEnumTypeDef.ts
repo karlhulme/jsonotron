@@ -11,7 +11,7 @@ export function createJsonSchemaForEnumTypeDef (domain: string, enumTypeDef: Enu
   return {
     $id: `${domain}/${enumTypeDef.system}/${enumTypeDef.name}`,
     $schema: JSON_SCHEMA_DECLARATION,
-    title: `Enum Type "${enumTypeDef.name}"`,
+    title: `Enum Type: ${enumTypeDef.name}`,
     enum: enumTypeDef.items.map(item => item.value)
   }
 }

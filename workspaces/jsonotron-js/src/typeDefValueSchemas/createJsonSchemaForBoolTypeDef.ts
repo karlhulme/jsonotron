@@ -11,7 +11,7 @@ export function createJsonSchemaForBoolTypeDef (domain: string, boolTypeDef: Jso
   return {
     $id: `${domain}/${boolTypeDef.system}/${boolTypeDef.name}`,
     $schema: JSON_SCHEMA_DECLARATION,
-    title: `Boolean Type "${boolTypeDef.name}"`,
+    title: `Boolean Type: ${boolTypeDef.name}`,
     type: 'boolean'
   }
 }

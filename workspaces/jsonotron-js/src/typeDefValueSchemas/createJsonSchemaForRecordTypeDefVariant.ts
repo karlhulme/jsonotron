@@ -40,7 +40,7 @@ export function createJsonSchemaForRecordTypeDefVariant (domain: string, recordT
   return {
     $id: `${domain}/${recordTypeDef.system}/${variantDef.name}`,
     $schema: JSON_SCHEMA_DECLARATION,
-    title: `Record Type (Variant) "${variantDef.name}"`,
+    title: `Record Type: ${recordTypeDef.name}, Variant: ${variantDef.name}"`,
     type: 'object',
     properties,
     required: variantDef.required

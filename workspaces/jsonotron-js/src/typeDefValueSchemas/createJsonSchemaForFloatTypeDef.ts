@@ -11,7 +11,7 @@ export function createJsonSchemaForFloatTypeDef (domain: string, floatTypeDef: F
   return {
     $id: `${domain}/${floatTypeDef.system}/${floatTypeDef.name}`,
     $schema: JSON_SCHEMA_DECLARATION,
-    title: `Float Type "${floatTypeDef.name}"`,
+    title: `Float Type: ${floatTypeDef.name}`,
     type: 'number',
     minimum: !floatTypeDef.isMinimumExclusive ? floatTypeDef.minimum : undefined,
     exclusiveMinimum: floatTypeDef.isMinimumExclusive ? floatTypeDef.minimum : undefined,
