@@ -12,7 +12,7 @@ export function validateValue (value: unknown, schemaId: string): void {
   if (!ajv) {
     ajv = new Ajv({
       ownProperties: true, // only iterate over objects found directly on the object
-      schemas: allJsonSchemas
+      schemas: allJsonSchemas.map(schema => JSON.parse(schema))
     })
   }
 
