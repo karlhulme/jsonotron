@@ -88,6 +88,24 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
     return array.findIndex(type => type.system === system && type.name === name) > -1
   }
 
+  const doesRecordTypeArrayContainType = (array: RecordTypeDef[], system: string, name: string) => {
+    for (const candidateRecordTypeDef of array) {
+      if (candidateRecordTypeDef.system === system && candidateRecordTypeDef.name === name) {
+        return true
+      }
+
+      if (candidateRecordTypeDef.variants) {
+        for (const candidateVariantDef of candidateRecordTypeDef.variants) {
+          if (candidateRecordTypeDef.system === system && candidateVariantDef.name === name) {
+            return true
+          }
+        }
+      }
+    }
+
+    return false
+  }
+
   const recordType: RecordType = {
     kind: recordTypeDef.kind,
     system: recordTypeDef.system,
@@ -116,7 +134,7 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
         isFloat: doesArrayContainType(typeLibraryDef.floatTypeDefs, propertyTypeSystem, propertyTypeName),
         isInt: doesArrayContainType(typeLibraryDef.intTypeDefs, propertyTypeSystem, propertyTypeName),
         isObject: doesArrayContainType(typeLibraryDef.objectTypeDefs, propertyTypeSystem, propertyTypeName),
-        isRecord: doesArrayContainType(typeLibraryDef.recordTypeDefs, propertyTypeSystem, propertyTypeName),
+        isRecord: doesRecordTypeArrayContainType(typeLibraryDef.recordTypeDefs, propertyTypeSystem, propertyTypeName),
         isString: doesArrayContainType(typeLibraryDef.stringTypeDefs, propertyTypeSystem, propertyTypeName)    
       }
     }),
@@ -167,7 +185,7 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
           isFloat: doesArrayContainType(typeLibraryDef.floatTypeDefs, propertyTypeSystem, propertyTypeName),
           isInt: doesArrayContainType(typeLibraryDef.intTypeDefs, propertyTypeSystem, propertyTypeName),
           isObject: doesArrayContainType(typeLibraryDef.objectTypeDefs, propertyTypeSystem, propertyTypeName),
-          isRecord: doesArrayContainType(typeLibraryDef.recordTypeDefs, propertyTypeSystem, propertyTypeName),
+          isRecord: doesRecordTypeArrayContainType(typeLibraryDef.recordTypeDefs, propertyTypeSystem, propertyTypeName),
           isString: doesArrayContainType(typeLibraryDef.stringTypeDefs, propertyTypeSystem, propertyTypeName)    
         }
       }),

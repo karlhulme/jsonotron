@@ -9,7 +9,7 @@ import {
 } from '../src'
 import { reindentYaml, TEST_DOMAIN, otherType, asError } from './shared.test'
 
-const recordType = reindentYaml(`
+const testRecord = reindentYaml(`
   ---
   kind: record
   system: test
@@ -77,13 +77,13 @@ const recordTypeWithVariants = reindentYaml(`
 `)
 
 function setupValidator () {
-  const typeLibrary = parseTypeLibrary({ resourceStrings: [recordType, recordTypeWithVariants, otherType], domain: TEST_DOMAIN })
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [testRecord, recordTypeWithVariants, otherType], domain: TEST_DOMAIN })
   const validator = new ValueValidator(typeLibrary)
   return validator
 }
 
 test('A valid record type can be parsed.', async () => {
-  const typeLibrary = parseTypeLibrary({ resourceStrings: [recordType, otherType] })
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [testRecord, otherType] })
   expect(typeLibrary.recordTypes).toHaveLength(1)
   expect(typeLibrary.recordTypes[0].properties).toHaveLength(1)
   expect(typeLibrary.recordTypes[0].properties[0]).toHaveProperty('propertyTypeSystem', 'test')
@@ -93,6 +93,51 @@ test('A valid record type can be parsed.', async () => {
 test('A valid record type with variants can be parsed.', async () => {
   const typeLibrary = parseTypeLibrary({ resourceStrings: [recordTypeWithVariants, otherType] })
   expect(typeLibrary.recordTypes).toHaveLength(3)
+})
+
+test('A record type with a property that references another record is accepted.', async () => {
+  const testRecordThatRefsARecord = reindentYaml(`
+    ---
+    kind: record
+    system: test
+    name: testRecordThatRefsARecord
+    summary: A test record that references a variant.
+    properties:
+    - name: ref
+      summary: The property that is a record.
+      propertyType: testRecord
+    validTestCases:
+    - value:
+        ref:
+          one: 1
+      summary: This is a valid test case.
+  `)
+
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [testRecordThatRefsARecord, testRecord, otherType] })
+  expect(typeLibrary.recordTypes).toHaveLength(2)
+})
+
+test('A record type with a property that references a variant is accepted.', async () => {
+  const testRecordThatRefsAVariant = reindentYaml(`
+    ---
+    kind: record
+    system: test
+    name: testRecordThatRefsAVariant
+    summary: A test record that references a variant.
+    properties:
+    - name: var
+      summary: The property that is a variant record.
+      propertyType: test/testRecordWithIncludes
+    validTestCases:
+    - value:
+        var:
+          one: 1
+          twos: [2, 2, 2]
+      summary: This is a valid test case.
+  `)
+
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [testRecordThatRefsAVariant, recordTypeWithVariants, otherType] })
+  expect(typeLibrary.recordTypes).toHaveLength(4)
 })
 
 test('A record type that describes a property of an unknown type cannot be parsed.', async () => {
