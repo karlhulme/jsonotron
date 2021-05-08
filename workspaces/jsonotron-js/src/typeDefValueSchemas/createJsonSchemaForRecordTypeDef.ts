@@ -31,6 +31,7 @@ export function createJsonSchemaForRecordTypeDef (domain: string, recordTypeDef:
     $schema: JSON_SCHEMA_DECLARATION,
     title: `Record Type: ${recordTypeDef.name}`,
     type: 'object',
+    additionalProperties: false,
     properties,
     required: recordTypeDef.required
   }
