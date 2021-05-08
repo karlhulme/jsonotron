@@ -13,12 +13,12 @@ export interface RecordTypeDefProperty {
   summary: string
 
   /**
-   * The fully qualified type of the property.
+   * The type of the property.
    */
   propertyType: string
 
   /**
-   * Specifies if the value is to be treated as an array.
+   * Specifies if the property is to be treated as an array.
    */
   isArray?: boolean
 

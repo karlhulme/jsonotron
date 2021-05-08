@@ -11,7 +11,7 @@ export interface EnumTypeDef extends JsonotronTypeDef {
   items: EnumTypeDefItem[]
 
   /**
-   * The type that describes the shape of the data
+   * If populated, this type describes the shape of the data
    * associated with each enumeration item.  This should be a
    * record to make it easier to adapt and extend over time.
    */
