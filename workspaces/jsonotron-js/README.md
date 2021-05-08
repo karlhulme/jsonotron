@@ -14,33 +14,6 @@ npm install jsonotron-js
 ```
 
 
-## Validating a set of resources
-
-To validate a set of resources use the `parseTypeLibrary` function as shown below.
-
-```javascript
-import { parseTypeLibrary } from 'jsonotron-js'
-
-const colorType = fs.readFileSync('./typeSystem/example/color.yaml', 'utf-8')
-
-try {
-  const typeLibrary = parseTypeLibrary({
-    resourceStrings: [colorType]
-  })
-
-  console.log(`Parsed ${typeLibrary.arrayTypes.length} array types.`)
-} catch (err) {
-  // oops - validation failed!
-}
-```
-
-You can pass the following options to the `parseTypeLibrary` function:
-
-* **resourceStrings** An array of YAML or JSON strings.  Each string represents a Jsonotron type.
-
-**If validation fails** then an exception is thrown with details of the problem.
-
-
 ## Development
 
 To run the tests:

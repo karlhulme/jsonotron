@@ -72,6 +72,35 @@ js | [ajv by Evgeny Poberezkin](https://github.com/ajv-validator/ajv)
 cs | [Json.NET Schema by Newtonsoft](https://www.newtonsoft.com/jsonschema)
 
 
+## Instantiate a Jsonoserve
+
+You will need to define some types, as per the instructions for [Jsonotron](https://github.com/karlhulme/jsonotron).  You will then typically load the types (in a loop) into string variables that can be passed to the Jsonotron class constructor.
+
+```javascript
+import { createJsonoserveExpress } from 'jsonoserve'
+
+const type1 = fs.readFileSync('./test/testTypes/type1.yaml', 'utf-8')
+const type2 = fs.readFileSync('./test/testTypes/type2.yaml', 'utf-8')
+
+const app = express()
+
+app.use('/', createJsonoserveExpress({
+  types: [type1, type2]
+}))
+
+app.listen()
+```
+
+## Routes
+
+The handler is listening for the following requests:
+
+url | result
+--- | ---
+`/types` | An object with an `enumTypes: EnumType[]` property and a `schemaTypes: SchemaType[]`.
+
+
+
 ### Enum Types
 
 An **enum type** represents data that should be available at compile time rather than stored in a database. For example, `dayOfWeek` defines `monday`, `tuesday`, `wednesday` etc.

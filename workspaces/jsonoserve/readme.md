@@ -1,44 +1,17 @@
 # Jsonoserve
 
-An express handler for serving [Jsonotron](https://github.com/karlhulme/jsonotron) types.
+An express handler for serving Jsonotron types.
 
 ![](https://github.com/karlhulme/jsonotron/workflows/CD/badge.svg)
 [![npm](https://img.shields.io/npm/v/jsonoserve.svg)](https://www.npmjs.com/package/jsonoserve)
 ![npm type definitions](https://img.shields.io/npm/types/typescript)
+
 
 ## Installation
 
 ```bash
 npm install jsonoserve
 ```
-
-
-## Instantiate a Jsonoserve
-
-You will need to define some types, as per the instructions for [Jsonotron](https://github.com/karlhulme/jsonotron).  You will then typically load the types (in a loop) into string variables that can be passed to the Jsonotron class constructor.
-
-```javascript
-import { createJsonoserveExpress } from 'jsonoserve'
-
-const type1 = fs.readFileSync('./test/testTypes/type1.yaml', 'utf-8')
-const type2 = fs.readFileSync('./test/testTypes/type2.yaml', 'utf-8')
-
-const app = express()
-
-app.use('/', createJsonoserveExpress({
-  types: [type1, type2]
-}))
-
-app.listen()
-```
-
-## Routes
-
-The handler is listening for the following requests:
-
-url | result
---- | ---
-`/types` | An object with an `enumTypes: EnumType[]` property and a `schemaTypes: SchemaType[]`.
 
 
 ## Development
