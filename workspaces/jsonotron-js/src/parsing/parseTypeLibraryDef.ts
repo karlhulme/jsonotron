@@ -192,8 +192,15 @@ function extractSystemQualifiedTypeNames (typeLibraryDef: TypeLibraryDef): strin
   result.push(...typeLibraryDef.floatTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
   result.push(...typeLibraryDef.intTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
   result.push(...typeLibraryDef.objectTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
-  result.push(...typeLibraryDef.recordTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
   result.push(...typeLibraryDef.stringTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
+
+  typeLibraryDef.recordTypeDefs.forEach(typeDef => {
+    result.push(`${typeDef.system}/${typeDef.name}`)
+
+    typeDef.variants?.forEach(variantDef => {
+      result.push(`${typeDef.system}/${variantDef.name}`)
+    })
+  })
 
   return result
 }
