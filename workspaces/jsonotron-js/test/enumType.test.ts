@@ -1,5 +1,9 @@
 import { expect, test } from '@jest/globals'
-import { EnumTypeItemDataValidationError, parseTypeLibrary, UnrecognisedTypeError, ValueValidationError, ValueValidator } from '../src'
+import {
+  EnumTypeItemDataValidationError, parseTypeLibrary,
+  ValueValidationError, ValueValidator,
+  UnrecognisedDataTypeOnEnumTypeError
+} from '../src'
 import { reindentYaml, TEST_DOMAIN, asError, otherType } from './shared.test'
 
 const enumType = reindentYaml(`
@@ -68,7 +72,7 @@ test('An enum type that refers to a unknown data type cannot be parsed.', async 
       summary: This is an apple item.
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [enumScalarTypeWithInvalidDataType] })).toThrow(asError(UnrecognisedTypeError))
+  expect(() => parseTypeLibrary({ resourceStrings: [enumScalarTypeWithInvalidDataType] })).toThrow(asError(UnrecognisedDataTypeOnEnumTypeError))
 })
 
 test('An enum type that defines items with invalid data cannot be parsed.', async () => {

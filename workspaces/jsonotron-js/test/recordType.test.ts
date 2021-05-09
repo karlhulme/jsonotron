@@ -1,7 +1,9 @@
 import { expect, test } from '@jest/globals'
 import {
   parseTypeLibrary, TestCaseInvalidationError, TestCaseValidationError,
-  UnrecognisedPropertyNameOnRecordTypeVariantError, UnrecognisedTypeError, ValueValidationError,
+  UnrecognisedPropertyNameOnRecordTypeVariantError, 
+  UnrecognisedPropertyTypeOnRecordTypeError,
+  ValueValidationError,
   ValueValidator,
   InvalidRecordTypeVariantDefinitionError,
   UnrecognisedPropertyNameOnRecordTypeError,
@@ -157,7 +159,7 @@ test('A record type that describes a property of an unknown type cannot be parse
       summary: This is a valid test case.
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidPropertyType] })).toThrow(asError(UnrecognisedTypeError))
+  expect(() => parseTypeLibrary({ resourceStrings: [recordTypeWithInvalidPropertyType] })).toThrow(asError(UnrecognisedPropertyTypeOnRecordTypeError))
 })
 
 test('A record type that describes an unknown property as required cannot be parsed.', async () => {
