@@ -12,11 +12,12 @@ import {
   TestCaseInvalidationError,
   TestCaseValidationError,
   UnrecognisedPropertyNameOnRecordTypeVariantError,
-  UnrecognisedTypeError,
+  UnrecognisedDataTypeOnEnumTypeError,
   UnrecognisedTypeKindError,
   InvalidRecordTypeVariantDefinitionError,
   UnrecognisedPropertyNameOnRecordTypeError,
-  DuplicatePropertyNameOnRecordTypeError
+  DuplicatePropertyNameOnRecordTypeError,
+  UnrecognisedPropertyTypeOnRecordTypeError
 } from '../errors'
 import { createTypeDefValidators, TypeDefValidators } from '../typeDefSchemas'
 import { createAjvFromTypeLibraryDef, getDomainQualifiedTypeReference } from '../typeDefValueSchemas'
@@ -228,7 +229,7 @@ function ensureSystemQualifiedTypeNamesAreUnique (systemQualifiedTypeNames: stri
  */
 function ensureEnumTypeDataTypeIsValid (enumTypeDef: EnumTypeDef, systemQualifiedTypeNames: string[]): void {
   if (enumTypeDef.dataType && !systemQualifiedTypeNames.includes(getSystemQualifiedTypeName(enumTypeDef.system, enumTypeDef.dataType))) {
-    throw new UnrecognisedTypeError(enumTypeDef.dataType)
+    throw new UnrecognisedDataTypeOnEnumTypeError(enumTypeDef.name, enumTypeDef.dataType)
   }
 }
 
@@ -258,7 +259,7 @@ function ensureRecordTypePropertiesPropertyTypeAreValid (recordTypeDef: RecordTy
     const qualifiedPropertyType = getSystemQualifiedTypeName(recordTypeDef.system, property.propertyType)
 
     if (!systemQualifiedTypeNames.includes(qualifiedPropertyType)) {
-      throw new UnrecognisedTypeError(property.propertyType)
+      throw new UnrecognisedPropertyTypeOnRecordTypeError(recordTypeDef.name, property.name, property.propertyType)
     }
 
     property.propertyType = qualifiedPropertyType

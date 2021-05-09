@@ -1,6 +1,6 @@
 import Ajv, { ErrorObject } from 'ajv'
 import { TypeLibrary } from 'jsonotron-interfaces'
-import { UnrecognisedTypeError, ValueValidationError } from '../errors'
+import { ValueValidationError } from '../errors'
 import { createAjvFromTypeLibrary } from '../typeDefValueSchemas'
 
  /**
@@ -41,7 +41,7 @@ export class ValueValidator {
     const validator = this.jsonSchemaValidator.getSchema(domainQualifiedType)
 
     if (!validator) {
-      throw new UnrecognisedTypeError(systemQualifiedType)
+      throw new ValueValidationError(systemQualifiedType, value, 'No validator found for the givem system qualified type.')
     }
 
     const result = validator(value)
