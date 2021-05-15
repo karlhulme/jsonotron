@@ -285,8 +285,7 @@ function ensureTypeIsValid (typeDef: JsonotronTypeDef, validator: ValidateFuncti
  * @param errors An array of error objects.
  */
 function ajvErrorsToString (errors?: ErrorObject[]|null) {
-  /* istanbul ignore next - errors will never be null/undefined */
-  return JSON.stringify(errors || [], null, 2)
+  return JSON.stringify(errors, null, 2)
 }
 
 /**
