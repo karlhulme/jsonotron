@@ -13,6 +13,47 @@ Functions for generating code by applying jsonotron types to handlebar templates
 npm install jsonotron-codegen
 ```
 
+## Styles
+
+The following styles can be produced:
+
+tag | example | notes
+---|---|---
+{{identToConstCase}} | CONST_CASE
+{{identToPascalCase}} | PascalCase
+{{identToSnakeCase}} | snake_case
+{{stringify}} | {"foo": "bar"}
+{{stringifyPretty}} | See above | In addition, this format includes spaces and newlines.
+{{valueToConstCase}} | A_VALUE | Will replace unsafe characters with underscores.
+{{valueToIdent}} | aValue | Will replace unsafe characters with underscores.
+
+
+## Helpers
+
+A helper that renders content if a value is found in an array:
+
+```hbs
+{{#isTagged tags with='special'}}
+  my content here
+{{/isTagged}}
+```
+
+A helper that renders content if an array value does include a context value:
+
+```hbs
+{{#isIncluded name in='value1,value2'}}
+  my content here
+{{/isIncluded}}
+```
+
+A helper that renders content if an array value does not include a context value:
+
+```hbs
+{{#isExcluded name from='value1,value2'}}
+  my content here
+{{/isExcluded}}
+```
+
 
 ## Development
 
