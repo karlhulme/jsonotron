@@ -22,4 +22,11 @@ export interface RecordType extends JsonotronType {
    * An array of examples.
    */
   examples: Example<unknown>[]
+
+  /**
+   * If this record was defined as a variant, then this property
+   * indicates the name of the original record.  They will belong
+   * to the same system.
+   */
+  variantBaseName?: string
 }

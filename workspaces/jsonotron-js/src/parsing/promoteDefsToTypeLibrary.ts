@@ -191,7 +191,8 @@ function convertRecordTypeDefToRecordTypes (domain: string, recordTypeDef: Recor
       }),
       examples: [],
       isInput: variantDef.direction === 'input' || variantDef.direction === 'both' || !variantDef.direction,
-      isOutput: variantDef.direction === 'output' || variantDef.direction === 'both' || !variantDef.direction
+      isOutput: variantDef.direction === 'output' || variantDef.direction === 'both' || !variantDef.direction,
+      variantBaseName: recordTypeDef.name
     }
 
     result.push(variantRecordType)
