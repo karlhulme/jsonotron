@@ -6,3 +6,7 @@ test('Convert an identifier into const case.', async () => {
   expect(identToConstCase('networkIO')).toEqual('NETWORK_IO')
   expect(identToConstCase('networkIOver')).toEqual('NETWORK_I_OVER')
 })
+
+test('Convert an undefined into const case.', async () => {
+  expect(identToConstCase()).toEqual('')
+})

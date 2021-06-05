@@ -7,3 +7,7 @@ test('Convert an identifier into snake case.', async () => {
   expect(identToSnakeCase('networkIO')).toEqual('network_io')
   expect(identToSnakeCase('networkIOver')).toEqual('network_i_over')
 })
+
+test('Convert an undefined into snake case.', async () => {
+  expect(identToSnakeCase()).toEqual('')
+})
