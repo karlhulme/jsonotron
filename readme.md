@@ -96,15 +96,7 @@ properties | [] | Y | An array of properties that can appear in this record.
 &nbsp; .deprecated | string | | If populated, this value explains why the property was deprecated and/or which property to use instead.
 required | string[] | | Indicates which of the properties on this record type are mandatory.
 direction | input,output,both | | Indicates whether the record is used exclusively for input, exclusively for output, or for either.  If not specified, a direction of 'both' is assumed.  (This makes it easier to support GraphQL.)
-variants | [] | | An array of types that are derived by selecting or excluding specific properties of the type.
-&nbsp; .name | string | Y | The name of this variant.
-&nbsp; .summary | string | Y | Documents the usage of the variant.
-&nbsp; .includeProperties | string[] | | If present, it lists the only properties that are included in this variant of the record.
-&nbsp; .excludeProperties | string[] | | If present, and if includeProperties is not present, the variant will include all the properties except the ones specified.
-&nbsp; .required | string[] | | Indicates which of the properties on this variant are mandatory.
-&nbsp; .direction | input,output,both | | Indicates whether the record is used exclusively for input, exclusively for output, or for either.  If not specified, a direction of 'both' is assumed.
-&nbsp; .deprecated | string | | If populated, this value explains why the variant was deprecated and/or which variant to use instead.
-&nbsp; .tags | string[] | | An array of tags that can be used by the code generator to discriminate between the types.
+factories | string[] | | An array of factory names that should be used to generate a replacement set of records based on this one. 
 validTestCases | [] |  | An array of values that can be represented by this type.
 &nbsp; .summary | string | Y | A description of the test case.
 &nbsp; .value | object | Y | A value that should be valid.
