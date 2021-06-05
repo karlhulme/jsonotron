@@ -2,6 +2,7 @@ import Ajv, { ErrorObject, ValidateFunction } from 'ajv'
 import yaml from 'js-yaml'
 import {
   EnumTypeDef, FloatTypeDef, IntTypeDef, JsonotronTypeDef,
+  RecordFactory,
   RecordTypeDef, StringTypeDef, TypeLibraryDef
 } from 'jsonotron-interfaces'
 import {
@@ -11,13 +12,12 @@ import {
   ParseYamlError,
   TestCaseInvalidationError,
   TestCaseValidationError,
-  UnrecognisedPropertyNameOnRecordTypeVariantError,
   UnrecognisedDataTypeOnEnumTypeError,
   UnrecognisedTypeKindError,
-  InvalidRecordTypeVariantDefinitionError,
   UnrecognisedPropertyNameOnRecordTypeError,
   DuplicatePropertyNameOnRecordTypeError,
-  UnrecognisedPropertyTypeOnRecordTypeError
+  UnrecognisedPropertyTypeOnRecordTypeError,
+  UnrecognisedFactoryNameError
 } from '../errors'
 import { createTypeDefValidators, TypeDefValidators } from '../typeDefSchemas'
 import { createAjvFromTypeLibraryDef, getDomainQualifiedTypeReference } from '../typeDefValueSchemas'
@@ -32,7 +32,7 @@ const INTERNAL_DOMAIN = 'https://jsonotron.org'
  * Parses the given resource strings and returns a set of validated types.
  * @param resourceStrings An array of YAML or JSON strings.
  */
-export function parseTypeLibraryDef (resourceStrings: string[]): TypeLibraryDef {
+export function parseTypeLibraryDef (resourceStrings: string[], factories: RecordFactory[]): TypeLibraryDef {
   // Convert strings to JsonotronTypes with a 'kind' property.
   const resourceObjects = resourceStrings.map(t => convertYamlStringToObject(t))
 
@@ -41,6 +41,9 @@ export function parseTypeLibraryDef (resourceStrings: string[]): TypeLibraryDef 
 
   // Validate and sort the resources into specific types.
   const typeLibraryDef = sortResources(resourceObjects, typeValidators)
+
+  // Execute factories to expand record types.
+  executeRecordFactories(typeLibraryDef, factories)
 
   // Get all the type names that have been loaded.
   const systemQualifiedTypeNames = extractSystemQualifiedTypeNames(typeLibraryDef)
@@ -85,11 +88,6 @@ export function parseTypeLibraryDef (resourceStrings: string[]): TypeLibraryDef 
   // Verify the test cases on all the record types
   typeLibraryDef.recordTypeDefs.forEach(recordTypeDef => {
     ensureRecordTypeTestCasesAreValid(jsonSchemaValidator, recordTypeDef)
-  })
-
-  // Verify the fields on the variants are valid.
-  typeLibraryDef.recordTypeDefs.forEach(recordTypeDef => {
-    ensureRecordTypeVariantsAreValid(recordTypeDef)
   })
 
   return typeLibraryDef
@@ -182,6 +180,34 @@ function sortResources (resources: JsonotronTypeDef[], validators: TypeDefValida
 }
 
 /**
+ * Executes the factory methods for any records that refer to factories
+ * and replace the contents in the type library accordingly.
+ * @param typeLibraryDef A type library.
+ * @param factories An array of record factories.
+ */
+function executeRecordFactories (typeLibraryDef: TypeLibraryDef, factories: RecordFactory[]) {
+  const expandedRecordTypes: RecordTypeDef[] = []
+
+  for (const recordTypeDef of typeLibraryDef.recordTypeDefs) {
+    if (Array.isArray(recordTypeDef.factories) && recordTypeDef.factories.length > 0) {
+      for (const factoryName of recordTypeDef.factories) {
+        const factory = factories.find(f => f.name === factoryName)
+
+        if (!factory) {
+          throw new UnrecognisedFactoryNameError(factoryName, recordTypeDef.name)
+        }
+
+        expandedRecordTypes.push(...factory.implementation(recordTypeDef))
+      }
+    } else {
+      expandedRecordTypes.push(recordTypeDef)
+    }
+  }
+
+  typeLibraryDef.recordTypeDefs = expandedRecordTypes
+}
+
+/**
  * Returns an array of system qualified type names.
  * @param typeLibraryDef A type library.
  */
@@ -193,15 +219,8 @@ function extractSystemQualifiedTypeNames (typeLibraryDef: TypeLibraryDef): strin
   result.push(...typeLibraryDef.floatTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
   result.push(...typeLibraryDef.intTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
   result.push(...typeLibraryDef.objectTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
+  result.push(...typeLibraryDef.recordTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
   result.push(...typeLibraryDef.stringTypeDefs.map(typeDef => `${typeDef.system}/${typeDef.name}`))
-
-  typeLibraryDef.recordTypeDefs.forEach(typeDef => {
-    result.push(`${typeDef.system}/${typeDef.name}`)
-
-    typeDef.variants?.forEach(variantDef => {
-      result.push(`${typeDef.system}/${variantDef.name}`)
-    })
-  })
 
   return result
 }
@@ -366,42 +385,6 @@ function ensureRecordTypeTestCasesAreValid(jsonSchemaValidator: Ajv, recordTypeD
   stringTypeDef.invalidTestCases?.forEach((t, index) => {
     if (validator && validator(t.value)) {
       throw new TestCaseInvalidationError(stringTypeDef.name, index)
-    }
-  })
-}
-
-/**
- * Validate the schema type variants.
- * @param recordTypeDef A record type definition.
- */
-function ensureRecordTypeVariantsAreValid (recordTypeDef: RecordTypeDef): void {
-  recordTypeDef.variants?.forEach(variant => {
-    if (!Array.isArray(variant.includeProperties) && !Array.isArray(variant.excludeProperties)) {
-      throw new InvalidRecordTypeVariantDefinitionError(recordTypeDef.name, variant.name)
-    }
-
-    if (Array.isArray(variant.includeProperties)) {
-      variant.includeProperties.forEach(propertyName => {
-        if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
-          throw new UnrecognisedPropertyNameOnRecordTypeVariantError(recordTypeDef.name, variant.name, propertyName)
-        }
-      })
-    }
-
-    if (Array.isArray(variant.excludeProperties)) {
-      variant.excludeProperties.forEach(propertyName => {
-        if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
-          throw new UnrecognisedPropertyNameOnRecordTypeVariantError(recordTypeDef.name, variant.name, propertyName)
-        }
-      })
-    }
-
-    if (Array.isArray(variant.required)) {
-      variant.required.forEach(propertyName => {
-        if (recordTypeDef.properties.findIndex(property => property.name === propertyName) === -1) {
-          throw new UnrecognisedPropertyNameOnRecordTypeVariantError(recordTypeDef.name, variant.name, propertyName)
-        }
-      })
     }
   })
 }

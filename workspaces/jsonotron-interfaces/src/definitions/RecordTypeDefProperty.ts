@@ -18,6 +18,11 @@ export interface RecordTypeDefProperty {
   propertyType: string
 
   /**
+   * The only acceptable value of the property.
+   */
+  constant?: string
+
+  /**
    * Specifies if the property is to be treated as an array.
    */
   isArray?: boolean

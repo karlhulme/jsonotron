@@ -4,7 +4,7 @@ import {
   ValueValidationError, ValueValidator,
   UnrecognisedDataTypeOnEnumTypeError
 } from '../src'
-import { reindentYaml, TEST_DOMAIN, asError, otherType } from './shared.test'
+import { reindentYaml, TEST_DOMAIN, asError, testSmallIntType } from './shared.test'
 
 const enumType = reindentYaml(`
   ---
@@ -30,7 +30,7 @@ const enumTypeWithData = reindentYaml(`
   system: test
   name: testEnumWithData
   summary: A test enum.
-  dataType: other
+  dataType: smallInt
   items:
   - value: apple
     text: Apple
@@ -46,14 +46,14 @@ const enumTypeWithData = reindentYaml(`
 `)
 
 function setupValidator () {
-  const typeLibrary = parseTypeLibrary({ resourceStrings: [enumType, enumTypeWithData, otherType], domain: TEST_DOMAIN })
+  const typeLibrary = parseTypeLibrary({ resourceStrings: [enumType, enumTypeWithData, testSmallIntType], domain: TEST_DOMAIN })
   const validator = new ValueValidator(typeLibrary)
   return validator
 }
 
 test('A valid enum type can be parsed.', async () => {
-  expect(() => parseTypeLibrary({ resourceStrings: [enumType, otherType] })).not.toThrow()
-  expect(() => parseTypeLibrary({ resourceStrings: [enumTypeWithData, otherType] })).not.toThrow()
+  expect(() => parseTypeLibrary({ resourceStrings: [enumType, testSmallIntType] })).not.toThrow()
+  expect(() => parseTypeLibrary({ resourceStrings: [enumTypeWithData, testSmallIntType] })).not.toThrow()
 })
 
 test('An enum type that refers to a unknown data type cannot be parsed.', async () => {
@@ -82,22 +82,22 @@ test('An enum type that defines items with invalid data cannot be parsed.', asyn
     system: test
     name: testEnumWithData
     summary: A test enum.
-    dataType: test/other
+    dataType: test/smallInt
     items:
     - value: apple
       text: Apple
       symbol: APL
-      data: hello
+      data: invalid
       summary: This is an apple item.
     - value: banana
       text: Banana
       symbol: BAN
-      data: world
+      data: 2
       summary: This is a banana item.
       deprecated: Best to eat apples instead.
   `)
 
-  expect(() => parseTypeLibrary({ resourceStrings: [enumScalarTypeWithInvalidData, otherType] })).toThrow(asError(EnumTypeItemDataValidationError))
+  expect(() => parseTypeLibrary({ resourceStrings: [enumScalarTypeWithInvalidData, testSmallIntType] })).toThrow(asError(EnumTypeItemDataValidationError))
 })
 
 test('A valid enum value passes validation.', async () => {

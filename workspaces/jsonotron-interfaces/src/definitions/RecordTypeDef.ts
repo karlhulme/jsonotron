@@ -1,6 +1,5 @@
 import { JsonotronTypeDef } from './JsonotronTypeDef'
 import { RecordTypeDefProperty } from './RecordTypeDefProperty'
-import { RecordTypeDefVariant } from './RecordTypeDefVariant'
 import { TestCase } from './TestCase'
 
 /**
@@ -25,10 +24,11 @@ export interface RecordTypeDef extends JsonotronTypeDef {
   direction?: 'input'|'output'|'both'
 
   /**
-   * An array of types that are derived by selecting or excluding 
-   * specific properties of the type.
+   * The name of the factories that will convert this record into
+   * one or more replacement records that contain procedurally added
+   * or removed fields.  
    */
-  variants?: RecordTypeDefVariant[]
+  factories?: string[]
 
   /**
    * An array of values that can be represented by this type.

@@ -30,6 +30,9 @@ export const recordTypeDefSchema = {
             type: 'string',
             pattern: typeReferenceRegex
           },
+          constant: {
+            type: 'string'
+          },
           isArray: {
             type: 'boolean'
           },
@@ -49,53 +52,10 @@ export const recordTypeDefSchema = {
     direction: {
       enum: ['input', 'output', 'both']
     },
-    variants: {
+    factories: {
       type: 'array',
       items: {
-        type: 'object',
-        additionalProperties: false,
-        properties: {
-          name: {
-            type: 'string',
-            pattern: identifierRegex
-          },
-          summary: {
-            type: 'string'
-          },
-          includeProperties: {
-            type: 'array',
-            minItems: 1,
-            items: {
-              type: 'string'
-            }
-          },
-          excludeProperties: {
-            type: 'array',
-            minItems: 0,
-            items: {
-              type: 'string'
-            }
-          },
-          required: {
-            type: 'array',
-            items: {
-              type: 'string'
-            }
-          },
-          direction: {
-            enum: ['input', 'output', 'both']
-          },
-          deprecated: {
-            type: 'string'
-          },
-          tags: {
-            type: 'array',
-            items: {
-              type: 'string'
-            }
-          }
-        },
-        required: ['name', 'summary']
+        type: 'string'
       }
     },
     validTestCases: {

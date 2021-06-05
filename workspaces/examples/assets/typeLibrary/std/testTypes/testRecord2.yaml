@@ -1,8 +1,8 @@
 ---
 kind: record
 system: std
-name: testRecord1
-summary: A record for testing the sengi factory and deprecations.
+name: testRecord2
+summary: A record for testing sengi doc with no required fields.
 deprecated: This record is only used for testing.
 properties:
 - name: theFirst
@@ -11,13 +11,6 @@ properties:
 - name: theSecond
   summary: The second property.
   propertyType: shortString
-- name: theThird
-  summary: The third property.
-  propertyType: shortString
-  deprecated: This third property is not used, please refer to theSecond instead.
-required:
-- theFirst
-- theSecond
 validTestCases:
 - value:
     theFirst: one

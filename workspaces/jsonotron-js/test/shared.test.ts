@@ -6,14 +6,23 @@ test('Prevent warnings on shared.test about missing tests.', async () => {
 
 export const TEST_DOMAIN = 'https://jsonotron-testing.org'
 
-export const otherType = reindentYaml(`
+export const testSmallIntType = reindentYaml(`
   ---
   kind: int
   system: test
-  name: other
+  name: smallInt
   summary: A simple int type that can be referenced by other types for testing purposes.
   minimum: -128
   maximum: 128
+`)
+
+export const testShortString = reindentYaml(`
+  ---
+  kind: string
+  system: test
+  name: shortString
+  summary: A simple string type that can be referenced by other types for testing purposes.
+  maximumLength: 20
 `)
 
 export function reindentYaml (yaml: string): string {

@@ -1,4 +1,4 @@
-import { TypeLibrary } from 'jsonotron-interfaces'
+import { RecordFactory, TypeLibrary } from 'jsonotron-interfaces'
 import { parseTypeLibraryDef } from './parseTypeLibraryDef'
 import { promoteDefsToTypeLibrary } from './promoteDefsToTypeLibrary'
 
@@ -18,6 +18,11 @@ const DEFAULT_DOMAIN = 'https://jsonotron.org'
    * The domain to use for JSON schema generation.
    */
   domain?: string
+
+  /**
+   * An array of record factories.
+   */
+  factories?: RecordFactory[]
 }
 
 /**
@@ -27,7 +32,8 @@ const DEFAULT_DOMAIN = 'https://jsonotron.org'
 export function parseTypeLibrary (options?: ParseOptions): TypeLibrary {
   const resourceStrings = options?.resourceStrings || []
   const domain = options?.domain || DEFAULT_DOMAIN
+  const factories = options?.factories || []
 
-  const typeLibraryDef = parseTypeLibraryDef(resourceStrings)
+  const typeLibraryDef = parseTypeLibraryDef(resourceStrings, factories)
   return promoteDefsToTypeLibrary(domain, typeLibraryDef)
 }

@@ -12,7 +12,11 @@ export function createJsonSchemaForRecordTypeDef (domain: string, recordTypeDef:
   const properties: Record<string, unknown> = {}
 
   recordTypeDef.properties.forEach(property => {
-    if (property.isArray) {
+    if (property.constant) {
+      properties[property.name] = {
+        enum: [property.constant]
+      }
+    } else if (property.isArray) {
       properties[property.name] = {
         type: 'array',
         items: {
