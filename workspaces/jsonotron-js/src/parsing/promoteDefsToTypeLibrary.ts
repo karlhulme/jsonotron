@@ -98,6 +98,7 @@ function convertRecordTypeDefToRecordType (domain: string, recordTypeDef: Record
         isString: isTypeInArray(typeLibraryDef.stringTypeDefs, propertyTypeSystem, propertyTypeName)
       }
     }),
+    variantBaseName: recordTypeDef.variantBaseName,
     examples: recordTypeDef.validTestCases.filter(tc => tc.summary),
     isInput: recordTypeDef.direction === 'input' || recordTypeDef.direction === 'both' || !recordTypeDef.direction,
     isOutput: recordTypeDef.direction === 'output' || recordTypeDef.direction === 'both' || !recordTypeDef.direction

@@ -40,4 +40,9 @@ export interface RecordTypeDef extends JsonotronTypeDef {
    * An array of values that cannot be represented by this type. 
    */
   invalidTestCases?: TestCase<unknown>[]
+
+  /**
+   * The name of the original record from which this is a variant.
+   */
+  variantBaseName?: string
 }

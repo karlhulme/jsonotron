@@ -24,9 +24,7 @@ export interface RecordType extends JsonotronType {
   examples: Example<unknown>[]
 
   /**
-   * If this record was defined as a variant, then this property
-   * indicates the name of the original record.  They will belong
-   * to the same system.
+   * The name of the original record from which this is a variant.
    */
   variantBaseName?: string
 }

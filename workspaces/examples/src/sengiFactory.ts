@@ -52,7 +52,8 @@ export const sengiFactory: RecordFactory = {
     ],
     required: ['id', 'docType', ...(source.required || [])],
     tags: ['sengi-doc'],
-    validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc))
+    validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc)),
+    variantBaseName: source.name
   }, {
     ...source,
     name: source.name + 'Record',
@@ -62,7 +63,8 @@ export const sengiFactory: RecordFactory = {
     ],
     required: [],
     tags: ['sengi-select'],
-    validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc))
+    validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc)),
+    variantBaseName: source.name
   }, {
     ...source,
     name: source.name + 'Template',
@@ -70,7 +72,8 @@ export const sengiFactory: RecordFactory = {
       ...source.properties,
     ],
     required: source.required,
-    tags: ['sengi-new']
+    tags: ['sengi-new'],
+    variantBaseName: source.name
   }, {
     ...source,
     name: source.name + 'Patch',
@@ -78,6 +81,7 @@ export const sengiFactory: RecordFactory = {
       ...source.properties,
     ],
     required: [],
-    tags: ['sengi-patch']
+    tags: ['sengi-patch'],
+    variantBaseName: source.name
   }]
 }
