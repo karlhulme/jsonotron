@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express'
-import { Template } from 'jsonotron-interfaces'
+import { RecordFactory, Template } from 'jsonotron-interfaces'
 import { parseTypeLibrary, filterTypeLibrary } from 'jsonotron-js'
 import { createTemplateProcessor, TemplateProcessorContext, TemplateProcessorFunc } from 'jsonotron-codegen'
 
@@ -21,6 +21,11 @@ export interface JsonoserveConstructorProps {
    * An array of language templates.
    */
   templates?: Template[]
+
+  /**
+   * An array of record factories.
+   */
+  factories?: RecordFactory[]
 }
 
 /**
@@ -28,7 +33,7 @@ export interface JsonoserveConstructorProps {
  * @param props The constructor properties.
  */
 export function createJsonoserveExpress (props?: JsonoserveConstructorProps): RequestHandler {
-  const typeLibrary = parseTypeLibrary({ domain: props?.domain, resourceStrings: props?.resourceStrings })
+  const typeLibrary = parseTypeLibrary({ domain: props?.domain, resourceStrings: props?.resourceStrings, factories: props?.factories })
 
   const processors: Record<string, TemplateProcessorFunc> = {}
 

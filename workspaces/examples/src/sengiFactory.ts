@@ -50,7 +50,7 @@ export const sengiFactory: RecordFactory = {
       ...getStandardDocProperties(source.name),
       ...source.properties,
     ],
-    required: ['id', 'docType', 'docOpIds', 'docVersion', ...(source.required || [])],
+    required: ['id', 'docType', ...(source.required || [])],
     tags: ['sengi-doc'],
     validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc))
   }, {
