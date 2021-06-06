@@ -1,0 +1,50 @@
+{
+  "name": "jsonotron-factories",
+  "description": "A set of factories for jsonotron.",
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "lib",
+    "types"
+  ],
+  "scripts": {
+    "test": "jest && eslint '*/**/*.{js,ts}'",
+    "build": "rm -rf types && rm -rf lib && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlhulme/jsonotron.git",
+    "directory": "workspaces/examples"
+  },
+  "author": "Karl Hulme <karlhulme@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karlhulme/jsonotron/issues"
+  },
+  "homepage": "https://github.com/karlhulme/jsonotron#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
+    "eslint": "^7.12.1",
+    "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "fast-glob": "3.2.4"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 0
+      }
+    },
+    "testEnvironment": "node"
+  }
+}

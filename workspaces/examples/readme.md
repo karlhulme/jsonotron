@@ -7,7 +7,7 @@ A set of Jsonotron types and language templates that serves as a good starting p
 
 ## Copying
 
-To create a new type library, clone this library and copy out the bits you want.
+To create a new type library, clone this library and edit the files in the *assets* folder.
 
 
 ## Development

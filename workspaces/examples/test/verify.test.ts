@@ -4,7 +4,7 @@ import { mkdir, readFile } from 'fs/promises'
 import { writeFile } from 'fs/promises'
 import { parseTypeLibrary } from 'jsonotron-js'
 import { loadTemplatesFromFolder, createTemplateProcessor, TemplateProcessorContext } from 'jsonotron-codegen'
-import { sengiFactory } from '../src'
+import { sengiFactory } from 'jsonotron-factories'
 
 test('Generate output for each language.', async () => {
   const typeFileNames = await fg('./assets/typeLibrary/**/*.yaml')

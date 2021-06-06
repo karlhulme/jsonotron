@@ -1,0 +1,6 @@
+dist/**
+coverage/**
+lib/**
+node_modules/**
+types/**
+jsl-prep
