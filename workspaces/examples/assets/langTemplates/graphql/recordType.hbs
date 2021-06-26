@@ -4,7 +4,7 @@
 {{summary}}
 {{#if deprecated}}This type has been deprecated: {{deprecated}}{{/if}}
 """
-type {{identToPascalCase system}}{{identToPascalCase name}} {
+type {{identToPascalCase name}} {
   {{#each properties}}
   {{>recordTypeProperty .}}
   {{#unless @last}}
@@ -18,7 +18,7 @@ type {{identToPascalCase system}}{{identToPascalCase name}} {
 """
 {{summary}}
 """
-input {{identToPascalCase system}}{{identToPascalCase name}}Input {
+input {{identToPascalCase name}}Input {
   {{#each properties}}
   {{>recordTypeProperty .}}
   {{#unless @last}}
