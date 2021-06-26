@@ -19,6 +19,7 @@ function createTestSubject (): RecordTypeDef {
       summary: 'A banana.'
     }],
     required: ['apple'],
+    direction: 'output',
     validTestCases: [{
       value: {
         apple: ['hello', 'world'],
@@ -38,6 +39,7 @@ test('A sengi doc type can be expanded.', async () => {
     kind: 'record',
     name: 'subject',
     summary: 'A test record',
+    direction: 'output',
     properties: [{
       name: 'id',
       propertyType: 'std/uuid',
@@ -88,10 +90,12 @@ test('A sengi doc type can be expanded.', async () => {
 
   expect(records[2].name).toEqual('subjectTemplate')
   expect(records[2].tags).toEqual(['sengi-new'])
+  expect(records[2].direction).toEqual('input')
 
   expect(records[3].name).toEqual('subjectPatch')
   expect(records[3].tags).toEqual(['sengi-patch'])
   expect(records[3].required).toEqual([])
+  expect(records[3].direction).toEqual('input')
   expect(records[3].properties.findIndex(p => p.name === 'id')).toEqual(-1)
 })
 
