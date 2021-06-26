@@ -20,7 +20,7 @@ type {{identToPascalCase system}}{{identToPascalCase name}} {
 """
 input {{identToPascalCase system}}{{identToPascalCase name}}Input {
   {{#each properties}}
-  {{>recordTypeProperty .}}
+  {{>recordTypePropertyInput .}}
   {{#unless @last}}
 
   {{/unless}}
