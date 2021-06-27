@@ -91,6 +91,7 @@ test('A sengi doc type can be expanded.', async () => {
   expect(records[2].name).toEqual('subjectTemplate')
   expect(records[2].tags).toEqual(['sengi-new'])
   expect(records[2].direction).toEqual('input')
+  expect(records[2].properties.findIndex(p => p.name === 'id')).toBeGreaterThan(-1)
 
   expect(records[3].name).toEqual('subjectPatch')
   expect(records[3].tags).toEqual(['sengi-patch'])

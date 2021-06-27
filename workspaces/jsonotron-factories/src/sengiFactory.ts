@@ -7,11 +7,18 @@ import { RecordFactory, TestCase } from 'jsonotron-interfaces'
  */
 function getStandardDocProperties (docTypeName: string) {
   return [
-    { name: 'id', propertyType: 'std/uuid', summary: 'The id of the document.' },
+    getIdProperty(),
     { name: 'docType', propertyType: 'std/shortString', constant: docTypeName, summary: 'The id of the document.' },
     { name: 'docOpIds', propertyType: 'std/uuid', isArray: true, summary: 'The id of the document operations.' },
     { name: 'docVersion', propertyType: 'std/mediumString', summary: 'A code that represents this version of the document.' }
   ]
+}
+
+/**
+ * Returns the definition of an id property.
+ */
+function getIdProperty () {
+  return { name: 'id', propertyType: 'std/uuid', summary: 'The id of the document.' }
 }
 
 /**
@@ -71,6 +78,7 @@ export const sengiFactory: RecordFactory = {
     ...source,
     name: source.name + 'Template',
     properties: [
+      getIdProperty(),
       ...source.properties,
     ],
     required: source.required,
