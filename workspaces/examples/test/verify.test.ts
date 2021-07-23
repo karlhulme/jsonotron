@@ -47,7 +47,6 @@ async function ensureDirectory (path: string): Promise<void> {
 
 function chooseOutputName (templateName: string): string {
   switch (templateName) {
-    case 'graphql': return 'types.autogen.gql'
     case 'markdown': return 'types.autogen.md'
     case 'sengi': return 'sengi.autogen.ts'
     case 'typescript': return 'types.autogen.ts'
