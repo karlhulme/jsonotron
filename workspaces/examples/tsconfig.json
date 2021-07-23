@@ -30,9 +30,6 @@
 		"allowSyntheticDefaultImports": true
 	},
 	"include": [
-		"src"
-	],
-	"exclude": [
-		"**/*.test.ts"
+		"test"
 	]
 }
