@@ -6,14 +6,18 @@ A NodeJS service implementation for verifying a type system and then converting 
 [![npm](https://img.shields.io/npm/v/jsonoserve.svg)](https://www.npmjs.com/package/jsonoserve)
 ![npm type definitions](https://img.shields.io/npm/types/typescript)
 
-Jsonotron is most useful when you have non-trivial data structures that are used by multiple back-end services and you want to avoid duplicating and maintaining the same definitions (and their accompanying validators and deserialisers) in multiple places.  
+Jsonotron is most useful when you have non-trivial data structures that are used by multiple back-end services and you want to avoid duplicating and maintaining the same definitions (and their accompanying validators and deserialisers) in multiple places.
+
+Jsonotron brings all your type-generation into a single place, rather than having each service generating client libraries for whichever service it is talking too.
 
 Common use cases include:
 
 * Stored documents (such as those stored in NoSQL databases like Mongo, Cosmos or Dynamo)
 * API Messages (both requests and responses)
-* GraphQL definitions
 * Token structures (used post authentication)
+
+Jsonotron **should not** be used to generate GraphQL or other client-side type definitions.  This would bind your frontend apps to your backend definitions and make it difficult to evolve over time.
+
 
 ## How It Works
 
@@ -95,8 +99,8 @@ properties | [] | Y | An array of properties that can appear in this record.
 &nbsp; .isArray | boolean | | Specifies if the property is to be treated as an array.
 &nbsp; .deprecated | string | | If populated, this value explains why the property was deprecated and/or which property to use instead.
 required | string[] | | Indicates which of the properties on this record type are mandatory.
-direction | input,output,both | | Indicates whether the record is used exclusively for input, exclusively for output, or for either.  If not specified, a direction of 'both' is assumed.  (This makes it easier to support GraphQL.)
-factories | string[] | | An array of factory names that should be used to generate a replacement set of records based on this one. 
+direction | input,output,both | | Indicates whether the record is used exclusively for input, exclusively for output, or for either.  If not specified, a direction of 'both' is assumed.
+factories | string[] | | An array of factory names that should be used to generate a replacement set of records based on this one.
 validTestCases | [] |  | An array of values that can be represented by this type.
 &nbsp; .summary | string | Y | A description of the test case.
 &nbsp; .value | object | Y | A value that should be valid.
@@ -135,7 +139,7 @@ project
       + std
 </pre>
 
-You will need to `npm install jsonotron-js jsontron-interfaces jsonotron-codegen jsonoserve`.
+You will need to install dependencies with `npm install jsonotron-js jsontron-interfaces jsonotron-codegen jsonoserve`.
 
 You can then use the following code to set up a jsonotron service based on Express.
 
@@ -173,7 +177,7 @@ For example, if you have a language template called **typescript** and you want 
 curl "http://localhost:3006/typescript?systems=std,doc,op" -o "./src/domain/types.autogen.ts" --create-dirs
 ```
 
-That would write a new file to **'./src/domain/types.autogen.ts** containing all the type definitions in typescript.
+That would write a new file to **'./src/domain/types.autogen.ts** containing all the type definitions in typescript.  The `--create-dirs` flag ensures that any missing directories are created automatically.
 
 
 ## Repositories
@@ -239,8 +243,6 @@ GraphQL is aimed at the interface between a front-end client and a combined set 
 
 In addition, GraphQL defines the shape of objects but not the associated validation.  For example, you cannot define the constraints for `latitudeFloat` or use regex to restrict the valid values for strings.
 
-The Jsonotron type system can produce GraphQL definition language constructs for use in your graph.  An example is included in the examples repo.
-
 
 ### Why use YAML for definitions?
 
@@ -251,7 +253,7 @@ If JSON supported something similar then the strict syntax of JSON would be pref
 
 ### Why attach data to enum types?
 
-The facility to define additional arbitrary data for each enum item and have that data validated, without every repeating the key, is a very efficient way of authoring this data.
+The facility to define additional arbitrary data for each enum item and have that data validated, without ever repeating the key, is a very efficient way of authoring this data.
 
 This data is then made available at design-time (typically as constant declarations) to client micro-services by including it in the code generation.
 
