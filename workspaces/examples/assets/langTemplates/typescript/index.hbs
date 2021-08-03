@@ -13,8 +13,4 @@ import Ajv from 'ajv'
 {{/each}}
 
 {{>enumBoilerplate}}
-
-{{#each typeLibrary.enumTypes}}
-{{>enumItems .}}
-{{>enumValues .}}
-{{/each}}
+{{>enums .}}

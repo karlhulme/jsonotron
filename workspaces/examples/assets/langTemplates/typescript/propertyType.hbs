@@ -2,7 +2,7 @@
   boolean
 {{~/if}}
 {{~#if isEnum ~}}
-  string
+  {{identToPascalCase propertyTypeSystem}}{{identToPascalCase propertyTypeName}}Values
 {{~/if}}
 {{~#if isFloat ~}}
   number

@@ -1,0 +1,25 @@
+
+/**
+ * Creates a new {{identToPascalCase variantBaseName}} document.
+ * @param doc The new document.
+ * @param authUser An authenticated user.
+ * @param pathComponents An array of components to be added to the path for this request.
+ */
+async new{{identToPascalCase variantBaseName}} ({ doc, user, pathComponents }: { doc: Types.{{identToPascalCase system}}{{identToPascalCase name}}; user: Types.AuthUser, pathComponents?: string[] }): Promise<void> {
+  const url = this.buildRecordsUrl('{{variantBaseName}}', pathComponents)
+
+  const result = await nodeFetch(url, {
+    method: 'post',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': this.apiKey,
+      'x-user': JSON.stringify(user)
+    },
+    body: JSON.stringify(doc)
+  })
+
+  if (result.status !== 201) {
+    const err = await this.generateError(url, result)
+    throw err
+  }
+}

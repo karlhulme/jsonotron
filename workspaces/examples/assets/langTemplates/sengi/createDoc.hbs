@@ -1,0 +1,28 @@
+
+/**
+ * Creates a new {{identToPascalCase name}} document using a constructor.
+ * @param newDocumentId The id for the new document.
+ * @param constructorName The name of a constructor.
+ * @param constructorParams A set of constructor parameters.
+ * @param authUser An authenticated user.
+ * @param pathComponents An array of components to be added to the path for this request.
+ */
+async create{{identToPascalCase name}}<ConstructorParams> ({ newDocumentId, constructorName, constructorParams, user, pathComponents }: { newDocumentId: string; constructorName: string, constructorParams: ConstructorParams; user: Types.AuthUser, pathComponents?: string[] }): Promise<void> {
+  const url = this.buildRecordsUrl('{{name}}:' + constructorName, pathComponents)
+
+  const result = await nodeFetch(url, {
+    method: 'post',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': this.apiKey,
+      'x-user': JSON.stringify(user),
+      'x-request-id': newDocumentId
+    },
+    body: JSON.stringify(constructorParams)
+  })
+
+  if (result.status !== 201) {
+    const err = await this.generateError(url, result)
+    throw err
+  }
+}

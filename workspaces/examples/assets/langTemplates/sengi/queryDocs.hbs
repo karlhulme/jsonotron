@@ -1,0 +1,32 @@
+/**
+ * Execute a query against the collection of {{identToPascalCase name}} docs.
+ * @param queryName The name of the query to invoke.
+ * @param queryParams The parameters required by the query.
+ * @param authUser An authenticated user.
+ * @param pathComponents An array of components to be added to the path for this request.
+ */
+async query{{identToPascalCase name}}Docs<QueryParams, QueryResult> ({ queryName, queryParams, user, pathComponents }: { queryName: string; queryParams: QueryParams; user: Types.AuthUser, pathComponents?: string[] }): Promise<QueryResult> {
+  const queryParamsString = queryParams
+    ? '&queryParams=' + JSON.stringify(queryParams)
+    : ''
+
+  const url = this.buildRecordsUrl('{{name}}', pathComponents) + `?queryName=${queryName}${queryParamsString}`
+
+  const result = await nodeFetch(url, {
+    method: 'get',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': this.apiKey,
+      'x-user': JSON.stringify(user)
+    }
+  })
+
+  if (result.status !== 200) {
+    const err = await this.generateError(url, result)
+    throw err
+  }
+
+  const json = await result.json()
+
+  return json.data as QueryResult
+}

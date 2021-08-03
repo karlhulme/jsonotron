@@ -1,0 +1,36 @@
+/**
+ * Operate on an existing {{identToPascalCase name}}.
+ * @param operationId The id of the operation that is used to ensure each operation is applied only once.
+ * @param documentId The id of the document to operate on.
+ * @param operationName The name of the operation to invoke.
+ * @param operationParams The parameters required by the operation.
+ * @param reqVersion If supplied, the document must have this document version or the operation will not be invoked.
+ * @param authUser An authenticated user.
+ * @param pathComponents An array of components to be added to the path for this request.
+ */
+async operateOn{{identToPascalCase name}}<OperationParams> ({ operationId, documentId, operationName, operationParams, reqVersion, user, pathComponents }: { operationId: string; documentId: string; operationName: string; operationParams: OperationParams, reqVersion?: string; user: Types.AuthUser, pathComponents?: string[] }): Promise<void> {
+  const url = this.buildRecordsUrl('{{name}}', pathComponents) + `${documentId}:${operationName}`
+
+  const optionalHeaders: Record<string, string> = {}
+
+  if (reqVersion) {
+    optionalHeaders['if-match'] = reqVersion
+  }
+
+  const result = await nodeFetch(url, {
+    method: 'post',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': this.apiKey,
+      'x-user': JSON.stringify(user),
+      'x-request-id': operationId,
+      ...optionalHeaders
+    },
+    body: JSON.stringify(operationParams)
+  })
+
+  if (result.status !== 204) {
+    const err = await this.generateError(url, result)
+    throw err
+  }
+}

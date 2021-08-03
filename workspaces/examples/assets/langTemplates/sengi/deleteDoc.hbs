@@ -1,0 +1,23 @@
+/**
+ * Delete a {{identToPascalCase name}} document.
+ * @param documentId The id of the document to delete.
+ * @param authUser An authenticated user.
+ * @param pathComponents An array of components to be added to the path for this request.
+ */
+async delete{{identToPascalCase name}} ({ documentId, user, pathComponents }: { documentId: string; user: Types.AuthUser, pathComponents?: string[] }): Promise<void> {
+  const url = this.buildRecordsUrl('{{name}}', pathComponents) + documentId
+
+  const result = await nodeFetch(url, {
+    method: 'delete',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': this.apiKey,
+      'x-user': JSON.stringify(user)
+    }
+  })
+
+  if (result.status !== 204) {
+    const err = await this.generateError(url, result)
+    throw err
+  }
+}

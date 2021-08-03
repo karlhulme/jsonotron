@@ -1,0 +1,33 @@
+/**
+ * Select {{identToPascalCase variantBaseName}} documents using a filter.
+ * @param filterName The name of a filter.
+ * @param filterParams A set of filter parameters.
+ * @param fieldNames An array of field names.
+ * @param authUser An authenticated user.
+ * @param pathComponents An array of components to be added to the path for this request.
+ */
+async select{{identToPascalCase variantBaseName}}DocsByFilter<Filter> ({ filterName, filterParams, fieldNames, user, pathComponents }: { filterName: string, filterParams?: Filter; fieldNames: {{identToPascalCase variantBaseName}}FieldNames[]; user: Types.AuthUser, pathComponents?: string[] }): Promise<Types.{{identToPascalCase system}}{{identToPascalCase name}}[]> {
+  const filterParamsString = filterParams
+    ? '&filterParams=' + JSON.stringify(filterParams)
+    : ''
+  
+  const url = this.buildRecordsUrl('{{variantBaseName}}', pathComponents) + `?filterName=${filterName}${filterParamsString}&fields=${fieldNames.join(',')}`
+
+  const result = await nodeFetch(url, {
+    method: 'get',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': this.apiKey,
+      'x-user': JSON.stringify(user)
+    }
+  })
+
+  if (result.status !== 200) {
+    const err = await this.generateError(url, result)
+    throw err
+  }
+
+  const json = await result.json()
+
+  return json.docs as Types.{{identToPascalCase system}}{{identToPascalCase name}}[]
+}

@@ -1,0 +1,5 @@
+{{#each typeLibrary.recordTypes}}
+{{#isTagged tags with='sengi-select'}}
+type {{identToPascalCase variantBaseName}}FieldNames = {{#each properties}}'{{name}}'{{#unless @last}}|{{/unless}}{{/each}}
+{{/isTagged}}
+{{/each}}

@@ -1,0 +1,71 @@
+export class SengiClientError extends Error {
+  constructor (message: string) {
+    super(message)
+    Object.setPrototypeOf(this, new.target.prototype)
+    this.name = this.constructor.name
+  }
+}
+
+export class SengiClientRetryableError extends SengiClientError {
+  constructor (message: string) {
+    super(message)
+    Object.setPrototypeOf(this, new.target.prototype)
+    this.name = this.constructor.name
+  }
+}
+
+export class SengiUnrecognisedClientError extends SengiClientRetryableError {
+  constructor () {
+    super('An invalid api key was specified.')
+    Object.setPrototypeOf(this, new.target.prototype)
+    this.name = this.constructor.name
+  }
+}
+
+export class SengiUnauthorisedClientError extends SengiClientRetryableError {
+  constructor () {
+    super('The client does not have permission to complete this action.')
+    Object.setPrototypeOf(this, new.target.prototype)
+    this.name = this.constructor.name
+  }
+}
+
+export class SengiClientGatewayError extends SengiClientRetryableError {
+  constructor () {
+    super('The service is not currently available.')
+    Object.setPrototypeOf(this, new.target.prototype)
+    this.name = this.constructor.name
+  }
+}
+
+export class SengiClientTooManyRequestsError extends SengiClientRetryableError {
+  constructor () {
+    super('Too many requests have been sent to the client is a short period.')
+    Object.setPrototypeOf(this, new.target.prototype)
+    this.name = this.constructor.name
+  }
+}
+
+export class SengiClientConflictOnSaveError extends SengiClientRetryableError {
+  constructor () {
+    super('The service is not currently available.')
+    Object.setPrototypeOf(this, new.target.prototype)
+    this.name = this.constructor.name
+  }
+}
+
+export class SengiClientRequiredVersionNotAvailableError extends SengiClientError {
+  constructor () {
+    super(`The required version of the document is not available.`)
+    Object.setPrototypeOf(this, new.target.prototype)
+    this.name = this.constructor.name
+  }
+}
+
+export class SengiClientUnexpectedError extends SengiClientError {
+  constructor (message: string) {
+    super(message)
+    Object.setPrototypeOf(this, new.target.prototype)
+    this.name = this.constructor.name
+  }
+}

@@ -1,0 +1,36 @@
+
+/**
+ * Patches a {{identToPascalCase variantBaseName}} document.
+ * @param documentId The id of the document to patch.
+ * @param patch The document patch.
+ * @param operationId The id of the operation that is used to ensure each operation is applied only once.
+ * @param reqVersion If supplied, the document must have this document version or the patch will not be applied.
+ * @param authUser An authenticated user.
+ * @param pathComponents An array of components to be added to the path for this request.
+ */
+async patch{{identToPascalCase variantBaseName}} ({ documentId, patch, operationId, reqVersion, user, pathComponents }: { documentId: string; patch: Types.{{identToPascalCase system}}{{identToPascalCase name}}; operationId: string; reqVersion?: string; user: Types.AuthUser, pathComponents?: string[] }): Promise<void> {
+  const url = this.buildRecordsUrl('{{variantBaseName}}', pathComponents) + documentId
+
+  const optionalHeaders: Record<string, string> = {}
+
+  if (reqVersion) {
+    optionalHeaders['if-match'] = reqVersion
+  }
+
+  const result = await nodeFetch(url, {
+    method: 'patch',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': this.apiKey,
+      'x-user': JSON.stringify(user),
+      'x-request-id': operationId,
+      ...optionalHeaders
+    },
+    body: JSON.stringify(patch)
+  })
+
+  if (result.status !== 204) {
+    const err = await this.generateError(url, result)
+    throw err
+  }
+}

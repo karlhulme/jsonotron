@@ -1,0 +1,92 @@
+/**
+ * Represents the constructor properties of the Sengi client.
+ */
+interface SengiClientConstructorProps {
+  /**
+   * The role name used to access the Sengi service.
+   */
+  apiKey?: string
+
+  /**
+   * The url of a Sengi service.  This value must be supplied.
+   */
+  url?: string
+}
+
+/**
+ * A client for communicating with a Sengi service.
+ */
+export class SengiClient {
+  apiKey: string
+  url: string
+
+  /**
+   * Creates a new Sengi client.
+   * @param props The properties to use to construct the client.
+   */
+  constructor (props?: SengiClientConstructorProps) {
+    if (typeof props !== 'object') {
+      throw new Error('A constructor props object must be supplied.')
+    }
+
+    if (!props.url) {
+      throw new Error('A url must be supplied.')
+    }
+
+    if (typeof props.apiKey !== 'string') {
+      throw new Error('An apiKey must be supplied.')
+    }
+
+    this.apiKey = props.apiKey
+    this.url = `${props.url}${props.url.endsWith('/') ? '' : '/'}`
+  }
+
+  /**
+   * Builds the target url for a records request, which includes any additional path components.
+   * @param entity The singular or plural name of a doc type and may optionally include a colon deliminated verb.
+   * @param pathComponents An optional array of path components.
+   */
+  private buildRecordsUrl (entity: string, pathComponents?: string[]) {
+    return this.url + 'records/' + (pathComponents || []).map(pc => `${pc}/`).join('') + entity + '/'
+  }
+
+  /**
+   * Generates a client error based on the response.
+   * @param url The url originally requested.
+   * @param result The result of the request.
+   */
+  private async generateError (url: string, result: Response): Promise<Error> {
+    switch (result.status) {
+      case 401: return new SengiUnrecognisedClientError()
+      case 403: return new SengiUnauthorisedClientError()
+      case 409: return new SengiClientConflictOnSaveError()
+      case 412: return new SengiClientRequiredVersionNotAvailableError()
+      case 429: return new SengiClientTooManyRequestsError()
+      case 503: return new SengiClientGatewayError()
+      default: return new SengiClientUnexpectedError(`${result.status}: ${await result.text()}`)
+    }
+  }
+
+  {{#each typeLibrary.recordTypes}}
+  {{#isTagged tags with='sengi-doc'}}
+  {{>createDoc .}}
+  {{>deleteDoc .}}
+  {{>operateOnDoc .}}
+  {{>queryDocs .}}
+  {{>replaceDoc .}}
+  {{/isTagged}}
+  {{#isTagged tags with='sengi-select'}}
+  {{>getDoc .}}
+  {{>selectDoc .}}
+  {{>selectAllDocs .}}
+  {{>selectDocsByIds .}}
+  {{>selectDocsByFilter .}}
+  {{/isTagged}}
+  {{#isTagged tags with='sengi-new'}}
+  {{>newDoc .}}
+  {{/isTagged}}
+  {{#isTagged tags with='sengi-patch'}}
+  {{>patchDoc .}}
+  {{/isTagged}}
+  {{/each}}
+}

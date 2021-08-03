@@ -1,0 +1,24 @@
+/**
+ * Replaces a {{identToPascalCase name}} document.
+ * @param doc The document.
+ * @param authUser An authenticated user.
+ * @param pathComponents An array of components to be added to the path for this request.
+ */
+async replace{{identToPascalCase name}} ({ doc, user, pathComponents }: { doc: Types.{{identToPascalCase system}}{{identToPascalCase name}}; user: Types.AuthUser, pathComponents?: string[] }): Promise<void> {
+  const url = this.buildRecordsUrl('{{variantBaseName}}', pathComponents) + doc.id
+
+  const result = await nodeFetch(url, {
+    method: 'put',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': this.apiKey,
+      'x-user': JSON.stringify(user)
+    },
+    body: JSON.stringify(doc)
+  })
+
+  if (result.status !== 204) {
+    const err = await this.generateError(url, result)
+    throw err
+  }
+}

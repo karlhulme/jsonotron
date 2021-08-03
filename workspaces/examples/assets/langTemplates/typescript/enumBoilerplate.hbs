@@ -1,4 +1,29 @@
 /**
+ * Represents an enumeration.
+ */
+export interface EnumType<ItemType> {
+  /**
+   * The name of the enum.
+   */
+  name: string
+
+  /**
+   * The qualified name of the enum, presented in pascal case.
+   */
+  qualifiedPascalName: string
+
+  /**
+   * An array of tags.
+   */
+  tags: string[]
+
+  /**
+   * An array of items.
+   */
+  items: ItemType[]
+}
+
+/**
  * Represents an item in an enumeration.
  */
 export interface EnumTypeItem {

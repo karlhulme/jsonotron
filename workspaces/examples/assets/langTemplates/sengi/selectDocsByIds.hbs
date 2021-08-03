@@ -1,0 +1,32 @@
+/**
+ * Select {{identToPascalCase variantBaseName}} documents using an array of ids.
+ * @param documentIds An array of document ids.
+ * @param fieldNames An array of field names.
+ * @param authUser An authenticated user.
+ * @param pathComponents An array of components to be added to the path for this request.
+ */
+async select{{identToPascalCase variantBaseName}}DocsByIds ({ documentIds, fieldNames, user, pathComponents }: { documentIds: string[]; fieldNames: {{identToPascalCase variantBaseName}}FieldNames[]; user: Types.AuthUser, pathComponents?: string[] }): Promise<Types.{{identToPascalCase system}}{{identToPascalCase name}}[]> {
+  if (documentIds.length === 0) {
+    return []
+  }
+  
+  const url = this.buildRecordsUrl('{{variantBaseName}}', pathComponents) + `?ids=${documentIds.join(',')}&fields=${fieldNames.join(',')}`
+
+  const result = await nodeFetch(url, {
+    method: 'get',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': this.apiKey,
+      'x-user': JSON.stringify(user)
+    }
+  })
+
+  if (result.status !== 200) {
+    const err = await this.generateError(url, result)
+    throw err
+  }
+
+  const json = await result.json()
+
+  return json.docs as Types.{{identToPascalCase system}}{{identToPascalCase name}}[]
+}

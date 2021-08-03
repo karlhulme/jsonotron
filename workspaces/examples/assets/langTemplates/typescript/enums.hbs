@@ -1,0 +1,33 @@
+
+{{#each typeLibrary.enumTypes}}
+/**
+ * {{summary}}
+   {{#if deprecated}}
+ * @deprecated {{deprecated}}
+   {{/if}}
+ */
+export const {{identToPascalCase system}}{{identToPascalCase name}}: EnumType<{{#if dataType}}ExtendedEnumTypeItem<{{identToPascalCase system}}{{identToPascalCase name}}Data>{{else}}EnumTypeItem{{/if}}> = {
+  name: '{{name}}',
+  qualifiedPascalName: '{{identToPascalCase system}}{{identToPascalCase name}}',
+  tags: [{{#each tags}}'{{.}}'{{#unless @last}}, {{/unless}}{{/each}}],
+  items: [
+    {{#each items}}
+    { value: '{{value}}', text: '{{text}}', constant: '{{valueToConstCase value}}'{{#if symbol}}, symbol: '{{symbol}}'{{/if}}{{#if deprecated}}, deprecated: '{{deprecated}}'{{/if}}{{#if data}}, data: {{stringify data}}{{/if}} }{{#unless @last}},{{/unless}}
+    {{/each}}
+  ]
+}
+
+/**
+ * {{summary}}
+   {{#if deprecated}}
+ * @deprecated {{deprecated}}
+   {{/if}}
+ */
+export type {{identToPascalCase system}}{{identToPascalCase name}}Values = {{#each items}}'{{value}}'{{#unless @last}}|{{/unless}}{{/each}}
+{{/each}}
+
+export const allEnums = [
+  {{#each typeLibrary.enumTypes}}
+  {{identToPascalCase system}}{{identToPascalCase name}}{{#unless @last}},{{/unless}}
+  {{/each}}
+]
