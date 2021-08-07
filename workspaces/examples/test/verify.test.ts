@@ -19,7 +19,7 @@ test('Generate output for each language.', async () => {
   expect(typeLibrary.floatTypes).toHaveLength(7)
   expect(typeLibrary.intTypes).toHaveLength(6)
   expect(typeLibrary.objectTypes).toHaveLength(1)
-  expect(typeLibrary.recordTypes).toHaveLength(16)
+  expect(typeLibrary.recordTypes).toHaveLength(12) // 8 records + 2 sengi test records (worth 2 each)
   expect(typeLibrary.stringTypes).toHaveLength(13)
 
   const context: TemplateProcessorContext = {
