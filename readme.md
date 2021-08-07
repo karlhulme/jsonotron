@@ -203,6 +203,11 @@ Functions for parsing jsonotron type strings into a `TypeLibrary`.
 Functions for generating code using handlebars templates and a `TypeLibrary`.
 
 
+### jsonotron-factories
+
+Factory definitions that can be used to generate portions of a type library automatically.  There is currently a factory for generating a type that can be consumed directly by the [Sengi](https://github.com/karlhulme/sengi) database service.
+
+
 ### jsonoserve
 
 An express handler for distributing generated code to other micro-services.  `npm install` this library into an express-based service to add jsonotron functionality to it. 
