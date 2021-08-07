@@ -3,22 +3,14 @@ import { RecordFactory, TestCase } from 'jsonotron-interfaces'
 /**
  * Returns the definitions of the 4 standard properties of a sengi document
  * in jsonotron form.
- * @param docTypeName The name of the document type.
  */
-function getStandardDocProperties (docTypeName: string) {
+function getStandardDocProperties () {
   return [
-    getIdProperty(),
-    { name: 'docType', propertyType: 'std/shortString', constant: docTypeName, summary: 'The id of the document.' },
-    { name: 'docOpIds', propertyType: 'std/uuid', isArray: true, summary: 'The id of the document operations.' },
+    { name: 'id', propertyType: 'std/uuid', summary: 'The id of the document.' },
+    { name: 'docType', propertyType: 'std/mediumString', summary: 'The type of the document.' },
+    { name: 'docOpIds', propertyType: 'std/uuid', isArray: true, summary: 'The array of document operation ids that were recently applied.' },
     { name: 'docVersion', propertyType: 'std/mediumString', summary: 'A code that represents this version of the document.' }
   ]
-}
-
-/**
- * Returns the definition of an id property.
- */
-function getIdProperty () {
-  return { name: 'id', propertyType: 'std/uuid', summary: 'The id of the document.' }
 }
 
 /**
@@ -41,59 +33,37 @@ function newTestCaseWithStandardProperties (docTypeName: string, testCase: TestC
 }
 
 /**
- * A factory for expanding a record into a set of records that
- * define the common manipulations on a sengi document.
- * Example: For use when fetching the whole document.
- * ExampleRecord: For use when querying part of one or more documents.
- * ExampleTemplate: For use when creating a new document.
- * ExamplePatch: For use when updating a document.
+ * A factory for automaticalling expanding a sengi-compatible record into a client
+ * and database version.
  */
 export const sengiFactory: RecordFactory = {
   name: 'sengi',
-  implementation: source => [{
+  implementation: source => [
+    // This version is used in the data service, where required fields are enforced and included in the JSON schema.
+    // A tag is added to skip the generation of normal typescript output.
+  {
     ...source,
-    name: source.name,
+    name: source.name + 'Db',
     properties: [
-      ...getStandardDocProperties(source.name),
+      ...getStandardDocProperties(),
       ...source.properties,
     ],
-    required: ['id', 'docType', ...(source.required || [])],
-    tags: [...(source.tags || []), 'sengi-doc'],
+    required: ['id', 'docType', 'docOpIds', 'docVersion', ...source.required || []],
+    tags: ['db-only'],
     validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc)),
     variantBaseName: source.name,
-    direction: 'output'
-  }, {
+  }, 
+    // This version is used in other services, via the sengi client, where required fields are always optional.
+    // A sengi-client tag is also added so that it's included in the SengiClient wrapper.
+  {
     ...source,
-    name: source.name + 'Record',
     properties: [
-      ...getStandardDocProperties(source.name),
+      ...getStandardDocProperties(),
       ...source.properties,
     ],
     required: [],
-    tags: [...source.tags || [], 'sengi-select'],
+    tags: [...source.tags || [], 'sengi-client'],
     validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc)),
     variantBaseName: source.name,
-    direction: 'output'
-  }, {
-    ...source,
-    name: source.name + 'Template',
-    properties: [
-      getIdProperty(),
-      ...source.properties,
-    ],
-    required: source.required,
-    tags: [...source.tags || [], 'sengi-new'],
-    variantBaseName: source.name,
-    direction: 'input'
-  }, {
-    ...source,
-    name: source.name + 'Patch',
-    properties: [
-      ...source.properties,
-    ],
-    required: [],
-    tags: [...source.tags || [], 'sengi-patch'],
-    variantBaseName: source.name,
-    direction: 'input'
   }]
 }

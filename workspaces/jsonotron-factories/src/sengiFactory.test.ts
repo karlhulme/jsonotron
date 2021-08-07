@@ -33,12 +33,12 @@ function createTestSubject (): RecordTypeDef {
 test('A sengi doc type can be expanded.', async () => {
   const subject = createTestSubject()
   const records = sengiFactory.implementation(subject)
-  expect(records).toHaveLength(4)
+  expect(records).toHaveLength(2)
 
   expect(records[0]).toEqual({
     system: 'test',
     kind: 'record',
-    name: 'subject',
+    name: 'subjectDb',
     summary: 'A test record',
     direction: 'output',
     properties: [{
@@ -47,8 +47,7 @@ test('A sengi doc type can be expanded.', async () => {
       summary: expect.any(String)
     }, {
       name: 'docType',
-      propertyType: 'std/shortString',
-      constant: 'subject',
+      propertyType: 'std/mediumString',
       summary: expect.any(String)
     }, {
       name: 'docOpIds',
@@ -69,8 +68,8 @@ test('A sengi doc type can be expanded.', async () => {
       propertyType: 'std/shortString',
       summary: 'A banana.'
     }],
-    required: ['id', 'docType', 'apple'],
-    tags: ['original', 'sengi-doc'],
+    required: ['id', 'docType', 'docOpIds', 'docVersion', 'apple'],
+    tags: ['db-only'],
     validTestCases: [{
       value: {
         id: '00000000-0000-0000-0000-000000000001',
@@ -84,33 +83,22 @@ test('A sengi doc type can be expanded.', async () => {
     variantBaseName: 'subject'
   })
 
-  expect(records[1].name).toEqual('subjectRecord')
-  expect(records[1].tags).toEqual(['original', 'sengi-select'])
+  expect(records[1].name).toEqual('subject')
+  expect(records[1].tags).toEqual(['original', 'sengi-client'])
   expect(records[1].required).toEqual([])
   expect(records[1].properties.findIndex(p => p.name === 'id')).toBeGreaterThan(-1)
-
-  expect(records[2].name).toEqual('subjectTemplate')
-  expect(records[2].tags).toEqual(['original', 'sengi-new'])
-  expect(records[2].direction).toEqual('input')
-  expect(records[2].properties.findIndex(p => p.name === 'id')).toBeGreaterThan(-1)
-
-  expect(records[3].name).toEqual('subjectPatch')
-  expect(records[3].tags).toEqual(['original', 'sengi-patch'])
-  expect(records[3].required).toEqual([])
-  expect(records[3].direction).toEqual('input')
-  expect(records[3].properties.findIndex(p => p.name === 'id')).toEqual(-1)
 })
 
 test('A sengi doc type with no required fields can be expanded.', async () => {
   const subject = createTestSubject()
   delete subject.required
   const records = sengiFactory.implementation(subject)
-  expect(records).toHaveLength(4)
+  expect(records).toHaveLength(2)
 })
 
 test('A sengi doc type with no tags can be expanded.', async () => {
   const subject = createTestSubject()
   delete subject.tags
   const records = sengiFactory.implementation(subject)
-  expect(records).toHaveLength(4)
+  expect(records).toHaveLength(2)
 })
