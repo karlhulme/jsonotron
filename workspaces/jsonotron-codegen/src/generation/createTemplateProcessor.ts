@@ -1,6 +1,6 @@
 import { create } from 'handlebars'
 import { Template } from 'jsonotron-interfaces'
-import { identToConstCase, identToPascalCase, identToSnakeCase, isExcluded, isIncluded, isTagged, stringify, stringifyPretty, valueToConstCase, valueToIdent } from '../helpers'
+import { identToConstCase, identToPascalCase, identToSnakeCase, isExcluded, isIncluded, isNotTagged, isTagged, stringify, stringifyPretty, valueToConstCase, valueToIdent } from '../helpers'
 import { TemplateProcessorContext } from './TemplateProcessorContext'
 import { TemplateProcessorFunc } from './TemplateProcessorFunc'
 
@@ -21,6 +21,7 @@ export function createTemplateProcessor (template: Template): TemplateProcessorF
   handlebars.registerHelper('identToSnakeCase', identToSnakeCase)
   handlebars.registerHelper('isIncluded', isIncluded)
   handlebars.registerHelper('isExcluded', isExcluded)
+  handlebars.registerHelper('isNotTagged', isNotTagged)
   handlebars.registerHelper('isTagged', isTagged)
   handlebars.registerHelper('stringify', stringify)
   handlebars.registerHelper('stringifyPretty', stringifyPretty)
