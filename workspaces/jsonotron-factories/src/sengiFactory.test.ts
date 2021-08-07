@@ -68,7 +68,7 @@ test('A sengi doc type can be expanded.', async () => {
       propertyType: 'std/shortString',
       summary: 'A banana.'
     }],
-    required: ['id', 'docType', 'docOpIds', 'docVersion', 'apple'],
+    required: ['id', 'docType', 'docOpIds', 'apple'],
     tags: ['db-only'],
     validTestCases: [{
       value: {
