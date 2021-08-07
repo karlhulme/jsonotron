@@ -38,6 +38,14 @@ A helper that renders content if a value is found in an array:
 {{/isTagged}}
 ```
 
+A helper that renders content if a value is not found in an array:
+
+```hbs
+{{#isNotTagged tags with='not-found'}}
+  my content here
+{{/isTagged}}
+```
+
 A helper that renders content if an array value does include a context value:
 
 ```hbs
