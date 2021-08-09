@@ -40,7 +40,7 @@ export const sengiFactory: RecordFactory = {
   name: 'sengi',
   implementation: source => [
     // This version is used in the data service, where required fields are enforced and included in the JSON schema.
-    // Note that docVersion is not a required field because it is populated the doc store engine.
+    // Note that docVersion is not a required field because it is populated by the doc store engine.
     // A tag is added to skip the generation of normal typescript output.
   {
     ...source,
