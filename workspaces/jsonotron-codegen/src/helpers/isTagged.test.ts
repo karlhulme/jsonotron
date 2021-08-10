@@ -11,7 +11,7 @@ test('Return content if tag is found.', async () => {
     }
   }
 
-  expect(isTagged(['one', 'two', 'three'], helperOptions)).toEqual('content')
+  expect(isTagged({ tags: ['one', 'two', 'three'] }, helperOptions)).toEqual('content')
 })
 
 test('Return inverse content if tag is not found.', async () => {
@@ -23,5 +23,6 @@ test('Return inverse content if tag is not found.', async () => {
     }
   }
 
-  expect(isTagged(['one', 'two', 'three'], helperOptions)).toEqual('notContent')
+  expect(isTagged({ tags: ['one', 'two', 'three'] }, helperOptions)).toEqual('notContent')
+  expect(isTagged({}, helperOptions)).toEqual('notContent')
 })

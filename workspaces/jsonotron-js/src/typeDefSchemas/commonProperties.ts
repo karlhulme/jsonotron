@@ -26,5 +26,24 @@ export const commonProperties = {
     items: {
       type: 'string'
     }
+  },
+  labels: {
+    type: 'array',
+    items: {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        name: {
+          type: 'string'
+        },
+        value: {
+          type: 'string'
+        }
+      },
+      required: [
+        'name',
+        'value'
+      ]
+    }
   }
 }

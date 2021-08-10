@@ -32,6 +32,9 @@ const testRecord = reindentYaml(`
   required:
   - one
   - someConst
+  labels:
+  - name: linkedTo
+    value: otherType
   validTestCases:
   - value:
       one: 1

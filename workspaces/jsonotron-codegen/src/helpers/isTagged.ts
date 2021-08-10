@@ -7,7 +7,7 @@ import { HelperOptions } from 'handlebars'
  * @param options The data associated with the current handlebars command.
  */
 export function isTagged (this: unknown, context: unknown, options: HelperOptions): string {
-  if (Array.isArray(context) && typeof options.hash['with'] === 'string' && context.includes(options.hash['with'])) {
+  if (context && typeof context === 'object' && Array.isArray((context as Record<string, unknown>).tags) && typeof options.hash['with'] === 'string' && ((context as Record<string, unknown>).tags as string[]).includes(options.hash['with'])) {
     return options.fn(this)
   } else {
     return options.inverse(this)

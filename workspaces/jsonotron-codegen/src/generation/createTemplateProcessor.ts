@@ -1,6 +1,11 @@
 import { create } from 'handlebars'
 import { Template } from 'jsonotron-interfaces'
-import { identToConstCase, identToPascalCase, identToSnakeCase, isExcluded, isIncluded, isNotTagged, isTagged, stringify, stringifyPretty, valueToConstCase, valueToIdent } from '../helpers'
+import {
+  hasLabel, hasLabelValue, hasNotLabel, hasNotLabelValue, identToConstCase, identToPascalCase, 
+  identToSnakeCase, isExcluded, isIncluded, isNotTagged, isTagged,
+  labelValue,
+  stringify, stringifyPretty, valueToConstCase, valueToIdent
+} from '../helpers'
 import { TemplateProcessorContext } from './TemplateProcessorContext'
 import { TemplateProcessorFunc } from './TemplateProcessorFunc'
 
@@ -16,6 +21,10 @@ export function createTemplateProcessor (template: Template): TemplateProcessorF
     handlebars.registerPartial(partial.name, partial.content)
   })
 
+  handlebars.registerHelper('hasLabel', hasLabel)
+  handlebars.registerHelper('hasLabelValue', hasLabelValue)
+  handlebars.registerHelper('hasNotLabel', hasNotLabel)
+  handlebars.registerHelper('hasNotLabelValue', hasNotLabelValue)
   handlebars.registerHelper('identToConstCase', identToConstCase)
   handlebars.registerHelper('identToPascalCase', identToPascalCase)
   handlebars.registerHelper('identToSnakeCase', identToSnakeCase)
@@ -23,6 +32,7 @@ export function createTemplateProcessor (template: Template): TemplateProcessorF
   handlebars.registerHelper('isExcluded', isExcluded)
   handlebars.registerHelper('isNotTagged', isNotTagged)
   handlebars.registerHelper('isTagged', isTagged)
+  handlebars.registerHelper('labelValue', labelValue)
   handlebars.registerHelper('stringify', stringify)
   handlebars.registerHelper('stringifyPretty', stringifyPretty)
   handlebars.registerHelper('valueToConstCase', valueToConstCase)

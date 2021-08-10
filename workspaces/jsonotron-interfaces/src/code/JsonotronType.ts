@@ -1,3 +1,5 @@
+import { Label } from './Label'
+
 /**
  * Represents the properties that every resource must present.
  */
@@ -29,9 +31,14 @@ export interface JsonotronType {
   deprecated?: string
 
   /**
-   * An array of arbritary tags.
+   * An array of arbitrary tags.
    */
   tags?: string[]
+
+  /**
+   * An array of arbitrary labels.
+   */
+  labels?: Label[]
 
   /**
    * The JSON schema created for this type.
