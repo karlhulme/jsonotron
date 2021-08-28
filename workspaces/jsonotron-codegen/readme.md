@@ -31,14 +31,6 @@ tag | example | notes
 
 ## Helpers
 
-A helper that renders content if a Jsonotron type has a factory with the given name:
-
-```hbs
-{{#usesFactory . name='special'}}
-  my content here
-{{/usesFactory}}
-```
-
 A helper that renders content if a Jsonotron type has a label with the given name:
 
 ```hbs

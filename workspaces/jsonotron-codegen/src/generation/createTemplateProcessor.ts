@@ -5,7 +5,7 @@ import {
   identToConstCase, identToPascalCase, 
   identToSnakeCase, isExcluded, isIncluded, isNotTagged, isTagged,
   labelValue,
-  stringify, stringifyPretty, usesFactory, valueToConstCase, valueToIdent
+  stringify, stringifyPretty, valueToConstCase, valueToIdent
 } from '../helpers'
 import { TemplateProcessorContext } from './TemplateProcessorContext'
 import { TemplateProcessorFunc } from './TemplateProcessorFunc'
@@ -36,7 +36,6 @@ export function createTemplateProcessor (template: Template): TemplateProcessorF
   handlebars.registerHelper('labelValue', labelValue)
   handlebars.registerHelper('stringify', stringify)
   handlebars.registerHelper('stringifyPretty', stringifyPretty)
-  handlebars.registerHelper('usesFactory', usesFactory)
   handlebars.registerHelper('valueToConstCase', valueToConstCase)
   handlebars.registerHelper('valueToIdent', valueToIdent)
 

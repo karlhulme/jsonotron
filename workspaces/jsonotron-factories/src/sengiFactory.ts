@@ -42,6 +42,8 @@ function newTestCaseWithStandardProperties (docTypeName: string, testCase: TestC
 
 /**
  * A factory for adding the sengi common fields to a record.
+ * This factory also appends a Sengi tag, since the factories originally used to
+ * generate a record type will not be available to the code generator.
  */
 export const sengiFactory: RecordFactory = {
   name: 'sengi',
@@ -61,6 +63,7 @@ export const sengiFactory: RecordFactory = {
       'docLastUpdatedMillisecondsSinceEpoch',
       ...source.required || []
     ],
+    tags: [...source.tags || [], 'sengi'],
     validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc))
   }]
 }

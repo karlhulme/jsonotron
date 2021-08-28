@@ -92,7 +92,7 @@ test('A sengi doc type can be expanded.', async () => {
       'docLastUpdatedByUserId', 'docLastUpdatedMillisecondsSinceEpoch',
       'apple'
     ],
-    tags: ['original'],
+    tags: ['original', 'sengi'],
     labels: [{ name: 'label1', value: 'value1' }],
     factories: ['sengi'],
     validTestCases: [{
@@ -115,6 +115,13 @@ test('A sengi doc type can be expanded.', async () => {
 test('A sengi doc type with no required fields can be expanded.', async () => {
   const subject = createTestSubject()
   delete subject.required
+  const records = sengiFactory.implementation(subject)
+  expect(records).toHaveLength(1)
+})
+
+test('A sengi doc type with no tags can be expanded.', async () => {
+  const subject = createTestSubject()
+  delete subject.tags
   const records = sengiFactory.implementation(subject)
   expect(records).toHaveLength(1)
 })
