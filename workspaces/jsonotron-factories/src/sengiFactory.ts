@@ -12,7 +12,7 @@ function getStandardDocProperties () {
     { name: 'docVersion', propertyType: 'std/mediumString', summary: 'A code that represents this version of the document.' },
     { name: 'docCreatedByUserId', propertyType: 'std/longString', summary: 'The id of the user that created the document.' },
     { name: 'docCreatedMillisecondsSinceEpoch', propertyType: 'std/timestamp', summary: 'The number of milliseconds since the unix epoch when the document was created.' },
-    { name: 'docLastUpdatedByUserId', propertyType: 'std/longString', isArray: true, summary: 'The id of the user that last updated the document.' },
+    { name: 'docLastUpdatedByUserId', propertyType: 'std/longString', summary: 'The id of the user that last updated the document.' },
     { name: 'docLastUpdatedMillisecondsSinceEpoch', propertyType: 'std/timestamp', summary: 'The number of milliseconds since the unix epoch when the document was last updated.' }
   ]
 }
