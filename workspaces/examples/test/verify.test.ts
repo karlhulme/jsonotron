@@ -15,11 +15,11 @@ test('Generate output for each language.', async () => {
   const typeLibrary = parseTypeLibrary({ resourceStrings, factories })
 
   expect(typeLibrary.boolTypes).toHaveLength(1)
-  expect(typeLibrary.enumTypes).toHaveLength(9)
+  expect(typeLibrary.enumTypes).toHaveLength(9) // 8 enums + 1 sengi test enum
   expect(typeLibrary.floatTypes).toHaveLength(7)
   expect(typeLibrary.intTypes).toHaveLength(6)
   expect(typeLibrary.objectTypes).toHaveLength(1)
-  expect(typeLibrary.recordTypes).toHaveLength(12) // 8 records + 2 sengi test records (worth 2 each)
+  expect(typeLibrary.recordTypes).toHaveLength(10) // 8 records + 2 sengi test records
   expect(typeLibrary.stringTypes).toHaveLength(13)
 
   const context: TemplateProcessorContext = {
