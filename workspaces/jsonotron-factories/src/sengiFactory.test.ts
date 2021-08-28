@@ -71,8 +71,7 @@ test('A sengi doc type can be expanded.', async () => {
     }, {
       name: 'docLastUpdatedByUserId',
       propertyType: 'std/longString',
-      summary: expect.any(String),
-      isArray: true
+      summary: expect.any(String)
     }, {
       name: 'docLastUpdatedMillisecondsSinceEpoch',
       propertyType: 'std/timestamp',
