@@ -1,3 +1,5 @@
+import { LabelDef } from './LabelDef'
+
 /**
  * Represents the properties that every resource definition must present.
  */
@@ -32,5 +34,10 @@ export interface JsonotronTypeDef {
    * An array of arbritary tags.
    */
   tags?: string[]
+
+  /**
+   * An array of arbitrary labels.
+   */
+  labels?: LabelDef[]
 }
 

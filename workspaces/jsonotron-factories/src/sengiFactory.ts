@@ -1,7 +1,7 @@
 import { RecordFactory, TestCase } from 'jsonotron-interfaces'
 
 /**
- * Returns the definitions of the 4 standard properties of a sengi document
+ * Returns the definitions of the standard properties of a sengi document
  * in jsonotron form.
  */
 function getStandardDocProperties () {
@@ -9,7 +9,11 @@ function getStandardDocProperties () {
     { name: 'id', propertyType: 'std/uuid', summary: 'The id of the document.' },
     { name: 'docType', propertyType: 'std/mediumString', summary: 'The type of the document.' },
     { name: 'docOpIds', propertyType: 'std/uuid', isArray: true, summary: 'The array of document operation ids that were recently applied.' },
-    { name: 'docVersion', propertyType: 'std/mediumString', summary: 'A code that represents this version of the document.' }
+    { name: 'docVersion', propertyType: 'std/mediumString', summary: 'A code that represents this version of the document.' },
+    { name: 'docCreatedByUserId', propertyType: 'std/longString', summary: 'The id of the user that created the document.' },
+    { name: 'docCreatedMillisecondsSinceEpoch', propertyType: 'std/timestamp', summary: 'The number of milliseconds since the unix epoch when the document was created.' },
+    { name: 'docLastUpdatedByUserId', propertyType: 'std/longString', isArray: true, summary: 'The id of the user that last updated the document.' },
+    { name: 'docLastUpdatedMillisecondsSinceEpoch', propertyType: 'std/timestamp', summary: 'The number of milliseconds since the unix epoch when the document was last updated.' }
   ]
 }
 
@@ -27,44 +31,36 @@ function newTestCaseWithStandardProperties (docTypeName: string, testCase: TestC
       docType: docTypeName,
       docOpIds: [],
       docVersion: 'abcd',
+      docCreatedByUserId: 'aUser',
+      docCreatedMillisecondsSinceEpoch: 1630133364000,
+      docLastUpdatedByUserId: 'aUser',
+      docLastUpdatedMillisecondsSinceEpoch: 1630133364000,
       ...(testCase.value as Record<string, unknown>)
     }
   }
 }
 
 /**
- * A factory for automaticalling expanding a sengi-compatible record into a client
- * and database version.
+ * A factory for adding the sengi common fields to a record.
  */
 export const sengiFactory: RecordFactory = {
   name: 'sengi',
-  implementation: source => [
-    // This version is used in the data service, where required fields are enforced and included in the JSON schema.
-    // Note that docVersion is not a required field because it is populated by the doc store engine.
-    // A tag is added to skip the generation of normal typescript output.
-  {
-    ...source,
-    name: source.name + 'Db',
-    properties: [
-      ...getStandardDocProperties(),
-      ...source.properties,
-    ],
-    required: ['id', 'docType', 'docOpIds', ...source.required || []],
-    tags: ['db-only'],
-    validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc)),
-    variantBaseName: source.name,
-  }, 
-    // This version is used in other services, via the sengi client, where required fields are always optional.
-    // A sengi-client tag is also added so that it's included in the SengiClient wrapper.
-  {
+  implementation: source => [{
     ...source,
     properties: [
       ...getStandardDocProperties(),
       ...source.properties,
     ],
-    required: [],
-    tags: [...source.tags || [], 'sengi-client'],
-    validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc)),
-    variantBaseName: source.name,
+    required: [
+      'id',
+      'docType',
+      'docOpIds',
+      'docCreatedByUserId',
+      'docCreatedMillisecondsSinceEpoch',
+      'docLastUpdatedByUserId',
+      'docLastUpdatedMillisecondsSinceEpoch',
+      ...source.required || []
+    ],
+    validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc))
   }]
 }

@@ -9,6 +9,8 @@ function createTestSubject (): RecordTypeDef {
     name: 'subject',
     summary: 'A test record',
     tags: ['original'],
+    labels: [{ name: 'label1', value: 'value1' }],
+    factories: ['sengi'],
     properties: [{
       name: 'apple',
       propertyType: 'std/shortString',
@@ -33,12 +35,12 @@ function createTestSubject (): RecordTypeDef {
 test('A sengi doc type can be expanded.', async () => {
   const subject = createTestSubject()
   const records = sengiFactory.implementation(subject)
-  expect(records).toHaveLength(2)
+  expect(records).toHaveLength(1)
 
   expect(records[0]).toEqual({
     system: 'test',
     kind: 'record',
-    name: 'subjectDb',
+    name: 'subject',
     summary: 'A test record',
     direction: 'output',
     properties: [{
@@ -59,6 +61,23 @@ test('A sengi doc type can be expanded.', async () => {
       propertyType: 'std/mediumString',
       summary: expect.any(String)
     }, {
+      name: 'docCreatedByUserId',
+      propertyType: 'std/longString',
+      summary: expect.any(String)
+    }, {
+      name: 'docCreatedMillisecondsSinceEpoch',
+      propertyType: 'std/timestamp',
+      summary: expect.any(String)
+    }, {
+      name: 'docLastUpdatedByUserId',
+      propertyType: 'std/longString',
+      summary: expect.any(String),
+      isArray: true
+    }, {
+      name: 'docLastUpdatedMillisecondsSinceEpoch',
+      propertyType: 'std/timestamp',
+      summary: expect.any(String)
+    }, {
       name: 'apple',
       propertyType: 'std/shortString',
       summary: 'An apple.',
@@ -68,37 +87,35 @@ test('A sengi doc type can be expanded.', async () => {
       propertyType: 'std/shortString',
       summary: 'A banana.'
     }],
-    required: ['id', 'docType', 'docOpIds', 'apple'],
-    tags: ['db-only'],
+    required: [
+      'id', 'docType', 'docOpIds',
+      'docCreatedByUserId', 'docCreatedMillisecondsSinceEpoch',
+      'docLastUpdatedByUserId', 'docLastUpdatedMillisecondsSinceEpoch',
+      'apple'
+    ],
+    tags: ['original'],
+    labels: [{ name: 'label1', value: 'value1' }],
+    factories: ['sengi'],
     validTestCases: [{
       value: {
         id: '00000000-0000-0000-0000-000000000001',
         docType: 'subject',
         docOpIds: [],
         docVersion: 'abcd',
+        docCreatedByUserId: 'aUser',
+        docCreatedMillisecondsSinceEpoch: 1630133364000,
+        docLastUpdatedByUserId: 'aUser',
+        docLastUpdatedMillisecondsSinceEpoch: 1630133364000,
         apple: ['hello', 'world'],
         banana: 'foo'
       }
-    }],
-    variantBaseName: 'subject'
+    }]
   })
-
-  expect(records[1].name).toEqual('subject')
-  expect(records[1].tags).toEqual(['original', 'sengi-client'])
-  expect(records[1].required).toEqual([])
-  expect(records[1].properties.findIndex(p => p.name === 'id')).toBeGreaterThan(-1)
 })
 
 test('A sengi doc type with no required fields can be expanded.', async () => {
   const subject = createTestSubject()
   delete subject.required
   const records = sengiFactory.implementation(subject)
-  expect(records).toHaveLength(2)
-})
-
-test('A sengi doc type with no tags can be expanded.', async () => {
-  const subject = createTestSubject()
-  delete subject.tags
-  const records = sengiFactory.implementation(subject)
-  expect(records).toHaveLength(2)
+  expect(records).toHaveLength(1)
 })
