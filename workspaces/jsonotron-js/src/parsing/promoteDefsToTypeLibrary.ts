@@ -43,6 +43,7 @@ function convertEnumTypeDefToEnumType (domain: string, enumTypeDef: EnumTypeDef)
     summary: enumTypeDef.summary,
     deprecated: enumTypeDef.deprecated,
     tags: enumTypeDef.tags,
+    labels: enumTypeDef.labels,
     dataType: enumTypeDef.dataType,
     jsonSchema: createJsonSchemaForEnumTypeDef(domain, enumTypeDef) as Record<string, unknown>,
     items: enumTypeDef.items.map(itemDef => ({
@@ -73,6 +74,7 @@ function convertRecordTypeDefToRecordType (domain: string, recordTypeDef: Record
     summary: recordTypeDef.summary,
     deprecated: recordTypeDef.deprecated,
     tags: recordTypeDef.tags,
+    labels: recordTypeDef.labels,
     jsonSchema: createJsonSchemaForRecordTypeDef(domain, recordTypeDef) as Record<string, unknown>,
     properties: recordTypeDef.properties.map(property => {
       const propertyTypeSystem = getSystemPartOfSystemQualifiedType(property.propertyType)
@@ -137,6 +139,7 @@ function convertStringTypeDefToStringType (domain: string, stringTypeDef: String
     minimumLength: stringTypeDef.minimumLength,
     regex: stringTypeDef.regex,
     tags: stringTypeDef.tags,
+    labels: stringTypeDef.labels,
     jsonSchema: createJsonSchemaForStringTypeDef(domain, stringTypeDef) as Record<string, unknown>,
     examples: stringTypeDef.validTestCases?.filter(tc => tc.summary) || []
   }
