@@ -61,9 +61,9 @@ export const sengiFactory: RecordFactory = {
       'docCreatedMillisecondsSinceEpoch',
       'docLastUpdatedByUserId',
       'docLastUpdatedMillisecondsSinceEpoch',
-      ...source.required || []
+      ...(source.required || [])
     ],
-    tags: [...source.tags || [], 'sengi'],
+    tags: [...(source.tags || []), 'sengi'],
     validTestCases: source.validTestCases.map(tc => newTestCaseWithStandardProperties(source.name, tc))
   }]
 }

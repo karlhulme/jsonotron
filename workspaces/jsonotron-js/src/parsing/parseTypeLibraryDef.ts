@@ -101,7 +101,7 @@ function convertYamlStringToObject (contents: string): JsonotronTypeDef {
   try {
     return yaml.safeLoad(contents) as JsonotronTypeDef
   } catch (err) {
-    throw new ParseYamlError(contents, err)
+    throw new ParseYamlError(contents, err as Error)
   }
 }
 
@@ -292,7 +292,7 @@ function ensureRecordTypePropertiesPropertyTypeAreValid (recordTypeDef: RecordTy
  * @param validator An AJV validator function.
  */
 function ensureTypeIsValid (typeDef: JsonotronTypeDef, validator: ValidateFunction) {
-  const isValid = validator(typeDef)
+  const isValid = validator(typeDef as unknown)
 
   if (!isValid) {
     throw new InvalidTypeError(typeDef.name, typeDef.kind, ajvErrorsToString(validator.errors))
